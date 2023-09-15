@@ -1,2 +1,0 @@
-# proyecto-telesalud
-Proyecto Telesalud
