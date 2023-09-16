@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './MenuComponent.css';
+import PatientsTable from './PatientsTable';
 
 function MenuComponent() {
     const [isHidden, setIsHidden] = useState(false);
