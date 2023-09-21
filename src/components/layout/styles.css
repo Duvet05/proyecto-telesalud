@@ -1,3 +1,17 @@
+.topbar-app-bar {
+  box-shadow: unset;
+  background-color: #fff;
+  color: #000;
+  transition: margin-left 1s ease, width 1s ease;
+  width: calc(100% - 300px);
+  margin-left: 300px;
+}
+
+.topbar-closed {
+  width: 100%;
+  margin-left: 0px;
+}
+
 .main-layout-nav {
   flex-shrink: 0;
   transition: width 0.3s ease;

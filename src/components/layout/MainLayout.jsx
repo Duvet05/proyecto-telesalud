@@ -16,13 +16,13 @@ const MainLayout = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Topbar />
+      <Topbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Box
         component="nav"
         className="main-layout-nav"
         style={{ width: sidebarWidth }}
       >
-        <Sidebar isSidebarOpen={isSidebarOpen} /> {/* Paso el estado al Sidebar */}
+        <Sidebar isSidebarOpen={isSidebarOpen} />
       </Box>
       <Box
         component="main"
@@ -35,6 +35,5 @@ const MainLayout = () => {
     </Box>
   );
 };
-
 
 export default MainLayout;
