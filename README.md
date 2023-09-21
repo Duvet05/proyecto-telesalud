@@ -18,15 +18,3 @@ npm run build
 For deploying Sanama App, use this command. It bundles React in production mode, ensuring optimized performance. Ready to launch? Find more on deployment.
 npm run eject
 
-Caution: This is irreversible! If you want to diverge from the default configurations, use eject. It grants full control over build-related configurations. But remember, great power comes with great responsibilities!
-Additional Resources
-
-    Code Splitting with Create React App
-    Analyzing Bundle Size
-    Make Your App Progressive
-    Advanced Configuration Options
-    Troubleshoot: npm run build fails to minify
-
-Want to dive deeper into React? Here's the official React documentation.
-
-Note: Feel free to adjust or add more information that you deem necessary for developers or users interested in "sanama-app".
