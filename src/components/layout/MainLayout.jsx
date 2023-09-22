@@ -38,7 +38,7 @@ const MainLayout = () => {
         {/* Aquí puede ir el contenido principal de la página */}
         <Outlet></Outlet>
       </Box>
-      {/* <Footer /> Añade el componente Footer aquí */}
+      {<Footer />}
     </Box>
   );
 };
