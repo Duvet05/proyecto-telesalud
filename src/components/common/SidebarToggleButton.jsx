@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 const SidebarToggleButton = ({ isSidebarOpen, toggleSidebar }) => {
-  const buttonLabel = isSidebarOpen ? 'Close Sidebar' : 'Open Sidebar';
+  const buttonLabel = isSidebarOpen ? 'Close' : 'Open';
 
   return (
     <button onClick={toggleSidebar} className="sidebar-toggle-button">

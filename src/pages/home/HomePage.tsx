@@ -1,11 +1,15 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
-type Props = {};
+import Footer from '../../components/common/Footer';
 
-const HomePage = (props: Props) => {
+const Home = () => {
+
   return (
-    <div>HomePage</div>
+    <Box>
+      <Footer />
+    </Box>
   );
 };
 
-export default HomePage;
+export default Home;
