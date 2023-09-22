@@ -4,8 +4,13 @@ import './styles.css';
 
 const Topbar = ({ isSidebarOpen }) => {
   const appBarStyle = isSidebarOpen ? 
-    { width: "calc(100% - 300px)", marginLeft: "300px" } : 
-    { width: "100%", marginLeft: "0px" };
+    { width: "calc(100% - 300px)", 
+      marginLeft: "300px",   
+      transition: "margin-left 0.5s ease, width 0.5s ease"
+    } : 
+    { width: "100%", 
+      marginLeft: "0px"
+    };
 
   return (
     <AppBar position="fixed" className="topbar-app-bar" style={appBarStyle}>
