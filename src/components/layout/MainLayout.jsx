@@ -4,6 +4,7 @@ import Sidebar from "../common/Sidebar";
 import Topbar from "../common/Topbar";
 import Footer from "../common/Footer"; 
 import "./styles.css";
+import { Outlet } from "react-router-dom"
 
 const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -35,8 +36,9 @@ const MainLayout = () => {
       >
         <Toolbar />
         {/* Aquí puede ir el contenido principal de la página */}
+        <Outlet></Outlet>
       </Box>
-      <Footer /> {/* Añade el componente Footer aquí */}
+      {/* <Footer /> Añade el componente Footer aquí */}
     </Box>
   );
 };

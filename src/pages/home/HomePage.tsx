@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 import Footer from '../../components/common/Footer';
 
 const Home = () => {
-
   return (
     <Box>
       <Footer />

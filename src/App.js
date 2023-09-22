@@ -5,6 +5,7 @@ import { routes } from "./routes";
 
 function App() {
   return (
+    <div className= "App">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
@@ -12,6 +13,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 
