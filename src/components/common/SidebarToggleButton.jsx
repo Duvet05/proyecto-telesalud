@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
-
-const SidebarToggleButton = ({ isSidebarOpen, toggleSidebar }) => {
-  const buttonLabel = isSidebarOpen ? 'Close' : 'Open';
+import { IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+const SidebarToggleButton = ({ toggleSidebar }) => {
+  /* const buttonLabel = isSidebarOpen ? 'Close' : 'Open'; */
 
   return (
-    <button onClick={toggleSidebar} className="sidebar-toggle-button">
-      {buttonLabel}
-    </button>
+    <IconButton onClick={toggleSidebar} >
+      <MenuIcon/>
+    </IconButton>
   );
 };
 
 SidebarToggleButton.propTypes = {
-  isSidebarOpen: PropTypes.bool.isRequired,
   toggleSidebar: PropTypes.func.isRequired,
 };
 

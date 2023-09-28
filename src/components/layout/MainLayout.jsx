@@ -17,13 +17,13 @@ const MainLayout = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Topbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      {/* <Topbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /> */}
       <Box /*Incluye el menú, el cual se oculta con isSidebarOpen */
         component="nav"
         className="main-layout-nav"
         style={{ width: sidebarWidth }}
       >
-        <Sidebar isSidebarOpen={isSidebarOpen} />
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
       </Box>
       <Box
         component="main"
@@ -32,13 +32,11 @@ const MainLayout = () => {
           width: `calc(100% - ${sidebarWidth})`,
           backgroundColor: "#F5F5F5",
           flex: 1, // Esto hace que el contenido ocupe todo el espacio disponible antes del footer
+          marginLeft:`${sidebarWidth}`
         }}
       >
-        <Toolbar />
-        {/* Aquí puede ir el contenido principal de la página */}
         <Outlet></Outlet>
       </Box>
-      {<Footer />}
     </Box>
   );
 };

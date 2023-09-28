@@ -19,10 +19,10 @@ const Topbar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <AppBar position="fixed" className="topbar-app-bar" style={appBarStyle}>
       <Toolbar>
-        <SidebarToggleButton
+       {/*  <SidebarToggleButton
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={toggleSidebar}
-        />
+        /> */}
         <Typography variant="h6">Sanama</Typography>
       </Toolbar>
     </AppBar>
