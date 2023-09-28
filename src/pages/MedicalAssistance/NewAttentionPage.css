@@ -1,5 +1,5 @@
 .contenedor-nueva-atencion {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     font-size: 1rem;
 }
@@ -8,11 +8,11 @@
     margin-bottom: 0;
 }
 
-.contenedor-campos{
+.contenedor-campos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 2rem;
-    
+
 }
 
 .contenedor-campos .campo>label {
@@ -30,6 +30,8 @@
     border-color: black;
     border-style: solid;
 }
+
+
 
 .botones-navegacion {
     display: flex;
@@ -49,5 +51,34 @@
 
 .input-oscuro {
     background-color: #b9b9b9;
-    padding: 5px; 
-  }
+    padding: 5px;
+}
+
+.paciente-botones {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.paciente-botones button {
+    width: 2rem;
+    margin-left: 0.3rem;
+}
+
+.paciente-botones input {
+    flex: 1 1;
+}
+
+.boton-buscar {
+    background-image: url('imagenes/lupa.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.boton-nuevo-paciente {
+    background-image: url('imagenes/agregar-usuario.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}

@@ -28,27 +28,31 @@ const Appointments = (props: Props) => {
             <div className='contenedor-campos'>
               <div className="campo">
                 <label htmlFor="numero-documento-paciente">N° documento</label>
-                <input type="tel" className="input-oscuro" id="numero-documento-paciente" name="numero-documento-paciente" required readOnly/>
+                <div className='paciente-botones'>
+                  <input type="tel" className="input-oscuro" id="numero-documento-paciente" name="numero-documento-paciente" required readOnly />
+                  <button className='boton-buscar'></button>
+                  <button className='boton-nuevo-paciente'></button>
+                </div>
               </div>
               <div className="campo">
                 <label htmlFor="codigo-asegurado-sis">Código del asegurado SIS</label>
-                <input type="text" className="input-oscuro" id="codigo-asegurado-sis" name="codigo-asegurado-sis" required readOnly/>
+                <input type="text" className="input-oscuro" id="codigo-asegurado-sis" name="codigo-asegurado-sis" required readOnly />
               </div>
               <div className="campo">
                 <label htmlFor="numero-historia-clinica">N° historia clínica</label>
-                <input type="tel" className="input-oscuro" id="numero-historia-clinica" name="numero-historia-clinica" required readOnly/>
+                <input type="tel" className="input-oscuro" id="numero-historia-clinica" name="numero-historia-clinica" required readOnly />
               </div>
               <div className="campo">
                 <label htmlFor="apellido-paterno">Apellido paterno</label>
-                <input type="text" className="input-oscuro" id="apellido-paterno" name="apellido-paterno" required readOnly/>
+                <input type="text" className="input-oscuro" id="apellido-paterno" name="apellido-paterno" required readOnly />
               </div>
               <div className="campo">
                 <label htmlFor="apellido-materno">Apellido materno:</label>
-                <input type="text" className="input-oscuro" id="apellido-materno" name="apellido-materno" required readOnly/>
+                <input type="text" className="input-oscuro" id="apellido-materno" name="apellido-materno" required readOnly />
               </div>
               <div className="campo">
                 <label htmlFor="nombres">Nombres</label>
-                <input type="text" className="input-oscuro" id="nombres" name="nombres" required readOnly/>
+                <input type="text" className="input-oscuro" id="nombres" name="nombres" required readOnly />
               </div>
               <div className="campo">
                 <label htmlFor="numero-documento-acompanante">N° documento del acompañante</label>
