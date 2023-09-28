@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Checkbox,
   Paper,
@@ -9,12 +9,11 @@ import {
   TableCell,
   TableBody,
   Typography,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import moment from 'moment'
-import { Delete as DeleteIcon, Label as LabelIcon } from '@material-ui/icons'
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Delete as DeleteIcon, Label as LabelIcon } from '@mui/icons-material';
 
-const useStyles = makeStyles({
+const useStyles = styled({
   hideOnPhone: {
     visibility: 'visible',
     display: 'table',
@@ -421,3 +420,5 @@ MedicationTable.propTypes = {
 }
 
 export default MedicationTable
+
+

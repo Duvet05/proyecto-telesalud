@@ -9,12 +9,12 @@ import {
   TableCell,
   TableBody,
   Typography,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
 import moment from 'moment'
 import { Delete as DeleteIcon, Label as LabelIcon } from '@material-ui/icons'
 
-const useStyles = makeStyles({
+const useStyles = styled({
   hideOnPhone: {
     visibility: 'visible',
     display: 'table',
