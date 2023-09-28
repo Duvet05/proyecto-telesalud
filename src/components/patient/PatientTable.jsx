@@ -8,6 +8,8 @@ import {
   TableCell,
   Paper
 } from "@mui/material"
+import { styled } from '@mui/material/styles';
+import { Delete as DeleteIcon, Label as LabelIcon } from '@mui/icons-material';
 
 export const PatientTable = () => {
   return (

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { Avatar, Drawer, List, Toolbar } from "@mui/material";
 import assets from "../../assets";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
 import SidebarItemCollapse from "./SidebarItemCollapse";
-import './styles.css';
+import "./styles.css";
 
-const Sidebar = ({isSidebarOpen}) => {
+const Sidebar = ({ isSidebarOpen }) => {
   return (
     <Drawer
       variant="persistent"
@@ -21,7 +21,7 @@ const Sidebar = ({isSidebarOpen}) => {
             <Avatar src={assets.images.logo} />
           </div>
         </Toolbar>
-        {appRoutes.map((route, index) => (
+        {appRoutes.map((route, index) =>
           route.sidebarProps ? (
             route.child ? (
               <SidebarItemCollapse item={route} key={index} />
@@ -29,7 +29,7 @@ const Sidebar = ({isSidebarOpen}) => {
               <SidebarItem item={route} key={index} />
             )
           ) : null
-        ))}
+        )}
       </List>
     </Drawer>
   );
