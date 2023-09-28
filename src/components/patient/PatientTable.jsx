@@ -1,4 +1,4 @@
-import React from "react"
+import {React, useState, useEffect} from "react"
 import {
   TableContainer,
   Table,
@@ -10,38 +10,54 @@ import {
 } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import { Delete as DeleteIcon, Label as LabelIcon } from '@mui/icons-material';
+import { getPatients } from "../../pages/PatientManagement/PatientFunctions";
+
+
 
 export const PatientTable = () => {
+  const [cargando, setCargando] = useState(true);
+
+  const [tableData, setTableData] = useState([]);
+  
+  useEffect(() => {    
+      getPatients().then(recibePatients => {setTableData(recibePatients); setCargando(false)})
+      .catch(error => {throw error;})
+  });
+
   return (
-    <TableContainer component={Paper}>
+    <>
+    {!cargando && (
+      <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Nombre completo</TableCell>
             <TableCell>Direccion</TableCell>
             <TableCell>Correo electronico</TableCell>
-            <TableCell>Genero</TableCell>
+            <TableCell>Sexo</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {tableData.map((row) => (
             <TableRow
-              key={row.id}
+              key={row.idPersona}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{row.nombre_completo}</TableCell>
-              <TableCell>{row.direccion}</TableCell>
-              <TableCell>{row.email}</TableCell>
-              <TableCell>{row.gender}</TableCell>
+              <TableCell>{row.apellidoPaterno + " " + row.apellidoMaterno}</TableCell>
+              <TableCell>{row.nombres}</TableCell>
+              <TableCell>{row.dni}</TableCell>
+              <TableCell>{row.fechaNacimiento}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer>)
+    }
+    </>
   )
 }
 
-const tableData = [
+const tableData2 = [
   {
     nombre_completo: "Hastie Zouch",
     direccion: "0031 Mayer Court",
@@ -103,3 +119,4 @@ const tableData = [
     gender: "Agender"
   }
 ]
+
