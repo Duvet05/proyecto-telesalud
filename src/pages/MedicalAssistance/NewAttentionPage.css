@@ -1,0 +1,53 @@
+.contenedor-nueva-atencion {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 1rem;
+}
+
+.contenedor-nueva-atencion .titulo {
+    margin-bottom: 0;
+}
+
+.contenedor-campos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+    
+}
+
+.contenedor-campos .campo>label {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.contenedor-campos .campo>input {
+    width: 90%;
+    height: 1.8rem;
+    border-radius: 0.2rem;
+    border-style: none;
+    margin-bottom: 1rem;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+.botones-navegacion {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botones-navegacion .boton-navegacion {
+    height: 2rem;
+    border-radius: 0.2rem;
+    border-style: none;
+    background-color: gray;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.input-oscuro {
+    background-color: #b9b9b9;
+    padding: 5px; 
+  }

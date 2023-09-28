@@ -18,7 +18,7 @@ const MainLayout = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Topbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <Box
+      <Box /*Incluye el menú, el cual se oculta con isSidebarOpen */
         component="nav"
         className="main-layout-nav"
         style={{ width: sidebarWidth }}
