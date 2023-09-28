@@ -60,7 +60,7 @@ const appRoutes: RouteType[] = [
         },
       },
       {
-        path: "/staff/main",
+        path: "/staff/MedicProfile",
         element: <StaffPage />,
         state: "staff.main",
         sidebarProps: {
