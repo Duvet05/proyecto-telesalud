@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./NewAttentionPage.css";
 import PatientInfo from "../../components/patient/PatientInfo";
 import NavigationButtons from "../../components/common/NavigationButtons";
+import Selectdate from "../../components/patient/Selectdate";
 
 const Appointments = () => {
   const PAGES = [
@@ -28,7 +29,8 @@ const Appointments = () => {
         <div className={`contenedor-pagina-${currentPage + 1}`}>
           <h3>{PAGES[currentPage]}</h3>
           {currentPage === 0 && <PatientInfo navigate={navigate} />}
-          {currentPage >= 1 && (
+          {currentPage === 1 && <Selectdate navigate={navigate} />}
+          {currentPage >= 2 && (
             <GenericPage
               label="Correo electrónico"
               type="email"

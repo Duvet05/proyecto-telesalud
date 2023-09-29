@@ -3,66 +3,77 @@ import PropTypes from "prop-types";
 import {
   Card,
   CardHeader,
+  Avatar,
   Button,
   ListGroup,
   ListGroupItem,
-  Progress
+  LinearProgress,
+  Box,
+  Typography
 } from "@mui/material";
+import { PersonAdd } from "@mui/icons-material";
 import { useStateValue } from "../../StateProvider";
 
-const DoctorDetails = ({ doctorDetails }) => {
+const DoctorDetails = ({ 
+  doctorDetails: { 
+    jobTitle, 
+    performanceReportTitle, 
+    performanceReportValue, 
+    cmp, 
+    area, 
+    especialidad 
+  } 
+}) => {
   const [{ user }] = useStateValue();
 
   return (
-    <Card small className="mb-4 pt-3">
-      <CardHeader className="border-bottom text-center">
-        <div className="mb-3 mx-auto">
-          <img
-            className="rounded-circle"
-            src={user?.photoURL}
-            alt=""
-            width="110"
-          />
-        </div>
-        <h4 className="mb-0">Dr. {user?.displayName}</h4>
-        <span className="text-muted d-block mb-2">{doctorDetails.jobTitle}</span>
-        <Button pill outline size="sm" className="mb-2">
-          <i className="material-icons mr-1">person_add</i> Follow
-        </Button>
-      </CardHeader>
-      <ListGroup flush>
-        <ListGroupItem className="px-4">
-          <div className="progress-wrapper">
-            <strong className="text-muted d-block mb-2">
-              {doctorDetails.performanceReportTitle}
-            </strong>
-            <Progress
-              className="progress-sm"
-              value={doctorDetails.performanceReportValue}
-            >
-              <span className="progress-value">
-                {doctorDetails.performanceReportValue}%
-              </span>
-            </Progress>
-          </div>
+    <Card sx={{ mb: 4, pt: 3 }}>
+      <CardHeader
+        title={`Dr. ${user?.displayName}`}
+        subheader={jobTitle}
+        avatar={<Avatar src={user?.photoURL} alt={user?.displayName} />}
+        action={
+          <Button 
+            variant="outlined" 
+            startIcon={<PersonAdd />} 
+            size="small"
+          >
+            Follow
+          </Button>
+        }
+      />
+      <ListGroup>
+        <ListGroupItem>
+          <Box sx={{ my: 2 }}>
+            <Typography variant="body2" color="textSecondary">
+              {performanceReportTitle}
+            </Typography>
+            <LinearProgress 
+              variant="determinate" 
+              value={performanceReportValue} 
+            />
+            <Typography variant="caption">
+              {performanceReportValue}%
+            </Typography>
+          </Box>
         </ListGroupItem>
-        <ListGroupItem className="p-4">
-          <strong className="text-muted d-block mb-2">
+        <ListGroupItem>
+          <Typography variant="body2" color="textSecondary">
             CMP
-          </strong>
-          <span>{doctorDetails.cmp}</span>
+          </Typography>
+          <Typography>{cmp}</Typography>
         </ListGroupItem>
-        <ListGroupItem className="p-4">
-          <strong className="text-muted d-block mb-2">
+        <ListGroupItem>
+          <Typography variant="body2" color="textSecondary">
             Área
-          </strong>
-          <span>{doctorDetails.area}</span>
+          </Typography>
+          <Typography>{area}</Typography>
         </ListGroupItem>
-        <ListGroupItem className="p-4">
-          <strong className="text-muted d-block mb-2">
+        <ListGroupItem>
+          <Typography variant="body2" color="textSecondary">
             Especialidad
-          </strong>
-          <span>{doctorDetails.especialidad}</span>
+          </Typography>
+          <Typography>{especialidad}</Typography>
         </ListGroupItem>
       </ListGroup>
     </Card>
@@ -70,16 +81,18 @@ const DoctorDetails = ({ doctorDetails }) => {
 };
 
 DoctorDetails.propTypes = {
-  /**
-   * The doctor details object.
-   */
-  doctorDetails: PropTypes.object
+  doctorDetails: PropTypes.shape({
+    jobTitle: PropTypes.string,
+    performanceReportTitle: PropTypes.string,
+    performanceReportValue: PropTypes.number,
+    cmp: PropTypes.string,
+    area: PropTypes.string,
+    especialidad: PropTypes.string
+  })
 };
 
 DoctorDetails.defaultProps = {
   doctorDetails: {
-    name: "Dr. Vivek Kumar Singh",
-    avatar: require("./../../images/avatars/vivek.jpg"),
     jobTitle: "Physician",
     performanceReportTitle: "Workload",
     performanceReportValue: 74,
