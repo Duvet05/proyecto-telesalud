@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./NewAttentionPage.css";
 import PatientInfo from "../../components/patient/PatientInfo";
+import Selectdate from "../../components/patient/Selectdate";
 import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
 import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
+ 
+import NavigationButtons from "../../components/common/NavigationButtons";
+
 const Appointments = () => {
   const PAGES = [
     "Información del paciente",
@@ -28,14 +32,7 @@ const Appointments = () => {
         <div className={`contenedor-pagina-${currentPage + 1}`}>
           <h3>{PAGES[currentPage]}</h3>
           {currentPage === 0 && <PatientInfo navigate={navigate} />}
-          {currentPage === 1 && (
-            <GenericPage
-              label="Correo electrónico"
-              type="email"
-              id="correo"
-              name="correo"
-            />
-          )}
+          {currentPage === 1 && <Selectdate navigate={navigate} />} 
           {currentPage === 2 && <TriajeONoTriaje />}
           {currentPage >= 3 && <InformacionCita />}
           <NavigationButtons
@@ -60,35 +57,5 @@ const GenericPage = ({ label, type, id, name }) => {
   );
 };
 
-
-
-const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
-  return (
-    <div className="botones-navegacion">
-      {currentPage > 0 && (
-        <button
-          className="boton-navegacion"
-          type="button"
-          onClick={() => navigate(-1)}
-        >
-          Anterior
-        </button>
-      )}
-      {currentPage < totalPages - 1 ? (
-        <button
-          className="boton-navegacion"
-          type="button"
-          onClick={() => navigate(1)}
-        >
-          Siguiente
-        </button>
-      ) : (
-        <button className="boton-navegacion boton-enviar" type="submit">
-          Enviar
-        </button>
-      )}
-    </div>
-  );
-};
 
 export default Appointments;
