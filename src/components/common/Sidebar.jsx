@@ -20,22 +20,41 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       variant="persistent"
       open={true}
       classes={{
-        paper: isSidebarOpen ? "drawer-paper" : "drawer-paper-collapsed", // Aplicar estilos condicionalmente
+        paper: isSidebarOpen ? "drawer-paper" : "drawer-paper-collapsed",
       }}
     >
       <List disablePadding>
         <Toolbar className="toolbar-sidebar">
-          <Grid container spacing={2}>
-            <Grid item xs={2}>
+          <Grid
+            container
+            direction={isSidebarOpen ? "row" : "column"}
+            alignItems="center"
+            spacing={2}
+          >
+            {/* Logo */}
+            <Grid
+              item
+              xs={isSidebarOpen ? 2 : 12}
+              container
+              justifyContent="center"
+            >
               <Avatar src={assets.images.logo} />
             </Grid>
 
+            {/* Nombre del software */}
             {isSidebarOpen && (
               <Grid item xs={8}>
                 <Typography variant="h5">Sanama</Typography>
               </Grid>
             )}
-            <Grid item xs={isSidebarOpen ? 2 : 10}>
+
+            {/* Boton menu */}
+            <Grid
+              item
+              xs={isSidebarOpen ? 2 : 12}
+              container
+              justifyContent={isSidebarOpen ? "flex-end " : "center"}
+            >
               <IconButton onClick={toggleSidebar}>
                 <MenuIcon />
               </IconButton>

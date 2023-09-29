@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/system';
-import SearchIcon from '@mui/icons-material/Search';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import React, { useState } from "react";
+import { styled } from "@mui/system";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import {
   TextField,
   Typography,
@@ -15,7 +15,6 @@ import {
 const Container = styled("div")(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: "#fff",
-  backgroundColor: "#f0f0f0",
 }));
 
 const Campo = styled("div")(({ theme }) => ({
@@ -194,7 +193,6 @@ function PatientInfo() {
             </Grid>
           </>
         )}
-
       </Grid>
     </Container>
   );

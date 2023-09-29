@@ -6,11 +6,14 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 const PatientPage = () => {
   const [value, setValue] = useState(new Date());
   return (
-    <div>
+    <>
       <Typography
         variant="h2"
         sx={{
           fontWeight: "bold",
+          color: "#2196F3",
+          gap: "0.1mm",
+          marginBottom: "50px",
         }}
       >
         Pacientes
@@ -71,7 +74,7 @@ const PatientPage = () => {
         </Grid>
       </Paper>
       <PatientTable className="tablaPacientes"></PatientTable>
-    </div>
+    </>
   );
 };
 

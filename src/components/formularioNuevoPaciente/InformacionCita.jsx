@@ -1,38 +1,40 @@
-import React from 'react';
-import { styled } from '@mui/system';
-import { TextField, Typography, Grid, IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import React from "react";
+import { styled } from "@mui/system";
+import { TextField, Typography, Grid, IconButton } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled("div")(({ theme }) => ({
   padding: theme.spacing(2),
-  backgroundColor: '#fff',
 }));
 
-const Seccion = styled('div')(({ theme }) => ({
+const Seccion = styled("div")(({ theme }) => ({
   marginBottom: theme.spacing(4), // Espacio entre secciones
 }));
 
-const Campo = styled('div')(({ theme }) => ({
+const Campo = styled("div")(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const PacienteBotones = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  '& button': {
+const PacienteBotones = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  "& button": {
     marginLeft: theme.spacing(1),
   },
 }));
 
 function InformacionCita() {
-  
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>Ver información de cita</Typography>
-      
+      <Typography variant="h4" gutterBottom>
+        Ver información de cita
+      </Typography>
+
       {/* Sección: Ver información de cita */}
       <Seccion>
-        <Typography variant="h6" gutterBottom>Información del paciente</Typography>
+        <Typography variant="h6" gutterBottom>
+          Información del paciente
+        </Typography>
         <Grid container spacing={3}>
           <Grid item xs={4}>
             <Campo>
@@ -47,7 +49,7 @@ function InformacionCita() {
                   fullWidth
                   readOnly
                   disabled
-                  style={{ backgroundColor: '#b9b9b9' }}
+                  style={{ backgroundColor: "#b9b9b9" }}
                 />
                 <IconButton>
                   <SearchIcon />
@@ -57,7 +59,9 @@ function InformacionCita() {
           </Grid>
           <Grid item xs={4}>
             <Campo>
-              <label htmlFor="codigo-asegurado-sis">Código del asegurado SIS</label>
+              <label htmlFor="codigo-asegurado-sis">
+                Código del asegurado SIS
+              </label>
               <TextField
                 type="text"
                 id="codigo-asegurado-sis"
@@ -67,7 +71,7 @@ function InformacionCita() {
                 fullWidth
                 readOnly
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -83,7 +87,7 @@ function InformacionCita() {
                 fullWidth
                 readOnly
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -99,7 +103,7 @@ function InformacionCita() {
                 fullWidth
                 readOnly
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -115,7 +119,7 @@ function InformacionCita() {
                 fullWidth
                 readOnly
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -123,7 +127,9 @@ function InformacionCita() {
       </Seccion>
       {/* Sección: Información de la atención */}
       <Seccion>
-        <Typography variant="h6" gutterBottom margin={"1.5rem 0rem"}>Información de la atención</Typography>
+        <Typography variant="h6" gutterBottom margin={"1.5rem 0rem"}>
+          Información de la atención
+        </Typography>
         <Grid container spacing={3}>
           <Grid item xs={4}>
             <Campo>
@@ -136,7 +142,7 @@ function InformacionCita() {
                 required
                 fullWidth
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -151,7 +157,7 @@ function InformacionCita() {
                 required
                 fullWidth
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -166,7 +172,7 @@ function InformacionCita() {
                 required
                 fullWidth
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -182,7 +188,7 @@ function InformacionCita() {
                   required
                   fullWidth
                   disabled
-                  style={{ backgroundColor: '#b9b9b9' }}
+                  style={{ backgroundColor: "#b9b9b9" }}
                 />
                 <IconButton>
                   <SearchIcon />
@@ -201,7 +207,7 @@ function InformacionCita() {
                 required
                 fullWidth
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
@@ -216,14 +222,12 @@ function InformacionCita() {
                 required
                 fullWidth
                 readOnly
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
             </Campo>
           </Grid>
         </Grid>
       </Seccion>
-      
-      
     </Container>
   );
 }
