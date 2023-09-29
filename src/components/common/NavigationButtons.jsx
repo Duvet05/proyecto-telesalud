@@ -1,4 +1,5 @@
 import React from 'react';
+import './NavigationButtons.css';
 
 const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
   return (
