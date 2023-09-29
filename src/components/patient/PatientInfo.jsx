@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
-import { TextField, Button, Typography, RadioGroup, FormControlLabel, Radio, Grid, IconButton } from '@mui/material';
+import { TextField, Typography, RadioGroup, FormControlLabel, Radio, Grid, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const Container = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
-  backgroundColor: '#f0f0f0',
+  backgroundColor: '#fff',
 }));
 
 const Campo = styled('div')(({ theme }) => ({
@@ -23,7 +23,7 @@ const PacienteBotones = styled('div')(({ theme }) => ({
 
 function PatientInfo() {
   const [hasCompanion, setHasCompanion] = useState("no");
-
+  
   return (
     <Container>
       <Typography variant="h4" gutterBottom>Información del paciente</Typography>
@@ -40,6 +40,8 @@ function PatientInfo() {
                 required
                 fullWidth
                 readOnly
+                disabled
+                style={{ backgroundColor: '#b9b9b9' }}
               />
               <IconButton>
                 <SearchIcon />
@@ -61,6 +63,8 @@ function PatientInfo() {
               required
               fullWidth
               readOnly
+              disabled
+              style={{ backgroundColor: '#b9b9b9' }}
             />
           </Campo>
         </Grid>
@@ -75,6 +79,8 @@ function PatientInfo() {
               required
               fullWidth
               readOnly
+              disabled
+              style={{ backgroundColor: '#b9b9b9' }}
             />
           </Campo>
         </Grid>
@@ -89,6 +95,8 @@ function PatientInfo() {
               required
               fullWidth
               readOnly
+              disabled
+              style={{ backgroundColor: '#b9b9b9' }}
             />
           </Campo>
         </Grid>
@@ -103,6 +111,8 @@ function PatientInfo() {
               required
               fullWidth
               readOnly
+              disabled
+              style={{ backgroundColor: '#b9b9b9' }}
             />
           </Campo>
         </Grid>
@@ -117,6 +127,8 @@ function PatientInfo() {
               required
               fullWidth
               readOnly
+              disabled
+              style={{ backgroundColor: '#b9b9b9' }}
             />
           </Campo>
         </Grid>
@@ -129,34 +141,37 @@ function PatientInfo() {
             </RadioGroup>
           </Campo>
         </Grid>
-        <Grid item xs={6}>
-          <Campo>
-            <label htmlFor="numero-documento-acompanante">N° documento del acompañante</label>
-            <TextField
-              type="tel"
-              id="numero-documento-acompanante"
-              name="numero-documento-acompanante"
-              variant="outlined"
-              required
-              fullWidth
-              disabled={hasCompanion === "no"}
-            />
-          </Campo>
-        </Grid>
-        <Grid item xs={6}>
-          <Campo>
-            <label htmlFor="nombre-acompanante">Nombre del acompañante</label>
-            <TextField
-              type="text"
-              id="nombre-acompanante"
-              name="nombre-acompanante"
-              variant="outlined"
-              required
-              fullWidth
-              disabled={hasCompanion === "no"}
-            />
-          </Campo>
-        </Grid>
+        {hasCompanion === 'yes' && (
+          <>
+
+            <Grid item xs={6}>
+              <Campo>
+                <label htmlFor="numero-documento-acompanante">N° documento del acompañante</label>
+                <TextField
+                  type="number"
+                  id="numero-documento-acompanante"
+                  name="numero-documento-acompanante"
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              </Campo>
+            </Grid>
+            <Grid item xs={6}>
+              <Campo>
+                <label htmlFor="nombre-acompanante">Nombre del acompañante</label>
+                <TextField
+                  type="text"
+                  id="nombre-acompanante"
+                  name="nombre-acompanante"
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              </Campo>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Container>
   );

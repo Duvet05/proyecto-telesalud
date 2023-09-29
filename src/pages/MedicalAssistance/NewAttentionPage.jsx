@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./NewAttentionPage.css";
 import PatientInfo from "../../components/patient/PatientInfo";
-
+import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
+import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
 const Appointments = () => {
   const PAGES = [
     "Información del paciente",
@@ -27,7 +28,7 @@ const Appointments = () => {
         <div className={`contenedor-pagina-${currentPage + 1}`}>
           <h3>{PAGES[currentPage]}</h3>
           {currentPage === 0 && <PatientInfo navigate={navigate} />}
-          {currentPage >= 1 && (
+          {currentPage === 1 && (
             <GenericPage
               label="Correo electrónico"
               type="email"
@@ -35,6 +36,8 @@ const Appointments = () => {
               name="correo"
             />
           )}
+          {currentPage === 2 && <TriajeONoTriaje />}
+          {currentPage >= 3 && <InformacionCita />}
           <NavigationButtons
             currentPage={currentPage}
             totalPages={PAGES.length}
@@ -57,6 +60,8 @@ const GenericPage = ({ label, type, id, name }) => {
   );
 };
 
+
+
 const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
   return (
     <div className="botones-navegacion">
@@ -78,7 +83,7 @@ const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
           Siguiente
         </button>
       ) : (
-        <button className="boton-navegacion" type="submit">
+        <button className="boton-navegacion boton-enviar" type="submit">
           Enviar
         </button>
       )}

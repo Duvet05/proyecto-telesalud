@@ -35,19 +35,25 @@
 
 .botones-navegacion {
     display: flex;
-    justify-content: flex-end;
 }
 
 .botones-navegacion .boton-navegacion {
-    height: 2rem;
+    height: 3rem;
+    width: 6rem;
+    font-size: 1.2em;
     border-radius: 0.2rem;
     border-style: none;
-    background-color: gray;
+    background-color: black;
     color: white;
-    padding: 0.5rem;
     text-align: center;
     cursor: pointer;
+    margin: 2rem auto;
 }
+
+.botones-navegacion .boton-enviar{
+    background-color: rgb(213, 21, 21);
+}
+
 
 .input-oscuro {
     background-color: #b9b9b9;
@@ -82,3 +88,4 @@
     background-repeat: no-repeat;
     cursor: pointer;
 }
+
