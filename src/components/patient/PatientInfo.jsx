@@ -4,7 +4,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {
   TextField,
-  Button,
   Typography,
   RadioGroup,
   FormControlLabel,
@@ -15,7 +14,7 @@ import {
 
 const Container = styled("div")(({ theme }) => ({
   padding: theme.spacing(2),
-  backgroundColor: '#fff',
+  backgroundColor: "#fff",
   backgroundColor: "#f0f0f0",
 }));
 
@@ -33,7 +32,7 @@ const PacienteBotones = styled("div")(({ theme }) => ({
 
 function PatientInfo() {
   const [hasCompanion, setHasCompanion] = useState("no");
-  
+
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
@@ -53,7 +52,7 @@ function PatientInfo() {
                 fullWidth
                 readOnly
                 disabled
-                style={{ backgroundColor: '#b9b9b9' }}
+                style={{ backgroundColor: "#b9b9b9" }}
               />
               <IconButton>
                 <SearchIcon />
@@ -78,7 +77,7 @@ function PatientInfo() {
               fullWidth
               readOnly
               disabled
-              style={{ backgroundColor: '#b9b9b9' }}
+              style={{ backgroundColor: "#b9b9b9" }}
             />
           </Campo>
         </Grid>
@@ -94,7 +93,7 @@ function PatientInfo() {
               fullWidth
               readOnly
               disabled
-              style={{ backgroundColor: '#b9b9b9' }}
+              style={{ backgroundColor: "#b9b9b9" }}
             />
           </Campo>
         </Grid>
@@ -110,7 +109,7 @@ function PatientInfo() {
               fullWidth
               readOnly
               disabled
-              style={{ backgroundColor: '#b9b9b9' }}
+              style={{ backgroundColor: "#b9b9b9" }}
             />
           </Campo>
         </Grid>
@@ -126,7 +125,7 @@ function PatientInfo() {
               fullWidth
               readOnly
               disabled
-              style={{ backgroundColor: '#b9b9b9' }}
+              style={{ backgroundColor: "#b9b9b9" }}
             />
           </Campo>
         </Grid>
@@ -142,7 +141,7 @@ function PatientInfo() {
               fullWidth
               readOnly
               disabled
-              style={{ backgroundColor: '#b9b9b9' }}
+              style={{ backgroundColor: "#b9b9b9" }}
             />
           </Campo>
         </Grid>
@@ -161,12 +160,13 @@ function PatientInfo() {
             </RadioGroup>
           </Campo>
         </Grid>
-        {hasCompanion === 'yes' && (
+        {hasCompanion === "yes" && (
           <>
-
             <Grid item xs={6}>
               <Campo>
-                <label htmlFor="numero-documento-acompanante">N° documento del acompañante</label>
+                <label htmlFor="numero-documento-acompanante">
+                  N° documento del acompañante
+                </label>
                 <TextField
                   type="number"
                   id="numero-documento-acompanante"
@@ -179,7 +179,9 @@ function PatientInfo() {
             </Grid>
             <Grid item xs={6}>
               <Campo>
-                <label htmlFor="nombre-acompanante">Nombre del acompañante</label>
+                <label htmlFor="nombre-acompanante">
+                  Nombre del acompañante
+                </label>
                 <TextField
                   type="text"
                   id="nombre-acompanante"
