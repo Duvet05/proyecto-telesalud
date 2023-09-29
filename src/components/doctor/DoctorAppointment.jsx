@@ -70,7 +70,7 @@ export const DoctorTable = () => {
                     DNI
                   </TableSortLabel>
                 </TableCell>
-                <TableCell>CMP</TableCell>
+                <TableCell>Codigo</TableCell>
                 <TableCell>Área</TableCell>
                 <TableCell>Especialidad</TableCell>
                 <TableCell>Opciones</TableCell>
