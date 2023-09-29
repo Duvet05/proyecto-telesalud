@@ -194,36 +194,7 @@ function PatientInfo() {
             </Grid>
           </>
         )}
-        <Grid item xs={6}>
-          <Campo>
-            <label htmlFor="numero-documento-acompanante">
-              N° documento del acompañante
-            </label>
-            <TextField
-              type="tel"
-              id="numero-documento-acompanante"
-              name="numero-documento-acompanante"
-              variant="outlined"
-              required
-              fullWidth
-              disabled={hasCompanion === "no"}
-            />
-          </Campo>
-        </Grid>
-        <Grid item xs={6}>
-          <Campo>
-            <label htmlFor="nombre-acompanante">Nombre del acompañante</label>
-            <TextField
-              type="text"
-              id="nombre-acompanante"
-              name="nombre-acompanante"
-              variant="outlined"
-              required
-              fullWidth
-              disabled={hasCompanion === "no"}
-            />
-          </Campo>
-        </Grid>
+
       </Grid>
     </Container>
   );
