@@ -23,8 +23,8 @@ const StaffPage = () => {
   const specialties = ["Cardiología", "Dermatología", "Neurología"];
 
   return (
-      <Container maxWidth={false} style={{ height: '100vh' }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+    <Container maxWidth={false} style={{ height: "100vh" }}>
+      <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
         Seleccionar Doctor
       </Typography>
 
@@ -71,7 +71,12 @@ const StaffPage = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={12} md={2} sx={{ display: "flex", alignItems: "center" }}>
+          <Grid
+            item
+            xs={12}
+            md={2}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
             <MUIButton
               variant="contained"
               color="primary"
