@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import { useStateValue } from "../../StateProvider";
 
-
-const UserDetails = ({ userDetails }) => {
-
-  const [{user}] = useStateValue();
+const DoctorDetails = ({ doctorDetails }) => {
+  const [{ user }] = useStateValue();
 
   return (
     <Card small className="mb-4 pt-3">
@@ -27,7 +25,7 @@ const UserDetails = ({ userDetails }) => {
           />
         </div>
         <h4 className="mb-0">Dr. {user?.displayName}</h4>
-        <span className="text-muted d-block mb-2">{userDetails.jobTitle}</span>
+        <span className="text-muted d-block mb-2">{doctorDetails.jobTitle}</span>
         <Button pill outline size="sm" className="mb-2">
           <i className="material-icons mr-1">person_add</i> Follow
         </Button>
@@ -36,47 +34,59 @@ const UserDetails = ({ userDetails }) => {
         <ListGroupItem className="px-4">
           <div className="progress-wrapper">
             <strong className="text-muted d-block mb-2">
-              {userDetails.performanceReportTitle}
+              {doctorDetails.performanceReportTitle}
             </strong>
             <Progress
               className="progress-sm"
-              value={userDetails.performanceReportValue}
+              value={doctorDetails.performanceReportValue}
             >
               <span className="progress-value">
-                {userDetails.performanceReportValue}%
+                {doctorDetails.performanceReportValue}%
               </span>
             </Progress>
           </div>
         </ListGroupItem>
         <ListGroupItem className="p-4">
           <strong className="text-muted d-block mb-2">
-            {userDetails.metaTitle}
+            CMP
           </strong>
-          <span>{userDetails.metaValue}</span>
+          <span>{doctorDetails.cmp}</span>
+        </ListGroupItem>
+        <ListGroupItem className="p-4">
+          <strong className="text-muted d-block mb-2">
+            Área
+          </strong>
+          <span>{doctorDetails.area}</span>
+        </ListGroupItem>
+        <ListGroupItem className="p-4">
+          <strong className="text-muted d-block mb-2">
+            Especialidad
+          </strong>
+          <span>{doctorDetails.especialidad}</span>
         </ListGroupItem>
       </ListGroup>
     </Card>
-  )
+  );
 };
 
-UserDetails.propTypes = {
+DoctorDetails.propTypes = {
   /**
-   * The user details object.
+   * The doctor details object.
    */
-  userDetails: PropTypes.object
+  doctorDetails: PropTypes.object
 };
 
-UserDetails.defaultProps = {
-  userDetails: {
+DoctorDetails.defaultProps = {
+  doctorDetails: {
     name: "Dr. Vivek Kumar Singh",
     avatar: require("./../../images/avatars/vivek.jpg"),
     jobTitle: "Physician",
     performanceReportTitle: "Workload",
     performanceReportValue: 74,
-    metaTitle: "Ph.D | MBBS | Delhi University",
-    metaValue:
-      "Demonstrated work in field of Physiology and more than 1k+ successful cases of patients!"
+    cmp: "12345",
+    area: "Cardiología",
+    especialidad: "Cardiólogo",
   }
 };
 
-export default UserDetails;
+export default DoctorDetails;
