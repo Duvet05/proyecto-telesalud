@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+
 
 export function getPatients() {
     return fetch("http://localhost:8080/admision/get/paciente", { method: 'GET' })

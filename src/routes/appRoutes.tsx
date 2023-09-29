@@ -1,26 +1,21 @@
 // External libraries
 import React from 'react';
 import { RouteType } from "./config";
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+
+
+//Iconos
+import { Diversity1, MedicalServices, Today , WorkHistory , MonitorHeart, Vaccines, Settings}   from '@mui/icons-material';
 
 // Pages
 import HomePage from "../pages/home/HomePage";
 import PatientPage from "../pages/PatientManagement/PatientPage";
 import StaffManagement from "../pages/StaffManagement/StaffManagement";
-import StaffPage from "../pages/StaffManagement/StaffPage";
 import AttentionLogPage from "../pages/StaffManagement/AttentionLogPage";
-import DefaultStaffPage from "../pages/StaffManagement/DefaultStaffPage";
 import SchedulePage from "../pages/StaffManagement/SchedulePage";
-import MedicalAssistenceManagement from "../pages/MedicalAssistance/MedicalAssistenceManagement";
 import TriagePage from "../pages/MedicalAssistance/TriagePage";
 import NewAttentionPage from "../pages/MedicalAssistance/NewAttentionPage";
 import LaboratoryPage from "../pages/LaboratoryManagement/LaboratoryPage";
 import ConfigurationPage from "../pages/ConfigurationManagement/ConfigurationPage";
-import Appointments from '../pages/MedicalAssistance/AppointmentsPage';
 
 const appRoutes: RouteType[] = [
   {
@@ -29,113 +24,78 @@ const appRoutes: RouteType[] = [
     state: "home"
   },
   {
-    path: "/patient",
+    path: "/pacientes",
     element: <PatientPage />,
     state: "patient",
     sidebarProps: {
       displayText: "Pacientes",
-      icon: <FileDownloadOutlinedIcon />
+      icon: <Diversity1 />
     }
   },
   {
-    path: "/staff",
+    path: "/medicos",
     element: <StaffManagement />,
     state: "staff",
     sidebarProps: {
-      displayText: "Personal Medico",
-      icon: <DashboardOutlinedIcon />
+      displayText: "Medicos",
+      icon: <MedicalServices />
     },
-    child: [
-      {
-        index: true,
-        element: <AttentionLogPage />,
-        state: "staff.index"
-      },
-      {
-        path: "/staff/default",
-        element: <DefaultStaffPage />,
-        state: "staff.default",
-        sidebarProps: {
-          displayText: "Nuevo Personal Medico"
-        },
-      },
-      {
-        path: "/staff/MedicProfile",
-        element: <StaffPage />,
-        state: "staff.main",
-        sidebarProps: {
-          displayText: "Ver Doctores Disponibles"
-        }
-      },
-      {
-        path: "/staff/schedules",
-        element: <SchedulePage />,
-        state: "staff.schedules",
-        sidebarProps: {
-          displayText: "Turnos y Horarios"
-        }
-      },
-      {
-        path: "/staff/attentions",
-        element: <AttentionLogPage />,
-        state: "staff.attentions",
-        sidebarProps: {
-          displayText: "Historial de Atenciones"
-        }
-      }
-    ]
   },
+
+ 
   {
-    path: "/assistance",
-    element: <MedicalAssistenceManagement />,
-    state: "assistance",
+    path: "/horarios",
+    element: <SchedulePage />,
+    state: "staff.schedules",
     sidebarProps: {
-      displayText: "Asistencia Medica",
-      icon: <AppsOutlinedIcon />
-    },
-    child: [
-      {
-        path: "/assistance/new",
-        element: <NewAttentionPage />,
-        state: "assistance.new",
-        sidebarProps: {
-          displayText: "Nueva Atencion"
-        }
-      },
-      {
-        path: "/assistance/triage",
-        element: <TriagePage />,
-        state: "assistance.triage",
-        sidebarProps: {
-          displayText: "Triaje"
-        },
-      },
-      {
-        path: "/assistance/appointments",
-        element: <Appointments />,
-        state: "assistance.appointments",
-        sidebarProps: {
-          displayText: "Citas Programadas"
-        }
-      }
-    ]
+      displayText: "Horarios",
+      icon: <Today />
+    }
   },
   {
-    path: "/laboratory",
+    path: "/citas",
+    element: <AttentionLogPage />,
+    state: "staff.attentions",
+    sidebarProps: {
+      displayText: "Citas",
+      icon: <WorkHistory />
+    }
+  },
+
+  {
+    path: "/citas/new",
+    element: <NewAttentionPage />,
+    state: "assistance.new",
+    sidebarProps: {
+      displayText: "Nueva Atencion",
+      icon: <WorkHistory />
+    }
+  },
+  {
+    path: "/triaje",
+    element: <TriagePage />,
+    state: "assistance.triage",
+    sidebarProps: {
+      displayText: "Triaje",
+      icon: <MonitorHeart />
+    },
+  },
+  {
+    path: "/laboratorio",
     element: <LaboratoryPage />,
     state: "laboratory",
     sidebarProps: {
       displayText: "Laboratorio",
-      icon: <ArticleOutlinedIcon />
+      icon: <Vaccines />
     }
   },
   {
-    path: "/configuration",
+    path: "/configuracion",
     element: <ConfigurationPage />,
     state: "configuration",
     sidebarProps: {
       displayText: "Configuracion",
-      icon: <FormatListBulletedOutlinedIcon />
+      icon: <Settings />
     }
   }
 ];

@@ -9,8 +9,7 @@ import SidebarToggleButton from "./SidebarToggleButton";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
-    <>
-    {isSidebarOpen?<Drawer
+    <Drawer
       variant="persistent"
       open={isSidebarOpen} // Añade esta línea para controlar si el Drawer está abierto o cerrado
       classes={{
@@ -28,10 +27,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 <Typography variant="h6">Sanama</Typography>
               </Grid>
               <Grid item xs={2}>
-                <SidebarToggleButton toggleSidebar={toggleSidebar}></SidebarToggleButton>
+                <SidebarToggleButton
+                  toggleSidebar={toggleSidebar}
+                ></SidebarToggleButton>
               </Grid>
             </Grid>
-            
           </div>
         </Toolbar>
         {appRoutes.map((route, index) =>
@@ -39,44 +39,16 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             route.child ? (
               <SidebarItemCollapse item={route} key={index} />
             ) : (
-              <SidebarItem item={route} key={index} />
+              <SidebarItem
+                item={route}
+                key={index}
+                isSidebarOpen={isSidebarOpen}
+              />
             )
           ) : null
         )}
       </List>
-    </Drawer>:<Drawer
-      variant="persistent"
-      open={!isSidebarOpen} // Añade esta línea para controlar si el Drawer está abierto o cerrado
-      classes={{
-        paper: "drawer-paper",
-      }}
-    >
-      <List disablePadding>
-        <Toolbar className="toolbar-sidebar">
-          <div className="stack-sidebar">
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Avatar src={assets.images.logo} />
-              </Grid>
-              <Grid item xs={12}>
-                <SidebarToggleButton toggleSidebar={toggleSidebar}></SidebarToggleButton>
-              </Grid>
-            </Grid>
-            
-          </div>
-        </Toolbar>
-        {appRoutes.map((route, index) =>
-          route.sidebarProps ? (
-            route.child ? (
-              <SidebarItemCollapse item={route} key={index} />
-            ) : (
-              <SidebarItem item={route} key={index} />
-            )
-          ) : null
-        )}
-      </List>
-    </Drawer>}
-    </>
+    </Drawer>
   );
 };
 

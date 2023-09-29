@@ -1,9 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { PatientTable } from "./PatientTable";
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-const PatientPage = (props) => {
+const PatientPage = () => {
   const [value, setValue] = useState(new Date());
   return (
     <div>

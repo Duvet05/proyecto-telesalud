@@ -8,8 +8,6 @@ import {
   TableCell,
   Paper,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { Delete as DeleteIcon, Label as LabelIcon } from "@mui/icons-material";
 import { getPatients } from "./PatientFunctions";
 
 export const PatientTable = () => {
@@ -67,7 +65,7 @@ export const PatientTable = () => {
   );
 };
 
-const tableData2 = [
+/* const tableData2 = [
   {
     nombre_completo: "Hastie Zouch",
     direccion: "0031 Mayer Court",
@@ -129,3 +127,4 @@ const tableData2 = [
     gender: "Agender",
   },
 ];
+ */
