@@ -39,7 +39,7 @@
 
 .botones-navegacion .boton-navegacion {
     height: 3rem;
-    width: 6rem;
+    width: auto;
     font-size: 1.2em;
     border-radius: 0.2rem;
     border-style: none;
