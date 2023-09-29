@@ -13,19 +13,14 @@ const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
           Anterior
         </button>
       )}
-      {currentPage < totalPages - 1 ? (
-        <button
-          className="boton-navegacion"
-          type="button"
-          onClick={() => navigate(1)}
-        >
-          Siguiente
-        </button>
-      ) : (
-        <button className="boton-navegacion" type="submit">
-          Enviar
-        </button>
-      )}
+
+      <button
+        className="boton-navegacion"
+        type={currentPage < totalPages - 1 ? "button" : "submit"}
+        onClick={() => currentPage < totalPages - 1 && navigate(1)}
+      >
+        {currentPage < totalPages - 1 ? "Siguiente" : "Enviar"}
+      </button>
     </div>
   );
 };

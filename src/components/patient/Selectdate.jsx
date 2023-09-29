@@ -3,20 +3,20 @@ import { Button, Box, Typography, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import Calendar from "react-calendar";
 
-const Selectdate = (props) => {
-  const [date, setDate] = useState(new Date());
+const formatDate = (date) => {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+};
 
-  const onChange = (updatedDate) => {
-    setDate(updatedDate);
-  };
+const Selectdate = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const pervious = new Date();
-  pervious.setDate(pervious.getDate() - 1);
+  const previousDate = new Date();
+  previousDate.setDate(previousDate.getDate() - 1);
 
   return (
     <Box sx={{ bgcolor: "dark", height: "100vh", p: 5 }}>
       <Grid container spacing={5}>
-        <Grid item xs={3} sx={{ bgcolor: "white", height: "80vh" }}></Grid>
+        <Grid item xs={3} sx={{ bgcolor: "white", height: "80vh" }} />
         <Grid
           item
           xs={9}
@@ -28,19 +28,18 @@ const Selectdate = (props) => {
             borderStyle: "solid",
           }}
         >
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" mt={5}>
             <Calendar
               tileDisabled={({ date }) =>
-                date.getDay() === 0 || date < pervious
+                date.getDay() === 0 || date < previousDate
               }
-              onChange={onChange}
-              value={date}
+              onChange={setSelectedDate}
+              value={selectedDate}
             />
           </Box>
           <Typography align="center" mt={2}>
-            {`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`}
+            {formatDate(selectedDate)}
           </Typography>
-
         </Grid>
       </Grid>
     </Box>
