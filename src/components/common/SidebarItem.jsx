@@ -2,7 +2,7 @@ import React from "react";
 import { ListItemButton, ListItemIcon } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "./styles.css";
+import "./configs/Sidebar.css";
 
 const SidebarItem = ({ item, isSidebarOpen }) => {
   const { appState } = useSelector((state) => state.appState);

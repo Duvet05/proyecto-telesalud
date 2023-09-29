@@ -10,7 +10,7 @@ import {
   Button,
   TableSortLabel,
 } from "@mui/material";
-import { getDoctors } from "./DoctorFunctions";
+import { getDoctors } from "../../doctor/DoctorFunctions";
 
 export const DoctorTable = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +46,11 @@ export const DoctorTable = () => {
     !isLoading && (
       <TableContainer component={Paper}>
         <Table aria-label="doctor table">
-          <DoctorTableHead handleSortRequest={handleSortRequest} order={order} orderBy={orderBy} />
+          <DoctorTableHead
+            handleSortRequest={handleSortRequest}
+            order={order}
+            orderBy={orderBy}
+          />
           <DoctorTableBody doctors={sortedDoctors} />
         </Table>
       </TableContainer>
@@ -96,7 +100,9 @@ const DoctorRow = ({ doctor }) => (
       <Button
         variant="contained"
         color="primary"
-        onClick={() => alert(`Ver perfil del doctor con ID: ${doctor.idDoctor}`)}
+        onClick={() =>
+          alert(`Ver perfil del doctor con ID: ${doctor.idDoctor}`)
+        }
       >
         Ver perfil
       </Button>
@@ -114,7 +120,9 @@ const getSortedDoctors = (doctors, orderBy, order) => {
         return 0;
     }
   };
-  return [...doctors].sort((a, b) => (order === "desc" ? -1 : 1) * comparator(a, b));
+  return [...doctors].sort(
+    (a, b) => (order === "desc" ? -1 : 1) * comparator(a, b)
+  );
 };
 
 export default DoctorTable;

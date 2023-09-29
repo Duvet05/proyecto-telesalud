@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Grid,
@@ -6,19 +6,17 @@ import {
   Paper,
   TextField,
   Button as MUIButton,
-  Select,
   MenuItem,
-  IconButton,
   InputAdornment,
 } from "@mui/material";
 import { Autocomplete } from "@mui/lab";
-import DoctorTable from "../../components/doctor/DoctorTable";
+import DoctorTable from "../../components/common/tables/DoctorTable";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const StaffPage = () => {
   const [doctorName, setDoctorName] = useState("");
-  const [doctors, setDoctors] = useState([]);
+  const [doctors] = useState([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   const specialties = ["Cardiología", "Dermatología", "Neurología"];
 

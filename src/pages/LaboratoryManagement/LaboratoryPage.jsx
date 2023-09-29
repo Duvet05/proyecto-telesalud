@@ -1,5 +1,5 @@
 import React from "react";
-import MedicationTable from "../../components/medication/MedicationTable";
+import MedicationTable from "../../components/common/tables/MedicationTable";
 
 const LaboratoryPage = (props) => {
   return (
@@ -8,7 +8,7 @@ const LaboratoryPage = (props) => {
       <hr></hr>
       <MedicationTable className="medicationTable"></MedicationTable>
     </div>
-  )
+  );
 };
 
 export default LaboratoryPage;

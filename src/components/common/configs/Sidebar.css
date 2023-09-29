@@ -1,0 +1,34 @@
+.drawer-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.drawer-paper {
+  width: 300px;
+  box-sizing: border-box;
+  border-right: 0px;
+  background-color: #233044;
+
+}
+.drawer-paper-collapsed {
+  width: 60px; /* o cualquier ancho que sea lo suficientemente estrecho como para mostrar solo los iconos */
+}
+
+.toolbar-sidebar {
+  margin-bottom: 20px;
+}
+
+.shifted-text {
+  margin-left: 300px;
+}
+
+.list-item-button-hover:hover,
+.list-item-collapse-button-hover:hover {
+  background-color: #1e293a;
+}
+
+.list-item-button-active {
+  background-color: #1e253a;
+}
+
+

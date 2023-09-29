@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Toolbar } from "@mui/material";
+import { Box } from "@mui/material";
 import Sidebar from "../common/Sidebar";
 import "./styles.css";
 import { Outlet } from "react-router-dom";
@@ -11,26 +11,21 @@ const MainLayout = () => {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   };
 
-  const sidebarWidth = isSidebarOpen ? "300px" : "0px";
+  const sidebarWidth = isSidebarOpen ? "300px" : "60px";
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Box /*Incluye el menú, el cual se oculta con isSidebarOpen */
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      <Box
         component="nav"
         className="main-layout-nav"
-        style={{ width: sidebarWidth }}
+        style={{ flexShrink: 0, width: sidebarWidth }}
       >
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </Box>
       <Box
         component="main"
         className="main-layout-content"
-        style={{
-          width: `calc(100% - ${sidebarWidth})`,
-          backgroundColor: "#F5F5F5",
-          flex: 1, // Esto hace que el contenido ocupe todo el espacio disponible antes del footer
-          marginLeft: `${sidebarWidth}`,
-        }}
+        style={{ backgroundColor: "#F5F5F5", flex: 1 }}
       >
         <Outlet></Outlet>
       </Box>

@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { PatientTable } from "./PatientTable";
+import { PatientTable } from "../../components/common/tables/PatientTable";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 

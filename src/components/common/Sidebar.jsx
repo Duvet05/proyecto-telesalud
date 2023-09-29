@@ -1,37 +1,46 @@
 import React from "react";
-import { Avatar, Drawer, List, Toolbar, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Drawer,
+  List,
+  Toolbar,
+  Grid,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import assets from "../../assets";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
-import "./styles.css";
-import SidebarToggleButton from "./SidebarToggleButton";
+import "./configs/Sidebar.css";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <Drawer
       variant="persistent"
-      open={isSidebarOpen} // Añade esta línea para controlar si el Drawer está abierto o cerrado
+      open={true}
       classes={{
-        paper: "drawer-paper",
+        paper: isSidebarOpen ? "drawer-paper" : "drawer-paper-collapsed", // Aplicar estilos condicionalmente
       }}
     >
       <List disablePadding>
         <Toolbar className="toolbar-sidebar">
-          <div className="stack-sidebar">
-            <Grid container spacing={2}>
-              <Grid item xs={2}>
-                <Avatar src={assets.images.logo} />
-              </Grid>
-              <Grid item xs={8}>
-                <Typography variant="h6">Sanama</Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <SidebarToggleButton
-                  toggleSidebar={toggleSidebar}
-                ></SidebarToggleButton>
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <Avatar src={assets.images.logo} />
             </Grid>
-          </div>
+
+            {isSidebarOpen && (
+              <Grid item xs={8}>
+                <Typography variant="h5">Sanama</Typography>
+              </Grid>
+            )}
+            <Grid item xs={isSidebarOpen ? 2 : 10}>
+              <IconButton onClick={toggleSidebar}>
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         </Toolbar>
         {appRoutes.map((route, index) =>
           route.sidebarProps ? (

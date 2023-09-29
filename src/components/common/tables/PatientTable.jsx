@@ -7,12 +7,13 @@ import {
   TableRow,
   TableCell,
   Paper,
+  Button,
 } from "@mui/material";
-import { getPatients } from "./PatientFunctions";
+import { getPatients } from "../../../pages/PatientManagement/PatientFunctions";
 
 export const PatientTable = () => {
   const [cargando, setCargando] = useState(true); //true
-
+  const [patients, setPatients] = useState([]);
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
@@ -54,7 +55,20 @@ export const PatientTable = () => {
                   </TableCell>
                   <TableCell>{row.dni}</TableCell>
                   <TableCell>{row.fechaNacimiento}</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>
+                    {" "}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() =>
+                        alert(
+                          `Ver perfil del paciente con DNI: ${patients.dni}`
+                        )
+                      }
+                    >
+                      Ver perfil
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
