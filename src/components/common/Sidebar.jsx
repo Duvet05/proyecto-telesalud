@@ -3,7 +3,6 @@ import { Avatar, Drawer, List, Toolbar, Grid, Typography } from "@mui/material";
 import assets from "../../assets";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
-import SidebarItemCollapse from "./SidebarItemCollapse";
 import "./styles.css";
 import SidebarToggleButton from "./SidebarToggleButton";
 
@@ -36,15 +35,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         </Toolbar>
         {appRoutes.map((route, index) =>
           route.sidebarProps ? (
-            route.child ? (
-              <SidebarItemCollapse item={route} key={index} />
-            ) : (
-              <SidebarItem
-                item={route}
-                key={index}
-                isSidebarOpen={isSidebarOpen}
-              />
-            )
+            <SidebarItem
+              item={route}
+              key={index}
+              isSidebarOpen={isSidebarOpen}
+            />
           ) : null
         )}
       </List>
