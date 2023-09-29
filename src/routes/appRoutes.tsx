@@ -10,6 +10,7 @@ import { Diversity1, MedicalServices, Today , WorkHistory , MonitorHeart, Vaccin
 import HomePage from "../pages/home/HomePage";
 import PatientPage from "../pages/PatientManagement/PatientPage";
 import StaffManagement from "../pages/StaffManagement/StaffManagement";
+import StaffPage from "../pages/StaffManagement/StaffPage";
 import AttentionLogPage from "../pages/StaffManagement/AttentionLogPage";
 import SchedulePage from "../pages/StaffManagement/SchedulePage";
 import TriagePage from "../pages/MedicalAssistance/TriagePage";
@@ -34,7 +35,7 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "/medicos",
-    element: <StaffManagement />,
+    element: <StaffPage />,
     state: "staff",
     sidebarProps: {
       displayText: "Medicos",

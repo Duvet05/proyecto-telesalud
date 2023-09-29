@@ -3,20 +3,35 @@ import { styled } from '@mui/system';
 import { TextField, Typography, RadioGroup, FormControlLabel, Radio, Grid, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import React, { useState } from "react";
+import { styled } from "@mui/system";
+import {
+  TextField,
+  Button,
+  Typography,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Grid,
+  IconButton,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
-const Container = styled('div')(({ theme }) => ({
+const Container = styled("div")(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: '#fff',
+  backgroundColor: "#f0f0f0",
 }));
 
-const Campo = styled('div')(({ theme }) => ({
+const Campo = styled("div")(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const PacienteBotones = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  '& button': {
+const PacienteBotones = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  "& button": {
     marginLeft: theme.spacing(1),
   },
 }));
@@ -26,7 +41,9 @@ function PatientInfo() {
   
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>Información del paciente</Typography>
+      <Typography variant="h4" gutterBottom>
+        Información del paciente
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <Campo>
@@ -54,7 +71,9 @@ function PatientInfo() {
         </Grid>
         <Grid item xs={4}>
           <Campo>
-            <label htmlFor="codigo-asegurado-sis">Código del asegurado SIS</label>
+            <label htmlFor="codigo-asegurado-sis">
+              Código del asegurado SIS
+            </label>
             <TextField
               type="text"
               id="codigo-asegurado-sis"
@@ -134,8 +153,14 @@ function PatientInfo() {
         </Grid>
         <Grid item xs={12}>
           <Campo>
-            <Typography variant="h6">¿El paciente tiene un acompañante?</Typography>
-            <RadioGroup row value={hasCompanion} onChange={(e) => setHasCompanion(e.target.value)}>
+            <Typography variant="h6">
+              ¿El paciente tiene un acompañante?
+            </Typography>
+            <RadioGroup
+              row
+              value={hasCompanion}
+              onChange={(e) => setHasCompanion(e.target.value)}
+            >
               <FormControlLabel value="yes" control={<Radio />} label="Sí" />
               <FormControlLabel value="no" control={<Radio />} label="No" />
             </RadioGroup>
@@ -172,6 +197,36 @@ function PatientInfo() {
             </Grid>
           </>
         )}
+        <Grid item xs={6}>
+          <Campo>
+            <label htmlFor="numero-documento-acompanante">
+              N° documento del acompañante
+            </label>
+            <TextField
+              type="tel"
+              id="numero-documento-acompanante"
+              name="numero-documento-acompanante"
+              variant="outlined"
+              required
+              fullWidth
+              disabled={hasCompanion === "no"}
+            />
+          </Campo>
+        </Grid>
+        <Grid item xs={6}>
+          <Campo>
+            <label htmlFor="nombre-acompanante">Nombre del acompañante</label>
+            <TextField
+              type="text"
+              id="nombre-acompanante"
+              name="nombre-acompanante"
+              variant="outlined"
+              required
+              fullWidth
+              disabled={hasCompanion === "no"}
+            />
+          </Campo>
+        </Grid>
       </Grid>
     </Container>
   );
