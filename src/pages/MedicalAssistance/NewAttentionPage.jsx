@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./NewAttentionPage.css";
+import PatientInfo from "../../components/patient/PatientInfo";
 
 const Appointments = () => {
   const PAGES = [
@@ -45,22 +46,7 @@ const Appointments = () => {
   );
 };
 
-const PatientInfo = ({ navigate }) => {
-  return (
-    <div className="contenedor-pagina-1">
-      {/* ... resto del código ... */}
-      <div className="botones-navegacion">
-        <button
-          className="boton-navegacion"
-          type="button"
-          onClick={() => navigate(1)}
-        >
-          Siguiente
-        </button>
-      </div>
-    </div>
-  );
-};
+
 
 const GenericPage = ({ label, type, id, name }) => {
   return (
