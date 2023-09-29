@@ -216,6 +216,7 @@ function InformacionCita() {
                 required
                 fullWidth
                 readOnly
+                
                 style={{ backgroundColor: '#b9b9b9' }}
               />
             </Campo>
