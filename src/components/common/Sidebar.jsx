@@ -11,27 +11,41 @@ import {
 import assets from "../../assets";
 import appRoutes from "../../routes/appRoutes";
 import SidebarItem from "./SidebarItem";
-import "./configs/Sidebar.css";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
+  const drawerWidth = isSidebarOpen ? 240 : 60;
+
   return (
     <Drawer
       variant="persistent"
       open={true}
-      classes={{
-        paper: isSidebarOpen ? "drawer-paper" : "drawer-paper-collapsed",
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        transition: (theme) =>
+          theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          transition: (theme) =>
+            theme.transitions.create("width", {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+        },
       }}
     >
       <List disablePadding>
-        <Toolbar className="toolbar-sidebar">
+        <Toolbar sx={{ padding: 2 }}>
           <Grid
             container
             direction={isSidebarOpen ? "row" : "column"}
             alignItems="center"
             spacing={2}
           >
-            {/* Logo */}
             <Grid
               item
               xs={isSidebarOpen ? 2 : 12}
@@ -41,19 +55,17 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               <Avatar src={assets.images.logo} />
             </Grid>
 
-            {/* Nombre del software */}
             {isSidebarOpen && (
               <Grid item xs={8}>
                 <Typography variant="h5">Sanama</Typography>
               </Grid>
             )}
 
-            {/* Boton menu */}
             <Grid
               item
               xs={isSidebarOpen ? 2 : 12}
               container
-              justifyContent={isSidebarOpen ? "flex-end " : "center"}
+              justifyContent={isSidebarOpen ? "flex-end" : "center"}
             >
               <IconButton onClick={toggleSidebar}>
                 <MenuIcon />
@@ -61,13 +73,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </Grid>
           </Grid>
         </Toolbar>
-        {appRoutes.map((route, index) =>
+        {appRoutes.map((route) =>
           route.sidebarProps ? (
-            <SidebarItem
-              item={route}
-              key={index}
-              isSidebarOpen={isSidebarOpen}
-            />
+            <SidebarItem item={route} isSidebarOpen={isSidebarOpen} />
           ) : null
         )}
       </List>

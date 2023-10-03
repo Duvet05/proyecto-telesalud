@@ -1,48 +1,69 @@
-import React from 'react';
-import { styled } from '@mui/system';
-import { Button, Container, Grid } from '@mui/material';
+import React from "react";
+import { styled } from "@mui/system";
+import { Button, Container, Grid, Typography, Paper } from "@mui/material";
 
-const BotonContainer = styled('div')({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: '16px', // Añade un espacio entre el formulario y los botones
-    '& button': {
-      margin: '1rem 8rem', // Espacio más reducido entre los botones
-    },
-  });
+const StyledPaper = styled(Paper)({
+  padding: "2rem",
+  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra suave para el contenedor
+  borderRadius: "8px",
+});
+
+const BotonContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  marginTop: "2rem",
+  "& button": {
+    margin: "0.5rem 0", // Espaciado vertical entre los botones
+    width: "80%", // Asegurando que los botones tengan un ancho consistente
+  },
+});
 
 function TriajeONoTriaje() {
   // Funciones para manejar los clics en los botones
   const handleNoMandarClick = () => {
-    // Coloca aquí la lógica cuando se hace clic en "No mandar a triaje"
-    console.log('No mandar a triaje');
+    console.log("No mandar a triaje");
   };
 
   const handleMandarClick = () => {
-    // Coloca aquí la lógica cuando se hace clic en "Mandar a triaje"
-    console.log('Mandar a triaje');
+    console.log("Mandar a triaje");
   };
 
   return (
     <Container>
-      {/* Tu contenido del formulario */}
-      <form>
-        <Grid container spacing={2}>
-          {/* Agrega tus campos de formulario aquí */}
-        </Grid>
-      </form>
+      <StyledPaper>
+        <Typography variant="h5" align="center" gutterBottom>
+          Decisión de Triage
+        </Typography>
+        <Typography variant="body1" align="center" paragraph>
+          Basado en la información proporcionada, decide si el paciente debe ser
+          enviado a triaje o no.
+        </Typography>
 
-      {/* Botones al lado del otro */}
-      <BotonContainer>
-        <Button variant="contained" color="secondary" onClick={handleNoMandarClick}>
-          No mandar a triaje
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleMandarClick}>
-          Mandar a triaje
-        </Button>
-      </BotonContainer>
+        <form>
+          <Grid container spacing={2}>
+            {/* Agrega tus campos de formulario aquí */}
+          </Grid>
+        </form>
+
+        <BotonContainer>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleNoMandarClick}
+          >
+            No mandar a triaje
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleMandarClick}
+          >
+            Mandar a triaje
+          </Button>
+        </BotonContainer>
+      </StyledPaper>
     </Container>
   );
 }
