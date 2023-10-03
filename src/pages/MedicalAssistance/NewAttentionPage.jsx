@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import "./NewAttentionPage.css";
+import { Typography, Paper, Grid, Button, Container } from "@mui/material";
 import PatientInfo from "../../components/patient/PatientInfo";
 import Selectdate from "../../components/patient/Selectdate";
 import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
 import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
-import { Checkbox, FormControlLabel } from "@mui/material";
 import NavigationButtons from "../../components/common/NavigationButtons";
 import SeleccionarMedico from "../../components/formularioNuevoPaciente/SeleccionarMedico";
 
 const Appointments = () => {
-  const PAGES = [
-    "Información del paciente",
-    "Seleccionar médico",
-    "Mandar a triaje",
-    "Visualizar Atención",
-  ];
-
   const [currentPage, setCurrentPage] = useState(0);
 
   const navigate = (delta) => {
@@ -24,35 +16,44 @@ const Appointments = () => {
     );
   };
 
-  return (
-    <div className="contenedor-nueva-atencion">
-      <h2 className="titulo">Nueva Atención</h2>
-      <hr />
+  const PAGES = [
+    <PatientInfo navigate={navigate} />,
+    <SeleccionarMedico />,
+    <TriajeONoTriaje />,
+    <InformacionCita />,
+  ];
 
-      <form>
-        <div className={`contenedor-pagina-${currentPage + 1}`}>
-          <h3>{PAGES[currentPage]}</h3>
-          {currentPage === 0 && <PatientInfo navigate={navigate} />}
-          {currentPage === 1 && <SeleccionarMedico />}
-          {currentPage === 2 && <TriajeONoTriaje />}
-          {currentPage >= 3 && <InformacionCita />}
-          <NavigationButtons
-            currentPage={currentPage}
-            totalPages={PAGES.length}
-            navigate={navigate}
-          />
-        </div>
-      </form>
-    </div>
-  );
-};
+  const PAGE_TITLES = [
+    "Información del paciente",
+    "Seleccionar médico",
+    "Mandar a triaje",
+    "Visualizar Atención",
+  ];
 
-const GenericPage = ({ label, type, id, name }) => {
   return (
-    <div>
-      <label htmlFor={id}>{label}:</label>
-      <input type={type} id={id} name={name} required />
-    </div>
+    <Container>
+      <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
+        <Typography variant="h4" gutterBottom>
+          Nueva Atención
+        </Typography>
+        <hr />
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Typography variant="h5" gutterBottom>
+              {PAGE_TITLES[currentPage]}
+            </Typography>
+            {PAGES[currentPage]}
+          </Grid>
+          <Grid item xs={12}>
+            <NavigationButtons
+              currentPage={currentPage}
+              totalPages={PAGES.length}
+              navigate={navigate}
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
   );
 };
 

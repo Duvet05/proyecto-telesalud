@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function DynamicBreadcrumbs() {
   const location = useLocation();
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const pathnames = location.pathname.split("/").filter((x) => x);
 
@@ -15,7 +15,7 @@ function DynamicBreadcrumbs() {
       aria-label="breadcrumb"
     >
       {pathnames.length > 0 ? (
-        <Link color="inherit" onClick={() => history.push("/")}>
+        <Link color="inherit" onClick={() => navigate("/")}>
           Home
         </Link>
       ) : (
@@ -29,11 +29,7 @@ function DynamicBreadcrumbs() {
             {name}
           </Typography>
         ) : (
-          <Link
-            key={name}
-            color="inherit"
-            onClick={() => history.push(routeTo)}
-          >
+          <Link key={name} color="inherit" onClick={() => navigate(routeTo)}>
             {name.charAt(0).toUpperCase() + name.slice(1)}
           </Link>
         );

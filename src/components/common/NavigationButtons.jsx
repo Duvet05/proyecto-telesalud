@@ -1,27 +1,32 @@
 import React from "react";
-import "./configs/NavigationButtons.css";
+import { ButtonGroup, Button, Box } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const NavigationButtons = ({ currentPage, totalPages, navigate }) => {
   return (
-    <div className="botones-navegacion">
-      {currentPage > 0 && (
-        <button
-          className="boton-navegacion"
-          type="button"
+    <Box sx={{ mt: 2 }}>
+      <ButtonGroup variant="contained" color="primary" size="large" fullWidth>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          disabled={currentPage === 0}
           onClick={() => navigate(-1)}
+          variant={currentPage === 0 ? "outlined" : "contained"}
+          sx={{ transition: "all 0.3s" }}
         >
-          Anterior
-        </button>
-      )}
-
-      <button
-        className="boton-navegacion"
-        type={currentPage < totalPages - 1 ? "button" : "submit"}
-        onClick={() => currentPage < totalPages - 1 && navigate(1)}
-      >
-        {currentPage < totalPages - 1 ? "Siguiente" : "Enviar"}
-      </button>
-    </div>
+          Atrás
+        </Button>
+        <Button
+          endIcon={<ArrowForwardIcon />}
+          disabled={currentPage === totalPages - 1}
+          onClick={() => navigate(1)}
+          variant={currentPage === totalPages - 1 ? "outlined" : "contained"}
+          sx={{ transition: "all 0.3s" }}
+        >
+          Siguiente
+        </Button>
+      </ButtonGroup>
+    </Box>
   );
 };
 

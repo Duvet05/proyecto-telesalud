@@ -6,7 +6,12 @@ import {
   FormControlLabel,
   Radio,
   Grid,
+  TextField,
+  IconButton,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+
 import PatientFields from "./PatientFields";
 import CompanionFields from "./CompanionFields";
 
@@ -21,12 +26,34 @@ function PatientInfo() {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Información del paciente
+        Busqueda de Paciente
       </Typography>
       <Grid container spacing={3}>
-        <PatientFields isDisabled />
+        <Grid item xs={12} md={8}>
+          <TextField
+            label="NOMBRES O DOCUMENTO DE INDENTIDAD"
+            variant="outlined"
+            required
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <>
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                  <IconButton>
+                    <PersonAddIcon />
+                  </IconButton>
+                </>
+              ),
+            }}
+          />
+        </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6">
+          <PatientFields isDisabled />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6" gutterBottom>
             ¿El paciente tiene un acompañante?
           </Typography>
           <RadioGroup
