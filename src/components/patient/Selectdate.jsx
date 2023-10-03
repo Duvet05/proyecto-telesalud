@@ -1,49 +1,34 @@
-import React, { useState } from "react";
-import { Button, Box, Typography, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
-import Calendar from "react-calendar";
+import * as React from "react";
+import dayjs from "dayjs";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
+import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
+import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 
-const formatDate = (date) => {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-};
-
-const Selectdate = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  const previousDate = new Date();
-  previousDate.setDate(previousDate.getDate() - 1);
-
+export default function ResponsiveTimePickers() {
   return (
-    <Box sx={{ bgcolor: "dark", height: "100vh", p: 5 }}>
-      <Grid container spacing={5}>
-        <Grid item xs={3} sx={{ bgcolor: "white", height: "80vh" }} />
-        <Grid
-          item
-          xs={9}
-          sx={{
-            bgcolor: "#6c757d",
-            height: "80vh",
-            border: 3,
-            borderColor: "yellow",
-            borderStyle: "solid",
-          }}
-        >
-          <Box display="flex" justifyContent="center" mt={5}>
-            <Calendar
-              tileDisabled={({ date }) =>
-                date.getDay() === 0 || date < previousDate
-              }
-              onChange={setSelectedDate}
-              value={selectedDate}
-            />
-          </Box>
-          <Typography align="center" mt={2}>
-            {formatDate(selectedDate)}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Box>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer
+        components={[
+          "TimePicker",
+          "MobileTimePicker",
+          "DesktopTimePicker",
+          "StaticTimePicker",
+        ]}
+      >
+        <DemoItem label="Desktop variant">
+          <DesktopTimePicker defaultValue={dayjs("2022-04-17T15:30")} />
+        </DemoItem>
+        <DemoItem label="Mobile variant">
+          <MobileTimePicker defaultValue={dayjs("2022-04-17T15:30")} />
+        </DemoItem>
+        <DemoItem label="Responsive variant">
+          <TimePicker defaultValue={dayjs("2022-04-17T15:30")} />
+        </DemoItem>
+      </DemoContainer>
+    </LocalizationProvider>
   );
-};
-
-export default Selectdate;
+}
