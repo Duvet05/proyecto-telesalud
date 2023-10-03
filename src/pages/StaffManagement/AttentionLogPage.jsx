@@ -4,6 +4,7 @@ import {
   TextField,
   Paper,
   Table,
+  TableSortLabel,
   Grid,
   Typography,
   TableHead,
@@ -36,7 +37,36 @@ const AttentionLogPage = () => {
     // Aquí manejamos lo que sucede al ver el detalle
   };
 
-  const citasFiltradas = citas.filter((cita) => {
+  const [sortConfig, setSortConfig] = useState({
+    key: "paciente",
+    direction: "asc",
+  });
+
+  const handleSort = (columnName) => {
+    let direction = "asc";
+    if (sortConfig.key === columnName && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key: columnName, direction: direction });
+  };
+
+  const sortedCitas = React.useMemo(() => {
+    let sortableCitas = [...citas];
+    if (sortConfig !== null) {
+      sortableCitas.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableCitas;
+  }, [citas, sortConfig]);
+
+  const citasFiltradas = sortedCitas.filter((cita) => {
     return (
       cita.paciente.toLowerCase().includes(filtro.toLowerCase()) ||
       cita.medico.toLowerCase().includes(filtro.toLowerCase())
