@@ -4,7 +4,7 @@ import PatientInfo from "../../components/patient/PatientInfo";
 import Selectdate from "../../components/patient/Selectdate";
 import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
 import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
-
+import { Checkbox, FormControlLabel } from "@mui/material";
 import NavigationButtons from "../../components/common/NavigationButtons";
 import SeleccionarMedico from "../../components/formularioNuevoPaciente/SeleccionarMedico";
 
@@ -30,24 +30,22 @@ const Appointments = () => {
       <hr />
 
       <form>
-          <div className={`contenedor-pagina-${currentPage + 1}`}>
-            <h3>{PAGES[currentPage]}</h3>
-            {currentPage === 0 && <PatientInfo navigate={navigate} />}
-            {currentPage === 1 && <SeleccionarMedico />}
-            {currentPage === 2 && <TriajeONoTriaje />}
-            {currentPage >= 3 && <InformacionCita />}
-            <NavigationButtons
-              currentPage={currentPage}
-              totalPages={PAGES.length}
-              navigate={navigate}
-            />
-          </div>
+        <div className={`contenedor-pagina-${currentPage + 1}`}>
+          <h3>{PAGES[currentPage]}</h3>
+          {currentPage === 0 && <PatientInfo navigate={navigate} />}
+          {currentPage === 1 && <SeleccionarMedico />}
+          {currentPage === 2 && <TriajeONoTriaje />}
+          {currentPage >= 3 && <InformacionCita />}
+          <NavigationButtons
+            currentPage={currentPage}
+            totalPages={PAGES.length}
+            navigate={navigate}
+          />
+        </div>
       </form>
     </div>
   );
 };
-
-
 
 const GenericPage = ({ label, type, id, name }) => {
   return (
@@ -57,6 +55,5 @@ const GenericPage = ({ label, type, id, name }) => {
     </div>
   );
 };
-
 
 export default Appointments;
