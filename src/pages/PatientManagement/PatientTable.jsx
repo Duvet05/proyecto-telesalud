@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect } from "react"
 import {
   TableContainer,
   Table,
@@ -7,25 +7,26 @@ import {
   TableRow,
   TableCell,
   Paper,
-  Button,
-} from "@mui/material";
-import { getPatients } from "../../../redux/Functions";
+  Button
+} from "@mui/material"
+import { patientService } from "../../services/patientService"
 
 export const PatientTable = () => {
-  const [cargando, setCargando] = useState(true); //true
-  const [patients, setPatients] = useState([]);
-  const [tableData, setTableData] = useState([]);
+  const [cargando, setCargando] = useState(true) //true
+  const [patientTable, setPatientTable] = useState([])
 
   useEffect(() => {
-    getPatients()
-      .then((recibePatients) => {
-        setTableData(recibePatients);
-        setCargando(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    const fetchData = async () => {
+      try {
+        const data = await patientService.listar({})
+        setPatientTable(data)
+        setCargando(false)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
@@ -41,7 +42,7 @@ export const PatientTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableData.map((row) => (
+              {patientTable.map((row) => (
                 <TableRow
                   key={row.idPersona}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -61,9 +62,7 @@ export const PatientTable = () => {
                       variant="contained"
                       color="primary"
                       onClick={() =>
-                        alert(
-                          `Ver perfil del paciente con DNI: ${patients.dni}`
-                        )
+                        alert(`Ver perfil del paciente con DNI: ${row.dni}`)
                       }
                     >
                       Ver perfil
@@ -76,5 +75,5 @@ export const PatientTable = () => {
         </TableContainer>
       )}
     </>
-  );
-};
+  )
+}
