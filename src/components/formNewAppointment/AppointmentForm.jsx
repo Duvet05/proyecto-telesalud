@@ -6,68 +6,43 @@ import CompanionFields from "./CompanionFields";
 import CompanionQuestion from "./CompanionQuestion";
 import { patientService } from "../../services/patientService";
 
-const initialState = {
-  hasCompanion: "no",
-  isEditing: false,
-  allPatients: [],
-  searchResult: null,
-  showFields: false,
-  error: null,
-};
-
-const fetchPatients = async (updateState) => {
-  try {
-    const data = await patientService.listar();
-    updateState((prev) => ({ ...prev, allPatients: data }));
-  } catch (err) {
-    console.error("Error al obtener la lista de pacientes:", err);
-    updateState((prev) => ({
-      ...prev,
-      error: "Error al obtener la lista de pacientes",
-    }));
-  }
-};
-
 function AppointmentForm() {
-  const [state, setState] = useState(initialState);
-  const {
-    hasCompanion,
-    isEditing,
-    allPatients,
-    searchResult,
-    showFields,
-    error,
-  } = state;
+  const [hasCompanion, setHasCompanion] = useState("no");
+  const [isEditing, setIsEditing] = useState(false);
+  const [allPatients, setAllPatients] = useState([]);
+  const [searchResult, setSearchResult] = useState(null);
+  const [showFields, setShowFields] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchPatients(setState);
+    async function fetchPatients() {
+      try {
+        const data = await patientService.listar();
+        setAllPatients(data);
+      } catch (err) {
+        console.error("Error al obtener la lista de pacientes:", err);
+        setError("Error al obtener la lista de pacientes");
+      }
+    }
+    fetchPatients();
   }, []);
 
   const handlePatientSelect = (value) => {
-    setState((prev) => ({
-      ...prev,
-      searchResult: value,
-      showFields: true,
-      isEditing: false,
-    }));
+    setSearchResult(value);
+    setShowFields(true);
+    setIsEditing(false);
   };
 
   const handleAddPatientClick = () => {
-    setState((prev) => ({
-      ...prev,
-      showFields: true,
-      isEditing: true,
-      searchResult: null,
-    }));
+    setShowFields(true);
+    setIsEditing(true);
+    setSearchResult(null);
   };
 
   const handleCancelClick = () => {
-    setState((prev) => ({
-      ...prev,
-      isEditing: false,
-      searchResult: null, // Clear the patient selection
-      showFields: false, // Hide the patient fields
-    }));
+    setIsEditing(false);
+    setSearchResult(null);
+    setShowFields(false);
   };
 
   return (
@@ -75,7 +50,9 @@ function AppointmentForm() {
       <Typography variant="h4" gutterBottom>
         Búsqueda de Paciente
       </Typography>
+
       {error && <Typography color="error">{error}</Typography>}
+
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <PatientSearch
@@ -86,6 +63,7 @@ function AppointmentForm() {
             disabled={isEditing}
           />
         </Grid>
+
         {showFields && (
           <>
             <Grid item xs={12}>
@@ -98,21 +76,18 @@ function AppointmentForm() {
                 </div>
               </Slide>
             </Grid>
+
             <Grid item xs={12}>
               <Slide in direction="up" timeout={700}>
                 <div>
                   <CompanionQuestion
                     value={hasCompanion}
-                    onChange={(e) =>
-                      setState((prev) => ({
-                        ...prev,
-                        hasCompanion: e.target.value,
-                      }))
-                    }
+                    onChange={(e) => setHasCompanion(e.target.value)}
                   />
                 </div>
               </Slide>
             </Grid>
+
             {hasCompanion === "no" && (
               <Grid item xs={12}>
                 <Slide in direction="up" timeout={900}>

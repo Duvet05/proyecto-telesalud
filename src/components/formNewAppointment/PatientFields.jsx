@@ -19,6 +19,7 @@ function PatientFields({ isDisabled, patientData = {} }) {
   }, {});
 
   const [formData, setFormData] = useState({ ...initialState, ...patientData });
+  const [documentError, setDocumentError] = useState(false);
 
   useEffect(() => {
     setFormData((prev) =>
@@ -28,6 +29,12 @@ function PatientFields({ isDisabled, patientData = {} }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Específico para la validación del DNI
+    if (name === "dni") {
+      setDocumentError(value.length !== 8);
+    }
+
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -44,6 +51,21 @@ function PatientFields({ isDisabled, patientData = {} }) {
             disabled={isDisabled}
             value={formData[field.name]}
             onChange={handleInputChange}
+            // Lógica específica para el DNI
+            inputProps={
+              field.name === "dni"
+                ? {
+                    pattern: "[0-9]*",
+                    maxLength: 8,
+                  }
+                : undefined
+            }
+            error={field.name === "dni" && documentError}
+            helperText={
+              field.name === "dni" && documentError
+                ? "Debe tener 8 dígitos"
+                : ""
+            }
           />
         </Grid>
       ))}
