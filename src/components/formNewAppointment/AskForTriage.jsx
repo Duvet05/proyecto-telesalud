@@ -20,7 +20,7 @@ const BotonContainer = styled("div")({
   },
 });
 
-function TriajeONoTriaje() {
+function AskForTriage() {
   // Funciones para manejar los clics en los botones
   const handleNoMandarClick = () => {
     console.log("No mandar a triaje");
@@ -34,11 +34,7 @@ function TriajeONoTriaje() {
     <Container>
       <StyledPaper>
         <Typography variant="h5" align="center" gutterBottom>
-          Decisión de Triage
-        </Typography>
-        <Typography variant="body1" align="center" paragraph>
-          Basado en la información proporcionada, decide si el paciente debe ser
-          enviado a triaje o no.
+          Derivar a Triage
         </Typography>
 
         <form>
@@ -68,4 +64,4 @@ function TriajeONoTriaje() {
   );
 }
 
-export default TriajeONoTriaje;
+export default AskForTriage;

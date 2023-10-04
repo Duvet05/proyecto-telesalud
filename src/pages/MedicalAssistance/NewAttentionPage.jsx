@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Button, Container } from "@mui/material";
 import AppointmentForm from "../../components/formNewAppointment/AppointmentForm";
-import TriajeONoTriaje from "../../components/formNewAppointment/TriajeONoTriaje";
-import InformacionCita from "../../components/formNewAppointment/InformacionCita";
+import AskForTriage from "../../components/formNewAppointment/AskForTriage";
+import AppointmentInfo from "../../components/formNewAppointment/AppointmentInfo";
 import NavigationButtons from "../../components/common/NavigationButtons";
 import SeleccionarMedico from "../../components/formNewAppointment/SeleccionarMedico";
 
@@ -18,8 +18,8 @@ const Appointments = () => {
   const PAGES = [
     <AppointmentForm navigate={navigate} />,
     <SeleccionarMedico />,
-    <TriajeONoTriaje />,
-    <InformacionCita />,
+    <AskForTriage />,
+    <AppointmentInfo />,
   ];
 
   const PAGE_TITLES = [

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Grid,
@@ -6,18 +6,19 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  OutlinedInput,
-  FormHelperText,
 } from "@mui/material";
 
+const companionFieldsConfig = [
+  "DOCUMENTO DE IDENTIDAD",
+  "NOMBRES",
+  "PRIMER APELLIDO",
+  "SEGUNDO APELLIDO",
+];
+
 function CompanionFields() {
-  const [relationship, setRelationship] = React.useState("");
+  const [relationship, setRelationship] = useState("");
   const [document, setDocument] = useState("");
   const [documentError, setDocumentError] = useState(false);
-
-  const handleRelationshipChange = (event) => {
-    setRelationship(event.target.value);
-  };
 
   const handleDocumentChange = (event) => {
     const value = event.target.value;
@@ -25,23 +26,15 @@ function CompanionFields() {
     setDocumentError(value.length !== 8);
   };
 
-  const labels = [
-    "DOCUMENTO DE IDENTIDAD",
-    "NOMBRES",
-    "PRIMER APELLIDO",
-    "SEGUNDO APELLIDO",
-  ];
-
   return (
     <Grid container spacing={3}>
-      {labels.map((label, idx) => (
+      {companionFieldsConfig.map((label, idx) => (
         <Grid item xs={6} key={idx}>
           <TextField
             label={label}
             variant="outlined"
             required
             fullWidth
-            // Solo permitir números en el campo 'DOCUMENTO DE IDENTIDAD'
             inputProps={{
               pattern: idx === 0 ? "[0-9]*" : undefined,
               maxLength: idx === 0 ? 8 : undefined,
@@ -59,16 +52,15 @@ function CompanionFields() {
           <InputLabel>PARENTESCO</InputLabel>
           <Select
             value={relationship}
-            onChange={handleRelationshipChange}
+            onChange={(e) => setRelationship(e.target.value)}
             label="PARENTESCO"
           >
             <MenuItem value={"hermano"}>Hermano</MenuItem>
             <MenuItem value={"hermana"}>Hermana</MenuItem>
             <MenuItem value={"madre"}>Madre</MenuItem>
             <MenuItem value={"padre"}>Padre</MenuItem>
-            <MenuItem value={"apoderado"}>Otros</MenuItem>
+            <MenuItem value={"apoderado"}>Apoderado</MenuItem>
             <MenuItem value={"otros"}>Otros</MenuItem>
-            {/* Puedes agregar más tipos de parentesco aquí */}
           </Select>
         </FormControl>
       </Grid>

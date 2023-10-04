@@ -66,6 +66,7 @@ function AppointmentForm() {
       ...prev,
       isEditing: false,
       searchResult: null, // Clear the patient selection
+      showFields: false, // Hide the patient fields
     }));
   };
 
@@ -112,7 +113,7 @@ function AppointmentForm() {
                 </div>
               </Slide>
             </Grid>
-            {hasCompanion === "yes" && (
+            {hasCompanion === "no" && (
               <Grid item xs={12}>
                 <Slide in direction="up" timeout={900}>
                   <div>

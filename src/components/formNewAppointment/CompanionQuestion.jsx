@@ -7,11 +7,11 @@ import {
   Grid,
 } from "@mui/material";
 
-function CompanionQuestion({ value, onChange }) {
+function CompanionQuestion({ value = "yes", onChange }) {
   return (
     <Grid item xs={12}>
       <Typography variant="h6" gutterBottom>
-        ¿El paciente tiene un acompañante?
+        ¿El paciente es responsable legal?
       </Typography>
       <RadioGroup row value={value} onChange={onChange}>
         <FormControlLabel value="yes" control={<Radio />} label="Sí" />

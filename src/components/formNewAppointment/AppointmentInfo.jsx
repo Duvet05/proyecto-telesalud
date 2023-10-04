@@ -66,7 +66,7 @@ const Campo = ({ id, label, type, iconButton }) => {
   );
 };
 
-function InformacionCita() {
+function AppointmentInfo() {
   const pacienteCampos = [
     {
       id: "numero-documento-paciente",
@@ -172,4 +172,4 @@ function InformacionCita() {
   );
 }
 
-export default InformacionCita;
+export default AppointmentInfo;
