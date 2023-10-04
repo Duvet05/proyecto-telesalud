@@ -8,8 +8,7 @@ import {
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-
-import Selectdate from "../../components/patient/Selectdate";
+import Selectdate from "./Selectdate";
 import { getSpecialty } from "../../redux/Functions";
 
 function SeleccionarMedico() {

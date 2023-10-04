@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Button, Container } from "@mui/material";
-import PatientInfo from "../../components/patient/PatientInfo";
+import PatientInfo from "../../components/formularioNuevoPaciente/PatientInfo";
 import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
 import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
 import NavigationButtons from "../../components/common/NavigationButtons";
