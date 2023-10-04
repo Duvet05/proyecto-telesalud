@@ -1,24 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
   Typography,
   Paper,
   TextField,
-  Button as MUIButton,
   MenuItem,
+  Button as MUIButton,
   InputAdornment,
 } from "@mui/material";
 import { Autocomplete } from "@mui/lab";
-import DoctorTable from "../../components/common/tables/DoctorTable";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { doctorService } from "../../services/doctorService"; // Importa el servicio de doctores
+import DoctorTable from "../../components/common/tables/DoctorTable";
 
 const StaffPage = () => {
   const [doctorName, setDoctorName] = useState("");
-  const [doctors] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
-  const specialties = ["Cardiología", "Dermatología", "Neurología"];
+  const [specialties, setSpecialties] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Cargar la lista de especialidades una vez al inicio
+    doctorService
+      .listarEspecialidades()
+      .then((data) => setSpecialties(data))
+      .catch((error) => {
+        console.error("Error al obtener la lista de especialidades:", error);
+        setError("Error al obtener la lista de especialidades");
+      });
+  }, []);
+
+  const handleSearchClick = () => {
+    if (doctorName.trim() !== "") {
+      setLoading(true);
+      setError(null);
+      doctorService
+        .buscarPorNombre(doctorName)
+        .then((result) => {
+          setDoctors(result);
+        })
+        .catch((error) => {
+          console.error("Error al buscar doctores por nombre", error);
+          setError("Error al buscar doctores por nombre");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
 
   return (
     <Container maxWidth={false} style={{ height: "100vh" }}>
@@ -31,10 +64,12 @@ const StaffPage = () => {
           <Grid item xs={12} md={5}>
             <Autocomplete
               options={doctors}
+              loading={loading}
               value={doctorName}
-              onChange={(event, newValue) => {
+              onChange={(_, newValue) => {
                 setDoctorName(newValue);
               }}
+              getOptionLabel={(option) => option.nombre}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -62,8 +97,11 @@ const StaffPage = () => {
               onChange={(event) => setSelectedSpecialty(event.target.value)}
             >
               {specialties.map((specialty) => (
-                <MenuItem key={specialty} value={specialty}>
-                  {specialty}
+                <MenuItem
+                  key={specialty.idEspecialidad}
+                  value={specialty.idEspecialidad}
+                >
+                  {specialty.nombre}
                 </MenuItem>
               ))}
             </TextField>
@@ -80,6 +118,7 @@ const StaffPage = () => {
               color="primary"
               startIcon={<PersonAddIcon />}
               fullWidth
+              onClick={handleSearchClick}
             >
               Seleccionar
             </MUIButton>
@@ -87,7 +126,13 @@ const StaffPage = () => {
         </Grid>
       </Paper>
 
-      <DoctorTable />
+      {error && (
+        <Typography variant="body2" color="error">
+          {error}
+        </Typography>
+      )}
+
+      <DoctorTable doctors={doctors} />
     </Container>
   );
 };

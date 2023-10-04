@@ -28,8 +28,8 @@ export const doctorService = {
 
   buscarPorNombre: async (name) => {
     try {
-      const response = await axiosInstance.post("/rrhh/post/buscarDoctor", {
-        nombre: name,
+      const response = await axiosInstance.post("/rrhh/post/buscarMedico", {
+        pv_filtro: name,
       });
       return response.data;
     } catch (error) {
