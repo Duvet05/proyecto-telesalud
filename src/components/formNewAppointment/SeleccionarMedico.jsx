@@ -33,9 +33,9 @@ function SeleccionarMedico() {
   }, []);
 
   // Función para obtener los doctores por especialidad
-  const obtenerDoctoresPorEspecialidad = (especialidad) => {
+  const obtenerDoctoresPorEspecialidad = (especialidadNombre) => {
     doctorService
-      .buscarDoctoresPorEspecialidad(especialidad)
+      .buscarDoctoresPorEspecialidad(especialidadNombre)
       .then((data) => {
         setDoctors(data);
       })
@@ -82,7 +82,12 @@ function SeleccionarMedico() {
           >
             {doctors.map((doctor) => (
               <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
-                {doctor.nombres} - {doctor.codigo}
+                {doctor.sexo === "MASCULINO" ? "Dr. " : "Dra. "}
+                {doctor.nombres +
+                  " " +
+                  doctor.apellidoPaterno +
+                  " " +
+                  doctor.apellidoMaterno}
               </MenuItem>
             ))}
           </Select>

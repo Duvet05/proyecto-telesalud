@@ -50,11 +50,10 @@ export const doctorService = {
 
   buscarDoctoresPorEspecialidad: async (especialidad) => {
     try {
-      const response = await axiosInstance.get(
-        `/rrhh/post/medicoNombre?especialidad=${encodeURIComponent(
-          especialidad
-        )}`
-      );
+      const response = await axiosInstance.post("/rrhh/post/medicoNombre", {
+        pv_medico: "",
+        pv_especialidad: especialidad,
+      });
       return response.data;
     } catch (error) {
       console.error("Error al buscar doctores por especialidad", error);
