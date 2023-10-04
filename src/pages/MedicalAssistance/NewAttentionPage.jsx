@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Button, Container } from "@mui/material";
-import PatientInfo from "../../components/formNewAppointment/PatientInfo";
+import AppointmentForm from "../../components/formNewAppointment/AppointmentForm";
 import TriajeONoTriaje from "../../components/formNewAppointment/TriajeONoTriaje";
 import InformacionCita from "../../components/formNewAppointment/InformacionCita";
 import NavigationButtons from "../../components/common/NavigationButtons";
@@ -16,7 +16,7 @@ const Appointments = () => {
   };
 
   const PAGES = [
-    <PatientInfo navigate={navigate} />,
+    <AppointmentForm navigate={navigate} />,
     <SeleccionarMedico />,
     <TriajeONoTriaje />,
     <InformacionCita />,
