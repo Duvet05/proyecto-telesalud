@@ -4,7 +4,6 @@ import {
   TextField,
   Paper,
   Table,
-  TableSortLabel,
   Grid,
   Typography,
   TableHead,
