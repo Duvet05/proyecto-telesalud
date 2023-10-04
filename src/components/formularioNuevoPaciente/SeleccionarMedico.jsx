@@ -1,86 +1,89 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
-import Selectdate from "../../components/patient/Selectdate";
-import { getSpecialty } from "../../redux/Functions";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Selectdate from "./Selectdate";
+import { getSpecialty } from "../../redux/Functions";
 
 function SeleccionarMedico() {
-  const [cargando, setCargando] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [specialities, setSpecialties] = useState([]);
-  const [especialidad, setEspecialidad] = useState("Seleccionar Especialidad"); // Valor inicial
-  const [medico, setMedico] = useState("");
+  const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState("");
 
   useEffect(() => {
     getSpecialty()
-      .then((recibeSpecialties) => {
-        setSpecialties(recibeSpecialties);
-        setCargando(false);
+      .then((data) => {
+        setSpecialties(data);
+        setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        setIsLoading(false);
+        console.error("Error fetching specialties:", error);
+        // Consider adding user-friendly error notifications using something like 'react-toastify'.
       });
   }, []);
 
-  const medicos = {
+  const doctorsBySpeciality = {
     Cardiología: ["Dr. Smith", "Dr. Johnson"],
     Neurología: ["Dr. Williams", "Dr. Jones"],
     Ortopedia: ["Dr. Brown", "Dr. Davis"],
-  };
-
-  const handleEspecialidadChange = (event) => {
-    setEspecialidad(event.target.value);
-    setMedico(""); // Reseteamos el médico al cambiar especialidad
   };
 
   return (
     <div>
       <Autocomplete
         fullWidth
+        disabled={isLoading}
         options={specialities}
         getOptionLabel={(option) => option.nombre}
-        value={especialidad}
+        value={selectedSpeciality}
         onChange={(event, newValue) => {
-          setEspecialidad(newValue);
-          setMedico(""); // Reseteamos el médico al cambiar especialidad
+          setSelectedSpeciality(newValue);
+          setSelectedDoctor("");
         }}
         renderInput={(params) => (
-          <TextField {...params} label="Especialidad" variant="outlined" />
+          <TextField
+            {...params}
+            label="Especialidad"
+            variant="outlined"
+            placeholder="Seleccionar Especialidad"
+          />
         )}
       />
 
-      {especialidad != "Seleccionar Especialidad" && (
+      {selectedSpeciality && (
         <FormControl variant="outlined" fullWidth margin="normal">
           <InputLabel>Médico</InputLabel>
           <Select
-            value={medico}
-            onChange={(event) => setMedico(event.target.value)}
+            value={selectedDoctor}
+            onChange={(event) => setSelectedDoctor(event.target.value)}
           >
-            {medicos[especialidad.nombre]?.map((med) => (
-              <MenuItem key={med} value={med}>
-                {med}
+            {doctorsBySpeciality[selectedSpeciality.nombre]?.map((doctor) => (
+              <MenuItem key={doctor} value={doctor}>
+                {doctor}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       )}
 
-      {medico && <Selectdate />}
+      {selectedDoctor && <Selectdate />}
 
-      {medico && (
+      {selectedDoctor && (
         <Button
           variant="contained"
           color="primary"
           fullWidth
           style={{ marginTop: "20px" }}
         >
-          Reservar Cita con {medico}
+          Reservar Cita con {selectedDoctor}
         </Button>
       )}
     </div>
