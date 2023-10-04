@@ -2,15 +2,14 @@ package com.minsa.sanama.model.rrhh;
 
 import java.util.ArrayList;
 import com.minsa.sanama.model.admision.Persona;
-import com.minsa.sanama.model.admision.ProgramacionCita;
 
-public class Medico extends Persona{
+public class Medico extends Persona {
     private String area;
     private String cmp;
 
     private Especialidad especialidad;
     private ArrayList<HorarioAtencion> horariosAtencion;
-    //private ArrayList<ProgramacionCita> programacionesCitas;
+    // private ArrayList<ProgramacionCita> programacionesCitas;
 
     public Medico() {
     }
@@ -46,15 +45,15 @@ public class Medico extends Persona{
     public void setHorariosAtencion(ArrayList<HorarioAtencion> horariosAtencion) {
         this.horariosAtencion = horariosAtencion;
     }
-/*
-    public ArrayList<ProgramacionCita> getProgramacionesCitas() {
-        return programacionesCitas;
-    }
+    /*
+     * public ArrayList<ProgramacionCita> getProgramacionesCitas() {
+     * return programacionesCitas;
+     * }
+     * 
+     * public void setProgramacionesCitas(ArrayList<ProgramacionCita>
+     * programacionesCitas) {
+     * this.programacionesCitas = programacionesCitas;
+     * }
+     */
 
-    public void setProgramacionesCitas(ArrayList<ProgramacionCita> programacionesCitas) {
-        this.programacionesCitas = programacionesCitas;
-    }
-    */
-    
-    
 }

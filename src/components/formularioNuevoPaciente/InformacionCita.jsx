@@ -1,234 +1,174 @@
 import React from "react";
-import { styled } from "@mui/system";
-import { TextField, Typography, Grid, IconButton } from "@mui/material";
+import { Box, TextField, Typography, Grid, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-const Container = styled("div")(({ theme }) => ({
-  padding: theme.spacing(2),
-}));
+const softBlue = "#e6f7ff"; // Azul suave
+const labelColor = "#666"; // Color de etiqueta
 
-const Seccion = styled("div")(({ theme }) => ({
-  marginBottom: theme.spacing(4), // Espacio entre secciones
-}));
+const Campo = ({ id, label, type, iconButton }) => {
+  const inputStyles = {
+    backgroundColor: softBlue,
+    "& input": {
+      color: labelColor,
+    },
+  };
 
-const Campo = styled("div")(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-}));
-
-const PacienteBotones = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  "& button": {
-    marginLeft: theme.spacing(1),
-  },
-}));
+  return (
+    <Box
+      sx={{
+        marginBottom: 2,
+        display: "flex",
+        alignItems: "flex-start", // Alinea los labels en la parte superior
+      }}
+    >
+      <label
+        htmlFor={id}
+        style={{
+          width: "120px", // Ancho fijo para el label
+          fontSize: "0.875rem",
+          fontWeight: "bold",
+          color: labelColor,
+          marginRight: "8px", // Espacio entre el label y el campo
+        }}
+      >
+        {label}
+      </label>
+      {iconButton ? (
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <TextField
+            type={type}
+            id={id}
+            name={id}
+            variant="outlined"
+            required
+            fullWidth
+            readOnly
+            disabled
+            sx={inputStyles}
+          />
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+        </Box>
+      ) : (
+        <TextField
+          type={type}
+          id={id}
+          name={id}
+          variant="outlined"
+          required
+          fullWidth
+          disabled
+          sx={inputStyles}
+        />
+      )}
+    </Box>
+  );
+};
 
 function InformacionCita() {
-  return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Ver información de cita
-      </Typography>
+  const pacienteCampos = [
+    {
+      id: "numero-documento-paciente",
+      label: "N° documento",
+      type: "tel",
+      iconButton: true,
+    },
+    {
+      id: "codigo-asegurado-sis",
+      label: "Código del asegurado SIS",
+      type: "text",
+      iconButton: false,
+    },
+    {
+      id: "apellido-paterno",
+      label: "Apellido paterno",
+      type: "text",
+      iconButton: false,
+    },
+    {
+      id: "apellido-materno",
+      label: "Apellido materno",
+      type: "text",
+      iconButton: false,
+    },
+    {
+      id: "nombres",
+      label: "Nombres",
+      type: "text",
+      iconButton: false,
+    },
+  ];
 
+  const atencionCampos = [
+    {
+      id: "numero-cita",
+      label: "Número de cita",
+      type: "text",
+      iconButton: false,
+    },
+    {
+      id: "fecha-atencion",
+      label: "Fecha de atención",
+      type: "date",
+      iconButton: false,
+    },
+    {
+      id: "hora-atencion",
+      label: "Hora de atención",
+      type: "time",
+      iconButton: false,
+    },
+    {
+      id: "medico-responsable",
+      label: "Médico responsable",
+      type: "text",
+      iconButton: true,
+    },
+    {
+      id: "especialidad",
+      label: "Especialidad",
+      type: "text",
+      iconButton: false,
+    },
+    {
+      id: "estado",
+      label: "Estado",
+      type: "text",
+      iconButton: false,
+    },
+  ];
+
+  return (
+    <div>
       {/* Sección: Ver información de cita */}
-      <Seccion>
+      <Box sx={{ marginBottom: 4 }}>
         <Typography variant="h6" gutterBottom>
           Información del paciente
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="numero-documento-paciente">N° documento</label>
-              <PacienteBotones>
-                <TextField
-                  type="tel"
-                  id="numero-documento-paciente"
-                  name="numero-documento-paciente"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  readOnly
-                  disabled
-                  style={{ backgroundColor: "#b9b9b9" }}
-                />
-                <IconButton>
-                  <SearchIcon />
-                </IconButton>
-              </PacienteBotones>
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="codigo-asegurado-sis">
-                Código del asegurado SIS
-              </label>
-              <TextField
-                type="text"
-                id="codigo-asegurado-sis"
-                name="codigo-asegurado-sis"
-                variant="outlined"
-                required
-                fullWidth
-                readOnly
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="apellido-paterno">Apellido paterno</label>
-              <TextField
-                type="text"
-                id="apellido-paterno"
-                name="apellido-paterno"
-                variant="outlined"
-                required
-                fullWidth
-                readOnly
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="apellido-materno">Apellido materno</label>
-              <TextField
-                type="text"
-                id="apellido-materno"
-                name="apellido-materno"
-                variant="outlined"
-                required
-                fullWidth
-                readOnly
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="nombres">Nombres</label>
-              <TextField
-                type="text"
-                id="nombres"
-                name="nombres"
-                variant="outlined"
-                required
-                fullWidth
-                readOnly
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
+          {pacienteCampos.map((campo) => (
+            <Grid item xs={4} key={campo.id}>
+              <Campo {...campo} />
+            </Grid>
+          ))}
         </Grid>
-      </Seccion>
+      </Box>
+
       {/* Sección: Información de la atención */}
-      <Seccion>
-        <Typography variant="h6" gutterBottom margin={"1.5rem 0rem"}>
+      <Box>
+        <Typography variant="h6" gutterBottom sx={{ marginBottom: 4 }}>
           Información de la atención
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="numero-cita">Número de cita</label>
-              <TextField
-                type="text"
-                id="numero-cita"
-                name="numero-cita"
-                variant="outlined"
-                required
-                fullWidth
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="fecha-atencion">Fecha de atención</label>
-              <TextField
-                type="date"
-                id="fecha-atencion"
-                name="fecha-atencion"
-                variant="outlined"
-                required
-                fullWidth
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="hora-atencion">Hora de atención</label>
-              <TextField
-                type="time"
-                id="hora-atencion"
-                name="hora-atencion"
-                variant="outlined"
-                required
-                fullWidth
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="medico-responsable">Médico responsable</label>
-              <PacienteBotones>
-                <TextField
-                  type="text"
-                  id="medico-responsable"
-                  name="medico-responsable"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  disabled
-                  style={{ backgroundColor: "#b9b9b9" }}
-                />
-                <IconButton>
-                  <SearchIcon />
-                </IconButton>
-              </PacienteBotones>
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="especialidad">Especialidad</label>
-              <TextField
-                type="text"
-                id="especialidad"
-                name="especialidad"
-                variant="outlined"
-                required
-                fullWidth
-                disabled
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
-          <Grid item xs={4}>
-            <Campo>
-              <label htmlFor="estado">Estado</label>
-              <TextField
-                type="text"
-                id="estado"
-                name="estado"
-                variant="outlined"
-                required
-                fullWidth
-                readOnly
-                style={{ backgroundColor: "#b9b9b9" }}
-              />
-            </Campo>
-          </Grid>
+          {atencionCampos.map((campo) => (
+            <Grid item xs={4} key={campo.id}>
+              <Campo {...campo} />
+            </Grid>
+          ))}
         </Grid>
-      </Seccion>
-    </Container>
+      </Box>
+    </div>
   );
 }
 

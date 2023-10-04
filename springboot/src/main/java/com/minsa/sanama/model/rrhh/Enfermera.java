@@ -2,14 +2,12 @@ package com.minsa.sanama.model.rrhh;
 
 import java.util.ArrayList;
 import com.minsa.sanama.model.admision.Persona;
-import com.minsa.sanama.model.admision.Triaje;
-import com.minsa.sanama.model.laboratorio.CitaLaboratorio;
 
-public class Enfermera extends Persona{
+public class Enfermera extends Persona {
     private String area;
     private String numeroLicencia;
-    //private ArrayList<CitaLaboratorio> citasLaboratorio;
-    //private ArrayList<Triaje> triajes;
+    // private ArrayList<CitaLaboratorio> citasLaboratorio;
+    // private ArrayList<Triaje> triajes;
     private ArrayList<HorarioAtencion> horariosAtencion;
 
     public Enfermera() {
@@ -22,6 +20,7 @@ public class Enfermera extends Persona{
     public void setArea(String area) {
         this.area = area;
     }
+
     public String getNumeroLicencia() {
         return numeroLicencia;
     }
@@ -29,23 +28,25 @@ public class Enfermera extends Persona{
     public void setNumeroLicencia(String numeroLicencia) {
         this.numeroLicencia = numeroLicencia;
     }
+
     /*
-    public ArrayList<CitaLaboratorio> getCitasLaboratorio() {
-        return citasLaboratorio;
-    }
-
-    public void setCitasLaboratorio(ArrayList<CitaLaboratorio> citasLaboratorio) {
-        this.citasLaboratorio = citasLaboratorio;
-    }
-
-    public ArrayList<Triaje> getTriajes() {
-        return triajes;
-    }
-
-    public void setTriajes(ArrayList<Triaje> triajes) {
-        this.triajes = triajes;
-    }
-*/
+     * public ArrayList<CitaLaboratorio> getCitasLaboratorio() {
+     * return citasLaboratorio;
+     * }
+     * 
+     * public void setCitasLaboratorio(ArrayList<CitaLaboratorio> citasLaboratorio)
+     * {
+     * this.citasLaboratorio = citasLaboratorio;
+     * }
+     * 
+     * public ArrayList<Triaje> getTriajes() {
+     * return triajes;
+     * }
+     * 
+     * public void setTriajes(ArrayList<Triaje> triajes) {
+     * this.triajes = triajes;
+     * }
+     */
     public ArrayList<HorarioAtencion> getHorariosAtencion() {
         return horariosAtencion;
     }

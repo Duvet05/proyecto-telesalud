@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Button, Container } from "@mui/material";
 import PatientInfo from "../../components/patient/PatientInfo";
-import Selectdate from "../../components/patient/Selectdate";
 import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
 import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
 import NavigationButtons from "../../components/common/NavigationButtons";
@@ -29,6 +28,22 @@ const Appointments = () => {
     "Mandar a triaje",
     "Visualizar Atención",
   ];
+
+  useEffect(() => {
+    const confirmExit = (e) => {
+      e.preventDefault();
+      e.returnValue =
+        "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
+
+      return ""; // Para navegadores antiguos
+    };
+
+    window.addEventListener("beforeunload", confirmExit);
+
+    return () => {
+      window.removeEventListener("beforeunload", confirmExit);
+    };
+  }, []);
 
   return (
     <Container>

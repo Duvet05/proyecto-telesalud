@@ -1,6 +1,5 @@
 package com.minsa.sanama.model.atencionmedica;
 
-import java.util.ArrayList;
 import com.minsa.sanama.model.laboratorio.ExamenMedico;
 
 public class OrdenLaboratorio {
@@ -12,7 +11,7 @@ public class OrdenLaboratorio {
 
     public OrdenLaboratorio() {
     }
-    
+
     public int getIdOrdenLaboratorio() {
         return idOrdenLaboratorio;
     }
