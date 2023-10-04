@@ -8,7 +8,6 @@
   box-sizing: border-box;
   border-right: 0px;
   background-color: #233044;
-
 }
 .drawer-paper-collapsed {
   width: 60px; /* o cualquier ancho que sea lo suficientemente estrecho como para mostrar solo los iconos */

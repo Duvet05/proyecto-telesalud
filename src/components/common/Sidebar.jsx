@@ -14,7 +14,7 @@ import SidebarItem from "./SidebarItem";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-  const drawerWidth = isSidebarOpen ? 240 : 60;
+  const drawerWidth = isSidebarOpen ? 300 : 60;
 
   return (
     <Drawer
