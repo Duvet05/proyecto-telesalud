@@ -3,6 +3,9 @@ import MedicationTable from "../../components/common/tables/MedicationTable";
 import SeleccionarHorarioMedico from "./SeleccionarHorarioMedico"
 import { useState } from "react";
 import moment from "moment"; // Importa moment
+import PerfilMedico from "./PerfilMedico";
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper'; 
 const LaboratoryPage = (props) => {
   const [selectedAvailability, setSelectedAvailability] = useState(null);
 
@@ -12,17 +15,20 @@ const LaboratoryPage = (props) => {
 
   return (
     <div>
-      {/* <h1>LaboratoryPage</h1> */}
-      <h1>Componente para seleccionar disponibilidad del médico en la semana</h1>
-      <hr></hr>
-      {/* <MedicationTable className="medicationTable"></MedicationTable> */}
-      <SeleccionarHorarioMedico onAvailabilitySelected={handleShowAvailability}></SeleccionarHorarioMedico>
-      
-      <br /><br /> <br />
-      <h2>Disponibilidad Seleccionada:</h2>
-      <pre>{JSON.stringify(selectedAvailability, null, 2)}</pre>
-
-
+      <Grid container justifyContent="center" style={{ height: '100vh' }}>
+        <Grid item xs={11}>
+          <Paper elevation={3} style={{ padding: '30px', background: 'white' }}>
+            {/* Contenido dentro del Paper */}
+            <h1>Componente perfil del médico</h1>
+            <hr />
+            <h3>Datos personales</h3>
+            <PerfilMedico />
+            <h3>Disponibilidad</h3>
+            <SeleccionarHorarioMedico />
+            {/* Fin del contenido dentro del Paper */}
+          </Paper>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -85,10 +85,9 @@ function SchedulePage({onAvailabilitySelected}) {
         selectable={view === "week"} // Habilita la selección solo en la vista "Week"
         onView={(newView) => setView(newView)} // Actualiza el estado de la vista
       />
-      <br />
-      <Button variant="contained" onClick={handleSaveAvailability}>
+      {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
-      </Button>
+      </Button> */}
     </div >
   );
 }
