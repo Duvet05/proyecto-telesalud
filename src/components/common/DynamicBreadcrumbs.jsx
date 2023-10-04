@@ -13,6 +13,9 @@ function DynamicBreadcrumbs() {
     <Breadcrumbs
       separator={<NavigateNextIcon fontSize="small" />}
       aria-label="breadcrumb"
+      sx={{
+        marginBottom: "70px",
+      }}
     >
       {pathnames.length > 0 ? (
         <Link color="inherit" onClick={() => navigate("/")}>
