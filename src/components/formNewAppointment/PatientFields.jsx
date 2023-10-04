@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Grid } from "@mui/material";
 
-function PatientFields({ isDisabled }) {
+function PatientFields({ isDisabled, patientData }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={4}>
@@ -11,6 +11,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.dni : ""}
         />
       </Grid>
 
@@ -21,6 +22,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.codigoSeguro : ""}
         />
       </Grid>
 
@@ -31,6 +33,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.nombres : ""}
         />
       </Grid>
 
@@ -41,6 +44,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.apellidoPaterno : ""}
         />
       </Grid>
 
@@ -51,6 +55,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.apellidoMaterno : ""}
         />
       </Grid>
       <Grid item xs={4}>
@@ -60,6 +65,7 @@ function PatientFields({ isDisabled }) {
           required
           fullWidth
           disabled={isDisabled}
+          value={patientData ? patientData.fechaNacimiento : ""}
         />
       </Grid>
     </Grid>

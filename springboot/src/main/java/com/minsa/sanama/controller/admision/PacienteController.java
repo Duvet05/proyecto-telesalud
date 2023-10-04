@@ -16,7 +16,7 @@ public class PacienteController {
 
     @GetMapping(value = "/get/paciente")
     @ResponseBody
-    public List<Paciente> listarPacientes(){
+    public List<Paciente> listarPacientes() {
         List<Paciente> pacientes;
 
         pacientes = pacienteService.listarPacientes();
@@ -25,7 +25,7 @@ public class PacienteController {
 
     @GetMapping(value = "/get/buscarPaciente")
     @ResponseBody
-    public List<Paciente> buscarPacienteFiltro(@RequestParam String pv_filtro){
+    public List<Paciente> buscarPacienteFiltro(@RequestParam String pv_filtro) {
         List<Paciente> pacientes;
 
         pacientes = pacienteService.buscarPacienteFiltro(pv_filtro);
@@ -34,7 +34,7 @@ public class PacienteController {
 
     @PutMapping(value = "/put/paciente")
     @ResponseBody
-    public int registrarPaciente(@RequestBody Paciente paciente){
+    public int registrarPaciente(@RequestBody Paciente paciente) {
         int idPaciente;
 
         idPaciente = pacienteService.registrarPaciente(paciente);
@@ -43,7 +43,7 @@ public class PacienteController {
 
     @PatchMapping(value = "/patch/paciente")
     @ResponseBody
-    public int actualizarPaciente(@RequestBody Paciente paciente){
+    public int actualizarPaciente(@RequestBody Paciente paciente) {
         int n;
         n = pacienteService.actualizarPaciente(paciente);
         return n;
@@ -51,7 +51,7 @@ public class PacienteController {
 
     @PatchMapping(value = "/delete/paciente")
     @ResponseBody
-    public int eliminarPaciente(@RequestBody Paciente paciente){
+    public int eliminarPaciente(@RequestBody Paciente paciente) {
         int n;
         n = pacienteService.eliminarPaciente(paciente);
         return n;

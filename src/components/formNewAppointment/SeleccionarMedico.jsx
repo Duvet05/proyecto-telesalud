@@ -9,16 +9,18 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Selectdate from "./Selectdate";
-import { getSpecialty } from "../../redux/Functions";
+import { doctorService } from "../../services/doctorService";
 
 function SeleccionarMedico() {
   const [isLoading, setIsLoading] = useState(true);
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
+  const [doctors, setDoctors] = useState([]); // Array para almacenar los doctores por especialidad
   const [selectedDoctor, setSelectedDoctor] = useState("");
 
   useEffect(() => {
-    getSpecialty()
+    doctorService
+      .listarEspecialidades()
       .then((data) => {
         setSpecialties(data);
         setIsLoading(false);
@@ -30,10 +32,17 @@ function SeleccionarMedico() {
       });
   }, []);
 
-  const doctorsBySpeciality = {
-    Cardiología: ["Dr. Smith", "Dr. Johnson"],
-    Neurología: ["Dr. Williams", "Dr. Jones"],
-    Ortopedia: ["Dr. Brown", "Dr. Davis"],
+  // Función para obtener los doctores por especialidad
+  const obtenerDoctoresPorEspecialidad = (especialidadNombre) => {
+    doctorService
+      .buscarDoctoresPorEspecialidad(especialidadNombre)
+      .then((data) => {
+        setDoctors(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching doctors:", error);
+        // Consider adding user-friendly error notifications using something like 'react-toastify'.
+      });
   };
 
   return (
@@ -47,6 +56,12 @@ function SeleccionarMedico() {
         onChange={(event, newValue) => {
           setSelectedSpeciality(newValue);
           setSelectedDoctor("");
+          if (newValue) {
+            obtenerDoctoresPorEspecialidad(newValue.nombre);
+          } else {
+            // Si no se selecciona ninguna especialidad, borra la lista de doctores
+            setDoctors([]);
+          }
         }}
         renderInput={(params) => (
           <TextField
@@ -65,9 +80,14 @@ function SeleccionarMedico() {
             value={selectedDoctor}
             onChange={(event) => setSelectedDoctor(event.target.value)}
           >
-            {doctorsBySpeciality[selectedSpeciality.nombre]?.map((doctor) => (
-              <MenuItem key={doctor} value={doctor}>
-                {doctor}
+            {doctors.map((doctor) => (
+              <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
+                {doctor.sexo === "MASCULINO" ? "Dr. " : "Dra. "}
+                {doctor.nombres +
+                  " " +
+                  doctor.apellidoPaterno +
+                  " " +
+                  doctor.apellidoMaterno}
               </MenuItem>
             ))}
           </Select>
