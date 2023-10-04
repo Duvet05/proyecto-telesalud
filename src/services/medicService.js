@@ -5,7 +5,7 @@ const axiosInstance = axios.create({
   baseURL: connection.backend,
 });
 
-export const doctorService = {
+export const medicService = {
   insertar: async (doctorForm) => {
     try {
       const response = await axiosInstance.put("/rrhh/put/doctor", doctorForm);
@@ -48,7 +48,7 @@ export const doctorService = {
     }
   },
 
-  buscarDoctoresPorEspecialidad: async (especialidad) => {
+  buscarPorEspecialidad: async (especialidad) => {
     try {
       const response = await axiosInstance.post("/rrhh/post/medicoNombre", {
         pv_medico: "",

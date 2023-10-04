@@ -9,7 +9,7 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Selectdate from "./Selectdate";
-import { doctorService } from "../../services/doctorService";
+import { medicService } from "../../services/medicService";
 
 function SeleccionarMedico() {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +19,7 @@ function SeleccionarMedico() {
   const [selectedDoctor, setSelectedDoctor] = useState("");
 
   useEffect(() => {
-    doctorService
+    medicService
       .listarEspecialidades()
       .then((data) => {
         setSpecialties(data);
@@ -34,8 +34,8 @@ function SeleccionarMedico() {
 
   // Función para obtener los doctores por especialidad
   const obtenerDoctoresPorEspecialidad = (especialidadNombre) => {
-    doctorService
-      .buscarDoctoresPorEspecialidad(especialidadNombre)
+    medicService
+      .buscarPorEspecialidad(especialidadNombre)
       .then((data) => {
         setDoctors(data);
       })
@@ -82,7 +82,7 @@ function SeleccionarMedico() {
           >
             {doctors.map((doctor) => (
               <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
-                {doctor.sexo === "MASCULINO" ? "Dr. " : "Dra. "}
+                {doctor.sexo === "M" ? "Dr. " : "Dra. "}
                 {doctor.nombres +
                   " " +
                   doctor.apellidoPaterno +

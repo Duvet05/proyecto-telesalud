@@ -9,7 +9,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import { getPatients } from "../../../services/doctorService";
+import { getPatients } from "../../../services/medicService";
 
 export const PatientTable = () => {
   const [cargando, setCargando] = useState(true); //true

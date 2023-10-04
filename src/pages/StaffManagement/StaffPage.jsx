@@ -12,7 +12,7 @@ import {
 import { Autocomplete } from "@mui/lab";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { doctorService } from "../../services/doctorService"; // Importa el servicio de doctores
+import { medicService } from "../../services/medicService"; // Importa el servicio de doctores
 import DoctorTable from "../../components/common/tables/DoctorTable";
 
 const StaffPage = () => {
@@ -25,7 +25,7 @@ const StaffPage = () => {
 
   useEffect(() => {
     // Cargar la lista de especialidades una vez al inicio
-    doctorService
+    medicService
       .listarEspecialidades()
       .then((data) => setSpecialties(data))
       .catch((error) => {
@@ -38,7 +38,7 @@ const StaffPage = () => {
     if (doctorName.trim() !== "") {
       setLoading(true);
       setError(null);
-      doctorService
+      medicService
         .buscarPorNombre(doctorName)
         .then((result) => {
           setDoctors(result);
