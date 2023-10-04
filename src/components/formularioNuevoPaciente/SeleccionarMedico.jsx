@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Button,
   Select,
@@ -7,12 +7,27 @@ import {
   InputLabel,
 } from "@mui/material";
 import Selectdate from "../../components/patient/Selectdate";
+import { getSpecialty } from "../../redux/Functions";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
 function SeleccionarMedico() {
-  const [especialidad, setEspecialidad] = useState("");
+  const [cargando, setCargando] = useState(true);
+  const [specialities, setSpecialties] = useState([]);
+  const [especialidad, setEspecialidad] = useState("Seleccionar Especialidad"); // Valor inicial
   const [medico, setMedico] = useState("");
 
-  const especialidades = ["Cardiología", "Neurología", "Ortopedia"];
+  useEffect(() => {
+    getSpecialty()
+      .then((recibeSpecialties) => {
+        setSpecialties(recibeSpecialties);
+        setCargando(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const medicos = {
     Cardiología: ["Dr. Smith", "Dr. Johnson"],
     Neurología: ["Dr. Williams", "Dr. Jones"],
@@ -26,25 +41,28 @@ function SeleccionarMedico() {
 
   return (
     <div>
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel>Especialidad</InputLabel>
-        <Select value={especialidad} onChange={handleEspecialidadChange}>
-          {especialidades.map((esp) => (
-            <MenuItem key={esp} value={esp}>
-              {esp}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Autocomplete
+        fullWidth
+        options={specialities}
+        getOptionLabel={(option) => option.nombre}
+        value={especialidad}
+        onChange={(event, newValue) => {
+          setEspecialidad(newValue);
+          setMedico(""); // Reseteamos el médico al cambiar especialidad
+        }}
+        renderInput={(params) => (
+          <TextField {...params} label="Especialidad" variant="outlined" />
+        )}
+      />
 
-      {especialidad && (
+      {especialidad != "Seleccionar Especialidad" && (
         <FormControl variant="outlined" fullWidth margin="normal">
           <InputLabel>Médico</InputLabel>
           <Select
             value={medico}
             onChange={(event) => setMedico(event.target.value)}
           >
-            {medicos[especialidad].map((med) => (
+            {medicos[especialidad.nombre]?.map((med) => (
               <MenuItem key={med} value={med}>
                 {med}
               </MenuItem>

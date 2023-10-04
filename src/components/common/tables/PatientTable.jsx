@@ -9,7 +9,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import { getPatients } from "../../../redux/functions";
+import { getPatients } from "../../../redux/Functions";
 
 export const PatientTable = () => {
   const [cargando, setCargando] = useState(true); //true

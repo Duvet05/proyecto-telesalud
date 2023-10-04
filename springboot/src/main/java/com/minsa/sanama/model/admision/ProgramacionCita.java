@@ -1,10 +1,8 @@
 package com.minsa.sanama.model.admision;
 
-import java.util.ArrayList;
 import java.util.Date;
 import com.minsa.sanama.model.rrhh.Administrativo;
 import com.minsa.sanama.model.rrhh.Medico;
-
 
 abstract public class ProgramacionCita {
     private int idCita;
@@ -18,7 +16,6 @@ abstract public class ProgramacionCita {
     private EstadoCita estadoCita;
     private int estado;
     private Triaje triaje;
-
 
     public ProgramacionCita() {
     }
@@ -38,7 +35,7 @@ abstract public class ProgramacionCita {
     public void setAdministrativo(Administrativo administrativo) {
         this.administrativo = administrativo;
     }
-    
+
     public Triaje getTriaje() {
         return triaje;
     }
@@ -110,5 +107,5 @@ abstract public class ProgramacionCita {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
+
 }
