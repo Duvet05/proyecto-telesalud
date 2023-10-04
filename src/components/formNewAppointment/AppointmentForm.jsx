@@ -62,7 +62,11 @@ function AppointmentForm() {
   };
 
   const handleCancelClick = () => {
-    setState((prev) => ({ ...prev, showFields: false, isEditing: false }));
+    setState((prev) => ({
+      ...prev,
+      isEditing: false,
+      searchResult: null, // Clear the patient selection
+    }));
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   TextField,
@@ -10,21 +10,21 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
 function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
-  const [inputValue, setInputValue] = React.useState("");
-  const [selectedValue, setSelectedValue] = React.useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState(null);
 
-  const handleSelectionChange = (event, value) => {
+  const handleAutoCompleteChange = (event, value) => {
     onSelect(value);
-    setSelectedValue(value); // Set selected value after selection
-    setInputValue(""); // Clear input value after selection
+    setSelectedValue(value);
   };
 
-  const handleIconButtonClick = () => {
+  const handleAddOrCancel = () => {
     onAdd();
-    setInputValue(""); // Clear input value after clicking the button
-    setSelectedValue(null); // Clear selected value after clicking the button
+    setSelectedValue(null);
+    setInputValue("");
   };
 
+  const isAddMode = !selectedValue && inputValue !== "";
   return (
     <Grid container spacing={3}>
       <Grid item xs={10} md={8}>
@@ -36,25 +36,31 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="NOMBRES O DOCUMENTO DE INDENTIDAD"
+              label="Buscar por Nombre del Paciente"
               variant="outlined"
               fullWidth
               disabled={disabled}
             />
           )}
           inputValue={inputValue}
-          onInputChange={(event, newInputValue) => {
-            setInputValue(newInputValue);
-          }}
-          value={selectedValue} // Use controlled value
-          onChange={handleSelectionChange}
+          onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+          value={selectedValue}
+          onChange={handleAutoCompleteChange}
           disabled={disabled}
         />
       </Grid>
       <Grid item xs={2} md={4}>
-        <Tooltip title={isEditing ? "Cancelar" : "Agregar paciente"}>
-          <IconButton onClick={handleIconButtonClick}>
-            {isEditing ? <CloseIcon /> : <AddIcon />}
+        <Tooltip
+          title={
+            isAddMode
+              ? "Agregar paciente"
+              : isEditing
+              ? "Cancelar"
+              : "Editar selección"
+          }
+        >
+          <IconButton onClick={handleAddOrCancel}>
+            {isAddMode ? <AddIcon /> : isEditing ? <CloseIcon /> : <AddIcon />}
           </IconButton>
         </Tooltip>
       </Grid>
