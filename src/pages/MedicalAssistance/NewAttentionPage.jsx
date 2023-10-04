@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Button, Container } from "@mui/material";
-import PatientInfo from "../../components/formularioNuevoPaciente/PatientInfo";
-import TriajeONoTriaje from "../../components/formularioNuevoPaciente/TriajeONoTriaje";
-import InformacionCita from "../../components/formularioNuevoPaciente/InformacionCita";
+import PatientInfo from "../../components/formNewAppointment/PatientInfo";
+import TriajeONoTriaje from "../../components/formNewAppointment/TriajeONoTriaje";
+import InformacionCita from "../../components/formNewAppointment/InformacionCita";
 import NavigationButtons from "../../components/common/NavigationButtons";
-import SeleccionarMedico from "../../components/formularioNuevoPaciente/SeleccionarMedico";
+import SeleccionarMedico from "../../components/formNewAppointment/SeleccionarMedico";
 
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);

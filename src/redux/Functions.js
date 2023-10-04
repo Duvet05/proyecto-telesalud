@@ -1,17 +1,35 @@
+const API_BASE_URL = "http://localhost:8080";
+
+export async function fetchData(url, method = "GET", data = null) {
+  const requestOptions = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  };
+
+  const response = await fetch(`${API_BASE_URL}${url}`, requestOptions);
+
+  if (!response.ok) {
+    throw new Error(`Network response was not ok: ${response.status}`);
+  }
+
+  return response.json();
+}
+
 export function getPatients() {
-  return fetch("http://localhost:8080/admision/get/paciente", { method: "GET" })
-    .then((response) => response.json())
-    .catch((error) => {
-      throw error;
-    });
+  return fetchData("/admision/get/paciente");
 }
 
 export function getSpecialty() {
-  return fetch("http://localhost:8080/rrhh/get/especialidad", { method: "GET" })
-    .then((response) => response.json())
-    .catch((error) => {
-      throw error;
-    });
+  return fetchData("/rrhh/get/especialidad");
+}
+
+export function searchPatientsByName(name) {
+  return fetchData("/admision/post/buscarPaciente", "POST", {
+    pv_filtro: name,
+  });
 }
 
 /*
