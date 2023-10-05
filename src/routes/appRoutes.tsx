@@ -1,8 +1,6 @@
-// External libraries
 import React from "react";
 import { RouteType } from "./config";
 
-//Iconos
 import {
   Diversity1,
   MedicalServices,
@@ -13,7 +11,6 @@ import {
   Settings,
 } from "@mui/icons-material";
 
-// Pages
 import HomePage from "../pages/home/HomePage";
 import PatientPage from "../pages/PatientManagement/PatientPage";
 import StaffManagement from "../pages/StaffManagement/StaffManagement";
