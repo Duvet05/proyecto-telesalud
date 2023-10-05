@@ -11,7 +11,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import { getDoctors } from "../../doctor/DoctorFunctions";
-
+import { Link } from "react-router-dom";
 export const DoctorTable = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [doctors, setDoctors] = useState([]);
@@ -97,17 +97,15 @@ const DoctorRow = ({ doctor }) => (
     <TableCell>{doctor.area}</TableCell>
     <TableCell>{doctor.especialidad.nombre}</TableCell>
     <TableCell>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() =>
-          alert(`Ver perfil del doctor con ID: ${doctor.idDoctor}`)
-        }
-      >
-        Ver perfil
-      </Button>
+      {/* Enlace dinámico al perfil del médico */}
+      <Link to={`/medicos/${doctor.idPersona}`}>
+        <Button variant="contained" color="primary">
+          Ver perfil
+        </Button>
+      </Link>
     </TableCell>
   </TableRow>
+
 );
 
 const getSortedDoctors = (doctors, orderBy, order) => {
