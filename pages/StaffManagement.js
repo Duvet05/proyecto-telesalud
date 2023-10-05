@@ -19,7 +19,7 @@ import MainLayout from "@/components/layout/MainLayout";
 const StaffManagement = () => {
   const [doctorName, setDoctorName] = useState("");
   const [doctors, setDoctors] = useState([]);
-  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [selectedSpecialty, setSelectedSpecialty] = useState("todasLasEspecialidades");
   const [specialties, setSpecialties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -60,7 +60,7 @@ const StaffManagement = () => {
     <MainLayout>
       <Container maxWidth={false} style={{ height: "100vh" }}>
         <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
-          Seleccionar Doctor
+          Médicos
         </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
