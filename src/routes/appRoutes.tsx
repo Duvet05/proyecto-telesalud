@@ -24,7 +24,7 @@ import TriagePage from "../pages/MedicalAssistance/TriagePage";
 import NewAttentionPage from "../pages/MedicalAssistance/NewAttentionPage";
 import LaboratoryPage from "../pages/LaboratoryManagement/LaboratoryPage";
 import ConfigurationPage from "../pages/ConfigurationManagement/ConfigurationPage";
-
+import PerfilMedico from "../pages/LaboratoryManagement/LaboratoryPage";
 const appRoutes: RouteType[] = [
   {
     index: true,
@@ -103,6 +103,15 @@ const appRoutes: RouteType[] = [
     sidebarProps: {
       displayText: "Configuracion",
       icon: <Settings />,
+    },
+  },
+  {
+    path: "/medicos/:idPersona", // Utiliza un marcador de posición :id en la URL
+    element: <PerfilMedico />, // Renderiza tu componente de perfil de médico
+    state: "staff.profile", // Define un estado o nombre para esta ruta
+    sidebarProps: {
+      displayText: "Perfil del Médico",
+      icon: <MedicalServices />,
     },
   },
 ];
