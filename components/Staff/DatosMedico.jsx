@@ -69,8 +69,7 @@ const Campo = ({ id, label, type, iconButton, value }) => {
 };
 
 function DatosMedico(props) {
-  const { doctor } = props;
-  console.log(doctor);
+  const {doctor} = props;
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       {/* Columna 1 */}
@@ -80,14 +79,14 @@ function DatosMedico(props) {
           label="Nombres"
           type="text"
           iconButton={false}
-          value={doctor.nombres}
+          value={doctor[0].nombres}
         />
         <Campo
           id="cmp"
           label="CMP"
           type="text"
           iconButton={false}
-          value={doctor.cmp}
+          value={doctor[0].cmp}
         />
       </div>
 
@@ -98,7 +97,7 @@ function DatosMedico(props) {
           label="Primer Apellido"
           type="text"
           iconButton={false}
-          value={doctor.apellidoPaterno}
+          value={doctor[0].apellidoPaterno}
         />
         <Campo
           id="especialidad"
@@ -116,7 +115,7 @@ function DatosMedico(props) {
           label="Segundo Apellido"
           type="text"
           iconButton={false}
-          value={doctor.apellidoMaterno}
+          value={doctor[0].apellidoMaterno}
         />
         <Campo
           id="correo-electronico"
