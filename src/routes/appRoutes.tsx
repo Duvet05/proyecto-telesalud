@@ -24,7 +24,7 @@ import TriagePage from "../pages/MedicalAssistance/TriagePage";
 import NewAttentionPage from "../pages/MedicalAssistance/NewAttentionPage";
 import LaboratoryPage from "../pages/LaboratoryManagement/LaboratoryPage";
 import ConfigurationPage from "../pages/ConfigurationManagement/ConfigurationPage";
-import PerfilMedico from "../pages/LaboratoryManagement/LaboratoryPage";
+import PerfilMedico from "../components/doctor/PerfilMedico";
 const appRoutes: RouteType[] = [
   {
     index: true,
