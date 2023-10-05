@@ -3,10 +3,9 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/es"; // Importa la localización en español
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Button } from "@mui/material";
 const localizer = momentLocalizer(moment);
 
-function SchedulePage({onAvailabilitySelected}) {
+function SchedulePage({ onAvailabilitySelected }) {
   const [events, setEvents] = useState([]); //Estado para controlar las horas disponibles
   const [view, setView] = useState("month"); // Estado para controlar la vista
   const isEventOverlapping = (newEvent) => {
@@ -35,16 +34,17 @@ function SchedulePage({onAvailabilitySelected}) {
         setEvents((prevEvents) => [...prevEvents, newEvent]);
       } else {
         // Mostrar un mensaje de error o tomar alguna otra acción aquí
-        alert("El nuevo turno se superpone con un turno existente. Por favor, seleccione otra hora.");
+        alert(
+          "El nuevo turno se superpone con un turno existente. Por favor, seleccione otra hora."
+        );
       }
     }
   };
 
   const handleDoubleClickEvent = (event) => {
     // Mostrar un cuadro de diálogo de confirmación para eliminar el evento
-    if (view === 'month') {
+    if (view === "month") {
       // const shouldDelete = window.confirm("¿Desea eliminar este evento?");
-
       // if (shouldDelete) {
       //   // Filtrar los eventos para eliminar el evento si el usuario confirma
       //   const updatedEvents = events.filter((e) => e !== event);
@@ -54,7 +54,6 @@ function SchedulePage({onAvailabilitySelected}) {
       const updatedEvents = events.filter((e) => e !== event);
       setEvents(updatedEvents);
     }
-
   };
   const handleSaveAvailability = () => {
     // Llamar a la función de devolución de llamada del componente padre para pasar la disponibilidad seleccionada
@@ -65,7 +64,6 @@ function SchedulePage({onAvailabilitySelected}) {
 
   return (
     <div style={{ height: "500px" }}>
-
       <Calendar
         localizer={localizer}
         events={events}
@@ -78,7 +76,7 @@ function SchedulePage({onAvailabilitySelected}) {
           agenda: true,
         }}
         formats={{
-          dayFormat: 'dddd', // Configura los días de la semana en español
+          dayFormat: "dddd", // Configura los días de la semana en español
         }}
         onSelectSlot={handleSelectSlot}
         onDoubleClickEvent={handleDoubleClickEvent} // Manejador para doble clic en eventos
@@ -88,7 +86,7 @@ function SchedulePage({onAvailabilitySelected}) {
       {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
       </Button> */}
-    </div >
+    </div>
   );
 }
 

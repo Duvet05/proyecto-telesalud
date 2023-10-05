@@ -41,7 +41,7 @@
 //     return <div>Cargando...</div>;
 //   }
 
-//   return ( 
+//   return (
 //     <div>
 //       <Grid container justifyContent="center" style={{ height: '100vh' }}>
 //         <Grid item xs={11}>
@@ -57,20 +57,16 @@
 //           </Paper>
 //         </Grid>
 //       </Grid>
-//     </div> 
+//     </div>
 //   );
 // };
 
 // export default LaboratoryPage;
 
-import react from "react"
+import react from "react";
 
-function LaboratoryPage(){
-
-  return(
-    <div>Hola</div>
-  );
-
+function LaboratoryPage() {
+  return <div>Hola</div>;
 }
 
 export default LaboratoryPage;
