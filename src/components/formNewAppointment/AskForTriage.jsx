@@ -46,9 +46,7 @@ function AskForTriage({ open, onClose }) {
       </DialogTitle>
       <StyledDialogContent>
         <form>
-          <Grid container spacing={2}>
-            {/* Agrega tus campos de formulario aquí */}
-          </Grid>
+          <Grid container spacing={2}></Grid>
         </form>
       </StyledDialogContent>
       <BotonContainer>
