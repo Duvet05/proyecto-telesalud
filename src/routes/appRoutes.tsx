@@ -109,10 +109,10 @@ const appRoutes: RouteType[] = [
     path: "/medicos/:idPersona", // Utiliza un marcador de posición :id en la URL
     element: <PerfilMedico />, // Renderiza tu componente de perfil de médico
     state: "staff.profile", // Define un estado o nombre para esta ruta
-    sidebarProps: {
-      displayText: "Perfil del Médico",
-      icon: <MedicalServices />,
-    },
+    // sidebarProps: {
+    //   displayText: "Perfil del Médico",
+    //   icon: <MedicalServices />,
+    // },
   },
 ];
 
