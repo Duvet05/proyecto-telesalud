@@ -13,20 +13,40 @@ import {
 import { medicService } from "../../services/medicService";
 import Link from "next/link"; // Importar Link de Next.js
 
-export const DoctorTable = () => {
+export const DoctorTable = (props) => {
+  const { doctorNameIngresado, especialidad } = props;
+  console.log(`hola ${especialidad}`);
   const [isLoading, setIsLoading] = useState(true);
   const [doctors, setDoctors] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("nombre");
-
   useEffect(() => {
     fetchDoctors();
-  }, []);
+  }, [especialidad, doctorNameIngresado]);
+
+  const removeAccents = (str) => {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
 
   const fetchDoctors = async () => {
     try {
       const data = await medicService.buscarPorNombre("");
-      setDoctors(data);
+      const doctoresFiltrados = data.filter((doctor) => {
+        const nombreCompleto = `${doctor.nombres} ${doctor.apellidoPaterno} ${doctor.apellidoMaterno}`;
+        const nombreCompletoSinAcentos = removeAccents(nombreCompleto).toLowerCase();
+        const doctorNameIngresadoSinAcentos = removeAccents(doctorNameIngresado).toLowerCase();
+
+        if (especialidad === "todasLasEspecialidades") {
+          return nombreCompletoSinAcentos.includes(doctorNameIngresadoSinAcentos);
+        } else {
+          return (
+            doctor.especialidad.idEspecialidad === especialidad &&
+            nombreCompletoSinAcentos.includes(doctorNameIngresadoSinAcentos)
+          );
+        }
+      });
+
+      setDoctors(doctoresFiltrados);
       setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch doctors:", error);

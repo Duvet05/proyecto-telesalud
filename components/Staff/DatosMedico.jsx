@@ -69,6 +69,7 @@ const Campo = ({ id, label, type, iconButton, value }) => {
 };
 
 function DatosMedico(props) {
+  
   const {doctor} = props;
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>

@@ -36,61 +36,53 @@ const StaffManagement = () => {
   }, []);
 
   const handleSearchClick = () => {
-    if (doctorName.trim() !== "") {
-      setLoading(true);
-      setError(null);
-      medicService
-        .buscarPorNombre(doctorName)
-        .then((result) => {
-          setDoctors(result);
-        })
-        .catch((error) => {
-          console.error("Error al buscar doctores por nombre", error);
-          setError("Error al buscar doctores por nombre");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
+    // if (doctorName.trim() !== "") {
+    //   setLoading(true);
+    //   setError(null);
+    //   medicService
+    //     .buscarPorNombre(doctorName)
+    //     .then((result) => {
+    //       // Luego de obtener los resultados, puedes actualizar el estado
+    //       setDoctorName(doctorName);
+    //       setSelectedSpecialty(selectedSpecialty);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error al buscar doctores por nombre", error);
+    //       setError("Error al buscar doctores por nombre");
+    //     })
+    //     .finally(() => {
+    //       setLoading(false);
+    //     });
+    // }
   };
 
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "100vh" }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
           Seleccionar Doctor
         </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={5}>
-              <Autocomplete
-                options={doctors}
-                loading={loading}
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Buscar por nombre"
+                fullWidth
                 value={doctorName}
-                onChange={(_, newValue) => {
-                  setDoctorName(newValue);
+                onChange={(e) => setDoctorName(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {/* <SearchIcon /> */}
+                    </InputAdornment>
+                  ),
                 }}
-                getOptionLabel={(option) => option.nombre}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Buscar por nombre"
-                    fullWidth
-                    InputProps={{
-                      ...params.InputProps,
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                )}
               />
+
             </Grid>
 
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
                 select
@@ -98,6 +90,7 @@ const StaffManagement = () => {
                 value={selectedSpecialty}
                 onChange={(event) => setSelectedSpecialty(event.target.value)}
               >
+                <MenuItem value="todasLasEspecialidades">Todos</MenuItem> {/* Agrega la opción "TODOS" */}
                 {specialties.map((specialty) => (
                   <MenuItem
                     key={specialty.idEspecialidad}
@@ -107,9 +100,10 @@ const StaffManagement = () => {
                   </MenuItem>
                 ))}
               </TextField>
+
             </Grid>
 
-            <Grid
+            {/* <Grid
               item
               xs={12}
               md={2}
@@ -118,13 +112,13 @@ const StaffManagement = () => {
               <MUIButton
                 variant="contained"
                 color="primary"
-                startIcon={<PersonAddIcon />}
+                // startIcon={<PersonAddIcon />}
                 fullWidth
                 onClick={handleSearchClick}
               >
-                Seleccionar
+                Buscar
               </MUIButton>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Paper>
 
@@ -133,8 +127,7 @@ const StaffManagement = () => {
             {error}
           </Typography>
         )}
-
-        <DoctorTable doctors={doctors} />
+        <DoctorTable doctorNameIngresado={doctorName} especialidad={selectedSpecialty} />
       </Container>
     </MainLayout>
   );
