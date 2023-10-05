@@ -8,24 +8,38 @@ import SelectMedic from "../../components/formNewAppointment/SelectMedic";
 
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isTriageOpen, setIsTriageOpen] = useState(false); // <-- Añadir esta línea
+
+  const openTriagePopup = () => {
+    setIsTriageOpen(true);
+  };
+
+  const closeTriagePopup = () => {
+    setIsTriageOpen(false);
+  };
 
   const navigate = (delta) => {
-    setCurrentPage((prevPage) =>
-      Math.min(Math.max(prevPage + delta, 0), PAGES.length - 1)
+    const nextPage = Math.min(
+      Math.max(currentPage + delta, 0),
+      PAGES.length - 1
     );
+    setCurrentPage(nextPage);
+
+    // Si nextPage es la última página, mostrar el pop-up de triaje
+    if (nextPage === PAGES.length - 1) {
+      openTriagePopup();
+    }
   };
 
   const PAGES = [
     <AppointmentForm navigate={navigate} />,
     <SelectMedic />,
-    <AskForTriage />,
     <AppointmentInfo />,
   ];
 
   const PAGE_TITLES = [
     "Información del paciente",
     "Seleccionar médico",
-    "Mandar a triaje",
     "Visualizar Atención",
   ];
 
@@ -35,7 +49,7 @@ const Appointments = () => {
       e.returnValue =
         "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
 
-      return ""; // Para navegadores antiguos
+      return "";
     };
 
     window.addEventListener("beforeunload", confirmExit);
@@ -68,6 +82,10 @@ const Appointments = () => {
           </Grid>
         </Grid>
       </Paper>
+      <AskForTriage
+        open={isTriageOpen}
+        onClose={() => setIsTriageOpen(false)}
+      />
     </Container>
   );
 };

@@ -1,66 +1,69 @@
 import React from "react";
 import { styled } from "@mui/system";
-import { Button, Container, Grid, Typography, Paper } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+  Grid,
+} from "@mui/material";
 
-const StyledPaper = styled(Paper)({
+const StyledDialogContent = styled(DialogContent)({
   padding: "2rem",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", // Sombra suave para el contenedor
-  borderRadius: "8px",
 });
 
-const BotonContainer = styled("div")({
+const BotonContainer = styled(DialogActions)({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  marginTop: "2rem",
+  padding: "1rem",
   "& button": {
-    margin: "0.5rem 0", // Espaciado vertical entre los botones
-    width: "80%", // Asegurando que los botones tengan un ancho consistente
+    margin: "0.5rem 0",
+    width: "80%",
   },
 });
 
-function AskForTriage() {
-  // Funciones para manejar los clics en los botones
+function AskForTriage({ open, onClose }) {
   const handleNoMandarClick = () => {
     console.log("No mandar a triaje");
+    onClose();
   };
 
   const handleMandarClick = () => {
     console.log("Mandar a triaje");
+    onClose();
   };
 
   return (
-    <Container>
-      <StyledPaper>
-        <Typography variant="h5" align="center" gutterBottom>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        <Typography variant="h5" align="center">
           Derivar a Triage
         </Typography>
-
+      </DialogTitle>
+      <StyledDialogContent>
         <form>
           <Grid container spacing={2}>
             {/* Agrega tus campos de formulario aquí */}
           </Grid>
         </form>
-
-        <BotonContainer>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleNoMandarClick}
-          >
-            No mandar a triaje
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleMandarClick}
-          >
-            Mandar a triaje
-          </Button>
-        </BotonContainer>
-      </StyledPaper>
-    </Container>
+      </StyledDialogContent>
+      <BotonContainer>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleNoMandarClick}
+        >
+          No mandar a triaje
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleMandarClick}>
+          Mandar a triaje
+        </Button>
+      </BotonContainer>
+    </Dialog>
   );
 }
 
