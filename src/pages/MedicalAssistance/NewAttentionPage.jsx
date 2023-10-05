@@ -4,7 +4,7 @@ import AppointmentForm from "../../components/formNewAppointment/AppointmentForm
 import AskForTriage from "../../components/formNewAppointment/AskForTriage";
 import AppointmentInfo from "../../components/formNewAppointment/AppointmentInfo";
 import NavigationButtons from "../../components/common/NavigationButtons";
-import SeleccionarMedico from "../../components/formNewAppointment/SeleccionarMedico";
+import SelectMedic from "../../components/formNewAppointment/SelectMedic";
 
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -17,7 +17,7 @@ const Appointments = () => {
 
   const PAGES = [
     <AppointmentForm navigate={navigate} />,
-    <SeleccionarMedico />,
+    <SelectMedic />,
     <AskForTriage />,
     <AppointmentInfo />,
   ];

@@ -60,4 +60,20 @@ export const medicService = {
       throw error;
     }
   },
+
+  buscarHorariosByID: async (fecha, medicId) => {
+    try {
+      const response = await axiosInstance.post(
+        "/rrhh/post/horarios_por_medico_y_fecha",
+        {
+          pn_id_medico: medicId,
+          pd_fecha: fecha,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error al buscar doctores por especialidad", error);
+      throw error;
+    }
+  },
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import dayjs from "dayjs";
 import {
   Button,
   FormControl,
@@ -11,12 +12,33 @@ import TextField from "@mui/material/TextField";
 import Selectdate from "./Selectdate";
 import { medicService } from "../../services/medicService";
 
-function SeleccionarMedico() {
+function SelectMedic() {
   const [isLoading, setIsLoading] = useState(true);
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
-  const [doctors, setDoctors] = useState([]); // Array para almacenar los doctores por especialidad
+  const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [availableHours, setAvailableHours] = useState([]);
+  const [selectedHour, setSelectedHour] = useState(null);
+
+  const fetchAvailableHours = (fecha, medicId) => {
+    medicService
+      .buscarHorariosByID(fecha, medicId)
+      .then((data) => {
+        setAvailableHours(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching available hours:", error);
+      });
+  };
+
+  // Effects
+  useEffect(() => {
+    if (selectedDate && selectedDoctor) {
+      fetchAvailableHours(selectedDate, selectedDoctor);
+    }
+  }, [selectedDate, selectedDoctor]);
 
   useEffect(() => {
     medicService
@@ -28,11 +50,10 @@ function SeleccionarMedico() {
       .catch((error) => {
         setIsLoading(false);
         console.error("Error fetching specialties:", error);
-        // Consider adding user-friendly error notifications using something like 'react-toastify'.
       });
   }, []);
 
-  // Función para obtener los doctores por especialidad
+  // Utility functions and handlers
   const obtenerDoctoresPorEspecialidad = (especialidadNombre) => {
     medicService
       .buscarPorEspecialidad(especialidadNombre)
@@ -41,8 +62,11 @@ function SeleccionarMedico() {
       })
       .catch((error) => {
         console.error("Error fetching doctors:", error);
-        // Consider adding user-friendly error notifications using something like 'react-toastify'.
       });
+  };
+
+  const handleHourChange = (hour) => {
+    setSelectedHour(dayjs(hour).format("HH:mm:ss"));
   };
 
   return (
@@ -59,8 +83,7 @@ function SeleccionarMedico() {
           if (newValue) {
             obtenerDoctoresPorEspecialidad(newValue.nombre);
           } else {
-            // Si no se selecciona ninguna especialidad, borra la lista de doctores
-            setDoctors([]);
+            setDoctors([]); // Clear doctor list if no speciality is selected
           }
         }}
         renderInput={(params) => (
@@ -82,21 +105,26 @@ function SeleccionarMedico() {
           >
             {doctors.map((doctor) => (
               <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
-                {doctor.sexo === "M" ? "Dr. " : "Dra. "}
-                {doctor.nombres +
-                  " " +
-                  doctor.apellidoPaterno +
-                  " " +
-                  doctor.apellidoMaterno}
+                {`${doctor.sexo === "M" ? "Dr." : "Dra."} ${doctor.nombres} ${
+                  doctor.apellidoPaterno
+                } ${doctor.apellidoMaterno}`}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       )}
 
-      {selectedDoctor && <Selectdate />}
-
       {selectedDoctor && (
+        <Selectdate
+          onDateChange={setSelectedDate}
+          selectedDate={selectedDate}
+          availableHours={availableHours}
+          onHourChange={handleHourChange}
+          selectedHour={selectedHour}
+        />
+      )}
+
+      {selectedDoctor && selectedDate && selectedHour && (
         <Button
           variant="contained"
           color="primary"
@@ -110,4 +138,4 @@ function SeleccionarMedico() {
   );
 }
 
-export default SeleccionarMedico;
+export default SelectMedic;
