@@ -1,0 +1,15 @@
+.main-layout-nav {
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+.main-layout-content {
+  flex-grow: 1;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  /* Tus estilos aquí, por ejemplo: */
+  padding: 2rem;
+}
