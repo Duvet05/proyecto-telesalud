@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import SeleccionarHorarioMedico from "./SeleccionarHorarioMedico"
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import SeleccionarHorarioMedico from "./SeleccionarHorarioMedico";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import { useParams } from "react-router-dom";
-import { getDoctors } from "./DoctorFunctions";
+import { medicService } from "../../services/medicService";
 import DatosMedico from "./DatosMedico";
 const PerfilMedico = (props) => {
   const { idPersona } = useParams();
@@ -17,7 +17,7 @@ const PerfilMedico = (props) => {
 
   const fetchDoctors = async () => {
     try {
-      const data = await getDoctors();
+      const data = await medicService.listar();
       setDoctors(data);
 
       // Buscar el doctor con el idPersona deseado
@@ -41,11 +41,11 @@ const PerfilMedico = (props) => {
     return <div>Cargando...</div>;
   }
 
-  return ( 
+  return (
     <div>
-      <Grid container justifyContent="center" style={{ height: '100vh' }}>
+      <Grid container justifyContent="center" style={{ height: "100vh" }}>
         <Grid item xs={11}>
-          <Paper elevation={3} style={{ padding: '30px', background: 'white' }}>
+          <Paper elevation={3} style={{ padding: "30px", background: "white" }}>
             {/* Contenido dentro del Paper */}
             <h1>Componente perfil del médico</h1>
             <hr />
@@ -57,7 +57,7 @@ const PerfilMedico = (props) => {
           </Paper>
         </Grid>
       </Grid>
-    </div> 
+    </div>
   );
 };
 

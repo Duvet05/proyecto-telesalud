@@ -10,7 +10,7 @@ import {
   Button,
   TableSortLabel,
 } from "@mui/material";
-import { getDoctors } from "../../doctor/DoctorFunctions";
+import { medicService } from "../../../services/medicService";
 import { Link } from "react-router-dom";
 export const DoctorTable = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +24,7 @@ export const DoctorTable = () => {
 
   const fetchDoctors = async () => {
     try {
-      const data = await getDoctors();
+      const data = await medicService.listar();
       setDoctors(data);
       setIsLoading(false);
     } catch (error) {
@@ -105,7 +105,6 @@ const DoctorRow = ({ doctor }) => (
       </Link>
     </TableCell>
   </TableRow>
-
 );
 
 const getSortedDoctors = (doctors, orderBy, order) => {
