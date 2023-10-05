@@ -25,6 +25,9 @@ import NewAttentionPage from "../pages/MedicalAssistance/NewAttentionPage";
 import LaboratoryPage from "../pages/LaboratoryManagement/LaboratoryPage";
 import ConfigurationPage from "../pages/ConfigurationManagement/ConfigurationPage";
 import PerfilMedico from "../components/doctor/PerfilMedico";
+import PatientProfile from "../pages/PatientManagement/PatientProfile";
+import PatientForms from "../pages/PatientManagement/PatientForms";
+
 const appRoutes: RouteType[] = [
   {
     index: true,
@@ -114,6 +117,24 @@ const appRoutes: RouteType[] = [
     //   icon: <MedicalServices />,
     // },
   },
+  {
+    path: "/pacientes/perfil/:id",
+    element: <PatientProfile/>,
+    state: "paciente",
+    sidebarProps: {
+      displayText: "Paciente",
+      icon: <Settings />,
+    },
+  },
+  {
+    path: "/pacientes/perfil/:id/edit",
+    element: <PatientForms/>,
+    state: "paciente",
+    sidebarProps: {
+      displayText: "Paciente",
+      icon: <Settings />,
+    },
+  }
 ];
 
 export default appRoutes;
