@@ -6,9 +6,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
 import Selectdate from "./Selectdate";
 import { medicService } from "../../services/medicService";
 
@@ -36,7 +36,7 @@ function SelectMedic() {
   // Effects
   useEffect(() => {
     if (selectedDate && selectedDoctor) {
-      fetchAvailableHours(selectedDate, selectedDoctor);
+      fetchAvailableHours(selectedDate, selectedDoctor); // Corregido el nombre de la función aquí
     }
   }, [selectedDate, selectedDoctor]);
 

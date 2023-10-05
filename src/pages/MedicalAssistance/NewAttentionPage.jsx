@@ -3,12 +3,12 @@ import { Typography, Paper, Grid, Button, Container } from "@mui/material";
 import AppointmentForm from "../../components/formNewAppointment/AppointmentForm";
 import AskForTriage from "../../components/formNewAppointment/AskForTriage";
 import AppointmentInfo from "../../components/formNewAppointment/AppointmentInfo";
-import NavigationButtons from "../../components/common/NavigationButtons";
 import SelectMedic from "../../components/formNewAppointment/SelectMedic";
+import NavigationButtons from "../../components/common/NavigationButtons";
 
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [isTriageOpen, setIsTriageOpen] = useState(false); // <-- Añadir esta línea
+  const [isTriageOpen, setIsTriageOpen] = useState(false);
 
   const openTriagePopup = () => {
     setIsTriageOpen(true);
@@ -73,13 +73,15 @@ const Appointments = () => {
             </Typography>
             {PAGES[currentPage]}
           </Grid>
-          <Grid item xs={12}>
-            <NavigationButtons
-              currentPage={currentPage}
-              totalPages={PAGES.length}
-              navigate={navigate}
-            />
-          </Grid>
+          {currentPage !== PAGES.length - 1 && ( // No renderizar NavigationButtons en la última página
+            <Grid item xs={12}>
+              <NavigationButtons
+                currentPage={currentPage}
+                totalPages={PAGES.length}
+                navigate={navigate}
+              />
+            </Grid>
+          )}
         </Grid>
       </Paper>
       <AskForTriage
