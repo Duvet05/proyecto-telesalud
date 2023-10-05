@@ -18,7 +18,7 @@ export const medicService = {
 
   listar: async (doctorRequest) => {
     try {
-      const response = await axiosInstance.get("/rrhh/get/doctores");
+      const response = await axiosInstance.get("/rrhh/get/p");
       return response.data;
     } catch (error) {
       console.error("Error al listar los doctores", error);
