@@ -26,7 +26,6 @@ import LaboratoryPage from "../pages/LaboratoryManagement/LaboratoryPage";
 import ConfigurationPage from "../pages/ConfigurationManagement/ConfigurationPage";
 import PerfilMedico from "../components/doctor/PerfilMedico";
 import PatientProfile from "../pages/PatientManagement/PatientProfile";
-import PatientForms from "../pages/PatientManagement/PatientForms";
 
 const appRoutes: RouteType[] = [
   {
@@ -119,22 +118,13 @@ const appRoutes: RouteType[] = [
   },
   {
     path: "/pacientes/perfil/:id",
-    element: <PatientProfile/>,
+    element: <PatientProfile />,
     state: "paciente",
     sidebarProps: {
       displayText: "Paciente",
       icon: <Settings />,
     },
   },
-  {
-    path: "/pacientes/perfil/:id/edit",
-    element: <PatientForms/>,
-    state: "paciente",
-    sidebarProps: {
-      displayText: "Paciente",
-      icon: <Settings />,
-    },
-  }
 ];
 
 export default appRoutes;
