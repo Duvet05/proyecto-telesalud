@@ -6,12 +6,12 @@ import AppointmentInfo from "./AppointmentInfo";
 import SelectMedic from "../components/appointments/SelectMedic";
 import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
-
+import TriajeONo from "../components/appointments/TriajeONo"
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTriageOpen, setIsTriageOpen] = useState(false);
 
-  const PAGES = [<AppointmentForm />,<SelectMedic />];
+  const PAGES = [<AppointmentForm />,<SelectMedic />, <TriajeONo /> ,<AppointmentInfo />];
   const PAGE_TITLES = ["Información del paciente","Seleccionar médico"];
 
   const openTriagePopup = () => setIsTriageOpen(true);
@@ -42,21 +42,20 @@ const Appointments = () => {
 
   return (
     <MainLayout>
-      <Container maxWidth={false} style={{ height: "auto" }}>
+      <Container maxWidth={false} style={{height: "auto"}}>
         <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
           <Typography variant="h4" gutterBottom style={{ marginBottom: "10px" }}>
                 Nueva Atención
           </Typography>
-          <hr style={{ marginBottom: "10px" }}  />
-
-          <Grid container spacing={3}>
+          <hr />
+          <Grid>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
                 {PAGE_TITLES[currentPage]}
               </Typography>
               {PAGES[currentPage]}
             </Grid>
-            {currentPage !== PAGES.length - 1 && (
+            { (
               <Grid item xs={12}>
                 <NavigationButtons
                   currentPage={currentPage}
