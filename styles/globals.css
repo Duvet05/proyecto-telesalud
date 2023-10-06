@@ -79,6 +79,10 @@
   margin: 0;
 }
 
+.rbc-event, .rbc-btn-group, .rbc-label, .rbc-toolbar-label {
+  color: black !important;
+}
+
 html,
 body {
   max-width: 100vw;

@@ -20,7 +20,7 @@ function ScheduleManagement() {
 
   return (
     <MainLayout>
-      <div style={{ height: "500px" }}>
+      <div style={{ height: "500px", color: 'black'  }}>
         <Calendar
           localizer={localizer}
           events={events}

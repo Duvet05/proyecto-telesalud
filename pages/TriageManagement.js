@@ -54,8 +54,16 @@ const TriageManagement = () => {
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "100vh" }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-          Gestión de Triage
+        <Typography
+          variant="h4"
+          sx={{
+            color: "#000",
+            gap: "0.1mm",
+            marginBottom: "5px",
+            marginTop: "-50px"
+          }}
+        >
+          Gestión de Triaje
         </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
@@ -63,13 +71,14 @@ const TriageManagement = () => {
             <Grid item xs={12} md={5}>
               <TextField
                 fullWidth
-                label="Buscar por nombre del paciente"
+                variant="outlined"
+                label="Buscar por Nombre..."
                 value={patientName}
                 onChange={(e) => setPatientName(e.target.value)}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon />
+                      
                     </InputAdornment>
                   ),
                 }}
@@ -85,15 +94,15 @@ const TriageManagement = () => {
             <MUIButton
               variant="contained"
               sx={{
-                backgroundColor: '#2196f3', // Color del botón
-                color: 'white',             // Texto blanco
-                textTransform: 'none',      // Quitar mayúsculas
+                backgroundColor: '#2196f3', 
+                color: 'white',            
+                textTransform: 'none',      
                 '&:hover': {
-                  backgroundColor: '#b3b3b3', // Color cuando se pasa el cursor por encima
+                  backgroundColor: '#b3b3b3', 
                 },
                 marginLeft: '0'
               }}
-              startIcon={<AssignmentIcon />}
+              startIcon={<SearchIcon />}
               fullWidth
               onClick={handleSearchClick}
             >

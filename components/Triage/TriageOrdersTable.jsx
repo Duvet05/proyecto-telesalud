@@ -16,33 +16,62 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
       <Table aria-label="triage orders table">
         <TableHead>
           <TableRow>
-            <TableCell>
+            <TableCell 
+              sx={{
+                fontSize: '1.1em',
+                color: '#333',
+                paddingBottom: '10px',
+                paddingTop: '10px'
+              }}
+            >
+              Paciente
+            </TableCell>
+            <TableCell
+              sx={{
+                fontSize: '1.1em',
+                color: '#333',
+                paddingBottom: '10px',
+                paddingTop: '10px'
+              }}      
+            >
               <TableSortLabel
-                active={orderBy === "id"}
+                active={orderBy === "dni"}
                 direction={order}
-                onClick={() => handleSortRequest("id")}
+                onClick={() => handleSortRequest("dni")}
               >
-                Id
+                Médico prescriptor
               </TableSortLabel>
             </TableCell>
-            <TableCell>Paciente</TableCell>
-            <TableCell>Doctor que Mandó la Orden</TableCell>
-            <TableCell>
-              <TableSortLabel
+            <TableCell
+              sx={{
+                fontSize: '1.1em',
+                color: '#333',
+                paddingBottom: '10px',
+                paddingTop: '10px'
+              }}
+            >
+            <TableSortLabel
                 active={orderBy === "fecha"}
                 direction={order}
                 onClick={() => handleSortRequest("fecha")}
-              >
-                Fecha de Orden
-              </TableSortLabel>
+              ></TableSortLabel>
+              Fecha
             </TableCell>
-            <TableCell>Estado</TableCell>
-          </TableRow>
+            <TableCell
+              sx={{
+                fontSize: '1.1em',
+                color: '#333',
+                paddingBottom: '10px',
+                paddingTop: '10px'
+              }}
+            >
+              Estado
+            </TableCell>
+            </TableRow>
         </TableHead>
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>{order.id}</TableCell>
               <TableCell>{order.patientName}</TableCell>
               <TableCell>{order.doctorName}</TableCell>
               <TableCell>{order.fecha}</TableCell>
