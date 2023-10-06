@@ -10,7 +10,6 @@ import MainLayout from "@/components/layout/MainLayout";
 const PerfilMedico = () => {
   const router = useRouter();
   const { codigo } = router.query; // Cambiado 'idPersona' por 'codigo'
-
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
