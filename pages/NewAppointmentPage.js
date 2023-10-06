@@ -11,7 +11,7 @@ const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTriageOpen, setIsTriageOpen] = useState(false);
 
-  const PAGES = [<AppointmentForm />,<SelectMedic />];
+  const PAGES = [<AppointmentForm />,<SelectMedic />, <AppointmentInfo />];
   const PAGE_TITLES = ["Información del paciente","Seleccionar médico"];
 
   const openTriagePopup = () => setIsTriageOpen(true);
@@ -48,14 +48,14 @@ const Appointments = () => {
             Nueva Atención
           </Typography>
           <hr />
-          <Grid container spacing={3}>
+          <Grid>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>
                 {PAGE_TITLES[currentPage]}
               </Typography>
               {PAGES[currentPage]}
             </Grid>
-            {currentPage !== PAGES.length - 1 && (
+            { (
               <Grid item xs={12}>
                 <NavigationButtons
                   currentPage={currentPage}

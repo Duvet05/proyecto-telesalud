@@ -100,56 +100,52 @@ const camposAtencion = [
 
 function AppointmentInfo() {
   return (
-    <MainLayout>
-      {" "}
+    <Container>
 
-      <Container>
-        <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
-          <Typography variant="h4" gutterBottom>
-            Detalle de la cita
+      <Typography variant="h5" gutterBottom>
+        Detalle de la cita
+      </Typography>
+
+      <div>
+        {/* Sección: Ver información de cita */}
+        <Box sx={{ marginBottom: 4, color: "black" }}>
+          <Typography variant="h5" gutterBottom>
+            Información del paciente
           </Typography>
-          <hr />
-          <div>
-            {/* Sección: Ver información de cita */}
-            <Box sx={{ marginBottom: 4, color: "black" }}>
-              <Typography variant="h5" gutterBottom>
-                Información del paciente
-              </Typography>
-              <Grid container spacing={3}>
-                {camposPaciente.map((campo) => (
-                  <Grid item xs={4} key={campo.id}>
-                    <Campo {...campo} />
-                  </Grid>
-                ))}
+          <Grid container spacing={3}>
+            {camposPaciente.map((campo) => (
+              <Grid item xs={4} key={campo.id}>
+                <Campo {...campo} />
               </Grid>
-            </Box>
+            ))}
+          </Grid>
+        </Box>
 
-            {/* Sección: Información de la atención */}
-            <Box sx={{ marginBottom: 4, color: "black" }}>
-              <Typography variant="h5" gutterBottom>
-                Información de la atención
-              </Typography>
-              <Grid container spacing={3}>
-                {camposAtencion.map((campo) => (
-                  <Grid item xs={4} key={campo.id}>
-                    <Campo {...campo} />
-                  </Grid>
-                ))}
+        {/* Sección: Información de la atención */}
+        <Box sx={{ marginBottom: 4, color: "black" }}>
+          <Typography variant="h5" gutterBottom>
+            Información de la atención
+          </Typography>
+          <Grid container spacing={3}>
+            {camposAtencion.map((campo) => (
+              <Grid item xs={4} key={campo.id}>
+                <Campo {...campo} />
               </Grid>
-            </Box>
+            ))}
+          </Grid>
+        </Box>
 
-            {/* Botón para volver a la página principal de citas */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Link href="/AppointmentManagement">
-                <Button variant="contained" color="primary">
-                  Terminar
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </Paper>
-      </Container>
-    </MainLayout>
+        {/* Botón para volver a la página principal de citas */}
+        <div>
+          <Link href="/AppointmentManagement">
+            <Button variant="contained" color="secondary" fullWidth>
+              Terminar
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+    </Container>
   );
 }
 
