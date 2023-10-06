@@ -91,7 +91,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        Nombre completo
+        NOMBRE COMPLETO
       </TableCell>
       <TableCell
         sx={{
@@ -117,7 +117,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        Codigo Medico
+        CÓDIGO MÉDICO
       </TableCell>
       <TableCell
         sx={{
@@ -127,7 +127,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        Área
+        ÁREA
       </TableCell>
       <TableCell
         sx={{
@@ -137,7 +137,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        Especialidad
+        ESPECIALIDAD
       </TableCell>
       </TableRow>
   </TableHead>
@@ -154,12 +154,12 @@ const DoctorTableBody = ({ doctors }) => (
 const DoctorRow = ({ doctor }) => (
   <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
     <TableCell>
-      {`${doctor.nombres} ${doctor.apellidoPaterno} ${doctor.apellidoMaterno}`}
+      {`${doctor.apellidoPaterno.toUpperCase()} ${doctor.apellidoMaterno.toUpperCase()}, ${doctor.nombres.toUpperCase()}`}
     </TableCell>
     <TableCell>{doctor.dni}</TableCell>
     <TableCell>{doctor.cmp}</TableCell>
-    <TableCell>{doctor.area}</TableCell>
-    <TableCell>{doctor.especialidad.nombre}</TableCell>
+    <TableCell>{doctor.area.toUpperCase()}</TableCell>
+    <TableCell>{doctor.especialidad.nombre.toUpperCase()}</TableCell>
     <TableCell>
       {/* Enlace dinámico al perfil del médico */}
       <Link href={`/staff/perfil/${doctor.idPersona}`} passHref>
