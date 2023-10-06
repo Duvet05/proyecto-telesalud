@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import Link from "next/link"; // Importar Link desde next/link
 import Selectdate from "./Selectdate";
 import { medicService } from "../../services/medicService";
 
@@ -34,7 +33,6 @@ function SelectMedic() {
       });
   };
 
-  // Effects
   useEffect(() => {
     if (selectedDate && selectedDoctor) {
       fetchAvailableHours(selectedDate, selectedDoctor);
@@ -54,18 +52,18 @@ function SelectMedic() {
       });
   }, []);
 
-  // Utility functions and handlers
-  const obtenerDoctoresPorEspecialidad = (especialidadNombre) => {
-    medicService
-      .buscarPorEspecialidad(especialidadNombre)
-      .then((data) => {
-        setDoctors(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching doctors:", error);
-      });
+  const obtenerDoctoresPorEspecialidad = async (especialidadNombre) => {
+    try {
+      const data = await medicService.buscarPorEspecialidad(especialidadNombre);
+      setDoctors(data);
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      setDoctors([]); // Limpiamos la lista de doctores en caso de error.
+      alert(
+        "Ocurrió un error al buscar los médicos. Por favor, inténtalo de nuevo."
+      );
+    }
   };
-
   const handleHourChange = (hour) => {
     setSelectedHour(dayjs(hour).format("HH:mm:ss"));
   };
@@ -78,13 +76,13 @@ function SelectMedic() {
         options={specialities}
         getOptionLabel={(option) => option.nombre}
         value={selectedSpeciality}
-        onChange={(event, newValue) => {
+        onChange={async (event, newValue) => {
           setSelectedSpeciality(newValue);
-          setSelectedDoctor(""); // Limpiar doctor seleccionado al cambiar de especialidad
+          setSelectedDoctor("");
           if (newValue) {
-            obtenerDoctoresPorEspecialidad(newValue.nombre);
+            await obtenerDoctoresPorEspecialidad(newValue.nombre);
           } else {
-            setDoctors([]); // Limpiar la lista de médicos si no se selecciona una especialidad
+            setDoctors([]);
           }
         }}
         renderInput={(params) => (
@@ -124,19 +122,6 @@ function SelectMedic() {
           selectedHour={selectedHour}
         />
       )}
-
-      {/* {selectedDoctor && selectedDate && selectedHour && (
-        <Link href="/AppointmentInfo">
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
-            style={{ margin: "25px 0"}}
-          >
-            Reservar Cita con {selectedDoctor}
-          </Button>
-        </Link>
-      )} */}
     </div>
   );
 }
