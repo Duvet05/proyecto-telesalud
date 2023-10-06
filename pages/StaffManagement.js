@@ -77,6 +77,8 @@ const StaffManagement = () => {
               <TextField label="Nombre o DNI" 
                 fullWidth 
                 variant="outlined"
+                value={doctorName}
+                onChange={(event) => setDoctorName(event.target.value)}
                 sx={{
                   marginRight: '0', // Elimina cualquier margen a la derecha
               }}></TextField>
