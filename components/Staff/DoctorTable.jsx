@@ -38,7 +38,8 @@ export const DoctorTable = (props) => {
         const doctorNameIngresadoSinAcentos = removeAccents(doctorNameIngresado).toLowerCase();
 
         if (especialidad === "todasLasEspecialidades") {
-          return nombreCompletoSinAcentos.includes(doctorNameIngresadoSinAcentos) || doctor.dni.includes(doctorNameIngresadoSinAcentos);
+          return nombreCompletoSinAcentos.includes(doctorNameIngresadoSinAcentos) 
+          || doctor.dni.includes(doctorNameIngresadoSinAcentos);
         } else {
           return (
             doctor.especialidad.idEspecialidad === especialidad && (
