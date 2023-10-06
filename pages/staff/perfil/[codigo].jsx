@@ -38,7 +38,7 @@ const PerfilMedico = () => {
   };
 
   if (!isLoading) {
-    return <div>Cargando...</div>;
+    return <MainLayout>Cargando...</MainLayout>;
   }
 
   return (

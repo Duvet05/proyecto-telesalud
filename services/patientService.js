@@ -29,15 +29,27 @@ export const patientService = {
     }
   },
 
-  buscarPorNombre: async (name) => {
+  buscarPorFiltro: async (filtro) => {
     try {
       const response = await axiosInstance.post(
         "/admision/post/buscarPaciente",
-        { pv_filtro: name }
+        { pv_filtro: filtro }
       );
       return response.data;
     } catch (error) {
-      console.error("Error al buscar pacientes por nombre", error);
+      console.error("Error al buscar paciente por filtro", error);
+      throw error;
+    }
+  },
+
+  listarCitasPorPaciente: async (idPaciente) => {
+    try {
+      const response = await axiosInstance.post("/admision/post/citaPaciente", {
+        pn_paciente: idPaciente,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error al listar las citas del paciente", error);
       throw error;
     }
   },
