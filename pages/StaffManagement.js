@@ -76,6 +76,8 @@ const StaffManagement = () => {
           <Grid container spacing={2}>
             <Grid item xs={4}>
               <TextField 
+                value={doctorName}                
+                onChange={(event) => setDoctorName(event.target.value)}
                 variant="outlined"
                 label="Buscar por Nombre o DNI..."
                 fullWidth
@@ -92,7 +94,7 @@ const StaffManagement = () => {
                     </InputAdornment>
                   )
                 }}
-              />
+              ></TextField>
             </Grid>
 
 
