@@ -47,10 +47,6 @@ function AppointmentForm() {
 
   return (
     <Box padding={2} bgcolor="#fff">
-      <Typography variant="h5" gutterBottom>
-        Búsqueda de Paciente
-      </Typography>
-
       {error && <Typography color="error">{error}</Typography>}
 
       <Grid container spacing={3}>

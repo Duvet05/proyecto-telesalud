@@ -1,6 +1,7 @@
 // Appointments.jsx
 import React, { useState, useEffect } from "react";
-import { Typography, Paper, Grid, Container } from "@mui/material";
+import { Typography, Paper, Grid, Container, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AppointmentForm from "../components/appointments/AppointmentForm";
 import AppointmentInfo from "./AppointmentInfo";
 import SelectMedic from "../components/appointments/SelectMedic";
@@ -18,10 +19,10 @@ const PAGES = [
   { component: <TriajeONo />, title: "Triage" },
   { component: <AppointmentInfo />, title: "Información de la cita" },
 ];
-
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
+  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
 
   const navigate = (delta) => {
     const nextPage = Math.min(
@@ -29,6 +30,7 @@ const Appointments = () => {
       PAGES.length - 1
     );
     setCurrentPage(nextPage);
+    setIsBackButtonVisible(nextPage !== 0);
 
     if (nextPage === PAGES.length - 1) {
       setIsProcessCompleted(true);
@@ -51,21 +53,17 @@ const Appointments = () => {
 
   return (
     <MainLayout>
-      <Container maxWidth={false} style={{ height: "auto" }}>
-        <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            style={{ marginBottom: "10px" }}
-          >
-            Nueva Atención
+      <Container
+        maxWidth="lg"
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+      >
+        <Paper style={{ padding: "30px" }}>
+          {" "}
+          <Typography variant="h4" style={{ marginBottom: "30px" }}>
+            {PAGES[currentPage].title}
           </Typography>
-          <hr />
           <Grid>
             <Grid item xs={12}>
-              <Typography variant="h5" gutterBottom>
-                {PAGES[currentPage].title}
-              </Typography>
               {PAGES[currentPage].component}
             </Grid>
             <Grid item xs={12}>
