@@ -9,11 +9,12 @@ const TriageRequest = () => {
   };
 
   return (
-    <Container maxWidth="xs" style={{ margin: "1rem auto", textAlign:"center" }}>
-        <Typography variant="h5" gutterBottom>
-          Enviar al paciente a triaje?
+    <Container maxWidth="sm" style={{ marginTop: "2rem" }}>
+      <Paper elevation={3} style={{ padding: "2rem" }}>
+        <Typography variant="h6" gutterBottom align="center">
+          ¿Desea enviar al paciente a triaje?
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={3} style={{ marginTop: "1rem" }}>
           <Grid item xs={6}>
             <Button
               variant={selectedButton === "option1" ? "contained" : "outlined"}
@@ -35,6 +36,7 @@ const TriageRequest = () => {
             </Button>
           </Grid>
         </Grid>
+      </Paper>
     </Container>
   );
 };

@@ -48,14 +48,6 @@ const routesSideBar = [
     },
   },
   {
-    path: "/NewAppointmentPage",
-    state: "staff.attentions",
-    sidebarProps: {
-      displayText: "Nueva Cita",
-      icon: <WorkHistory />,
-    },
-  },
-  {
     path: "/TriageManagement",
     state: "assistance.triage",
     sidebarProps: {
