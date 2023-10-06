@@ -17,6 +17,7 @@ import Link from "next/link"; // Importa el componente Link de Next.js
 import SearchIcon from "@mui/icons-material/Search";
 import MainLayout from "@/components/layout/MainLayout";
 import { Typography } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 function AppointmentManagement(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [appointments, setAppointments] = useState([]);
@@ -37,9 +38,17 @@ function AppointmentManagement(props) {
   return (
     <MainLayout>
       <div style={{ padding: 20 }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
-          Citas
-        </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          color: "#000",
+          gap: "0.1mm",
+          marginBottom: "15px",
+          marginTop: "-70px"
+        }}
+      >
+        Citas
+      </Typography>
 
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -62,8 +71,19 @@ function AppointmentManagement(props) {
           </Grid>
           <Grid item xs={12} md={6} container justifyContent="flex-end">
             <Link href="/NewAppointmentPage">
-              <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
-                Crear nueva cita
+              <Button 
+                variant="contained" 
+                sx={{
+                  backgroundColor: '#2196f3', // Este es un color gris claro, puedes ajustarlo
+                  color: 'white', 
+                  textTransform: 'none',    // Esto quitará las mayúsculas
+                  '&:hover': {
+                    backgroundColor: '#b3b3b3', // Un gris un poco más oscuro cuando pasas el cursor por encima
+                  },
+                }}
+                startIcon={<AddIcon />} // Ícono del ojito al lado izquierdo
+              >
+                Nueva cita
               </Button>
             </Link>
           </Grid>
@@ -71,22 +91,94 @@ function AppointmentManagement(props) {
 
         <TableContainer component={Paper} style={{ marginTop: 20 }}>
           <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Nombre del paciente</TableCell>
-                <TableCell>Nombre del doctor</TableCell>
-                <TableCell>Especialidad</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Hora</TableCell>
-                <TableCell>Estado</TableCell>
-                <TableCell>Opciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+
+          <TableHead>
+            <TableRow>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Paciente
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Doctor
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Especialidad
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Especialidad
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Fecha
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Hora
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Estado
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.0em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Opciones
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
               {filteredAppointments.map((appointment) => (
                 <TableRow key={appointment.id}>
-                  <TableCell>{appointment.id}</TableCell>
                   <TableCell>{appointment.patientName}</TableCell>
                   <TableCell>{appointment.doctorName}</TableCell>
                   <TableCell>{appointment.speciality}</TableCell>

@@ -47,7 +47,7 @@ function AppointmentForm() {
 
   return (
     <Box padding={2} bgcolor="#fff">
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h5" gutterBottom>
         Búsqueda de Paciente
       </Typography>
 

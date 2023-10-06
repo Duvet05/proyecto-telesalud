@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { medicService } from "../../services/medicService";
 import Link from "next/link"; // Importar Link de Next.js
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export const DoctorTable = (props) => {
   const { doctorNameIngresado, especialidad } = props;
@@ -82,8 +83,24 @@ export const DoctorTable = (props) => {
 const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
   <TableHead>
     <TableRow>
-      <TableCell>Nombre completo</TableCell>
-      <TableCell>
+      <TableCell 
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        NOMBRE COMPLETO
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}      
+      >
         <TableSortLabel
           active={orderBy === "dni"}
           direction={order}
@@ -92,11 +109,37 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           DNI
         </TableSortLabel>
       </TableCell>
-      <TableCell>Codigo Medico</TableCell>
-      <TableCell>Área</TableCell>
-      <TableCell>Especialidad</TableCell>
-      <TableCell>Opciones</TableCell>
-    </TableRow>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        CÓDIGO MÉDICO
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        ÁREA
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        ESPECIALIDAD
+      </TableCell>
+      </TableRow>
   </TableHead>
 );
 
@@ -111,19 +154,30 @@ const DoctorTableBody = ({ doctors }) => (
 const DoctorRow = ({ doctor }) => (
   <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
     <TableCell>
-      {`${doctor.nombres} ${doctor.apellidoPaterno} ${doctor.apellidoMaterno}`}
+      {`${doctor.apellidoPaterno.toUpperCase()} ${doctor.apellidoMaterno.toUpperCase()}, ${doctor.nombres.toUpperCase()}`}
     </TableCell>
     <TableCell>{doctor.dni}</TableCell>
     <TableCell>{doctor.cmp}</TableCell>
-    <TableCell>{doctor.area}</TableCell>
-    <TableCell>{doctor.especialidad.nombre}</TableCell>
+    <TableCell>{doctor.area.toUpperCase()}</TableCell>
+    <TableCell>{doctor.especialidad.nombre.toUpperCase()}</TableCell>
     <TableCell>
       {/* Enlace dinámico al perfil del médico */}
       <Link href={`/staff/perfil/${doctor.idPersona}`} passHref>
         {" "}
         {/* Asegúrate de que 'idPersona' es el identificador correcto */}
-        <Button variant="contained" color="primary">
-          Ver perfil
+        <Button 
+          variant="contained" 
+          sx={{
+            backgroundColor: '#2196f3', // Este es un color gris claro, puedes ajustarlo
+            color: 'white', 
+            textTransform: 'none',    // Esto quitará las mayúsculas
+            '&:hover': {
+              backgroundColor: '#b3b3b3', // Un gris un poco más oscuro cuando pasas el cursor por encima
+            },
+          }}
+          startIcon={<VisibilityIcon />} // Ícono del ojito al lado izquierdo
+        >
+          Ver Perfil
         </Button>
       </Link>
     </TableCell>

@@ -43,16 +43,16 @@ const PerfilMedico = () => {
   return (
     <MainLayout>
       <div>
-        <Grid container justifyContent="center" style={{ height: "auto" }}>
+        <Grid container justifyContent="center" style={{ height: "auto", marginTop: "10px" }}>
           <Grid item xs={11}>
             <Paper
               elevation={3}
-              style={{ padding: "30px", background: "white" }}
+              style={{ padding: "10px 30px 30px 30px", background: "white" }}
             >
               {/* Contenido dentro del Paper */}
-              <h1>Componente perfil del médico</h1>
+              <h1 style={{ fontWeight: "normal", marginBottom: "8px" }}>Perfil del médico</h1>
               <hr />
-              <h3>Datos personales</h3>
+              <h3 style={{ fontWeight: "normal", marginTop: "8px" }}>Datos personales</h3>
               <br />
               <DatosMedico doctor={selectedDoctor} />
               <h3>Disponibilidad</h3>

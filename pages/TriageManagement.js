@@ -82,15 +82,23 @@ const TriageManagement = () => {
               md={2}
               sx={{ display: "flex", alignItems: "center" }}
             >
-              <MUIButton
-                variant="contained"
-                color="primary"
-                startIcon={<AssignmentIcon />}
-                fullWidth
-                onClick={handleSearchClick}
-              >
-                Buscar
-              </MUIButton>
+            <MUIButton
+              variant="contained"
+              sx={{
+                backgroundColor: '#2196f3', // Color del botón
+                color: 'white',             // Texto blanco
+                textTransform: 'none',      // Quitar mayúsculas
+                '&:hover': {
+                  backgroundColor: '#b3b3b3', // Color cuando se pasa el cursor por encima
+                },
+                marginLeft: '0'
+              }}
+              startIcon={<AssignmentIcon />}
+              fullWidth
+              onClick={handleSearchClick}
+            >
+              Buscar
+            </MUIButton>
             </Grid>
           </Grid>
         </Paper>
