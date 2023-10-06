@@ -53,8 +53,10 @@ const PerfilMedico = () => {
               <h1>Componente perfil del médico</h1>
               <hr />
               <h3>Datos personales</h3>
+              <br />
               <DatosMedico doctor={selectedDoctor} />
               <h3>Disponibilidad</h3>
+              <br />
               <SeleccionarHorarioMedico />
               {/* Fin del contenido dentro del Paper */}
             </Paper>

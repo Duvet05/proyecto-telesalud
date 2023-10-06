@@ -105,7 +105,7 @@ function DatosMedico(props) {
           label="Especialidad"
           type="text"
           iconButton={false}
-          value={"NO TIENE"}
+          value={doctor[0].especialidad.nombre}
         />
       </div>
 
@@ -123,7 +123,7 @@ function DatosMedico(props) {
           label="Correo Electrónico"
           type="email"
           iconButton={false}
-          value={"NO TIENE"}
+          value={"No tiene"}
         />
       </div>
 

@@ -74,7 +74,7 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
   };
 
   return (
-    <div style={{ height: "1200px" }}>
+    <div style={{ height: "1250px" }}>
       <Calendar
         localizer={localizer}
         events={events}
