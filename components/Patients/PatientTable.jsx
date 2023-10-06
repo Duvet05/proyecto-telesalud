@@ -65,18 +65,7 @@ export const PatientTable = () => {
                   <TableCell>
                     {" "}
                     <Link href={`/PatientManagement/${row.idPersona}`} passHref>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        /* onClick={() =>
-                        dispatch(
-                          setPatientState({
-                            ...patientState,
-                            idPaciente: row.idPersona,
-                          })
-                        )
-                      } */
-                      >
+                      <Button variant="contained" color="primary">
                         Ver perfil
                       </Button>
                     </Link>

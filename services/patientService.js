@@ -44,9 +44,12 @@ export const patientService = {
 
   listarCitasPorPaciente: async (idPaciente) => {
     try {
-      const response = await axiosInstance.post("/admision/post/citaPaciente", {
-        pn_paciente: idPaciente,
-      });
+      const response = await axiosInstance.post(
+        "/admision/post/listarCitasPorPaciente",
+        {
+          pn_paciente: idPaciente,
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error al listar las citas del paciente", error);

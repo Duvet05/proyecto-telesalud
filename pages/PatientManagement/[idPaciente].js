@@ -37,6 +37,7 @@ function PatientForm() {
         console.log(error);
       }
     };
+
     const fetchAppointments = async () => {
       try {
         const data = await patientService.listarCitasPorPaciente(idPaciente);
@@ -59,12 +60,12 @@ function PatientForm() {
         <Grid item xs={12} sm={12} md={3}>
           <Paper>
             <Grid container direction="column" textAlign="center">
-              <Grid item xs={12} pt={3} pb={1.5} alignSelf={"center"}>
+              {/* <Grid item xs={12} pt={3} pb={1.5} alignSelf={"center"}>
                 <Avatar
                   src="../assets/images/fotoPrueba.jpg"
                   sx={{ width: 200, height: 200 }}
                 ></Avatar>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12}>
                 <Typography variant="h6" fontWeight="bold">
@@ -129,8 +130,11 @@ function PatientForm() {
         </Grid>
         <Grid item md={1}></Grid>
 
-        <Grid item xs={8}>
-          <PatientAppointmentTable></PatientAppointmentTable>
+        <Grid item pt={4} xs={10}>
+          <PatientAppointmentTable
+            appointmentList={appointmentList}
+            cargando={cargando}
+          ></PatientAppointmentTable>
         </Grid>
       </Grid>
     </MainLayout>

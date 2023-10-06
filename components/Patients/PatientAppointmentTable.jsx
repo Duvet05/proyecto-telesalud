@@ -1,4 +1,5 @@
 import {
+  Button,
   Paper,
   TableBody,
   TableCell,
@@ -9,23 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 
-export default function PatientAppointmentTable() {
-  const [cargando, setCargando] = useState(false); //true
-  const [patientAppointmentTable] = useState([]);
-
-  useEffect(() => {
-    /* const fetchData = async () => {
-      try {
-        const data = await patientService.buscarPorFiltro;
-        setPatientAppointmentTable(data);
-        setCargando(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData(); */
-  }, []);
-
+export default function PatientAppointmentTable({ appointmentList, cargando }) {
   return (
     <>
       {!cargando && (
@@ -37,25 +22,26 @@ export default function PatientAppointmentTable() {
                 <TableCell>Especialidad</TableCell>
                 <TableCell>Fecha</TableCell>
                 <TableCell>Hora</TableCell>
-                <TableCell>Estado</TableCell>
                 <TableCell>Opciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {patientAppointmentTable.map((row) => (
+              {appointmentList.map((row) => (
                 <TableRow
                   key={row.idPersona}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>
-                    {row.nombreDoctor +
+                    {row.medico.nombres +
                       " " +
-                      row.apellidoPaterno +
+                      row.medico.apellidoPaterno +
                       " " +
-                      row.apellidoMaterno}
+                      row.medico.apellidoMaterno}
                   </TableCell>
-                  <TableCell>{row.dni}</TableCell>
-                  <TableCell>{row.fechaNacimiento}</TableCell>
+                  <TableCell>{row.medico.especialidad.nombre}</TableCell>
+                  <TableCell>{row.fechaCita}</TableCell>
+                  <TableCell>{row.horaCita}</TableCell>
+
                   <TableCell>
                     {" "}
                     <Button
