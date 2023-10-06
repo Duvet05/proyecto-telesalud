@@ -55,10 +55,22 @@ const Appointments = () => {
     <MainLayout>
       <Container
         maxWidth="lg"
-        style={{ marginTop: "20px", marginBottom: "20px" }}
+        style={{
+          marginTop: "-40px",
+          marginBottom: "20px",
+          display: "flex", // Flex layout
+          flexDirection: "column", // Column direction
+          height: "85vh", // 100% of viewport height
+        }}
       >
-        <Paper style={{ padding: "30px" }}>
-          {" "}
+        <Paper
+          style={{
+            padding: "30px",
+            flex: 1, // This will make the Paper take up all the available space
+            overflowY: "auto", // This will add a scrollbar if content overflows
+            marginBottom: "10px",
+          }}
+        >
           <Typography variant="h4" style={{ marginBottom: "30px" }}>
             {PAGES[currentPage].title}
           </Typography>
@@ -66,15 +78,15 @@ const Appointments = () => {
             <Grid item xs={12}>
               {PAGES[currentPage].component}
             </Grid>
-            <Grid item xs={12}>
-              <NavigationButtons
-                currentPage={currentPage}
-                totalPages={PAGES.length}
-                navigate={navigate}
-              />
-            </Grid>
           </Grid>
         </Paper>
+        <Grid item xs={12}>
+          <NavigationButtons
+            currentPage={currentPage}
+            totalPages={PAGES.length}
+            navigate={navigate}
+          />
+        </Grid>
       </Container>
       {isProcessCompleted && (
         <CustomizedDialog

@@ -3,29 +3,43 @@ import { ButtonGroup, Button, Box } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-const NavigationButtons = ({ currentPage, totalPages, navigate }) => (
-  <Box sx={{ mt: 2 }}>
-    <ButtonGroup variant="contained" color="primary" size="large" fullWidth>
-      <Button
-        startIcon={<ArrowBackIcon />}
-        disabled={currentPage === 0}
-        onClick={() => navigate(-1)}
-        variant={currentPage === 0 ? "outlined" : "contained"}
-        sx={{ transition: "all 0.3s" }}
-      >
-        Atrás
-      </Button>
-      <Button
-        endIcon={<ArrowForwardIcon />}
-        disabled={currentPage === totalPages - 1}
-        onClick={() => navigate(1)}
-        variant={currentPage === totalPages - 1 ? "outlined" : "contained"}
-        sx={{ transition: "all 0.3s" }}
-      >
-        Siguiente
-      </Button>
-    </ButtonGroup>
-  </Box>
-);
+function NavigationButtons(props) {
+  const { currentPage, totalPages, navigate } = props;
+
+  if (currentPage === totalPages - 1) return null;
+
+  const isAtStart = currentPage === 0;
+  const isPenultimate = currentPage === totalPages - 2;
+
+  const forwardButtonProps = isPenultimate
+    ? { endIcon: null, children: "Terminar", variant: "outlined" }
+    : {
+        endIcon: <ArrowForwardIcon />,
+        children: "Siguiente",
+        variant: "contained",
+      };
+
+  return (
+    <Box sx={{ mt: 2 }}>
+      <ButtonGroup variant="contained" color="primary" size="large" fullWidth>
+        <Button
+          startIcon={<ArrowBackIcon />}
+          disabled={isAtStart}
+          onClick={() => navigate(-1)}
+          variant={isAtStart ? "outlined" : "contained"}
+          sx={{ transition: "all 0.3s" }}
+        >
+          Atrás
+        </Button>
+
+        <Button
+          {...forwardButtonProps}
+          onClick={() => navigate(1)}
+          sx={{ transition: "all 0.3s" }}
+        />
+      </ButtonGroup>
+    </Box>
+  );
+}
 
 export default NavigationButtons;
