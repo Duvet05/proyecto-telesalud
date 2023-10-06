@@ -125,7 +125,7 @@ function SelectMedic() {
         />
       )}
 
-      {selectedDoctor && selectedDate && selectedHour && (
+      {/* {selectedDoctor && selectedDate && selectedHour && (
         <Link href="/AppointmentInfo">
           <Button
             variant="contained"
@@ -136,7 +136,7 @@ function SelectMedic() {
             Reservar Cita con {selectedDoctor}
           </Button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 }
