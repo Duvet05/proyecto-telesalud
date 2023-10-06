@@ -15,6 +15,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { medicService } from "../services/medicService"; // Asegúrate de que la ruta sea correcta
 import DoctorTable from "@/components/Staff/DoctorTable";
 import MainLayout from "@/components/layout/MainLayout";
+import IconButton from '@mui/material/IconButton';
 
 const StaffManagement = () => {
   const [doctorName, setDoctorName] = useState("");
@@ -67,20 +68,33 @@ const StaffManagement = () => {
           marginBottom: "5px",
           marginTop: "-50px"
         }}
-      >
-        Médicos
+      > 
+        Gestión de Médicos
       </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <TextField label="Nombre o DNI" 
-                fullWidth 
+              <TextField 
                 variant="outlined"
-                sx={{
-                  marginRight: '0', // Elimina cualquier margen a la derecha
-              }}></TextField>
+                label="Buscar por Nombre o DNI..."
+                fullWidth
+                sx={{ marginRight: '0' }} // Elimina cualquier margen a la derecha
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        edge="end"
+                        onClick={handleSearchClick}
+                      >
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
             </Grid>
+
 
             <Grid item xs={12} md={6}>
               <TextField label="Especialidad" 

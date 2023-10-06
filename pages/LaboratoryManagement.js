@@ -48,7 +48,15 @@ const LaboratoryManagement = () => {
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "100vh" }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            color: "#000",
+            gap: "0.1mm",
+            marginBottom: "5px",
+            marginTop: "-50px"
+          }}
+        > 
           Gestión de Laboratorio
         </Typography>
 
@@ -63,7 +71,7 @@ const LaboratoryManagement = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon />
+                     
                     </InputAdornment>
                   ),
                 }}
@@ -76,15 +84,23 @@ const LaboratoryManagement = () => {
               md={2}
               sx={{ display: "flex", alignItems: "center" }}
             >
-              <MUIButton
+            <MUIButton
                 variant="contained"
-                color="primary"
-                startIcon={<AssignmentIcon />}
+                sx={{
+                  backgroundColor: '#2196f3', 
+                  color: 'white',            
+                  textTransform: 'none',      
+                  '&:hover': {
+                    backgroundColor: '#b3b3b3', 
+                  },
+                  marginLeft: '0'
+                }}
+                startIcon={<SearchIcon />}
                 fullWidth
                 onClick={handleSearchClick}
               >
                 Buscar
-              </MUIButton>
+            </MUIButton>
             </Grid>
           </Grid>
         </Paper>

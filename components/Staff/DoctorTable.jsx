@@ -91,7 +91,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        NOMBRE COMPLETO
+        Nombre Completo
       </TableCell>
       <TableCell
         sx={{
@@ -117,7 +117,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        CÓDIGO MÉDICO
+        Código Médico
       </TableCell>
       <TableCell
         sx={{
@@ -127,7 +127,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        ÁREA
+        Área
       </TableCell>
       <TableCell
         sx={{
@@ -137,7 +137,7 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           paddingTop: '10px'
         }}
       >
-        ESPECIALIDAD
+        Especialidad
       </TableCell>
       </TableRow>
   </TableHead>

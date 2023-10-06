@@ -51,7 +51,7 @@ const PatientManagement = () => {
           }}
         >
           <Grid item xs={4}>
-            <TextField label="Nombre o DNI" 
+            <TextField label="Buscar por Nombre o DNI..." 
               fullWidth 
               variant="outlined"
               sx={{
