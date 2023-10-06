@@ -8,6 +8,9 @@ const localizer = momentLocalizer(moment);
 function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
   const [events, setEvents] = useState([]); //Estado para controlar las horas disponibles
   const [view, setView] = useState("month"); // Estado para controlar la vista
+  const [calendarHeight, setCalendarHeight] = useState(600); // Altura 
+
+
   const isEventOverlapping = (newEvent) => {
     for (const event of events) {
       if (
@@ -40,7 +43,15 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
       }
     }
   };
-
+  const handleView = newView => {
+    // Ajusta la altura según la vista actual
+    setView(newView)
+    if (newView === 'week') {
+      setCalendarHeight(1200);
+    } else if (newView === 'month') {
+      setCalendarHeight(600);
+    }
+  };
   const handleDoubleClickEvent = (event) => {
     // Mostrar un cuadro de diálogo de confirmación para eliminar el evento
     if (view === "month") {
@@ -63,13 +74,13 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
   };
 
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: "1200px" }}>
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: calendarHeight }}
         views={{
           month: true,
           week: true,
@@ -81,7 +92,7 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
         onSelectSlot={handleSelectSlot}
         onDoubleClickEvent={handleDoubleClickEvent} // Manejador para doble clic en eventos
         selectable={view === "week"} // Habilita la selección solo en la vista "Week"
-        onView={(newView) => setView(newView)} // Actualiza el estado de la vista
+        onView={handleView} // Actualiza el estado de la vista
       />
       {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
