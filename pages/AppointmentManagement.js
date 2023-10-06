@@ -16,7 +16,7 @@ import {
 import Link from "next/link"; // Importa el componente Link de Next.js
 import SearchIcon from "@mui/icons-material/Search";
 import MainLayout from "@/components/layout/MainLayout";
-
+import { Typography } from "@mui/material";
 function AppointmentManagement(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [appointments, setAppointments] = useState([]);
@@ -37,7 +37,9 @@ function AppointmentManagement(props) {
   return (
     <MainLayout>
       <div style={{ padding: 20 }}>
-        <h2>Citas</h2>
+        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
+          Citas
+        </Typography>
 
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -58,8 +60,12 @@ function AppointmentManagement(props) {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
-            {/* Aquí puedes colocar otros filtros en el futuro */}
+          <Grid item xs={12} md={6} container justifyContent="flex-end">
+            <Link href="/NewAppointmentPage">
+              <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
+                Crear nueva cita
+              </Button>
+            </Link>
           </Grid>
         </Grid>
 
@@ -95,11 +101,7 @@ function AppointmentManagement(props) {
         </TableContainer>
 
         {/* Utiliza el componente Link de Next.js para enlazar a la página "citas/new" */}
-        <Link href="/NewAppointmentPage">
-          <Button variant="contained" color="primary" style={{ marginTop: 20 }}>
-            Crear nueva cita
-          </Button>
-        </Link>
+
       </div>
     </MainLayout>
   );

@@ -11,51 +11,38 @@ const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTriageOpen, setIsTriageOpen] = useState(false);
 
-  const openTriagePopup = () => {
-    setIsTriageOpen(true);
-  };
+  const PAGES = [<AppointmentForm />,<SelectMedic />];
+  const PAGE_TITLES = ["Información del paciente","Seleccionar médico"];
 
-  const closeTriagePopup = () => {
-    setIsTriageOpen(false);
-  };
+  const openTriagePopup = () => setIsTriageOpen(true);
+  const closeTriagePopup = () => setIsTriageOpen(false);
 
   const navigate = (delta) => {
-    const nextPage = Math.min(
-      Math.max(currentPage + delta, 0),
-      PAGES.length - 1
-    );
+    const nextPage = Math.min(Math.max(currentPage + delta, 0), PAGES.length - 1);
     setCurrentPage(nextPage);
 
-    // Si nextPage es la última página, mostrar el pop-up de triaje
     if (nextPage === PAGES.length - 1) {
       openTriagePopup();
     }
   };
 
-  const PAGES = [<AppointmentForm navigate={navigate} />, <SelectMedic />];
+  // useEffect(() => {
+  //   const confirmExit = (e) => {
+  //     e.preventDefault();
+  //     e.returnValue = "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
+  //     return "";
+  //   };
 
-  const PAGE_TITLES = ["Información del paciente", "Seleccionar médico"];
+  //   window.addEventListener("beforeunload", confirmExit);
 
-  useEffect(() => {
-    const confirmExit = (e) => {
-      e.preventDefault();
-      e.returnValue =
-        "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
-
-      return "";
-    };
-
-    window.addEventListener("beforeunload", confirmExit);
-
-    return () => {
-      window.removeEventListener("beforeunload", confirmExit);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", confirmExit);
+  //   };
+  // }, []);
 
   return (
     <MainLayout>
-      {" "}
-      <Container>
+      <Container maxWidth={false} style={{ height: "auto" }}>
         <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
           <Typography variant="h4" gutterBottom>
             Nueva Atención
@@ -68,7 +55,7 @@ const Appointments = () => {
               </Typography>
               {PAGES[currentPage]}
             </Grid>
-            {currentPage !== PAGES.length - 1 && ( // No renderizar NavigationButtons en la última página
+            {currentPage !== PAGES.length - 1 && (
               <Grid item xs={12}>
                 <NavigationButtons
                   currentPage={currentPage}
@@ -78,11 +65,11 @@ const Appointments = () => {
               </Grid>
             )}
           </Grid>
-        </Paper>
-        <AskForTriage
+          {/* <AskForTriage
           open={isTriageOpen}
           onClose={() => setIsTriageOpen(false)}
-        />
+        /> */}
+        </Paper>
       </Container>
     </MainLayout>
   );

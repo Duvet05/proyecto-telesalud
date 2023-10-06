@@ -43,7 +43,7 @@ const PerfilMedico = () => {
   return (
     <MainLayout>
       <div>
-        <Grid container justifyContent="center" style={{ height: "100vh" }}>
+        <Grid container justifyContent="center" style={{ height: "auto" }}>
           <Grid item xs={11}>
             <Paper
               elevation={3}

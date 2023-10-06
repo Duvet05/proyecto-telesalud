@@ -56,7 +56,7 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
               ? "Agregar paciente"
               : isEditing
               ? "Cancelar"
-              : "Editar selección"
+              : "Crear paciente"
           }
         >
           <IconButton onClick={handleAddOrCancel}>

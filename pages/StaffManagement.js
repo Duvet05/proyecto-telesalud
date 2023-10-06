@@ -58,7 +58,7 @@ const StaffManagement = () => {
 
   return (
     <MainLayout>
-      <Container maxWidth={false} style={{ height: "100vh" }}>
+      <Container maxWidth={false} style={{ height: "auto" }}>
         <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
           Médicos
         </Typography>

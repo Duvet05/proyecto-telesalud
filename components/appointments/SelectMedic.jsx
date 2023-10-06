@@ -131,7 +131,7 @@ function SelectMedic() {
             variant="contained"
             color="primary"
             fullWidth
-            style={{ marginTop: "20px" }}
+            style={{ margin: "25px 0"}}
           >
             Reservar Cita con {selectedDoctor}
           </Button>
