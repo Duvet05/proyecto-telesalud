@@ -38,4 +38,14 @@ export const appointmentService = {
       throw error;
     }
   },
+
+  listar: async (appointmentRequest) => {
+    try {
+      const response = await axiosInstance.get("/admision/get/cita");
+      return response.data;
+    } catch (error) {
+      console.error("Error al listar las citas", error);
+      throw error;
+    }
+  },
 };
