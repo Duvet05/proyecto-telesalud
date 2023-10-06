@@ -6,12 +6,12 @@ import AppointmentInfo from "./AppointmentInfo";
 import SelectMedic from "../components/appointments/SelectMedic";
 import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
-
+import TriajeONo from "../components/appointments/TriajeONo"
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTriageOpen, setIsTriageOpen] = useState(false);
 
-  const PAGES = [<AppointmentForm />,<SelectMedic />, <AppointmentInfo />];
+  const PAGES = [<AppointmentForm />,<SelectMedic />, <TriajeONo /> ,<AppointmentInfo />];
   const PAGE_TITLES = ["Información del paciente","Seleccionar médico"];
 
   const openTriagePopup = () => setIsTriageOpen(true);
@@ -42,7 +42,7 @@ const Appointments = () => {
 
   return (
     <MainLayout>
-      <Container maxWidth={false} style={{ height: "auto" }}>
+      <Container maxWidth={false} style={{height: "auto"}}>
         <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
           <Typography variant="h4" gutterBottom>
             Nueva Atención
