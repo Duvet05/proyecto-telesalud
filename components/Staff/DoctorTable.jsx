@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { medicService } from "../../services/medicService";
 import Link from "next/link"; // Importar Link de Next.js
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export const DoctorTable = (props) => {
   const { doctorNameIngresado, especialidad } = props;
@@ -82,8 +83,24 @@ export const DoctorTable = (props) => {
 const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
   <TableHead>
     <TableRow>
-      <TableCell>Nombre completo</TableCell>
-      <TableCell>
+      <TableCell 
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        Nombre completo
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}      
+      >
         <TableSortLabel
           active={orderBy === "dni"}
           direction={order}
@@ -92,11 +109,37 @@ const DoctorTableHead = ({ handleSortRequest, order, orderBy }) => (
           DNI
         </TableSortLabel>
       </TableCell>
-      <TableCell>Codigo Medico</TableCell>
-      <TableCell>Área</TableCell>
-      <TableCell>Especialidad</TableCell>
-      <TableCell>Opciones</TableCell>
-    </TableRow>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        Codigo Medico
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        Área
+      </TableCell>
+      <TableCell
+        sx={{
+          fontSize: '1.1em',
+          color: '#333',
+          paddingBottom: '10px',
+          paddingTop: '10px'
+        }}
+      >
+        Especialidad
+      </TableCell>
+      </TableRow>
   </TableHead>
 );
 
@@ -122,8 +165,19 @@ const DoctorRow = ({ doctor }) => (
       <Link href={`/staff/perfil/${doctor.idPersona}`} passHref>
         {" "}
         {/* Asegúrate de que 'idPersona' es el identificador correcto */}
-        <Button variant="contained" color="primary">
-          Ver perfil
+        <Button 
+          variant="contained" 
+          sx={{
+            backgroundColor: '#2196f3', // Este es un color gris claro, puedes ajustarlo
+            color: 'white', 
+            textTransform: 'none',    // Esto quitará las mayúsculas
+            '&:hover': {
+              backgroundColor: '#b3b3b3', // Un gris un poco más oscuro cuando pasas el cursor por encima
+            },
+          }}
+          startIcon={<VisibilityIcon />} // Ícono del ojito al lado izquierdo
+        >
+          Ver Perfil
         </Button>
       </Link>
     </TableCell>

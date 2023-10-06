@@ -59,34 +59,34 @@ const StaffManagement = () => {
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "auto" }}>
-        <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2, color: "black" }}>
-          Médicos
-        </Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          color: "#000",
+          gap: "0.1mm",
+          marginBottom: "5px",
+          marginTop: "-50px"
+        }}
+      >
+        Médicos
+      </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                label="Buscar por nombre"
-                fullWidth
-                value={doctorName}
-                onChange={(e) => setDoctorName(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      {/* <SearchIcon /> */}
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
+            <Grid item xs={4}>
+              <TextField label="Nombre o DNI" 
+                fullWidth 
+                variant="outlined"
+                sx={{
+                  marginRight: '0', // Elimina cualquier margen a la derecha
+              }}></TextField>
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
+              <TextField label="Especialidad" 
+                fullWidth 
                 select
-                label="Especialidad"
+                variant="outlined"
                 value={selectedSpecialty}
                 onChange={(event) => setSelectedSpecialty(event.target.value)}
               >
@@ -99,7 +99,7 @@ const StaffManagement = () => {
                     {specialty.nombre}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextField>    
 
             </Grid>
 

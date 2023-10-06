@@ -3,7 +3,10 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "moment/locale/es"; // Importa la localización en español
 import "react-big-calendar/lib/css/react-big-calendar.css";
+
+moment.locale('es');
 const localizer = momentLocalizer(moment);
+moment.locale('es');
 
 function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
   const [events, setEvents] = useState([]); //Estado para controlar las horas disponibles
@@ -74,7 +77,7 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
   };
 
   return (
-    <div style={{ height: "1250px" }}>
+    <div style={{ height: "auto" }}>
       <Calendar
         localizer={localizer}
         events={events}

@@ -13,6 +13,7 @@ import { patientService } from "../../services/patientService";
 import { useDispatch, useSelector } from "react-redux";
 import { setPatientState } from "@/redux/features/patientStateSlice";
 import Link from "next/link";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 export const PatientTable = () => {
   const [cargando, setCargando] = useState(true); //true
@@ -37,14 +38,40 @@ export const PatientTable = () => {
       {!cargando && (
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre completo</TableCell>
-                <TableCell>DNI</TableCell>
-                <TableCell>Fecha de nacimiento</TableCell>
-                <TableCell>Opciones</TableCell>
-              </TableRow>
-            </TableHead>
+          <TableHead>
+            <TableRow>
+              <TableCell 
+                sx={{
+                  fontSize: '1.1em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Nombre completo
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.1em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                DNI
+              </TableCell>
+              <TableCell 
+                sx={{
+                  fontSize: '1.1em',
+                  color: '#333',
+                  paddingBottom: '10px',
+                  paddingTop: '10px'
+                }}
+              >
+                Fecha de Nacimiento
+              </TableCell>
+            </TableRow>
+          </TableHead>
             <TableBody>
               {patientTable.map((row) => (
                 <TableRow
@@ -65,9 +92,20 @@ export const PatientTable = () => {
                   <TableCell>
                     {" "}
                     <Link href={`/PatientManagement/${row.idPersona}`} passHref>
-                      <Button variant="contained" color="primary">
-                        Ver perfil
-                      </Button>
+                    <Button 
+                      variant="contained" 
+                      sx={{
+                        backgroundColor: '#2196f3', // Este es un color gris claro, puedes ajustarlo
+                        color: 'white', 
+                        textTransform: 'none',    // Esto quitará las mayúsculas
+                        '&:hover': {
+                          backgroundColor: '#b3b3b3', // Un gris un poco más oscuro cuando pasas el cursor por encima
+                        },
+                      }}
+                      startIcon={<VisibilityIcon />} // Ícono del ojito al lado izquierdo
+                    >
+                      Ver Perfil
+                    </Button>
                     </Link>
                   </TableCell>
                 </TableRow>

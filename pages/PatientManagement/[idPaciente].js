@@ -90,44 +90,34 @@ function PatientForm() {
         {/* Informacion a fondo */}
 
         <Grid item xs={12} sm={12} md={6}>
-          <Paper sx={{ padding: "20px" }}>
+          <Paper 
+            sx={{ 
+              padding: "20px",
+              borderRadius: "10px",  // Bordes redondeados
+              backgroundColor: "#ffff"  // Color de fondo claro
+            }}>
             <Grid container spacing={3}>
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography>DNI</Typography>
-                <Typography fontWeight="bold">{patientForm.dni}</Typography>
-              </Grid>
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography fontWeight="medium">Genero</Typography>
-                <Typography fontWeight="bold">{patientForm.sexo}</Typography>
-              </Grid>
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography fontWeight="medium">Direccion</Typography>
-                <Typography fontWeight="bold">
-                  {patientForm.direccion}
-                </Typography>
-              </Grid>
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography fontWeight="medium">Tipo de seguro</Typography>
-                <Typography fontWeight="bold">
-                  {patientForm.tipoSeguro}
-                </Typography>
-              </Grid>
-
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography fontWeight="medium">Fecha de nacimiento</Typography>
-                <Typography fontWeight="bold">
-                  {patientForm.fechaNacimiento}
-                </Typography>
-              </Grid>
-              <Grid item p={2} xs={12} sm={12} md={6}>
-                <Typography fontWeight="medium">Nº de seguro</Typography>
-                <Typography fontWeight="bold">
-                  {patientForm.codigoSeguro}
-                </Typography>
-              </Grid>
+              {[
+                { title: "DNI", value: patientForm.dni },
+                { title: "Genero", value: patientForm.sexo },
+                { title: "Direccion", value: patientForm.direccion },
+                { title: "Tipo de seguro", value: patientForm.tipoSeguro },
+                { title: "Fecha de nacimiento", value: patientForm.fechaNacimiento },
+                { title: "Nº de seguro", value: patientForm.codigoSeguro }
+              ].map((item, index) => (
+                <Grid item p={2} xs={12} sm={12} md={6} key={index}>
+                  <Typography fontWeight="medium" color="textSecondary">
+                    {item.title}
+                  </Typography>
+                  <Typography fontWeight="bold" color="textPrimary">
+                    {item.value}
+                  </Typography>
+                </Grid>
+              ))}
             </Grid>
           </Paper>
         </Grid>
+
         <Grid item md={1}></Grid>
 
         <Grid item pt={4} xs={10}>

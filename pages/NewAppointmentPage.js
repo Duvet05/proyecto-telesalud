@@ -44,10 +44,11 @@ const Appointments = () => {
     <MainLayout>
       <Container maxWidth={false} style={{ height: "auto" }}>
         <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
-          <Typography variant="h4" gutterBottom>
-            Nueva Atención
+          <Typography variant="h4" gutterBottom style={{ marginBottom: "10px" }}>
+                Nueva Atención
           </Typography>
-          <hr />
+          <hr style={{ marginBottom: "10px" }}  />
+
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Typography variant="h5" gutterBottom>

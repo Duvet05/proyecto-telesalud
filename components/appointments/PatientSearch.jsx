@@ -36,10 +36,11 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Buscar por Nombre del Paciente"
+              label="Buscar por nombre..."
               variant="outlined"
               fullWidth
               disabled={disabled}
+              sx={{ width: '350px' }} 
             />
           )}
           inputValue={inputValue}

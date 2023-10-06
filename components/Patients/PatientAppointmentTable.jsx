@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import DescriptionIcon from '@mui/icons-material/Description'; 
 
 export default function PatientAppointmentTable({ appointmentList, cargando }) {
   return (
@@ -18,11 +19,50 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nombre del doctor </TableCell>
-                <TableCell>Especialidad</TableCell>
-                <TableCell>Fecha</TableCell>
-                <TableCell>Hora</TableCell>
-                <TableCell>Opciones</TableCell>
+                <TableCell 
+                  style={{ width: '30%' }}
+                  sx={{
+                    fontSize: '1.1em',
+                    color: '#333',
+                    paddingBottom: '10px',
+                    paddingTop: '10px'
+                  }}
+                >
+                  Nombre del Doctor
+                </TableCell>
+                <TableCell 
+                  style={{ width: '20%' }}
+                  sx={{
+                    fontSize: '1.1em',
+                    color: '#333',
+                    paddingBottom: '10px',
+                    paddingTop: '10px'
+                  }}
+                >
+                  Especialidad
+                </TableCell>
+                <TableCell 
+                  style={{ width: '20%' }}
+                  sx={{
+                    fontSize: '1.1em',
+                    color: '#333',
+                    paddingBottom: '10px',
+                    paddingTop: '10px'
+                  }}
+                >
+                  Fecha
+                </TableCell>
+                <TableCell 
+                  style={{ width: '10%' }}
+                  sx={{
+                    fontSize: '1.1em',
+                    color: '#333',
+                    paddingBottom: '10px',
+                    paddingTop: '10px'
+                  }}
+                >
+                  Hora
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -44,17 +84,32 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
 
                   <TableCell>
                     {" "}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() =>
-                        alert(
-                          `Ver informacion del paciente con DNI: ${row.dni} de la cita con codigo: ${row.codigoCita}`
-                        )
+                    <Button 
+                    variant="contained" 
+                    onClick={() =>
+                      alert(
+                        `Ver informacion del paciente con DNI: ${row.dni} de la cita con codigo: ${row.codigoCita}`
+                      )
+                    }
+                    sx={{
+                      backgroundColor: '#2196f3', 
+                      color: '#ffffff',  // Texto blanco
+                      fontSize: '1.0em',  // Tamaño del texto
+                      textTransform: 'none',  // Sin transformación de texto (mayúsculas)
+                      minWidth: '80px',  // Ancho mínimo
+                      width: 'auto',  // Ancho fijo
+                      '&:hover': {
+                          backgroundColor: '#b3b3b3',  // Color de fondo al pasar el cursor
+                      },     
+                      '& .MuiButton-startIcon': {
+                          margin: 0,
+                          marginRight: '4px',  // Margen derecho del ícono
                       }
-                    >
-                      Ver cita
-                    </Button>
+                    }}
+                    startIcon={<DescriptionIcon />}  // Ícono de documento al inicio del botón
+                  >
+                    Detalles
+                  </Button>
                   </TableCell>
                 </TableRow>
               ))}

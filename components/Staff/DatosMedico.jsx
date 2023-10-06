@@ -8,13 +8,14 @@ import {
   Avatar,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-const softBlue = "#e6f7ff"; // Azul suave
+const softBlue = "#F0F0F0"; // Azul suave
 const labelColor = "#666"; // Color de etiqueta
 const Campo = ({ id, label, type, iconButton, value }) => {
   const inputStyles = {
     backgroundColor: softBlue,
+    color: "#000",
     "& input": {
-      color: labelColor,
+      color: "#000",
     },
   };
 
@@ -46,6 +47,7 @@ const Campo = ({ id, label, type, iconButton, value }) => {
             disabled
             sx={inputStyles}
             value={value}
+            inputProps={{ style: { color: "#000" } }}
           />
           <IconButton>
             <SearchIcon />
@@ -62,6 +64,7 @@ const Campo = ({ id, label, type, iconButton, value }) => {
           disabled
           sx={inputStyles}
           value={value}
+          inputProps={{ style: { color: "#000" } }}
         />
       )}
     </Box>
@@ -139,9 +142,9 @@ function DatosMedico(props) {
       >
         {/* Imagen */}
         <Avatar
-          src="ruta_de_la_imagen_referencial.jpg"
+          src="/assets/images/doctorface.jpg"
           alt="Foto del doctor"
-          sx={{ width: 150, height: 150, marginBottom: 1 }}
+          sx={{ width: 200, height: 200, marginBottom: 1 }}
         />
       </div>
     </div>
