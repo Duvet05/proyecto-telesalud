@@ -5,6 +5,8 @@ import {
   Autocomplete,
   IconButton,
   Tooltip,
+  Typography,
+  Box,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,7 +29,7 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
   const isAddMode = !selectedValue && inputValue !== "";
   return (
     <Grid container spacing={3}>
-      <Grid item xs={10} md={8}>
+      <Grid item xs={9} md={8}>
         <Autocomplete
           options={allPatients}
           getOptionLabel={(option) =>
@@ -40,7 +42,7 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
               variant="outlined"
               fullWidth
               disabled={disabled}
-              sx={{ width: '350px' }} 
+              sx={{ width: "92vh" }}
             />
           )}
           inputValue={inputValue}
@@ -50,7 +52,7 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
           disabled={disabled}
         />
       </Grid>
-      <Grid item xs={2} md={4}>
+      <Grid item xs={3} md={4}>
         <Tooltip
           title={
             isAddMode
@@ -60,9 +62,24 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
               : "Crear paciente"
           }
         >
-          <IconButton onClick={handleAddOrCancel}>
-            {isAddMode ? <AddIcon /> : isEditing ? <CloseIcon /> : <AddIcon />}
-          </IconButton>
+          <Box display="flex" alignItems="center" justifyContent="flex-start">
+            <IconButton onClick={handleAddOrCancel} sx={{ marginRight: 1 }}>
+              {isAddMode ? (
+                <AddIcon />
+              ) : isEditing ? (
+                <CloseIcon />
+              ) : (
+                <AddIcon />
+              )}
+            </IconButton>
+            <Typography variant="body2">
+              {isAddMode
+                ? "Agregar"
+                : isEditing
+                ? "Cancelar"
+                : "Agregar paciente"}
+            </Typography>
+          </Box>
         </Tooltip>
       </Grid>
     </Grid>
