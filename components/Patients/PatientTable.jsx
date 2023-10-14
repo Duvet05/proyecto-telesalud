@@ -1,119 +1,83 @@
-import { React, useState, useEffect } from "react";
-import {
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
-  Button,
-} from "@mui/material";
-import { patientService } from "../../services/patientService";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPatientState } from "@/redux/features/patientStateSlice";
+import { CircularProgress, Typography, Button } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Link from "next/link";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { patientService } from "@/services/patientService";
+import { setPatients, setLoading } from "@/redux/features/patient/patientSlice";
+import BaseTable from "../common/BaseTable";
+import { TableRow, TableCell } from "@mui/material";
 
 export const PatientTable = () => {
-  const [cargando, setCargando] = useState(true); //true
-  const [patientTable, setPatientTable] = useState([]);
-  const patientState = useSelector((state) => state.patientState);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await patientService.listar({});
-        setPatientTable(data);
-        setCargando(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const { loading, patients } = useSelector((state) => state.patient);
+
+  const fetchData = async () => {
+    try {
+      const data = await patientService.listar({});
+      dispatch(setPatients(data));
+      dispatch(setLoading(false));
+      return data;
+    } catch (err) {
+      console.error(err);
+      throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.");
+    }
+  };
+
+  const columns = [
+    { id: "name", label: "Nombre completo" },
+    { id: "dni", label: "DNI" },
+    { id: "birthdate", label: "Fecha de Nacimiento" },
+    { id: "actions", label: "Acciones" },
+  ];
 
   return (
     <>
-      {!cargando && (
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell 
-                sx={{
-                  fontSize: '1.1em',
-                  color: '#333',
-                  paddingBottom: '10px',
-                  paddingTop: '10px'
-                }}
-              >
-                Nombre completo
-              </TableCell>
-              <TableCell 
-                sx={{
-                  fontSize: '1.1em',
-                  color: '#333',
-                  paddingBottom: '10px',
-                  paddingTop: '10px'
-                }}
-              >
-                DNI
-              </TableCell>
-              <TableCell 
-                sx={{
-                  fontSize: '1.1em',
-                  color: '#333',
-                  paddingBottom: '10px',
-                  paddingTop: '10px'
-                }}
-              >
-                Fecha de Nacimiento
-              </TableCell>
-            </TableRow>
-          </TableHead>
-            <TableBody>
-              {patientTable.map((row) => (
-                <TableRow
-                  key={row.idPersona}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>
-                    {row.nombres +
-                      " " +
-                      row.apellidoPaterno +
-                      " " +
-                      row.apellidoMaterno}
-                  </TableCell>
-                  <TableCell>{row.dni}</TableCell>
-                  <TableCell>{row.fechaNacimiento}</TableCell>
-                  {/* 
-                  <TableCell>{patientState.idPaciente}</TableCell> */}
-                  <TableCell>
-                    {" "}
-                    <Link href={`/PatientManagement/${row.idPersona}`} passHref>
-                    <Button 
-                      variant="contained" 
-                      sx={{
-                        backgroundColor: '#2196f3', // Este es un color gris claro, puedes ajustarlo
-                        color: 'white', 
-                        textTransform: 'none',    // Esto quitará las mayúsculas
-                        '&:hover': {
-                          backgroundColor: '#b3b3b3', // Un gris un poco más oscuro cuando pasas el cursor por encima
-                        },
-                      }}
-                      startIcon={<VisibilityIcon />} // Ícono del ojito al lado izquierdo
-                    >
-                      Ver Perfil
-                    </Button>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      {loading ? (
+        <div
+          style={{ display: "flex", justifyContent: "center", padding: "2em" }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <BaseTable
+          fetchData={fetchData}
+          columns={columns}
+          RowComponent={PatientRow}
+        />
       )}
     </>
   );
 };
+
+const PatientRow = ({ data }) => {
+  const {
+    idPersona,
+    nombres,
+    apellidoPaterno,
+    apellidoMaterno,
+    dni,
+    fechaNacimiento,
+  } = data;
+
+  return (
+    <TableRow key={idPersona}>
+      <TableCell>{`${nombres} ${apellidoPaterno} ${apellidoMaterno}`}</TableCell>
+      <TableCell>{dni}</TableCell>
+      <TableCell>{fechaNacimiento}</TableCell>
+      <TableCell>
+        <Link href={`/PatientManagement/${idPersona}`} passHref>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<VisibilityIcon />}
+          >
+            Ver Perfil
+          </Button>
+        </Link>
+      </TableCell>
+    </TableRow>
+  );
+};
+
+export default PatientTable;
