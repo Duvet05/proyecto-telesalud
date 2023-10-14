@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/components/*": ["components/*"],
+      "@/services/*": ["services/*"],
+      "@/redux/*": ["redux/*"],
+      "@/styles/*": ["styles/*"],
+      "@/config/*": ["configs/*"],
+      "@/pages/*": ["pages/*"],
+      "@/public/*": ["public/*"]
     }
   }
 }
