@@ -79,9 +79,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </Grid>
           </Grid>
         </Toolbar>
-        {routesSideBar.map((route) =>
+        {routesSideBar.map((route, index) =>
           route.sidebarProps ? (
-            <SidebarItem item={route} isSidebarOpen={isSidebarOpen} />
+            <SidebarItem
+              key={index}
+              item={route}
+              isSidebarOpen={isSidebarOpen}
+            />
           ) : null
         )}
       </List>
