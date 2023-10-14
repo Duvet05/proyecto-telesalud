@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appStateSlice from "./features/appStateSlice";
-import patientStateSlice from "./features/patientStateSlice";
+import rootReducer from "./rootReducers";
 
-export const store = configureStore({
-  reducer: {
-    appState: appStateSlice,
-    patientState: patientStateSlice,
-  },
+const store = configureStore({
+  reducer: rootReducer,
 });
 
 export default store;
