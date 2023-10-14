@@ -9,29 +9,27 @@ import {
   Paper,
   TableSortLabel,
 } from "@mui/material";
-import Link from "next/link";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 
-export const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
+const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState(columns[0].id);
 
   useEffect(() => {
-    fetchDataFunction();
-  }, [extraProps]);
-
-  const fetchDataFunction = async () => {
-    try {
-      const fetchedData = await fetchData(extraProps);
-      setData(fetchedData);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-      setIsLoading(false);
+    async function fetchDataAndUpdateState() {
+      try {
+        const fetchedData = await fetchData(extraProps);
+        setData(fetchedData);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  };
+
+    fetchDataAndUpdateState();
+  }, [extraProps]);
 
   const handleSortRequest = (property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -39,20 +37,20 @@ export const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
     setOrderBy(property);
   };
 
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    !isLoading && (
-      <TableContainer component={Paper}>
-        <Table>
-          <BaseTableHead
-            handleSortRequest={handleSortRequest}
-            order={order}
-            orderBy={orderBy}
-            columns={columns}
-          />
-          <BaseTableBody data={data} RowComponent={RowComponent} />
-        </Table>
-      </TableContainer>
-    )
+    <TableContainer component={Paper}>
+      <Table>
+        <BaseTableHead
+          handleSortRequest={handleSortRequest}
+          order={order}
+          orderBy={orderBy}
+          columns={columns}
+        />
+        <BaseTableBody data={data} RowComponent={RowComponent} />
+      </Table>
+    </TableContainer>
   );
 };
 
