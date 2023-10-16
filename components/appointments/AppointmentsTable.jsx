@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Table,
@@ -9,6 +9,7 @@ import {
   TableRow,
   TableSortLabel,
 } from "@mui/material";
+import { appointmentService } from "@/services/appointmentService";
 
 const tableStyles = {
   fontSize: "1.0em",
@@ -17,8 +18,39 @@ const tableStyles = {
   paddingTop: "10px",
 };
 
-const AppointmentsTable = ({ appointments }) => {
+const AppointmentsTable = () => {
+  const [appointments, setAppointments] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    appointmentService
+      .listar()
+      .then((data) => {
+        const mappedData = mapDataToAppointments(data);
+        setAppointments(mappedData);
+        setIsLoading(false); // Datos cargados
+      })
+      .catch((err) => {
+        console.error("Error al obtener las citas:", err);
+        setError("Hubo un problema al cargar las citas."); // Error seteado
+        setIsLoading(false);
+      });
+  }, []);
+
+  const mapDataToAppointments = (data) => {
+    if (!Array.isArray(data)) return [];
+    return data.map((appointment) => ({
+      id: appointment.idCita,
+      patientName: `${appointment.paciente.nombres} ${appointment.paciente.apellidoPaterno} ${appointment.paciente.apellidoMaterno}`,
+      doctorName: `${appointment.medico.nombres} ${appointment.medico.apellidoPaterno} ${appointment.medico.apellidoMaterno}`,
+      speciality: appointment.medico.especialidad.nombre,
+      date: appointment.fechaCita,
+      time: appointment.horaCita,
+      status: appointment.estado === 1 ? "Activo" : "Inactivo",
+    }));
+  };
 
   const requestSort = (key) => {
     let direction = "ascending";
