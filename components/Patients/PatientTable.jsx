@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CircularProgress, Typography, Button } from "@mui/material";
+import { CircularProgress, Button } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Link from "next/link";
 import { patientService } from "@/services/patientService";
