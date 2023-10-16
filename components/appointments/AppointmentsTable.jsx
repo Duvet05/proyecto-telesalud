@@ -25,18 +25,20 @@ const AppointmentsTable = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    appointmentService
-      .listar()
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const data = await appointmentService.listar();
         const mappedData = mapDataToAppointments(data);
         setAppointments(mappedData);
         setIsLoading(false); // Datos cargados
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Error al obtener las citas:", err);
         setError("Hubo un problema al cargar las citas."); // Error seteado
         setIsLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const mapDataToAppointments = (data) => {

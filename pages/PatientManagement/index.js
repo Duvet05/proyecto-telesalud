@@ -1,19 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  Typography,
-  Button,
-  Input,
-  Select,
-  MenuItem,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-  Box,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Grid, Typography, Button, Paper, TextField } from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
 import PatientTable from "@/components/Patients/PatientTable";
 import SearchIcon from "@mui/icons-material/Search";

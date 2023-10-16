@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
-import AppointmentsTable from "../components/appointments/AppointmentsTable";
+import AppointmentsTable from "../../components/appointments/AppointmentsTable";
 import SearchAndAddBar from "@/components/common/SearchAndAddBar";
 
 function AppointmentManagement() {
