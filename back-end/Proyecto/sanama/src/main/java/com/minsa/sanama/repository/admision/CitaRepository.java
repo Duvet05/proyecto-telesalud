@@ -1,8 +1,6 @@
 package com.minsa.sanama.repository.admision;
 
 import com.minsa.sanama.model.admision.Paciente;
-import com.minsa.sanama.model.admision.ProgramacionCita;
-import com.minsa.sanama.model.admision.EstadoCita;
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
 import com.minsa.sanama.model.atencionmedica.HojaMedica;
 import com.minsa.sanama.model.rrhh.Especialidad;
@@ -19,8 +17,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +30,14 @@ public class CitaRepository {
     }
 
     private final CitaMedicaMapper citaMedicaMapper = new CitaMedicaMapper();
+
     public List<CitaMedica> listarCitasTodas() {
         String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas()};";
         return jdbcTemplate.query(procedureCall, citaMedicaMapper);
     }
 
     public List<CitaMedica> listarCitasxPaciente(int pv_idPaciente) {
-        String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_x_paciente('"+pv_idPaciente+"')};";
+        String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_x_paciente('" + pv_idPaciente + "')};";
         return jdbcTemplate.query(procedureCall, citaMedicaMapper);
     }
 
@@ -77,12 +74,12 @@ public class CitaRepository {
         }
     }
 
-    /*Este es el metodo para registrar una Cita Medica*/
-    public int registrarCita(CitaMedica citaMedica){
+    /* Este es el metodo para registrar una Cita Medica */
+    public int registrarCita(CitaMedica citaMedica) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_adm_registrar_cita_medica")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlOutParameter("pn_id_cita", Types.INTEGER),
                         new SqlParameter("pn_id_paciente", Types.INTEGER),
                         new SqlParameter("pn_id_medico", Types.INTEGER),
@@ -105,11 +102,10 @@ public class CitaRepository {
                 .addValue("pn_estado", 1);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
-            int idCita = (int)result.get("pn_id_cita");
+        } else {
+            int idCita = (int) result.get("pn_id_cita");
             return idCita;
         }
     }

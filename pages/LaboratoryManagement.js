@@ -32,7 +32,7 @@ const LaboratoryManagement = () => {
         })
         .catch((error) => {
           console.error(
-            "Error al buscar órdenes de laboratorio por nombre del paciente",
+            "Error al buscar órdenes  de laboratorio por nombre del paciente",
             error
           );
           setError(
@@ -54,9 +54,9 @@ const LaboratoryManagement = () => {
             color: "#000",
             gap: "0.1mm",
             marginBottom: "5px",
-            marginTop: "-50px"
+            marginTop: "-50px",
           }}
-        > 
+        >
           Gestión de Laboratorio
         </Typography>
 
@@ -70,9 +70,7 @@ const LaboratoryManagement = () => {
                 onChange={(e) => setPatientName(e.target.value)}
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                     
-                    </InputAdornment>
+                    <InputAdornment position="start"></InputAdornment>
                   ),
                 }}
               />
@@ -84,23 +82,23 @@ const LaboratoryManagement = () => {
               md={2}
               sx={{ display: "flex", alignItems: "center" }}
             >
-            <MUIButton
+              <MUIButton
                 variant="contained"
                 sx={{
-                  backgroundColor: '#2196f3', 
-                  color: 'white',            
-                  textTransform: 'none',      
-                  '&:hover': {
-                    backgroundColor: '#b3b3b3', 
+                  backgroundColor: "#2196f3",
+                  color: "white",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "#b3b3b3",
                   },
-                  marginLeft: '0'
+                  marginLeft: "0",
                 }}
                 startIcon={<SearchIcon />}
                 fullWidth
                 onClick={handleSearchClick}
               >
                 Buscar
-            </MUIButton>
+              </MUIButton>
             </Grid>
           </Grid>
         </Paper>

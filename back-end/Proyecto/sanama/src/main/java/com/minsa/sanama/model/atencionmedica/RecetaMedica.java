@@ -2,7 +2,6 @@ package com.minsa.sanama.model.atencionmedica;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RecetaMedica {
     private int idReceta;
@@ -14,7 +13,7 @@ public class RecetaMedica {
 
     public RecetaMedica() {
     }
-    
+
     public int getIdReceta() {
         return idReceta;
     }
@@ -62,6 +61,5 @@ public class RecetaMedica {
     public void setMedicamentosRecetados(ArrayList<MedicamentoRecetado> medicamentosRecetados) {
         this.medicamentosRecetados = medicamentosRecetados;
     }
-    
-    
+
 }

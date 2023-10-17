@@ -1,6 +1,5 @@
 package com.minsa.sanama.controller.rrhh;
 
-import com.minsa.sanama.model.admision.Paciente;
 import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.services.rrhh.EspecialidadService;
 import org.json.simple.JSONObject;
@@ -21,25 +20,24 @@ public class EspecialidadController {
 
     @GetMapping(value = "/get/especialidad")
     @ResponseBody
-    public List<Especialidad> listarEspecialidades(){
+    public List<Especialidad> listarEspecialidades() {
         List<Especialidad> especialidades;
 
         especialidades = especialidadService.listarEspecialidades();
         return especialidades;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/especialidadNombre")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/especialidadNombre")
 
     @ResponseBody
-    public List<Especialidad> listarEspecialidadesporNombre(@RequestBody String pv_filtro){
+    public List<Especialidad> listarEspecialidadesporNombre(@RequestBody String pv_filtro) {
         List<Especialidad> especialidades = null;
-        try{
+        try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
             especialidades = especialidadService.listarEspecialidadesporNombre(cadena);
-        }catch(Exception ex){
+        } catch (Exception ex) {
         }
         return especialidades;
     }

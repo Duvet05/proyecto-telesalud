@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   TableContainer,
   Table,
@@ -8,36 +8,36 @@ import {
   TableCell,
   Paper,
   TableSortLabel,
-} from "@mui/material";
+} from "@mui/material"
 
 const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState([]);
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState(columns[0].id);
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState([])
+  const [order, setOrder] = useState("asc")
+  const [orderBy, setOrderBy] = useState(columns[0].id)
 
   useEffect(() => {
     async function fetchDataAndUpdateState() {
       try {
-        const fetchedData = await fetchData(extraProps);
-        setData(fetchedData);
+        const fetchedData = await fetchData(extraProps)
+        setData(fetchedData)
       } catch (error) {
-        console.error("Failed to fetch data:", error);
+        console.error("Failed to fetch data:", error)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     }
 
-    fetchDataAndUpdateState();
-  }, [extraProps]);
+    fetchDataAndUpdateState()
+  }, [extraProps])
 
   const handleSortRequest = (property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
+    const isAsc = orderBy === property && order === "asc"
+    setOrder(isAsc ? "desc" : "asc")
+    setOrderBy(property)
+  }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>
 
   return (
     <TableContainer component={Paper}>
@@ -51,8 +51,8 @@ const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
         <BaseTableBody data={data} RowComponent={RowComponent} />
       </Table>
     </TableContainer>
-  );
-};
+  )
+}
 
 const BaseTableHead = ({ handleSortRequest, order, orderBy, columns }) => (
   <TableHead>
@@ -83,14 +83,14 @@ const BaseTableHead = ({ handleSortRequest, order, orderBy, columns }) => (
       ))}
     </TableRow>
   </TableHead>
-);
+)
 
 const BaseTableBody = ({ data, RowComponent }) => (
   <TableBody>
     {data.map((item) => (
-      <RowComponent key={item.id} data={item} />
+      < RowComponent key={item.id} data={item} />
     ))}
   </TableBody>
-);
+)
 
-export default BaseTable;
+export default BaseTable

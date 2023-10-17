@@ -2,7 +2,6 @@ package com.minsa.sanama.model.rrhh;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class HorarioAtencion {
     private int idHorarioAtencion;
@@ -45,6 +44,7 @@ public class HorarioAtencion {
     public void setTurnosAtencion(ArrayList<TurnoAtencion> turnosAtencion) {
         this.turnosAtencion = turnosAtencion;
     }
+
     public int getEstado() {
         return estado;
     }
@@ -52,6 +52,5 @@ public class HorarioAtencion {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
-    
+
 }

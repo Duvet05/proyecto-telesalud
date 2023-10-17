@@ -9,9 +9,9 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import TriageOrdersTable from "@/components/Triage/TriageOrdersTable"; // Asegúrate de que la ruta sea correcta
 import MainLayout from "@/components/layout/MainLayout";
+import WidgetStateHolder from "@/components/DATE/WidgetStateHolder";
 
 const TriageManagement = () => {
   const [patientName, setPatientName] = useState("");
@@ -60,12 +60,12 @@ const TriageManagement = () => {
             color: "#000",
             gap: "0.1mm",
             marginBottom: "5px",
-            marginTop: "-50px"
+            marginTop: "-50px",
           }}
         >
-          Gestión de Triaje
+          Gestión de TriajeS
         </Typography>
-
+        <WidgetStateHolder providerId={1} />
         <Paper sx={{ my: 2, p: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={5}>
@@ -77,9 +77,7 @@ const TriageManagement = () => {
                 onChange={(e) => setPatientName(e.target.value)}
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">
-                      
-                    </InputAdornment>
+                    <InputAdornment position="start"></InputAdornment>
                   ),
                 }}
               />
@@ -91,23 +89,23 @@ const TriageManagement = () => {
               md={2}
               sx={{ display: "flex", alignItems: "center" }}
             >
-            <MUIButton
-              variant="contained"
-              sx={{
-                backgroundColor: '#2196f3', 
-                color: 'white',            
-                textTransform: 'none',      
-                '&:hover': {
-                  backgroundColor: '#b3b3b3', 
-                },
-                marginLeft: '0'
-              }}
-              startIcon={<SearchIcon />}
-              fullWidth
-              onClick={handleSearchClick}
-            >
-              Buscar
-            </MUIButton>
+              <MUIButton
+                variant="contained"
+                sx={{
+                  backgroundColor: "#2196f3",
+                  color: "white",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "#b3b3b3",
+                  },
+                  marginLeft: "0",
+                }}
+                startIcon={<SearchIcon />}
+                fullWidth
+                onClick={handleSearchClick}
+              >
+                Buscar
+              </MUIButton>
             </Grid>
           </Grid>
         </Paper>

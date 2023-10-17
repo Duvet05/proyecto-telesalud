@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   Container,
   Grid,
@@ -9,21 +9,21 @@ import {
   Button as MUIButton,
   InputAdornment,
   Autocomplete,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { medicService } from "../services/medicService"; // Asegúrate de que la ruta sea correcta
-import DoctorTable from "@/components/Staff/DoctorTable";
-import MainLayout from "@/components/layout/MainLayout";
-import IconButton from '@mui/material/IconButton';
+} from "@mui/material"
+import SearchIcon from "@mui/icons-material/Search"
+import PersonAddIcon from "@mui/icons-material/PersonAdd"
+import { medicService } from "../services/medicService" // Asegúrate de que la ruta sea correcta
+import DoctorTable from "@/components/Staff/DoctorTable"
+import MainLayout from "@/components/layout/MainLayout"
+import IconButton from '@mui/material/IconButton'
 
 const StaffManagement = () => {
-  const [doctorName, setDoctorName] = useState("");
-  const [doctors, setDoctors] = useState([]);
-  const [selectedSpecialty, setSelectedSpecialty] = useState("todasLasEspecialidades");
-  const [specialties, setSpecialties] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [doctorName, setDoctorName] = useState("")
+  const [doctors, setDoctors] = useState([])
+  const [selectedSpecialty, setSelectedSpecialty] = useState("todasLasEspecialidades")
+  const [specialties, setSpecialties] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     // Cargar la lista de especialidades una vez al inicio
@@ -31,10 +31,10 @@ const StaffManagement = () => {
       .listarEspecialidades()
       .then((data) => setSpecialties(data))
       .catch((error) => {
-        console.error("Error al obtener la lista de especialidades:", error);
-        setError("Error al obtener la lista de especialidades");
-      });
-  }, []);
+        console.error("Error al obtener la lista de especialidades:", error)
+        setError("Error al obtener la lista de especialidades")
+      })
+  }, [])
 
   const handleSearchClick = () => {
     // if (doctorName.trim() !== "") {
@@ -55,28 +55,28 @@ const StaffManagement = () => {
     //       setLoading(false);
     //     });
     // }
-  };
+  }
 
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "auto" }}>
-      <Typography
-        variant="h4"
-        sx={{
-          color: "#000",
-          gap: "0.1mm",
-          marginBottom: "5px",
-          marginTop: "-50px"
-        }}
-      > 
-        Gestión de Médicos
-      </Typography>
+        <Typography
+          variant="h4"
+          sx={{
+            color: "#000",
+            gap: "0.1mm",
+            marginBottom: "5px",
+            marginTop: "-50px"
+          }}
+        >
+          Gestión de Médicos
+        </Typography>
 
         <Paper sx={{ my: 2, p: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              <TextField 
-                value={doctorName}                
+              <TextField
+                value={doctorName}
                 onChange={(event) => setDoctorName(event.target.value)}
                 variant="outlined"
                 label="Buscar por Nombre o DNI..."
@@ -99,8 +99,8 @@ const StaffManagement = () => {
 
 
             <Grid item xs={12} md={6}>
-              <TextField label="Especialidad" 
-                fullWidth 
+              <TextField label="Especialidad"
+                fullWidth
                 select
                 variant="outlined"
                 value={selectedSpecialty}
@@ -115,7 +115,7 @@ const StaffManagement = () => {
                     {specialty.nombre}
                   </MenuItem>
                 ))}
-              </TextField>    
+              </TextField>
 
             </Grid>
 
@@ -146,7 +146,7 @@ const StaffManagement = () => {
         <DoctorTable doctorNameIngresado={doctorName} especialidad={selectedSpecialty} />
       </Container>
     </MainLayout>
-  );
-};
+  )
+}
 
-export default StaffManagement;
+export default StaffManagement

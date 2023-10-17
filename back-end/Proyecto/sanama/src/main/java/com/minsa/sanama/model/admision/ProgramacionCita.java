@@ -3,9 +3,7 @@ package com.minsa.sanama.model.admision;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.minsa.sanama.model.atencionmedica.HojaMedica;
 import com.minsa.sanama.model.rrhh.Medico;
-
 
 public class ProgramacionCita {
     private int idCita;
@@ -19,7 +17,6 @@ public class ProgramacionCita {
     private EstadoCita estadoCita;
     private int estado;
     private Triaje triaje;
-
 
     public ProgramacionCita() {
     }

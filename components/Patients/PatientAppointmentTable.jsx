@@ -6,10 +6,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-import DescriptionIcon from '@mui/icons-material/Description'; 
+} from "@mui/material"
+import React, { useEffect, useState } from "react"
+import { Table } from "react-bootstrap"
+import DescriptionIcon from '@mui/icons-material/Description'
 
 export default function PatientAppointmentTable({ appointmentList, cargando }) {
   return (
@@ -19,7 +19,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell 
+                <TableCell
                   style={{ width: '30%' }}
                   sx={{
                     fontSize: '1.1em',
@@ -30,7 +30,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
                 >
                   Nombre del Doctor
                 </TableCell>
-                <TableCell 
+                <TableCell
                   style={{ width: '20%' }}
                   sx={{
                     fontSize: '1.1em',
@@ -41,7 +41,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
                 >
                   Especialidad
                 </TableCell>
-                <TableCell 
+                <TableCell
                   style={{ width: '20%' }}
                   sx={{
                     fontSize: '1.1em',
@@ -52,7 +52,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
                 >
                   Fecha
                 </TableCell>
-                <TableCell 
+                <TableCell
                   style={{ width: '10%' }}
                   sx={{
                     fontSize: '1.1em',
@@ -68,7 +68,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
             <TableBody>
               {appointmentList.map((row) => (
                 <TableRow
-                  key={row.idPersona}
+                  key={row.idCita}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>
@@ -84,32 +84,32 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
 
                   <TableCell>
                     {" "}
-                    <Button 
-                    variant="contained" 
-                    onClick={() =>
-                      alert(
-                        `Ver informacion del paciente con DNI: ${row.dni} de la cita con codigo: ${row.codigoCita}`
-                      )
-                    }
-                    sx={{
-                      backgroundColor: '#2196f3', 
-                      color: '#ffffff',  // Texto blanco
-                      fontSize: '1.0em',  // Tamaño del texto
-                      textTransform: 'none',  // Sin transformación de texto (mayúsculas)
-                      minWidth: '80px',  // Ancho mínimo
-                      width: 'auto',  // Ancho fijo
-                      '&:hover': {
+                    <Button
+                      variant="contained"
+                      onClick={() =>
+                        alert(
+                          `Ver informacion del paciente con DNI: ${row.dni} de la cita con codigo: ${row.codigoCita}`
+                        )
+                      }
+                      sx={{
+                        backgroundColor: '#2196f3',
+                        color: '#ffffff',  // Texto blanco
+                        fontSize: '1.0em',  // Tamaño del texto
+                        textTransform: 'none',  // Sin transformación de texto (mayúsculas)
+                        minWidth: '80px',  // Ancho mínimo
+                        width: 'auto',  // Ancho fijo
+                        '&:hover': {
                           backgroundColor: '#b3b3b3',  // Color de fondo al pasar el cursor
-                      },     
-                      '& .MuiButton-startIcon': {
+                        },
+                        '& .MuiButton-startIcon': {
                           margin: 0,
                           marginRight: '4px',  // Margen derecho del ícono
-                      }
-                    }}
-                    startIcon={<DescriptionIcon />}  // Ícono de documento al inicio del botón
-                  >
-                    Detalles
-                  </Button>
+                        }
+                      }}
+                      startIcon={<DescriptionIcon />}  // Ícono de documento al inicio del botón
+                    >
+                      Detalles
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -118,5 +118,5 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
         </TableContainer>
       )}
     </>
-  );
+  )
 }

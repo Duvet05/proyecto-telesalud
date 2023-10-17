@@ -1,7 +1,5 @@
 package com.minsa.sanama.repository.rrhh;
 
-
-import com.minsa.sanama.model.admision.Paciente;
 import com.minsa.sanama.model.rrhh.Especialidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,15 +17,16 @@ public class EspecialidadRepository {
     JdbcTemplate jdbcTemplate;
 
     private final EspecialidadMapper especialidadMapper = new EspecialidadMapper();
-    //llamamos al procedure para listar las especialidades
-    public List<Especialidad> listarEspecialidades(){
+
+    // llamamos al procedure para listar las especialidades
+    public List<Especialidad> listarEspecialidades() {
         String procedureCall = "{call dbSanama.ssm_rrhh_listar_especialidad()}";
-        return jdbcTemplate.query(procedureCall,especialidadMapper);
+        return jdbcTemplate.query(procedureCall, especialidadMapper);
 
     }
 
-    public List<Especialidad> listarEspecialidadesporNombre(String pv_filtro){
-        String procedureCall = "{call dbSanama.ssm_adm_ListarEspecialidadesPorNombre('"+pv_filtro+"')};";
+    public List<Especialidad> listarEspecialidadesporNombre(String pv_filtro) {
+        String procedureCall = "{call dbSanama.ssm_adm_ListarEspecialidadesPorNombre('" + pv_filtro + "')};";
         return jdbcTemplate.query(procedureCall, especialidadMapper);
     }
 
