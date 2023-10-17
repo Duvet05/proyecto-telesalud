@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppointmentTypes from "./AppointmentTypes";
 import DateTimeSelector from "./DateTimeSelector";
 import ContactInfoForm from "./ContactInfoForm";
 import CompletedBookingInfo from "./_CompletedBookingInfo";
 import EmbeddableHeader from "./_EmbeddableHeader";
-import { appointmentService } from "@/services/appointmentService";
 
 function WidgetStateHolder(props) {
-  const [steps, setSteps] = useState([]);
+  const hardcodedSteps = [
+    { id: "select_appt_type", name: "Select Appointment Type" },
+    { id: "select_date_time", name: "Select Date and Time" },
+    { id: "your_information", name: "Provide Your Information" },
+  ];
+
+  const [steps] = useState(hardcodedSteps);
   const [selectedAppointmentType, setAppointmentType] = useState();
   const [selectedContactType, setContactType] = useState();
   const [stepIndex, setStepIndex] = useState(0);
   const [selectedSlot, setSelectedSlot] = useState();
   const [bookedAppointment, setBookedAppointment] = useState();
-
-  useEffect(() => {
-    appointmentService
-      .getBookingSteps(props.providerId)
-      .then((steps) => setSteps(steps))
-      .catch((error) => console.error("Error fetching booking steps:", error));
-  }, []);
 
   const currentStep = steps[stepIndex];
 
