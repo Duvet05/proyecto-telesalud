@@ -1,7 +1,14 @@
 import React from "react";
-import { Box, Typography, Grid, Button, TextField, Container, Paper } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Button,
+  TextField,
+  Container,
+  Paper,
+} from "@mui/material";
 import Link from "next/link";
-import MainLayout from "@/components/layout/MainLayout";
 
 // Componente Campo reutilizable
 const Campo = ({ id, label, type, iconButton }) => (
@@ -101,7 +108,6 @@ const camposAtencion = [
 function AppointmentInfo() {
   return (
     <Container>
-
       <Typography variant="h5" gutterBottom>
         Detalle de la cita
       </Typography>
@@ -144,10 +150,8 @@ function AppointmentInfo() {
           </Link>
         </div>
       </div>
-
     </Container>
   );
 }
 
 export default AppointmentInfo;
-

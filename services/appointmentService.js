@@ -63,26 +63,28 @@ export const appointmentService = {
     }
   },
 
-  getDaysAvailable: async (
-    selectedDay,
-    selectedAppointmentType,
-    providerId
-  ) => {
+  getDaysAvailable: async (doctorId, selectedAppointmentType) => {
     try {
-      const response = await axiosInstance.get(
-        "/api/v2/bookings/days_available.json",
-        {
-          params: {
-            org_level: false,
-            date_from_month: selectedDay,
-            timezone:
-              Intl.DateTimeFormat().resolvedOptions().timeZone ||
-              "America/New_York",
-            appointment_type_id: selectedAppointmentType.id,
-            provider_id: providerId,
-          },
-        }
-      );
+      const currentDate = new Date();
+
+      const currentDayAndHour = `${currentDate.getFullYear()}-${String(
+        currentDate.getMonth() + 1
+      ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(
+        2,
+        "0"
+      )} ${String(currentDate.getHours()).padStart(2, "0")}:${String(
+        currentDate.getMinutes()
+      ).padStart(2, "0")}`;
+
+      const response = await axiosInstance.get("PLACEHOLDER", {
+        params: {
+          doctorId: doctorId,
+          time: currentDayAndHour,
+          timezone:
+            Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Lima",
+          appointment_type_id: selectedAppointmentType.id,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error getting available days:", error);
@@ -90,14 +92,13 @@ export const appointmentService = {
     }
   },
 
-  getAppointmentTypes: async (providerId) => {
+  getAppointmentTypes: async () => {
     try {
       const response = await axiosInstance.get(
         "/api/v2/appointment_types.json",
         {
           params: {
             clients_can_book: true,
-            provider_id: providerId,
           },
         }
       );
