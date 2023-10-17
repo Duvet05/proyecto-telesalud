@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Grid, Typography, Button, Paper, TextField } from "@mui/material"
 import MainLayout from "@/components/layout/MainLayout"
 import PatientTable from "@/components/Patients/PatientTable"
@@ -11,6 +11,20 @@ const PatientManagement = () => {
   const [filtro, setFiltro] = useState("")
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    fetchData()
+  }, [])
+  const fetchData = async () => {
+    try {
+      const data = await patientService.listar({})
+      dispatch(setPatients(data))
+      dispatch(setLoading(false))
+      return data
+    } catch (err) {
+      console.error(err)
+      throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.")
+    }
+  }
 
   const handleSearch = async () => {
 
@@ -100,7 +114,7 @@ const PatientManagement = () => {
           </Grid>
         </Grid>
       </Paper>
-      <PatientTable className="tablaPacientes" />
+      <PatientTable className="tablaPacientes" filtro={filtro} />
     </MainLayout>
   )
 }

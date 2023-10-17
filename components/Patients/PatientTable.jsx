@@ -8,14 +8,16 @@ import { setPatients, setLoading } from "@/redux/features/patient/patientSlice"
 import BaseTable from "../common/BaseTable"
 import { TableRow, TableCell } from "@mui/material"
 
-export const PatientTable = () => {
+export const PatientTable = ({ filtro }) => {
   const dispatch = useDispatch()
   const { loading, patients } = useSelector((state) => state.patient)
 
   const fetchData = async () => {
     try {
-      const data = await patientService.listar({})
-      dispatch(setPatients(data))
+      const data = await patientService.buscarPorFiltro(filtro)
+      data.forEach((element) => {
+        element["id"] = element.idPersona
+      })
       dispatch(setLoading(false))
       return data
     } catch (err) {
@@ -61,7 +63,7 @@ const PatientRow = ({ data }) => {
   } = data
 
   return (
-    <TableRow key={idPersona}>
+    <TableRow key={idPersona} >
       <TableCell>{`${nombres} ${apellidoPaterno} ${apellidoMaterno}`}</TableCell>
       <TableCell>{dni}</TableCell>
       <TableCell>{fechaNacimiento}</TableCell>
