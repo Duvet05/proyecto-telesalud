@@ -5,120 +5,118 @@ const axiosInstance = axios.create({
   baseURL: connection.backend,
 });
 
+const ENDPOINTS = {
+  REGISTRAR_CITA: "/admision/post/registrarCitaMedica",
+  LISTAR_CITAS: "/admision/get/cita",
+  APPOINTMENT_TYPES: "/admision/get/tipos",
+  SLOTS_AVAILABLE: "/admision/get/slots",
+};
+
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const minute = String(date.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hour}:${minute}`;
+};
+
 export const appointmentService = {
-  registrarCita: async ({
-    id_cita,
-    idPaciente,
-    idMedico,
-    codigoCitaMedica,
-    tipoCita,
-    horaCita,
-    fechaCita,
-    requiereTriaje,
-    estado,
-  }) => {
+  registrarCita: async (params) => {
+    const {
+      id_cita,
+      idPaciente,
+      idMedico,
+      codigoCitaMedica,
+      tipoCita,
+      horaCita,
+      fechaCita,
+      requiereTriaje,
+      estado,
+    } = params;
+
     try {
-      const response = await axiosInstance.post(
-        "/admision/post/registrarCitaMedica",
-        {
-          id_cita,
-          paciente: { idPersona: idPaciente },
-          medico: { idPersona: idMedico },
-          codigoCitaMedica,
-          tipoCita,
-          horaCita,
-          fechaCita,
-          requiereTriaje,
-          estado,
-        }
-      );
-      return response.data; // Esto debería devolver el número de la cita.
+      const response = await axiosInstance.post(ENDPOINTS.REGISTRAR_CITA, {
+        id_cita,
+        paciente: { idPersona: idPaciente },
+        medico: { idPersona: idMedico },
+        codigoCitaMedica,
+        tipoCita,
+        horaCita,
+        fechaCita,
+        requiereTriaje,
+        estado,
+      });
+      return response.data;
     } catch (error) {
-      console.error("Error al registrar la cita médica", error);
-      throw error;
+      console.error("Error al registrar la cita médica:", error.message);
+      throw new Error("Failed to register appointment");
     }
   },
 
-  listar: async (appointmentRequest) => {
+  listar: async () => {
     try {
-      const response = await axiosInstance.get("/admision/get/cita");
+      const response = await axiosInstance.get(ENDPOINTS.LISTAR_CITAS);
       return response.data;
     } catch (error) {
-      console.error("Error al listar las citas", error);
-      throw error;
+      console.error("Error al listar las citas:", error.message);
+      throw new Error("Failed to list appointments");
     }
   },
 
   getBookingSteps: async (providerId) => {
     try {
       const response = await axiosInstance.get("URL_PLACEHOLDER", {
-        params: {
-          provider_id: providerId,
-        },
+        params: { provider_id: providerId },
       });
       return response.data.steps;
     } catch (error) {
-      console.error("Error getting booking steps:", error);
-      throw error;
+      console.error("Error getting booking steps:", error.message);
+      throw new Error("Failed to fetch booking steps");
     }
   },
 
-  getDaysAvailable: async (doctorId, selectedAppointmentType) => {
+  getDaysAvailable: async (doctorId) => {
     try {
-      const currentDate = new Date();
-
-      const currentDayAndHour = `${currentDate.getFullYear()}-${String(
-        currentDate.getMonth() + 1
-      ).padStart(2, "0")}-${String(currentDate.getDate()).padStart(
-        2,
-        "0"
-      )} ${String(currentDate.getHours()).padStart(2, "0")}:${String(
-        currentDate.getMinutes()
-      ).padStart(2, "0")}`;
+      const currentDayAndHour = formatDate(new Date());
+      const timezone =
+        Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Lima";
 
       const response = await axiosInstance.get("PLACEHOLDER", {
         params: {
-          doctorId: doctorId,
+          doctorId,
           time: currentDayAndHour,
-          timezone:
-            Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Lima",
-          appointment_type_id: selectedAppointmentType.id,
+          timezone,
         },
       });
       return response.data;
     } catch (error) {
-      console.error("Error getting available days:", error);
-      throw error;
+      console.error("Error getting available days:", error.message);
+      throw new Error("Failed to get available days");
     }
   },
 
   getAppointmentTypes: async () => {
     try {
-      const response = await axiosInstance.get(
-        "/api/v2/appointment_types.json",
-        {
-          params: {
-            clients_can_book: true,
-          },
-        }
-      );
+      const response = await axiosInstance.get(ENDPOINTS.APPOINTMENT_TYPES, {
+        params: { clients_can_book: true },
+      });
       return response.data;
     } catch (error) {
-      console.error("Error getting appointment types:", error);
-      throw error;
+      console.error("Error getting appointment types:", error.message);
+      throw new Error("Failed to fetch appointment types");
     }
   },
 
   getAvailableSlots: async (params) => {
     try {
-      const response = await axiosInstance.get(
-        "/api/v2/bookings/slots_available.json",
-        { params }
-      );
+      const response = await axiosInstance.get(ENDPOINTS.SLOTS_AVAILABLE, {
+        params,
+      });
       return response.data;
     } catch (error) {
-      console.error("Error fetching available slots:", error);
-      throw error;
+      console.error("Error fetching available slots:", error.message);
+      throw new Error("Failed to fetch available slots");
     }
   },
 };

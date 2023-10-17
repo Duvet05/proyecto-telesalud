@@ -1,65 +1,63 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Typography,
-  Box,
-} from "@mui/material";
+import Badge from "@mui/material/Badge";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider, DateCalendar } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { PickersDay } from "@mui/x-date-pickers/PickersDay";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
-function Selectdate({
-  onDateChange,
-  selectedDate,
-  availableHours,
-  onHourChange,
-  selectedHour,
-}) {
-  const handleDateChange = (newDate) => {
-    onDateChange(dayjs(newDate).format("YYYY-MM-DD"));
-  };
+function ServerDay(props) {
+  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
 
-  const handleHourSelectChange = (event) => {
-    onHourChange(event.target.value);
-  };
+  const isSelected =
+    !props.outsideCurrentMonth &&
+    highlightedDays.indexOf(props.day.date()) >= 0;
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Box mb={2}>
-        <Typography variant="subtitle1" gutterBottom>
-          Selecciona una fecha:
-        </Typography>
-        <DateCalendar
-          onChange={handleDateChange}
-          value={selectedDate ? dayjs(selectedDate) : null}
-        />
-      </Box>
-
-      <Box mt={2}>
-        <Typography variant="subtitle1" gutterBottom>
-          Selecciona una hora disponible:
-        </Typography>
-        <FormControl fullWidth variant="outlined">
-          <InputLabel id="select-hour-label">Horas Disponibles</InputLabel>
-          <Select
-            labelId="select-hour-label"
-            label="Horas Disponibles" // Esta prop conecta el Select con el InputLabel
-            value={selectedHour}
-            onChange={handleHourSelectChange}
-          >
-            {availableHours.map((hour, index) => (
-              <MenuItem key={index} value={hour}>
-                {hour}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
-    </LocalizationProvider>
+    <Badge
+      key={props.day.toString()}
+      overlap="circular"
+      badgeContent={isSelected ? "✅" : undefined}
+    >
+      <PickersDay
+        {...other}
+        outsideCurrentMonth={outsideCurrentMonth}
+        day={day}
+      />
+    </Badge>
   );
 }
 
-export default Selectdate;
+export default function Selectdate({
+  onDateChange,
+  selectedDate,
+  availableHours,
+  availableDays,
+  onHourChange,
+  selectedHour,
+}) {
+  const [highlightedDays, setHighlightedDays] = React.useState([]);
+
+  useEffect(() => {
+    // Convert the availableDays to an array of day numbers
+    const daysToHighlight = availableDays.map((date) => dayjs(date).date());
+    setHighlightedDays(daysToHighlight);
+  }, [availableDays]);
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DateCalendar
+        value={selectedDate}
+        onMonthChange={onDateChange}
+        slots={{
+          day: ServerDay,
+        }}
+        slotProps={{
+          day: {
+            highlightedDays,
+          },
+        }}
+      />
+    </LocalizationProvider>
+  );
+}
