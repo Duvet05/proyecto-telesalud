@@ -77,6 +77,7 @@ public class CitaRepository {
         }
     }
 
+    /*Este es el metodo para registrar una Cita Medica*/
     public int registrarCita(CitaMedica citaMedica){
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
