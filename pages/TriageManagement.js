@@ -1,127 +1,143 @@
 import React, { useState } from "react";
-import {
-  Container,
-  Grid,
-  Typography,
-  Paper,
-  TextField,
-  Button as MUIButton,
-  InputAdornment,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import TriageOrdersTable from "@/components/Triage/TriageOrdersTable"; // Asegúrate de que la ruta sea correcta
-import MainLayout from "@/components/layout/MainLayout";
+import { Button, TextField, Typography, Grid, Slider } from "@mui/material";
 
-const TriageManagement = () => {
-  const [patientName, setPatientName] = useState("");
-  const [orders, setOrders] = useState([]);
-  const [error, setError] = useState(null);
+function TriagePage() {
+  const [symptoms, setSymptoms] = useState("");
+  const [duration, setDuration] = useState("");
+  const [changes, setChanges] = useState("");
+  const [medicalHistory, setMedicalHistory] = useState("");
+  const [medications, setMedications] = useState("");
+  const [allergies, setAllergies] = useState("");
+  const [surgeries, setSurgeries] = useState("");
+  const [familyHistory, setFamilyHistory] = useState("");
+  const [painScale, setPainScale] = useState(5);
 
-  const handleSearchClick = () => {
-    if (patientName.trim() !== "") {
-      setError(null);
-      // Coloca aquí la lógica para buscar órdenes de triaje (servicio o función adecuada)
-      // Ejemplo ficticio:
-      const triageOrders = buscarOrdenesDeTriagePorNombre(patientName);
-      setOrders(triageOrders);
-    }
-  };
-
-  // Simulación de búsqueda de órdenes de triaje por nombre del paciente
-  const buscarOrdenesDeTriagePorNombre = (nombre) => {
-    // Aquí deberías implementar la búsqueda real en tu sistema
-    // Esto es solo un ejemplo ficticio:
-    return [
-      {
-        id: 1,
-        patientName: "Paciente 1",
-        doctorName: "Doctor A",
-        fecha: "2023-01-01",
-        estado: "Pendiente",
-      },
-      {
-        id: 2,
-        patientName: "Paciente 2",
-        doctorName: "Doctor B",
-        fecha: "2023-02-01",
-        estado: "Completo",
-      },
-      // Más órdenes aquí...
-    ];
+  const handleSubmit = () => {
+    // Aquí puedes manejar el envío de datos, por ejemplo, a tu backend una vez que lo tengas
+    console.log({
+      symptoms,
+      duration,
+      changes,
+      medicalHistory,
+      medications,
+      allergies,
+      surgeries,
+      familyHistory,
+      painScale,
+    });
   };
 
   return (
-    <MainLayout>
-      <Container maxWidth={false} style={{ height: "100vh" }}>
-        <Typography
-          variant="h4"
-          sx={{
-            color: "#000",
-            gap: "0.1mm",
-            marginBottom: "5px",
-            marginTop: "-50px"
-          }}
-        >
-          Gestión de Triaje
-        </Typography>
+    <div style={{ padding: "20px" }}>
+      <Typography variant="h4" gutterBottom>
+        Módulo de Triaje
+      </Typography>
 
-        <Paper sx={{ my: 2, p: 2 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={5}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Buscar por Nombre..."
-                value={patientName}
-                onChange={(e) => setPatientName(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Síntomas Principales"
+            variant="outlined"
+            value={symptoms}
+            onChange={(e) => setSymptoms(e.target.value)}
+          />
+        </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-            <MUIButton
-              variant="contained"
-              sx={{
-                backgroundColor: '#2196f3', 
-                color: 'white',            
-                textTransform: 'none',      
-                '&:hover': {
-                  backgroundColor: '#b3b3b3', 
-                },
-                marginLeft: '0'
-              }}
-              startIcon={<SearchIcon />}
-              fullWidth
-              onClick={handleSearchClick}
-            >
-              Buscar
-            </MUIButton>
-            </Grid>
-          </Grid>
-        </Paper>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            label="Duración de los síntomas"
+            variant="outlined"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+          />
+        </Grid>
 
-        {error && (
-          <Typography variant="body2" color="error">
-            {error}
-          </Typography>
-        )}
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            label="Cambios en los síntomas"
+            variant="outlined"
+            value={changes}
+            onChange={(e) => setChanges(e.target.value)}
+          />
+        </Grid>
 
-        <TriageOrdersTable orders={orders} />
-      </Container>
-    </MainLayout>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Historia Médica"
+            variant="outlined"
+            multiline
+            rows={4}
+            value={medicalHistory}
+            onChange={(e) => setMedicalHistory(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Medicamentos Actuales"
+            variant="outlined"
+            value={medications}
+            onChange={(e) => setMedications(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Alergias"
+            variant="outlined"
+            value={allergies}
+            onChange={(e) => setAllergies(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Cirugías Previas"
+            variant="outlined"
+            value={surgeries}
+            onChange={(e) => setSurgeries(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Historia Familiar Relevante"
+            variant="outlined"
+            value={familyHistory}
+            onChange={(e) => setFamilyHistory(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography gutterBottom>Escala del dolor (1-10)</Typography>
+          <Slider
+            defaultValue={5}
+            step={1}
+            marks
+            min={1}
+            max={10}
+            valueLabelDisplay="auto"
+            value={painScale}
+            onChange={(e, newValue) => setPainScale(newValue)}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Registrar Triage
+          </Button>
+        </Grid>
+      </Grid>
+    </div>
   );
-};
+}
 
-export default TriageManagement;
+export default TriagePage;

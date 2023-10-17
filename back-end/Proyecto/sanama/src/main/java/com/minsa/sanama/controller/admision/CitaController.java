@@ -1,5 +1,5 @@
 package com.minsa.sanama.controller.admision;
-/*ESTO ES UN COMENTARIO GONZALO*/
+/*hola pedro*/
 import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
 import com.minsa.sanama.model.rrhh.Medico;
