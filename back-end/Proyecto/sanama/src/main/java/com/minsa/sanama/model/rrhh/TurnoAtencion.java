@@ -1,16 +1,13 @@
 package com.minsa.sanama.model.rrhh;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 public class TurnoAtencion {
     private int idTurno;
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private LocalDate fecha;
-    private int disponibilidad;
     private int estado;
 
     public TurnoAtencion() {
@@ -55,5 +52,5 @@ public class TurnoAtencion {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
+
 }

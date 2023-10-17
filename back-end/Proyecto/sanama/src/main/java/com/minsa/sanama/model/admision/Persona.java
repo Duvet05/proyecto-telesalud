@@ -1,7 +1,6 @@
 package com.minsa.sanama.model.admision;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Persona {
     private int idPersona;
@@ -19,7 +18,7 @@ public abstract class Persona {
 
     public Persona() {
     }
-    
+
     public int getIdPersona() {
         return idPersona;
     }
@@ -107,6 +106,5 @@ public abstract class Persona {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
-    
+
 }

@@ -48,4 +48,76 @@ export const appointmentService = {
       throw error;
     }
   },
+
+  getBookingSteps: async (providerId) => {
+    try {
+      const response = await axiosInstance.get("URL_PLACEHOLDER", {
+        params: {
+          provider_id: providerId,
+        },
+      });
+      return response.data.steps;
+    } catch (error) {
+      console.error("Error getting booking steps:", error);
+      throw error;
+    }
+  },
+
+  getDaysAvailable: async (
+    selectedDay,
+    selectedAppointmentType,
+    providerId
+  ) => {
+    try {
+      const response = await axiosInstance.get(
+        "/api/v2/bookings/days_available.json",
+        {
+          params: {
+            org_level: false,
+            date_from_month: selectedDay,
+            timezone:
+              Intl.DateTimeFormat().resolvedOptions().timeZone ||
+              "America/New_York",
+            appointment_type_id: selectedAppointmentType.id,
+            provider_id: providerId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error getting available days:", error);
+      throw error;
+    }
+  },
+
+  getAppointmentTypes: async (providerId) => {
+    try {
+      const response = await axiosInstance.get(
+        "/api/v2/appointment_types.json",
+        {
+          params: {
+            clients_can_book: true,
+            provider_id: providerId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error getting appointment types:", error);
+      throw error;
+    }
+  },
+
+  getAvailableSlots: async (params) => {
+    try {
+      const response = await axiosInstance.get(
+        "/api/v2/bookings/slots_available.json",
+        { params }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching available slots:", error);
+      throw error;
+    }
+  },
 };
