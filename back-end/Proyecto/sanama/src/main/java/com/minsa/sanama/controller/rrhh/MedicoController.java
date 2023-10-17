@@ -126,7 +126,7 @@ public class MedicoController {
 
     @PatchMapping(value = "/delete/medico")
     @ResponseBody
-    public int eliminarMedico(@RequestBody Medico medico){
+    public int eliminarMedico (@RequestBody Medico medico){
         int n;
         n = medicoService.eliminarMedico(medico);
         return n;
