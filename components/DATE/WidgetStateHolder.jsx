@@ -7,9 +7,21 @@ import EmbeddableHeader from "./_EmbeddableHeader";
 
 function WidgetStateHolder(props) {
   const hardcodedSteps = [
-    { id: "select_appt_type", name: "Select Appointment Type" },
-    { id: "select_date_time", name: "Select Date and Time" },
-    { id: "your_information", name: "Provide Your Information" },
+    {
+      id: "select_appt_type",
+      name: "Select Appointment Type",
+      component: AppointmentTypes,
+    },
+    {
+      id: "select_date_time",
+      name: "Select Date and Time",
+      component: DateTimeSelector,
+    },
+    {
+      id: "your_information",
+      name: "Provide Your Information",
+      component: ContactInfoForm,
+    },
   ];
 
   const [steps] = useState(hardcodedSteps);
@@ -29,68 +41,29 @@ function WidgetStateHolder(props) {
     return <CompletedBookingInfo bookedAppointment={bookedAppointment} />;
   }
 
-  if (currentStep.id === "select_appt_type") {
-    return (
-      <>
-        <EmbeddableHeader
-          stepIndex={stepIndex}
-          embedWidgetSteps={steps}
-          setStepIndex={setStepIndex}
-          headerText={"Book an Appointment"}
-        />
-        <AppointmentTypes
-          selectedAppointmentType={selectedAppointmentType}
-          selectedContactType={selectedContactType}
-          setContactType={setContactType}
-          providerId={props.providerId}
-          setAppointmentType={setAppointmentType}
-          moveToNextStep={() => setStepIndex(stepIndex + 1)}
-        />
-      </>
-    );
-  }
+  const commonProps = {
+    selectedAppointmentType,
+    selectedContactType,
+    selectedSlot,
+    providerId: props.providerId,
+    moveToNextStep: () => setStepIndex(stepIndex + 1),
+    setAppointmentType,
+    setContactType,
+    setSelectedSlot,
+    setBookedAppointment,
+  };
 
-  if (currentStep.id === "select_date_time") {
-    return (
-      <>
-        <EmbeddableHeader
-          stepIndex={stepIndex}
-          embedWidgetSteps={steps}
-          setStepIndex={setStepIndex}
-          headerText={"Book an Appointment"}
-        />
-        <DateTimeSelector
-          selectedAppointmentType={selectedAppointmentType}
-          providerId={props.providerId}
-          selectedSlot={selectedSlot}
-          setSelectedSlot={setSelectedSlot}
-          moveToNextStep={() => setStepIndex(stepIndex + 1)}
-        />
-      </>
-    );
-  }
-
-  if (currentStep.id === "your_information") {
-    return (
-      <>
-        <EmbeddableHeader
-          stepIndex={stepIndex}
-          embedWidgetSteps={steps}
-          setStepIndex={setStepIndex}
-          headerText={"Book an Appointment"}
-        />
-        <ContactInfoForm
-          selectedAppointmentType={selectedAppointmentType}
-          selectedSlot={selectedSlot}
-          selectedContactType={selectedContactType}
-          moveToNextStep={() => setStepIndex(stepIndex + 1)}
-          setBookedAppointment={setBookedAppointment}
-        />
-      </>
-    );
-  }
-
-  return null;
+  return (
+    <>
+      <EmbeddableHeader
+        stepIndex={stepIndex}
+        embedWidgetSteps={steps}
+        setStepIndex={setStepIndex}
+        headerText={"Book an Appointment"}
+      />
+      <currentStep.component {...commonProps} />
+    </>
+  );
 }
 
 export default WidgetStateHolder;

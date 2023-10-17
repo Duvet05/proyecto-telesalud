@@ -118,6 +118,7 @@ function SelectMedic() {
           onDateChange={setSelectedDate}
           selectedDate={selectedDate}
           availableHours={availableHours}
+          availableDays={availableHours}
           onHourChange={handleHourChange}
           selectedHour={selectedHour}
         />

@@ -66,4 +66,19 @@ export const medicService = {
       throw error;
     }
   },
+
+  DiasDisponiblesByID: async (medicId) => {
+    try {
+      const response = await axiosInstance.post(
+        "/rrhh/post/dias_disponibles_por_medico",
+        {
+          pn_id_medico: medicId,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error al buscar los dias", error);
+      throw error;
+    }
+  },
 };
