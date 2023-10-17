@@ -1,10 +1,32 @@
-import React from "react";
-import { Grid, Typography, Button, Paper, TextField } from "@mui/material";
-import MainLayout from "@/components/layout/MainLayout";
-import PatientTable from "@/components/Patients/PatientTable";
-import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react"
+import { Grid, Typography, Button, Paper, TextField } from "@mui/material"
+import MainLayout from "@/components/layout/MainLayout"
+import PatientTable from "@/components/Patients/PatientTable"
+import SearchIcon from "@mui/icons-material/Search"
+import { patientService } from "@/services/patientService"
+import { setLoading, setPatients } from "@/redux/features/patient/patientSlice"
+import { useDispatch } from "react-redux"
 
 const PatientManagement = () => {
+  const [filtro, setFiltro] = useState("")
+  const dispatch = useDispatch()
+
+
+  const handleSearch = async () => {
+
+    try {
+      dispatch(setLoading(true))
+      const data = await patientService.buscarPorFiltro(filtro)
+      dispatch(setPatients(data))
+    } catch (error) {
+      console.log(error)
+    } finally {
+      dispatch(setLoading(false))
+    }
+  }
+
+
+
   return (
     <MainLayout>
       <Typography variant="h4" sx={{ color: "#000", mt: "-50px", mb: "30px" }}>
@@ -27,6 +49,10 @@ const PatientManagement = () => {
               label="Buscar por Nombre o DNI..."
               fullWidth
               variant="outlined"
+              value={filtro}
+              onChange={(event) => {
+                setFiltro(event.target.value)
+              }}
             />
           </Grid>
 
@@ -62,8 +88,10 @@ const PatientManagement = () => {
                       margin: 0,
                       marginRight: "4px",
                     },
+
                   }}
                   startIcon={<SearchIcon />}
+                  onClick={handleSearch}
                 >
                   Buscar
                 </Button>
@@ -74,7 +102,7 @@ const PatientManagement = () => {
       </Paper>
       <PatientTable className="tablaPacientes" />
     </MainLayout>
-  );
-};
+  )
+}
 
-export default PatientManagement;
+export default PatientManagement
