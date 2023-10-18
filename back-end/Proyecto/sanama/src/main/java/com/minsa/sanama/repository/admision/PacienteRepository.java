@@ -182,6 +182,7 @@ public class PacienteRepository {
                         new SqlParameter("pb_tiene_acompanhante", Types.BOOLEAN),
                         new SqlParameter("pv_nombre_acompanhante", Types.VARCHAR),
                         new SqlParameter("pv_dni_acompanhante", Types.VARCHAR),
+                        new SqlParameter("pv_parentezco", Types.VARCHAR),
                         new SqlParameter("pn_estado", Types.INTEGER)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -202,6 +203,7 @@ public class PacienteRepository {
                 .addValue("pb_tiene_acompanhante", paciente.isTieneAcompanhante())
                 .addValue("pv_nombre_acompanhante", paciente.getNombreAcompnhante())
                 .addValue("pv_dni_acompanhante", paciente.getDniAcompanhante())
+                .addValue("pv_parentezco", paciente.getParentezco())
                 .addValue("pn_estado", 1);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
