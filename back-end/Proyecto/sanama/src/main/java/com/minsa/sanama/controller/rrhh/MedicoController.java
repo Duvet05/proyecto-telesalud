@@ -118,7 +118,7 @@ public class MedicoController {
 
     @PatchMapping(value = "/patch/medico")
     @ResponseBody
-    public int actualizarPaciente(@RequestBody Medico medico){
+    public int actualizarMedico(@RequestBody Medico medico){
         int n;
         n = medicoService.actualizarMedico(medico);
         return n;
