@@ -116,7 +116,7 @@ public class MedicoController {
         return idMedico;
     }
 
-    @PatchMapping(value = "/patch/medico")
+    @PatchMapping(value = "/put/actulizarMedico")
     @ResponseBody
     public int actualizarMedico(@RequestBody Medico medico){
         int n;
@@ -124,7 +124,7 @@ public class MedicoController {
         return n;
     }
 
-    @PatchMapping(value = "/delete/medico")
+    @PatchMapping(value = "/delete/eliminarMedico")
     @ResponseBody
     public int eliminarMedico (@RequestBody Medico medico){
         int n;
