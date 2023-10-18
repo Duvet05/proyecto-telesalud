@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import Selectdate from "./Selectdate";
+import SelectDate from "./SelectDate";
 import { medicService } from "../../services/medicService";
 
 function SelectMedic() {
@@ -132,7 +132,7 @@ function SelectMedic() {
       )}
 
       {selectedDoctor && (
-        <Selectdate
+        <SelectDate
           onDateChange={setSelectedDate}
           selectedDate={selectedDate}
           availableHours={availableHours}
