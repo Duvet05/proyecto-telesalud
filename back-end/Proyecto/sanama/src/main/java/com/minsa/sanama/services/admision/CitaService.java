@@ -1,13 +1,10 @@
 package com.minsa.sanama.services.admision;
 
-import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
 import com.minsa.sanama.repository.admision.CitaRepository;
-import com.minsa.sanama.repository.atencionmedica.HistorialClinicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,9 +25,9 @@ public class CitaService {
         return lCitas;
     }
 
-    public int registrarCitaMedicaPaciente(CitaMedica citaMedica){
-        int idCita=0;
-        int dd,mm,aa, hora,min,seg;
+    public int registrarCitaMedicaPaciente(CitaMedica citaMedica) {
+        int idCita = 0;
+        int dd, mm, aa, hora, min, seg;
         int idMedico = citaMedica.getMedico().getIdPersona();
         aa = citaMedica.getFechaCita().getYear();
         mm = citaMedica.getFechaCita().getMonthValue();
@@ -38,11 +35,13 @@ public class CitaService {
         hora = citaMedica.getHoraCita().getHour();
         min = citaMedica.getHoraCita().getMinute();
         seg = citaMedica.getHoraCita().getSecond();
-        citaMedica.setCodigoCitaMedica("CM-"+aa+mm+dd+"-"+
-                hora+min+seg+"-"+idMedico);
+        citaMedica.setCodigoCitaMedica("CM-" + aa + mm + dd + "-" +
+                hora + min + seg + "-" + idMedico);
 
         idCita = citaRepository.registrarCita(citaMedica);
-        if(idCita!=-1)return idCita;
-        else return -1;
+        if (idCita != -1)
+            return idCita;
+        else
+            return -1;
     }
 }

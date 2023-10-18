@@ -2,8 +2,6 @@ package com.minsa.sanama.repository.rrhh;
 
 import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.model.rrhh.Medico;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,7 +12,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -28,18 +25,21 @@ public class MedicoRepository {
     private final MedicoMapper medicoMapper = new MedicoMapper();
     private final HorarioMapper horarioMapper = new HorarioMapper();
     private final FechaMapper fechaMapper = new FechaMapper();
+
     public List<Medico> listarMedicos() {
         String procedureCall = "{call dbSanama.ssm_rrhh_listar_medico()}";
         return jdbcTemplate.query(procedureCall, medicoMapper);
     }
 
-    public List<Medico> listarMedicosporEspecialidad(String pv_medico,String pv_especialidad) {
-        String procedureCall = "{call dbSanama.ssm_adm_ListarDoctoresPorNombreEspecialidad('"+pv_medico+"','"+pv_especialidad+"')}";
+    public List<Medico> listarMedicosporEspecialidad(String pv_medico, String pv_especialidad) {
+        String procedureCall = "{call dbSanama.ssm_adm_ListarDoctoresPorNombreEspecialidad('" + pv_medico + "','"
+                + pv_especialidad + "')}";
         return jdbcTemplate.query(procedureCall, medicoMapper);
     }
 
     public List<LocalTime> listarHorariosDisponibles(String pn_id_medico, String pd_fecha) {
-        String procedureCall = "{call dbSanama.ssm_rrhh_listar_horarios_disponibles_x_medico("+pn_id_medico+",'"+pd_fecha+"')}";
+        String procedureCall = "{call dbSanama.ssm_rrhh_listar_horarios_disponibles_x_medico(" + pn_id_medico + ",'"
+                + pd_fecha + "')}";
         try {
             return jdbcTemplate.query(procedureCall, horarioMapper);
 
@@ -52,7 +52,7 @@ public class MedicoRepository {
     }
 
     public List<LocalDate> listarDiasDisponibles(String pn_id_medico) {
-        String procedureCall = "{call dbSanama.ssm_rrhh_listar_dias_disponibles_x_medico("+pn_id_medico+")}";
+        String procedureCall = "{call dbSanama.ssm_rrhh_listar_dias_disponibles_x_medico(" + pn_id_medico + ")}";
         try {
             return jdbcTemplate.query(procedureCall, fechaMapper);
 
@@ -65,7 +65,7 @@ public class MedicoRepository {
     }
 
     public List<Medico> buscarMedicoFiltro(String pv_filtro) {
-        String procedureCall = "{call dbSanama.ssm_rrhh_buscar_medico_filtro('"+pv_filtro+"')};";
+        String procedureCall = "{call dbSanama.ssm_rrhh_buscar_medico_filtro('" + pv_filtro + "')};";
         return jdbcTemplate.query(procedureCall, medicoMapper);
     }
 
@@ -100,7 +100,7 @@ public class MedicoRepository {
     private static class HorarioMapper implements RowMapper<LocalTime> {
         @Override
         public LocalTime mapRow(ResultSet rs, int rowNum) throws SQLException {
-            LocalTime time=null;
+            LocalTime time = null;
             time = (rs.getTime("hora").toLocalTime());
             return time;
         }
@@ -109,17 +109,17 @@ public class MedicoRepository {
     private static class FechaMapper implements RowMapper<LocalDate> {
         @Override
         public LocalDate mapRow(ResultSet rs, int rowNum) throws SQLException {
-            LocalDate date=null;
+            LocalDate date = null;
             date = (rs.getDate("fecha").toLocalDate());
             return date;
         }
     }
 
-    public int registrarMedico(Medico medico){
+    public int registrarMedico(Medico medico) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_rrhh_registrar_medico")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlOutParameter("pn_id_medico", Types.INTEGER),
                         new SqlParameter("pn_id_especialidad", Types.INTEGER),
                         new SqlParameter("pv_nombres", Types.VARCHAR),
@@ -148,24 +148,23 @@ public class MedicoRepository {
                 .addValue("pv_foto", medico.getFoto())
                 .addValue("pv_area", medico.getArea())
                 .addValue("pv_cmp", medico.getCmp())
-                .addValue("pv_correo",medico.getcorreoElectronico())
+                .addValue("pv_correo", medico.getcorreoElectronico())
                 .addValue("pn_estado", 1);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
-            int idMedico = (int)result.get("pn_id_medico");
+        } else {
+            int idMedico = (int) result.get("pn_id_medico");
             return idMedico;
         }
     }
 
-    public int actualizarMedico(Medico medico){
+    public int actualizarMedico(Medico medico) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_rrhh_actualizar_medico")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlParameter("pn_id_medico", Types.INTEGER),
                         new SqlParameter("pn_id_especialidad", Types.INTEGER),
                         new SqlParameter("pv_nombres", Types.VARCHAR),
@@ -195,21 +194,21 @@ public class MedicoRepository {
                 .addValue("pv_foto", medico.getFoto())
                 .addValue("pv_area", medico.getArea())
                 .addValue("pv_cmp", medico.getCmp())
-                .addValue("pv_correo",medico.getcorreoElectronico())
+                .addValue("pv_correo", medico.getcorreoElectronico())
                 .addValue("pn_estado", 1);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return 0;
-        }
-        else return 1;
+        } else
+            return 1;
     }
 
-    public int eliminarMedico(Medico medico){
+    public int eliminarMedico(Medico medico) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_rrhh_eliminar_medico")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlParameter("pn_id_medico", Types.INTEGER)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -217,10 +216,10 @@ public class MedicoRepository {
                 .addValue("pn_id_medico", medico.getIdPersona());
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return 0;
-        }
-        else return 1;
+        } else
+            return 1;
     }
 
 }
