@@ -115,7 +115,7 @@ public class MedicoController {
         idMedico = medicoService.registrarMedico(medico);
         return idMedico;
     }
-
+    /*Cambios en el actualizar y en el eliminar Medico*/
     @PatchMapping(value = "/put/actulizarMedico")
     @ResponseBody
     public int actualizarMedico(@RequestBody Medico medico){
