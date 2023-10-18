@@ -103,7 +103,8 @@ public class MedicoRepository {
         public TurnoAtencion mapRow(ResultSet rs, int rowNum) throws SQLException {
             TurnoAtencion turnoAtencion = new TurnoAtencion();
             turnoAtencion.setIdTurno(rs.getInt("id_turno"));
-            turnoAtencion.setHoraInicio(rs.getTime("hora").toLocalTime());
+            turnoAtencion.setHoraInicio(rs.getTime("hora_inicio").toLocalTime());
+            turnoAtencion.setHoraFin(rs.getTime("hora_fin").toLocalTime());
             turnoAtencion.setEstado(1);
             return turnoAtencion;
         }
