@@ -11,6 +11,8 @@ function AvailableHoursBlock({ availableHours, onHourClick }) {
       style={{
         flexDirection: "column",
         gap: "10px",
+        overflowY: "auto", // Agregado para permitir el desplazamiento vertical
+        maxHeight: "300px", // Tamaño fijo. Puedes ajustar este valor según tus necesidades
       }}
     >
       {availableHours.map((hour, index) => (
