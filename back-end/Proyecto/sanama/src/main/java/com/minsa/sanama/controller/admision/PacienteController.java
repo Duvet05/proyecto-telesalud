@@ -70,7 +70,7 @@ public class PacienteController {
         return idPaciente;
     }
 
-    @PatchMapping(value = "/patch/paciente")
+    @PutMapping(value = "/put/actualizarPaciente")
     @ResponseBody
     public int actualizarPaciente(@RequestBody Paciente paciente){
         int n;
@@ -78,7 +78,7 @@ public class PacienteController {
         return n;
     }
 
-    @PatchMapping(value = "/delete/paciente")
+    @DeleteMapping(value = "/delete/eliminarPaciente")
     @ResponseBody
     public int eliminarPaciente(@RequestBody Paciente paciente){
         int n;
