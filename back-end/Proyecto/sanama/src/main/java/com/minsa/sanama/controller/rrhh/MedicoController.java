@@ -2,6 +2,7 @@ package com.minsa.sanama.controller.rrhh;
 
 import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.model.rrhh.Medico;
+import com.minsa.sanama.model.rrhh.TurnoAtencion;
 import com.minsa.sanama.services.rrhh.MedicoService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -51,8 +52,8 @@ public class MedicoController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             value = "/post/horarios_por_medico_y_fecha")
     @ResponseBody
-    public List<LocalTime> listarHorariosDisponibles(@RequestBody String pv_datos){
-        List<LocalTime> horarios = null;
+    public List<TurnoAtencion> listarHorariosDisponibles(@RequestBody String pv_datos){
+        List<TurnoAtencion> horarios = null;
         try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
             String pn_id_medico = job.get("pn_id_medico").toString();
