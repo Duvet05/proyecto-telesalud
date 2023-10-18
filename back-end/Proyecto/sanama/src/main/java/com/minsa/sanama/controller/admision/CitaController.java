@@ -1,16 +1,6 @@
 package com.minsa.sanama.controller.admision;
-/*hola pedro*/
-/*hola gonzalo*/
 
-//dwqwefqwf2wfefwfewfwd
-
-
-
-
-
-import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
-import com.minsa.sanama.model.rrhh.Medico;
 import com.minsa.sanama.services.admision.CitaService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,9 +17,8 @@ public class CitaController {
     @Autowired
     CitaService citaService;
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/listarCitasPorPaciente")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/listarCitasPorPaciente")
     @ResponseBody
     public List<CitaMedica> listarCitasPorPaciente(@RequestBody String pv_filtro) {
         List<CitaMedica> Lcita = null;
@@ -49,7 +36,7 @@ public class CitaController {
 
     @GetMapping(value = "/get/cita")
     @ResponseBody
-    public List<CitaMedica> listarCitasTodas(){
+    public List<CitaMedica> listarCitasTodas() {
         List<CitaMedica> citas;
         citas = citaService.listarCitasTodas();
         return citas;
@@ -57,7 +44,7 @@ public class CitaController {
 
     @PostMapping(value = "/post/registrarCitaMedica")
     @ResponseBody
-    public int registrarCitaMedicaPaciente(@RequestBody CitaMedica citaMedica){
+    public int registrarCitaMedicaPaciente(@RequestBody CitaMedica citaMedica) {
         int idCitaMedica;
 
         idCitaMedica = citaService.registrarCitaMedicaPaciente(citaMedica);
