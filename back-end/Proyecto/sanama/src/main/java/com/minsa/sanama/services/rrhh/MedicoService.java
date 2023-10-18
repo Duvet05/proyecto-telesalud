@@ -1,6 +1,7 @@
 package com.minsa.sanama.services.rrhh;
 
 import com.minsa.sanama.model.rrhh.Medico;
+import com.minsa.sanama.model.rrhh.TurnoAtencion;
 import com.minsa.sanama.repository.rrhh.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,10 @@ public class MedicoService {
         return lMedicos;
     }
 
-    public List<LocalTime> listarHorariosDisponibles(String pn_id_medico, String pd_fecha) {
-        List<LocalTime> lTimes = null;
-        lTimes = medicoRepository.listarHorariosDisponibles(pn_id_medico, pd_fecha);
-        return lTimes;
+    public List<TurnoAtencion> listarHorariosDisponibles(String pn_id_medico, String pd_fecha) {
+        List<TurnoAtencion> lTurnos = null;
+        lTurnos = medicoRepository.listarHorariosDisponibles(pn_id_medico, pd_fecha);
+        return lTurnos;
     }
 
     public List<LocalDate> listarDiasDisponibles(String pn_id_medico) {

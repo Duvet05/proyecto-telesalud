@@ -2,6 +2,7 @@ package com.minsa.sanama.repository.rrhh;
 
 import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.model.rrhh.Medico;
+import com.minsa.sanama.model.rrhh.TurnoAtencion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -37,7 +38,7 @@ public class MedicoRepository {
         return jdbcTemplate.query(procedureCall, medicoMapper);
     }
 
-    public List<LocalTime> listarHorariosDisponibles(String pn_id_medico, String pd_fecha) {
+    public List<TurnoAtencion> listarHorariosDisponibles(String pn_id_medico, String pd_fecha) {
         String procedureCall = "{call dbSanama.ssm_rrhh_listar_horarios_disponibles_x_medico(" + pn_id_medico + ",'"
                 + pd_fecha + "')}";
         try {
@@ -97,12 +98,14 @@ public class MedicoRepository {
 
     }
 
-    private static class HorarioMapper implements RowMapper<LocalTime> {
+    private static class HorarioMapper implements RowMapper<TurnoAtencion> {
         @Override
-        public LocalTime mapRow(ResultSet rs, int rowNum) throws SQLException {
-            LocalTime time = null;
-            time = (rs.getTime("hora").toLocalTime());
-            return time;
+        public TurnoAtencion mapRow(ResultSet rs, int rowNum) throws SQLException {
+            TurnoAtencion turnoAtencion = new TurnoAtencion();
+            turnoAtencion.setIdTurno(rs.getInt("id_turno"));
+            turnoAtencion.setHoraInicio(rs.getTime("hora").toLocalTime());
+            turnoAtencion.setEstado(1);
+            return turnoAtencion;
         }
     }
 
