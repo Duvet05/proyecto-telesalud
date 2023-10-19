@@ -97,6 +97,12 @@ function SeleccionarHorarioMedico({ onAvailabilitySelected }) {
         selectable={view === "week"} // Habilita la selección solo en la vista "Week"
         onView={handleView} // Actualiza el estado de la vista
       />
+      {
+        events.map((event) => {
+          console.log(event.start)
+          console.log(event.end)
+        })
+      }
       {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
       </Button> */}
