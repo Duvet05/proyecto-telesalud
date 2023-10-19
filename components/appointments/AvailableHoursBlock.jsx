@@ -28,24 +28,19 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
         maxHeight: "300px",
       }}
     >
-      {availableHours.map((hour, index) => {
-        const horaInicio = hour.slice(0, 5);
-        const horaFin = availableHours[index + 1]
-          ? availableHours[index + 1].slice(0, 5)
-          : null;
-
-        if (!horaFin) return null;
-
-        const rangoHorario = `${horaInicio} - ${horaFin}`;
-        const isSelected = hour === selectedHour;
+      {availableHours.map((horario, index) => {
+        const { idTurno, horaInicio, horaFin } = horario;
+        const horaInicioFormateada = horaInicio.slice(0, 5);
+        const horaFinFormateada = horaFin.slice(0, 5);
+        const rangoHorario = `${horaInicioFormateada} - ${horaFinFormateada}`;
+        const isSelected = horaInicio === selectedHour;
 
         return (
-          <Fade in={true} timeout={500 * (index + 1)}>
+          <Fade in={true} timeout={500 * (index + 1)} key={idTurno}>
             <Button
-              key={index}
               variant={isSelected ? "contained" : "outlined"}
               fullWidth
-              onClick={() => handleHourClick(hour)}
+              onClick={() => handleHourClick(horaInicio)}
               sx={{
                 textTransform: "none",
                 transition: "0.3s",
