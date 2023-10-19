@@ -13,7 +13,6 @@ public class Triaje {
     private String motivoVisita;
     private int presionArterial;
     private int estado;
-    private String alergias;
     private String prioridad;
     private LocalDate fechaTriaje;
     private LocalTime horaTriaje;
@@ -99,15 +98,7 @@ public class Triaje {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-
-    public String getAlergias() {
-        return alergias;
-    }
-
-    public void setAlergias(String alergias) {
-        this.alergias = alergias;
-    }
-
+    
     public String getPrioridad() {
         return prioridad;
     }
