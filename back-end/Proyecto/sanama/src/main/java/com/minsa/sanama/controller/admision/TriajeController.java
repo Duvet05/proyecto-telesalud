@@ -22,7 +22,7 @@ public class TriajeController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/listarTriajeporFiltro")
+            value = "/post/listarTriajePorFiltro")
     @ResponseBody
     public List<CitaMedica> listarTriajeporFiltro(@RequestBody String pv_filtro){
         List<CitaMedica> programacionCitas = null;
@@ -39,9 +39,9 @@ public class TriajeController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/listarTriajeporID")
+            value = "/post/buscarTriaje")
     @ResponseBody
-    public List<CitaMedica> listarTriajeporID(@RequestBody String pv_filtro){
+    public List<CitaMedica> buscarTriaje(@RequestBody String pv_filtro){
         List<CitaMedica> programacionCitas = null;
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
