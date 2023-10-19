@@ -9,10 +9,18 @@ import { patientService } from "../../services/patientService";
 function PatientInfoAppointment() {
   const [formData, setFormData] = useState({
     hasCompanion: "no",
+    isEditing: false,
     allPatients: [],
     searchResult: null,
     showFields: false,
     error: null,
+  });
+
+  const [companionData, setCompanionData] = useState({
+    documentoIdentidad: "",
+    nombres: "",
+    primerApellido: "",
+    segundoApellido: "",
   });
 
   useEffect(() => {
@@ -36,7 +44,7 @@ function PatientInfoAppointment() {
       ...prevData,
       searchResult: value,
       showFields: true,
-      hasCompanion: "no", // Añadido para reiniciar la opción del acompañante
+      isEditing: false,
     }));
   };
 
@@ -44,8 +52,23 @@ function PatientInfoAppointment() {
     setFormData((prevData) => ({
       ...prevData,
       showFields: true,
-      hasCompanion: "no", // Añadido para reiniciar la opción del acompañante
+      isEditing: true,
+      searchResult: null,
     }));
+  };
+
+  const handleCancelClick = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      isEditing: false,
+      searchResult: null,
+      showFields: false,
+    }));
+  };
+
+  const handleCompanionDataReceived = (companionData) => {
+    // Función para recibir los datos del acompañante desde CompanionFields
+    setCompanionData(companionData);
   };
 
   return (
@@ -59,7 +82,9 @@ function PatientInfoAppointment() {
           <PatientSearchAppointment
             allPatients={formData.allPatients}
             onSelect={handlePatientSelect}
-            onAdd={handleAddPatientClick}
+            onAdd={
+              formData.isEditing ? handleCancelClick : handleAddPatientClick
+            }
             isEditing={formData.isEditing}
             disabled={formData.isEditing}
           />
@@ -98,7 +123,9 @@ function PatientInfoAppointment() {
               <Grid item xs={12}>
                 <Slide in direction="up" timeout={900}>
                   <div>
-                    <CompanionFields />
+                    <CompanionFields
+                      onCompanionDataReceived={handleCompanionDataReceived}
+                    />
                   </div>
                 </Slide>
               </Grid>
