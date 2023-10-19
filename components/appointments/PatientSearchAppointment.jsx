@@ -11,7 +11,13 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
-function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
+function PatientSearchAppointment({
+  allPatients,
+  onSelect,
+  onAdd,
+  isEditing,
+  disabled,
+}) {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -21,12 +27,15 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
   };
 
   const handleAddOrCancel = () => {
-    onAdd();
+    if (isEditing) {
+      onAdd(); // Si está en modo edición, se usa para cancelar
+    } else if (inputValue) {
+      onAdd(); // Si hay un valor en el campo de búsqueda, se usa para agregar
+    }
     setSelectedValue(null);
     setInputValue("");
   };
 
-  const isAddMode = !selectedValue && inputValue !== "";
   return (
     <Grid container spacing={3}>
       <Grid item xs={9} md={8}>
@@ -53,31 +62,13 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
         />
       </Grid>
       <Grid item xs={3} md={4}>
-        <Tooltip
-          title={
-            isAddMode
-              ? "Agregar paciente"
-              : isEditing
-              ? "Cancelar"
-              : "Crear paciente"
-          }
-        >
+        <Tooltip title={isEditing ? "Cancelar" : "Agregar paciente"}>
           <Box display="flex" alignItems="center" justifyContent="flex-start">
             <IconButton onClick={handleAddOrCancel} sx={{ marginRight: 1 }}>
-              {isAddMode ? (
-                <AddIcon />
-              ) : isEditing ? (
-                <CloseIcon />
-              ) : (
-                <AddIcon />
-              )}
+              {isEditing ? <CloseIcon /> : <AddIcon />}
             </IconButton>
             <Typography variant="body2">
-              {isAddMode
-                ? "Agregar"
-                : isEditing
-                ? "Cancelar"
-                : "Agregar paciente"}
+              {isEditing ? "Cancelar" : "Agregar paciente"}
             </Typography>
           </Box>
         </Tooltip>
@@ -86,4 +77,4 @@ function PatientSearch({ allPatients, onSelect, onAdd, isEditing, disabled }) {
   );
 }
 
-export default PatientSearch;
+export default PatientSearchAppointment;

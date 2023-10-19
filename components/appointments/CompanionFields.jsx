@@ -9,41 +9,64 @@ import {
 } from "@mui/material";
 
 const companionFieldsConfig = [
-  "DOCUMENTO DE IDENTIDAD",
+  { label: "DOCUMENTO DE IDENTIDAD", pattern: "[0-9]*", maxLength: 8 },
   "NOMBRES",
   "PRIMER APELLIDO",
   "SEGUNDO APELLIDO",
 ];
 
-function CompanionFields() {
+function CompanionFields({ onCompanionDataReceived }) {
   const [relationship, setRelationship] = useState("");
-  const [document, setDocument] = useState("");
   const [documentError, setDocumentError] = useState(false);
+  const [companionData, setCompanionData] = useState({
+    documentoIdentidad: "",
+    nombres: "",
+    primerApellido: "",
+    segundoApellido: "",
+  });
+
+  useEffect(() => {
+    // Llama a la función de devolución de llamada para enviar los datos del acompañante al padre
+    onCompanionDataReceived(companionData);
+  }, [companionData, onCompanionDataReceived]);
 
   const handleDocumentChange = (event) => {
     const value = event.target.value;
-    setDocument(value);
     setDocumentError(value.length !== 8);
+    setCompanionData((prevData) => ({
+      ...prevData,
+      documentoIdentidad: value,
+    }));
+  };
+
+  const handleInputChange = (event, field) => {
+    const value = event.target.value;
+    setCompanionData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
   };
 
   return (
     <Grid container spacing={3}>
-      {companionFieldsConfig.map((label, idx) => (
+      {companionFieldsConfig.map((field, idx) => (
         <Grid item xs={6} key={idx}>
           <TextField
-            label={label}
+            label={typeof field === "string" ? field : field.label}
             variant="outlined"
             required
             fullWidth
             inputProps={{
-              pattern: idx === 0 ? "[0-9]*" : undefined,
-              maxLength: idx === 0 ? 8 : undefined,
+              pattern: idx === 0 ? field.pattern : undefined,
+              maxLength: idx === 0 ? field.maxLength : undefined,
             }}
             error={idx === 0 && documentError}
             helperText={
               idx === 0 && documentError ? "Debe tener 8 dígitos" : ""
             }
-            onChange={idx === 0 ? handleDocumentChange : undefined}
+            onChange={(e) =>
+              idx === 0 ? handleDocumentChange(e) : handleInputChange(e, field)
+            }
           />
         </Grid>
       ))}

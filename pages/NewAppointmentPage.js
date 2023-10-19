@@ -1,20 +1,19 @@
 // Appointments.jsx
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Container, IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import AppointmentForm from "../components/appointments/AppointmentForm";
-import AppointmentInfo from "./AppointmentInfo";
+import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
 import SelectMedic from "../components/appointments/SelectMedic";
+import TriajeONo from "../components/appointments/TriageRequest";
+import AppointmentInfo from "./AppointmentInfo";
 import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
-import TriajeONo from "../components/appointments/TriageRequest";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
 
 const PAGES = [
-  { component: <AppointmentForm />, title: "Información del paciente" },
+  { component: <PatientInfoAppointment />, title: "Información del paciente" },
   { component: <SelectMedic />, title: "Seleccionar médico" },
   { component: <TriajeONo />, title: "Triage" },
   { component: <AppointmentInfo />, title: "Información de la cita" },

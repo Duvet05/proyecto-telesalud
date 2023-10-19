@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Typography,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Grid,
-} from "@mui/material";
+import { Typography, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 
 function CompanionQuestion({ value = "yes", onChange }) {
   return (
-    <Grid item xs={12}>
+    <>
       <Typography variant="h6" gutterBottom>
         ¿El paciente es responsable legal?
       </Typography>
@@ -17,7 +11,7 @@ function CompanionQuestion({ value = "yes", onChange }) {
         <FormControlLabel value="yes" control={<Radio />} label="Sí" />
         <FormControlLabel value="no" control={<Radio />} label="No" />
       </RadioGroup>
-    </Grid>
+    </>
   );
 }
 

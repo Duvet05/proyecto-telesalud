@@ -12,14 +12,13 @@ const patientFieldsConfig = [
   { name: "correo", label: "CORREO" },
 ];
 
-function PatientFields({ isDisabled, patientData = {} }) {
+function PatientFieldsAppointment({ isDisabled, patientData = {} }) {
   const initialState = patientFieldsConfig.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
   }, {});
 
   const [formData, setFormData] = useState({ ...initialState, ...patientData });
-  const [documentError, setDocumentError] = useState(false);
 
   useEffect(() => {
     setFormData((prev) =>
@@ -29,11 +28,6 @@ function PatientFields({ isDisabled, patientData = {} }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    // Específico para la validación del DNI
-    if (name === "dni") {
-      setDocumentError(value.length !== 8);
-    }
 
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -51,7 +45,6 @@ function PatientFields({ isDisabled, patientData = {} }) {
             disabled={isDisabled}
             value={formData[field.name]}
             onChange={handleInputChange}
-            // Lógica específica para el DNI
             inputProps={
               field.name === "dni"
                 ? {
@@ -60,9 +53,9 @@ function PatientFields({ isDisabled, patientData = {} }) {
                   }
                 : undefined
             }
-            error={field.name === "dni" && documentError}
+            error={field.name === "dni" && formData[field.name].length !== 8}
             helperText={
-              field.name === "dni" && documentError
+              field.name === "dni" && formData[field.name].length !== 8
                 ? "Debe tener 8 dígitos"
                 : ""
             }
@@ -73,4 +66,4 @@ function PatientFields({ isDisabled, patientData = {} }) {
   );
 }
 
-export default PatientFields;
+export default PatientFieldsAppointment;
