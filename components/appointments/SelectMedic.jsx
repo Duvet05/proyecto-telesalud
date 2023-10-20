@@ -29,6 +29,11 @@ function SelectMedic() {
       .buscarHorariosByID(fecha, medicId)
       .then((data) => {
         setAvailableHours(data);
+        setSelectedMedicData((prevData) => ({
+          ...prevData,
+          medicId: medicId,
+          selectedDate: fecha,
+        }));
       })
       .catch((error) => {
         console.error("Error fetching available hours:", error);
@@ -45,6 +50,11 @@ function SelectMedic() {
         console.error("Error fetching available days:", error);
       });
   };
+  const [selectedMedicData, setSelectedMedicData] = useState({
+    medicId: null,
+    selectedDate: null,
+    selectedHour: null,
+  });
 
   useEffect(() => {
     if (selectedDoctor) {
@@ -83,8 +93,13 @@ function SelectMedic() {
       );
     }
   };
+
   const handleHourChange = (hour) => {
-    setSelectedHour(dayjs(hour).format("HH:mm:ss"));
+    const formattedHour = dayjs(hour).format("HH:mm:ss");
+    setSelectedMedicData((prevData) => ({
+      ...prevData,
+      selectedHour: formattedHour,
+    }));
   };
 
   return (

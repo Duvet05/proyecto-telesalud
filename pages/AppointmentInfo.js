@@ -30,7 +30,7 @@ const camposAtencion = [
   { id: "estado", label: "Estado", type: "text" },
 ];
 
-function AppointmentInfo() {
+function AppointmentInfo({ pacienteData, acompananteData }) {
   return (
     <Container>
       <Box sx={{ marginBottom: 4, color: "black" }}>
@@ -48,6 +48,8 @@ function AppointmentInfo() {
                 variant="outlined"
                 required
                 fullWidth
+                defaultValue={pacienteData ? pacienteData[campo.id] : ""}
+                InputProps={{ readOnly: true }}
               />
             </Grid>
           ))}

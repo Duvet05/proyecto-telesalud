@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Paper, Grid, Container, IconButton } from "@mui/material";
+import { Typography, Paper, Grid, Container } from "@mui/material";
 import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
 import SelectMedic from "../components/appointments/SelectMedic";
 import TriajeONo from "../components/appointments/TriageRequest";
@@ -12,15 +12,31 @@ const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
 
 const PAGES = [
-  { component: <PatientInfoAppointment />, title: "Información del paciente" },
-  { component: <SelectMedic />, title: "Seleccionar médico" },
-  { component: <TriajeONo />, title: "Triage" },
+  {
+    component: <PatientInfoAppointment />,
+    title: "Información del paciente",
+  },
+  {
+    component: <SelectMedic />,
+    title: "Seleccionar médico",
+  },
+  {
+    component: <TriajeONo />,
+    title: "Triage",
+  },
   { component: <AppointmentInfo />, title: "Información de la cita" },
 ];
+
 const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
+  const [appointmentData, setAppointmentData] = useState({
+    selectedPatientData: null,
+    companionData: null,
+    selectedMedicData: null,
+    selectedTriage: null,
+  });
 
   const navigate = (delta) => {
     const nextPage = Math.min(
@@ -29,10 +45,10 @@ const Appointments = () => {
     );
     setCurrentPage(nextPage);
     setIsBackButtonVisible(nextPage !== 0);
+  };
 
-    if (nextPage === PAGES.length - 1) {
-      setIsProcessCompleted(true);
-    }
+  const handleProcessCompletion = () => {
+    setIsProcessCompleted(true);
   };
 
   useEffect(() => {
@@ -74,7 +90,12 @@ const Appointments = () => {
           </Typography>
           <Grid>
             <Grid item xs={12}>
-              {PAGES[currentPage].component}
+              {React.cloneElement(PAGES[currentPage].component, {
+                updateAppointmentData: setAppointmentData,
+                handleProcessCompletion: handleProcessCompletion,
+                pacienteData: appointmentData.selectedPatientData,
+                acompananteData: appointmentData.companionData,
+              })}
             </Grid>
           </Grid>
         </Paper>
@@ -83,6 +104,7 @@ const Appointments = () => {
             currentPage={currentPage}
             totalPages={PAGES.length}
             navigate={navigate}
+            isProcessCompleted={isProcessCompleted}
           />
         </Grid>
       </Container>
