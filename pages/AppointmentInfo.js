@@ -10,16 +10,16 @@ import {
 import Link from "next/link";
 import { useAppointments } from "./AppointmentsContext";
 
-const camposPaciente = [
-  { id: "numero-documento-paciente", label: "N° documento", type: "tel" },
-  {
-    id: "codigo-asegurado-sis",
-    label: "Código del asegurado SIS",
-    type: "text",
-  },
-  { id: "apellido-paterno", label: "Apellido paterno", type: "text" },
-  { id: "apellido-materno", label: "Apellido materno", type: "text" },
-  { id: "nombres", label: "Nombres", type: "text" },
+const patientFieldsConfig = [
+  { name: "dni", label: "DOCUMENTO DE IDENTIDAD" },
+  { name: "codigoSeguro", label: "N° DE SEGURO" },
+  { name: "tipoSeguro", label: "TIPO DE SEGURO" },
+  { name: "nombres", label: "NOMBRES" },
+  { name: "apellidoPaterno", label: "PRIMER APELLIDO" },
+  { name: "apellidoMaterno", label: "SEGUNDO APELLIDO" },
+  { name: "fechaNacimiento", label: "FECHA DE NACIMIENTO" },
+  { name: "telefono", label: "TELEFONO" },
+  { name: "correo", label: "CORREO" },
 ];
 
 const camposAtencion = [
@@ -42,7 +42,7 @@ function AppointmentInfo() {
           Información del paciente
         </Typography>
         <Grid container spacing={3}>
-          {camposPaciente.map((campo) => (
+          {patientFieldsConfig.map((campo) => (
             <Grid item xs={4} key={campo.id}>
               <label htmlFor={campo.id}>{campo.label}</label>
               <TextField

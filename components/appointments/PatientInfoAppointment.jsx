@@ -7,7 +7,7 @@ import CompanionQuestion from "./CompanionQuestion";
 import { patientService } from "../../services/patientService";
 import { useAppointments } from "@/pages/AppointmentsContext";
 
-function PatientInfoAppointment({ updateAppointmentData }) {
+function PatientInfoAppointment() {
   const [formData, setFormData] = useState({
     hasCompanion: "no",
     isEditing: false,
@@ -41,10 +41,6 @@ function PatientInfoAppointment({ updateAppointmentData }) {
       searchResult: value,
       showFields: true,
       isEditing: false,
-    }));
-    setAppointmentData((prevData) => ({
-      ...prevData,
-      selectedPatientData: value,
     }));
   };
 
@@ -95,6 +91,7 @@ function PatientInfoAppointment({ updateAppointmentData }) {
             <PatientFieldsAppointment
               isDisabled={!formData.isEditing}
               patientData={formData.searchResult}
+              selectedPatientData={formData.searchResult}
             />
           </Grid>
         )}

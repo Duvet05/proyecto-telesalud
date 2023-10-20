@@ -23,7 +23,6 @@ export const AppointmentsProvider = ({ children }) => {
   );
 };
 
-// Hook personalizado para acceder fácilmente al contexto desde los componentes
 export const useAppointments = () => {
   const context = useContext(AppointmentsContext);
   if (!context) {
