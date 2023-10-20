@@ -42,7 +42,10 @@ function AppointmentInfo() {
         doctorResponsable.apellidoMaterno
       }`
     : "";
-
+  const especialidadNombre =
+    doctorResponsable && doctorResponsable.especialidad
+      ? doctorResponsable.especialidad.nombre
+      : "";
   return (
     <Container>
       <Box sx={{ marginBottom: 4, color: "black" }}>
@@ -92,6 +95,8 @@ function AppointmentInfo() {
                     ? nombreDoctor
                     : campo.id === "estado"
                     ? "PENDIENTE"
+                    : campo.id === "especialidad"
+                    ? especialidadNombre
                     : appointmentData[campo.id]
                 }
                 InputProps={{ readOnly: true }}

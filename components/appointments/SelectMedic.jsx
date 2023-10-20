@@ -45,7 +45,7 @@ function SelectMedic() {
 
   useEffect(() => {
     if (appointmentData.selectedDoctor) {
-      fetchAvailableDays(appointmentData.selectedDoctor);
+      fetchAvailableDays(appointmentData.selectedDoctor.idPersona);
     }
   }, [appointmentData.selectedDoctor]);
 
@@ -53,7 +53,7 @@ function SelectMedic() {
     if (appointmentData.selectedDate && appointmentData.selectedDoctor) {
       fetchAvailableHours(
         appointmentData.selectedDate,
-        appointmentData.selectedDoctor
+        appointmentData.selectedDoctor.idPersona
       );
     }
   }, [appointmentData.selectedDate, appointmentData.selectedDoctor]);
@@ -134,9 +134,13 @@ function SelectMedic() {
           <Select
             value={appointmentData.selectedDoctor || ""}
             onChange={(event) => {
+              const doctorId = event.target.value;
+              const selectedDoc = doctors.find(
+                (doctor) => doctor.idPersona === doctorId
+              );
               setAppointmentData((prevData) => ({
                 ...prevData,
-                selectedDoctor: event.target.value,
+                selectedDoctor: selectedDoc,
               }));
             }}
           >
