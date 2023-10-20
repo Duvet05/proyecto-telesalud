@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Slide, Box } from "@mui/material";
+import { Typography, Grid, Slide, Box, Divider } from "@mui/material";
 import PatientSearchAppointment from "./PatientSearchAppointment";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
-import CompanionFields from "./CompanionFields"; // Ya refactorizado
+import CompanionFields from "./CompanionFields";
 import CompanionQuestion from "./CompanionQuestion";
 import { patientService } from "../../services/patientService";
 
@@ -67,7 +67,6 @@ function PatientInfoAppointment() {
   };
 
   const handleCompanionDataReceived = (companionData) => {
-    // Función para recibir los datos del acompañante desde CompanionFields
     setCompanionData(companionData);
   };
 
@@ -90,47 +89,51 @@ function PatientInfoAppointment() {
           />
         </Grid>
 
-        {formData.showFields && (
-          <>
-            <Grid item xs={12}>
-              <Slide in direction="up" timeout={500}>
-                <div>
-                  <PatientFieldsAppointment
-                    isDisabled={!formData.isEditing}
-                    patientData={formData.searchResult}
-                  />
-                </div>
-              </Slide>
-            </Grid>
+        {(formData.showFields || !formData.isEditing) && (
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
+        )}
 
-            <Grid item xs={12}>
-              <Slide in direction="up" timeout={700}>
-                <div>
-                  <CompanionQuestion
-                    value={formData.hasCompanion}
-                    onChange={(e) =>
-                      setFormData((prevData) => ({
-                        ...prevData,
-                        hasCompanion: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </Slide>
-            </Grid>
-
-            {formData.hasCompanion === "no" && (
-              <Grid item xs={12}>
-                <Slide in direction="up" timeout={900}>
-                  <div>
-                    <CompanionFields
-                      onCompanionDataReceived={handleCompanionDataReceived}
-                    />
-                  </div>
-                </Slide>
-              </Grid>
-            )}
-          </>
+        {(formData.showFields || !formData.isEditing) && (
+          <Grid item xs={12}>
+            <Slide in direction="up" timeout={500}>
+              <div>
+                <PatientFieldsAppointment
+                  isDisabled={!formData.isEditing}
+                  patientData={formData.searchResult}
+                />
+              </div>
+            </Slide>
+          </Grid>
+        )}
+        {(formData.showFields || !formData.isEditing) && (
+          <Grid item xs={12}>
+            <Slide in direction="up" timeout={700}>
+              <div>
+                <CompanionQuestion
+                  value={formData.hasCompanion}
+                  onChange={(e) =>
+                    setFormData((prevData) => ({
+                      ...prevData,
+                      hasCompanion: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+            </Slide>
+          </Grid>
+        )}
+        {formData.hasCompanion === "no" && (
+          <Grid item xs={12}>
+            <Slide in direction="up" timeout={900}>
+              <div>
+                <CompanionFields
+                  onCompanionDataReceived={handleCompanionDataReceived}
+                />
+              </div>
+            </Slide>
+          </Grid>
         )}
       </Grid>
     </Box>

@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Grid,
-  TextField,
-  Autocomplete,
-  IconButton,
-  Tooltip,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Box, TextField, Autocomplete, Button, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -24,56 +16,68 @@ function PatientSearchAppointment({
   const handleAutoCompleteChange = (event, value) => {
     onSelect(value);
     setSelectedValue(value);
+    if (!value) {
+      setInputValue("");
+    }
   };
 
   const handleAddOrCancel = () => {
-    if (isEditing) {
-      onAdd(); // Si está en modo edición, se usa para cancelar
-    } else if (inputValue) {
-      onAdd(); // Si hay un valor en el campo de búsqueda, se usa para agregar
-    }
+    onAdd();
     setSelectedValue(null);
     setInputValue("");
   };
 
+  const isAddMode = !selectedValue && inputValue !== "";
+
+  let icon = <AddIcon />;
+  let label = "Agregar paciente";
+  let color = "primary";
+
+  if (isEditing) {
+    icon = <CloseIcon />;
+    label = "Cancelar";
+    color = "error";
+  } else if (isAddMode) {
+    label = "Agregar";
+    color = "primary";
+  }
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={9} md={8}>
-        <Autocomplete
-          options={allPatients}
-          getOptionLabel={(option) =>
-            `${option.nombres} ${option.apellidoPaterno} ${option.apellidoMaterno}`
-          }
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Buscar por nombre..."
-              variant="outlined"
-              fullWidth
-              disabled={disabled}
-              sx={{ width: "92vh" }}
-            />
-          )}
-          inputValue={inputValue}
-          onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
-          value={selectedValue}
-          onChange={handleAutoCompleteChange}
-          disabled={disabled}
-        />
-      </Grid>
-      <Grid item xs={3} md={4}>
-        <Tooltip title={isEditing ? "Cancelar" : "Agregar paciente"}>
-          <Box display="flex" alignItems="center" justifyContent="flex-start">
-            <IconButton onClick={handleAddOrCancel} sx={{ marginRight: 1 }}>
-              {isEditing ? <CloseIcon /> : <AddIcon />}
-            </IconButton>
-            <Typography variant="body2">
-              {isEditing ? "Cancelar" : "Agregar paciente"}
-            </Typography>
-          </Box>
-        </Tooltip>
-      </Grid>
-    </Grid>
+    <Box display="flex" alignItems="center">
+      <Autocomplete
+        options={allPatients}
+        getOptionLabel={(option) =>
+          `${option.nombres} ${option.apellidoPaterno} ${option.apellidoMaterno}`
+        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Buscar por nombre..."
+            variant="outlined"
+            fullWidth
+            disabled={disabled}
+            sx={{ flex: 1, width: "100vh", marginRight: 2 }} // Use flex to make it responsive
+          />
+        )}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+        value={selectedValue}
+        onChange={handleAutoCompleteChange}
+        disabled={disabled}
+      />
+      <Tooltip title={label}>
+        <Button
+          color={color}
+          onClick={handleAddOrCancel}
+          variant="contained"
+          startIcon={icon}
+          disabled={selectedValue || inputValue}
+          sx={{ height: "56px", width: "250px" }}
+        >
+          {label}
+        </Button>
+      </Tooltip>
+    </Box>
   );
 }
 

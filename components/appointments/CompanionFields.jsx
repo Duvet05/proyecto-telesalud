@@ -9,10 +9,28 @@ import {
 } from "@mui/material";
 
 const companionFieldsConfig = [
-  { label: "DOCUMENTO DE IDENTIDAD", pattern: "[0-9]*", maxLength: 8 },
-  "NOMBRES",
-  "PRIMER APELLIDO",
-  "SEGUNDO APELLIDO",
+  {
+    label: "DOCUMENTO DE IDENTIDAD",
+    pattern: "[0-9]*",
+    maxLength: 8,
+    name: "documentoIdentidad",
+  },
+  {
+    label: "NOMBRES",
+    name: "nombres",
+  },
+  {
+    label: "PRIMER APELLIDO",
+    name: "primerApellido",
+  },
+  {
+    label: "SEGUNDO APELLIDO",
+    name: "segundoApellido",
+  },
+  {
+    label: "FECHA DE NACIMIENTO",
+    name: "fechaNacimiento",
+  },
 ];
 
 function CompanionFields({ onCompanionDataReceived }) {
@@ -26,51 +44,61 @@ function CompanionFields({ onCompanionDataReceived }) {
   });
 
   useEffect(() => {
-    // Llama a la función de devolución de llamada para enviar los datos del acompañante al padre
     onCompanionDataReceived(companionData);
   }, [companionData, onCompanionDataReceived]);
 
-  const handleDocumentChange = (event) => {
-    const value = event.target.value;
-    setDocumentError(value.length !== 8);
+  const handleInputChange = (event, fieldName) => {
+    const { name, value } = event.target;
     setCompanionData((prevData) => ({
       ...prevData,
-      documentoIdentidad: value,
+      [fieldName || name]: value,
     }));
+
+    if (fieldName === "documentoIdentidad") {
+      setDocumentError(value.length !== 8);
+    }
   };
 
-  const handleInputChange = (event, field) => {
-    const value = event.target.value;
-    setCompanionData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+  const renderTextField = (field) => (
+    <TextField
+      label={field.label}
+      variant="outlined"
+      required
+      fullWidth
+      name={field.name}
+      inputProps={{
+        pattern: field.pattern,
+        maxLength: field.maxLength,
+      }}
+      error={field.name === "documentoIdentidad" ? documentError : false}
+      helperText={
+        field.name === "documentoIdentidad" && documentError
+          ? "Debe tener 8 dígitos"
+          : ""
+      }
+      onChange={(e) => handleInputChange(e, field.name)}
+    />
+  );
 
   return (
-    <Grid container spacing={3}>
-      {companionFieldsConfig.map((field, idx) => (
-        <Grid item xs={6} key={idx}>
-          <TextField
-            label={typeof field === "string" ? field : field.label}
-            variant="outlined"
-            required
-            fullWidth
-            inputProps={{
-              pattern: idx === 0 ? field.pattern : undefined,
-              maxLength: idx === 0 ? field.maxLength : undefined,
-            }}
-            error={idx === 0 && documentError}
-            helperText={
-              idx === 0 && documentError ? "Debe tener 8 dígitos" : ""
-            }
-            onChange={(e) =>
-              idx === 0 ? handleDocumentChange(e) : handleInputChange(e, field)
-            }
-          />
+    <Grid container spacing={4}>
+      {companionFieldsConfig.map((field, index) => (
+        <Grid item xs={4} key={index}>
+          {field.label === "DOCUMENTO DE IDENTIDAD" ? (
+            renderTextField(field)
+          ) : (
+            <TextField
+              label={field.label}
+              variant="outlined"
+              required
+              fullWidth
+              name={field.name}
+              onChange={(e) => handleInputChange(e, field.name)}
+            />
+          )}
         </Grid>
       ))}
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         <FormControl variant="outlined" fullWidth required>
           <InputLabel>PARENTESCO</InputLabel>
           <Select
