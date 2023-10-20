@@ -69,7 +69,21 @@ function CompanionFields() {
 
   const renderTextField = (field) => (
     <TextField
-      // ... (sin cambios aquí)
+      label={field.label}
+      variant="outlined"
+      required
+      fullWidth
+      name={field.name}
+      inputProps={{
+        pattern: field.pattern,
+        maxLength: field.maxLength,
+      }}
+      error={field.name === "documentoIdentidad" ? documentError : false}
+      helperText={
+        field.name === "documentoIdentidad" && documentError
+          ? "Debe tener 8 dígitos"
+          : ""
+      }
       onChange={(e) => handleInputChange(e, field.name)}
     />
   );
