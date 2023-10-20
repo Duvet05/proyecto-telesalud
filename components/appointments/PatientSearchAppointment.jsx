@@ -42,6 +42,8 @@ function PatientSearchAppointment({
     color = "primary";
   }
 
+  const isButtonDisabled = selectedValue || inputValue;
+
   return (
     <Box display="flex" alignItems="center">
       <Autocomplete
@@ -71,7 +73,7 @@ function PatientSearchAppointment({
           onClick={handleAddOrCancel}
           variant="contained"
           startIcon={icon}
-          disabled={selectedValue || inputValue}
+          disabled={isButtonDisabled}
           sx={{ height: "56px", width: "250px" }}
         >
           {label}

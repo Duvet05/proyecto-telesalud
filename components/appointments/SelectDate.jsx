@@ -61,22 +61,20 @@ export default function SelectDate(props) {
       <Typography variant="subtitle1" gutterBottom>
         Selecciona una Fecha y hora disponible:
       </Typography>
-      <Box display="flex" alignItems="center" gap={3}>
-        <Box mb={2}>
-          <DateCalendar
-            onChange={handleDateChange}
-            value={selectedDate ? dayjs(selectedDate) : null}
-            slots={{ day: ServerDay }}
-            slotProps={{ day: { highlightedDays } }}
-          />
-        </Box>
-        <Box mb={2}>
-          <AvailableHoursBlock
-            availableHours={availableHours}
-            onHourClick={onHourChange}
-            selectedDate={selectedDate}
-          />
-        </Box>
+
+      <Box display="flex" sx={{ width: 800, margin: 5 }}>
+        <DateCalendar
+          onChange={handleDateChange}
+          value={selectedDate ? dayjs(selectedDate) : null}
+          slots={{ day: ServerDay }}
+          slotProps={{ day: { highlightedDays } }}
+        />
+        <AvailableHoursBlock
+          sx={{ width: 800, margin: 5 }}
+          availableHours={availableHours}
+          onHourClick={onHourChange}
+          selectedDate={selectedDate}
+        />
       </Box>
     </LocalizationProvider>
   );
