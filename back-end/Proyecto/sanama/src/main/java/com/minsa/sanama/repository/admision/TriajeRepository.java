@@ -127,6 +127,9 @@ public class TriajeRepository {
             paciente.setNombres(rs.getString("paciente_nombres"));
             paciente.setApellidoPaterno(rs.getString("paciente_apellido_paterno"));
             paciente.setApellidoMaterno(rs.getString("paciente_apellido_materno"));
+            paciente.setDni(rs.getString("paciente_dni"));
+            paciente.setFechaNacimiento(rs.getDate("paciente_fecha_nacimiento").toLocalDate());
+            paciente.setSexo(rs.getString("paciente_sexo"));
 
             // Establece las relaciones
             programacionCita.setTriaje(triaje);
