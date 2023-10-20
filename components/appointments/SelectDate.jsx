@@ -8,6 +8,7 @@ import {
   DateCalendar,
 } from "@mui/x-date-pickers";
 import AvailableHoursBlock from "./AvailableHoursBlock";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 function ServerDay({
   highlightedDays = [],
@@ -33,27 +34,26 @@ function ServerDay({
   );
 }
 
-export default function SelectDate(props) {
-  const {
-    onDateChange,
-    selectedDate,
-    availableHours,
-    availableDays,
-    onHourChange,
-  } = props;
+export default function SelectDate() {
+  const { appointmentData, setAppointmentData } = useAppointments();
 
   const [highlightedDays, setHighlightedDays] = useState([]);
 
   useEffect(() => {
-    const daysToHighlight = availableDays.map((date) => dayjs(date).date());
+    const daysToHighlight = appointmentData.availableDays.map((date) =>
+      dayjs(date).date()
+    );
     setHighlightedDays(daysToHighlight);
-  }, [availableDays]);
+  }, [appointmentData.availableDays]);
 
   const handleDateChange = useCallback(
     (newDate) => {
-      onDateChange(dayjs(newDate).format("YYYY-MM-DD"));
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        selectedDate: dayjs(newDate).format("YYYY-MM-DD"),
+      }));
     },
-    [onDateChange]
+    [setAppointmentData]
   );
 
   return (
@@ -68,14 +68,23 @@ export default function SelectDate(props) {
       >
         <DateCalendar
           onChange={handleDateChange}
-          value={selectedDate ? dayjs(selectedDate) : null}
+          value={
+            appointmentData.selectedDate
+              ? dayjs(appointmentData.selectedDate)
+              : null
+          }
           slots={{ day: ServerDay }}
           slotProps={{ day: { highlightedDays } }}
         />
         <AvailableHoursBlock
-          availableHours={availableHours}
-          onHourClick={onHourChange}
-          selectedDate={selectedDate}
+          availableHours={appointmentData.availableHours}
+          onHourClick={(hour) => {
+            setAppointmentData((prevData) => ({
+              ...prevData,
+              selectedHour: dayjs(hour).format("HH:mm:ss"),
+            }));
+          }}
+          selectedDate={appointmentData.selectedDate}
         />
       </Box>
     </LocalizationProvider>

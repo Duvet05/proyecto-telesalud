@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, Typography, Fade } from "@mui/material";
 
-function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
+function AvailableHoursBlock({
+  availableHours = [],
+  availableDays = [],
+  onHourClick,
+  selectedDate,
+}) {
   const [selectedHour, setSelectedHour] = useState(null);
 
   useEffect(() => {

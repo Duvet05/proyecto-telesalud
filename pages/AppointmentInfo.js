@@ -8,6 +8,7 @@ import {
   Container,
 } from "@mui/material";
 import Link from "next/link";
+import { useAppointments } from "./AppointmentsContext";
 
 const camposPaciente = [
   { id: "numero-documento-paciente", label: "N° documento", type: "tel" },
@@ -30,7 +31,10 @@ const camposAtencion = [
   { id: "estado", label: "Estado", type: "text" },
 ];
 
-function AppointmentInfo({ pacienteData, acompananteData }) {
+function AppointmentInfo() {
+  const { appointmentData } = useAppointments();
+  const pacienteData = appointmentData.pacienteData;
+
   return (
     <Container>
       <Box sx={{ marginBottom: 4, color: "black" }}>
@@ -71,11 +75,14 @@ function AppointmentInfo({ pacienteData, acompananteData }) {
                 variant="outlined"
                 required
                 fullWidth
+                defaultValue={appointmentData ? appointmentData[campo.id] : ""}
+                InputProps={{ readOnly: true }}
               />
             </Grid>
           ))}
         </Grid>
       </Box>
+
       <Link href="/AppointmentManagement">
         <Button variant="contained" color="secondary" fullWidth>
           Terminar

@@ -7,6 +7,7 @@ import AppointmentInfo from "./AppointmentInfo";
 import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
+import { AppointmentsProvider, useAppointments } from "./AppointmentsContext";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
@@ -31,12 +32,7 @@ const Appointments = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
   const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
-  const [appointmentData, setAppointmentData] = useState({
-    selectedPatientData: null,
-    companionData: null,
-    selectedMedicData: null,
-    selectedTriage: null,
-  });
+  const { appointmentData, setAppointmentData } = useAppointments();
 
   const navigate = (delta) => {
     const nextPage = Math.min(
@@ -66,55 +62,57 @@ const Appointments = () => {
   }, []);
 
   return (
-    <MainLayout>
-      <Container
-        maxWidth="lg"
-        style={{
-          marginTop: "-40px",
-          marginBottom: "20px",
-          display: "flex", // Flex layout
-          flexDirection: "column", // Column direction
-          height: "85vh", // 100% of viewport height
-        }}
-      >
-        <Paper
+    <AppointmentsProvider>
+      <MainLayout>
+        <Container
+          maxWidth="lg"
           style={{
-            padding: "30px",
-            flex: 1, // This will make the Paper take up all the available space
-            overflowY: "auto", // This will add a scrollbar if content overflows
-            marginBottom: "10px",
+            marginTop: "-40px",
+            marginBottom: "20px",
+            display: "flex", // Flex layout
+            flexDirection: "column", // Column direction
+            height: "85vh", // 100% of viewport height
           }}
         >
-          <Typography variant="h4" style={{ marginBottom: "30px" }}>
-            {PAGES[currentPage].title}
-          </Typography>
-          <Grid>
-            <Grid item xs={12}>
-              {React.cloneElement(PAGES[currentPage].component, {
-                updateAppointmentData: setAppointmentData,
-                handleProcessCompletion: handleProcessCompletion,
-                pacienteData: appointmentData.selectedPatientData,
-                acompananteData: appointmentData.companionData,
-              })}
+          <Paper
+            style={{
+              padding: "30px",
+              flex: 1, // This will make the Paper take up all the available space
+              overflowY: "auto", // This will add a scrollbar if content overflows
+              marginBottom: "10px",
+            }}
+          >
+            <Typography variant="h4" style={{ marginBottom: "30px" }}>
+              {PAGES[currentPage].title}
+            </Typography>
+            <Grid>
+              <Grid item xs={12}>
+                {React.cloneElement(PAGES[currentPage].component, {
+                  updateAppointmentData: setAppointmentData,
+                  handleProcessCompletion: handleProcessCompletion,
+                  pacienteData: appointmentData.selectedPatientData,
+                  acompananteData: appointmentData.companionData,
+                })}
+              </Grid>
             </Grid>
+          </Paper>
+          <Grid item xs={12}>
+            <NavigationButtons
+              currentPage={currentPage}
+              totalPages={PAGES.length}
+              navigate={navigate}
+              isProcessCompleted={isProcessCompleted}
+            />
           </Grid>
-        </Paper>
-        <Grid item xs={12}>
-          <NavigationButtons
-            currentPage={currentPage}
-            totalPages={PAGES.length}
-            navigate={navigate}
-            isProcessCompleted={isProcessCompleted}
+        </Container>
+        {isProcessCompleted && (
+          <CustomizedDialog
+            onClose={() => setIsProcessCompleted(false)}
+            open={isProcessCompleted}
           />
-        </Grid>
-      </Container>
-      {isProcessCompleted && (
-        <CustomizedDialog
-          onClose={() => setIsProcessCompleted(false)}
-          open={isProcessCompleted}
-        />
-      )}
-    </MainLayout>
+        )}
+      </MainLayout>
+    </AppointmentsProvider>
   );
 };
 

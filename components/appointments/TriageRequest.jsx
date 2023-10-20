@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { Typography, Button, Container, Grid, Paper } from "@mui/material";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 const TriageRequest = () => {
   const [selectedButton, setSelectedButton] = useState(null);
+  const { setAppointmentData } = useAppointments(); // Usamos el hook personalizado
 
   const handleButtonClick = (button) => {
     setSelectedButton(button);
+    if (button === "option1") {
+      setAppointmentData((prevData) => ({ ...prevData, selectedTriage: true }));
+    } else if (button === "option2") {
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        selectedTriage: false,
+      }));
+    }
   };
 
   return (

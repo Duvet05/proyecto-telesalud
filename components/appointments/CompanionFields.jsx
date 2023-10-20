@@ -7,6 +7,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 const companionFieldsConfig = [
   {
@@ -33,22 +34,22 @@ const companionFieldsConfig = [
   },
 ];
 
-function CompanionFields({ onCompanionDataReceived }) {
-  const [relationship, setRelationship] = useState("");
-  const [documentError, setDocumentError] = useState(false);
+function CompanionFields() {
+  const { setAppointmentData } = useAppointments();
+
   const [companionData, setCompanionData] = useState({
     documentoIdentidad: "",
     nombres: "",
     primerApellido: "",
     segundoApellido: "",
+    fechaNacimiento: "",
+    relationship: "",
   });
-
-  useEffect(() => {
-    onCompanionDataReceived(companionData);
-  }, [companionData, onCompanionDataReceived]);
+  const [documentError, setDocumentError] = useState(false);
 
   const handleInputChange = (event, fieldName) => {
     const { name, value } = event.target;
+
     setCompanionData((prevData) => ({
       ...prevData,
       [fieldName || name]: value,
@@ -59,23 +60,16 @@ function CompanionFields({ onCompanionDataReceived }) {
     }
   };
 
+  useEffect(() => {
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      companionData: companionData,
+    }));
+  }, [companionData, setAppointmentData]);
+
   const renderTextField = (field) => (
     <TextField
-      label={field.label}
-      variant="outlined"
-      required
-      fullWidth
-      name={field.name}
-      inputProps={{
-        pattern: field.pattern,
-        maxLength: field.maxLength,
-      }}
-      error={field.name === "documentoIdentidad" ? documentError : false}
-      helperText={
-        field.name === "documentoIdentidad" && documentError
-          ? "Debe tener 8 dígitos"
-          : ""
-      }
+      // ... (sin cambios aquí)
       onChange={(e) => handleInputChange(e, field.name)}
     />
   );
@@ -84,26 +78,15 @@ function CompanionFields({ onCompanionDataReceived }) {
     <Grid container spacing={4}>
       {companionFieldsConfig.map((field, index) => (
         <Grid item xs={4} key={index}>
-          {field.label === "DOCUMENTO DE IDENTIDAD" ? (
-            renderTextField(field)
-          ) : (
-            <TextField
-              label={field.label}
-              variant="outlined"
-              required
-              fullWidth
-              name={field.name}
-              onChange={(e) => handleInputChange(e, field.name)}
-            />
-          )}
+          {renderTextField(field)}
         </Grid>
       ))}
       <Grid item xs={4}>
         <FormControl variant="outlined" fullWidth required>
           <InputLabel>PARENTESCO</InputLabel>
           <Select
-            value={relationship}
-            onChange={(e) => setRelationship(e.target.value)}
+            value={companionData.relationship}
+            onChange={(e) => handleInputChange(e, "relationship")}
             label="PARENTESCO"
           >
             <MenuItem value={"hermano"}>Hermano</MenuItem>

@@ -5,6 +5,7 @@ import PatientFieldsAppointment from "./PatientFieldsAppointment";
 import CompanionFields from "./CompanionFields";
 import CompanionQuestion from "./CompanionQuestion";
 import { patientService } from "../../services/patientService";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 function PatientInfoAppointment({ updateAppointmentData }) {
   const [formData, setFormData] = useState({
@@ -16,12 +17,7 @@ function PatientInfoAppointment({ updateAppointmentData }) {
     error: null,
   });
 
-  const [companionData, setCompanionData] = useState({
-    documentoIdentidad: "",
-    nombres: "",
-    primerApellido: "",
-    segundoApellido: "",
-  });
+  const { setAppointmentData } = useAppointments();
 
   useEffect(() => {
     async function fetchPatients() {
@@ -46,6 +42,10 @@ function PatientInfoAppointment({ updateAppointmentData }) {
       showFields: true,
       isEditing: false,
     }));
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      selectedPatientData: value,
+    }));
   };
 
   const handleAddPatientClick = () => {
@@ -64,14 +64,6 @@ function PatientInfoAppointment({ updateAppointmentData }) {
       searchResult: null,
       showFields: false,
     }));
-  };
-
-  const handleCompanionDataReceived = (companionData) => {
-    setCompanionData(companionData);
-    // Llamar a la función para enviar información a AppointmentInfo
-    updateAppointmentData({
-      companionData: companionData,
-    });
   };
   return (
     <Box padding={2} bgcolor="#fff">
@@ -121,9 +113,7 @@ function PatientInfoAppointment({ updateAppointmentData }) {
         )}
         {formData.hasCompanion === "no" && (
           <Grid item xs={12}>
-            <CompanionFields
-              onCompanionDataReceived={handleCompanionDataReceived}
-            />
+            <CompanionFields />
           </Grid>
         )}
       </Grid>
