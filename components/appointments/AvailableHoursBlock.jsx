@@ -5,12 +5,21 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
   const [selectedHour, setSelectedHour] = useState(null);
 
   useEffect(() => {
-    // Restablece la hora seleccionada cuando cambia la fecha
     setSelectedHour(null);
   }, [selectedDate]);
 
   if (availableHours.length === 0) {
-    return <Typography variant="body1">No hay horarios disponibles</Typography>;
+    return (
+      <Typography
+        variant="body1"
+        sx={{
+          width: 400,
+          alignItems: "center",
+        }}
+      >
+        No hay horarios disponibles
+      </Typography>
+    );
   }
 
   const handleHourClick = (hour) => {
@@ -24,6 +33,7 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        width: 400,
         overflowY: "auto",
         maxHeight: "250px",
       }}
@@ -42,7 +52,6 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
               fullWidth
               onClick={() => handleHourClick(horaInicio)}
               sx={{
-                width: 400,
                 textTransform: "none",
                 transition: "0.3s",
                 "&:hover": {
