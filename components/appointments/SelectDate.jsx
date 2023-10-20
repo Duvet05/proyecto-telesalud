@@ -58,24 +58,41 @@ export default function SelectDate() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom sx={{ padding: "-20vh" }}>
         Selecciona una Fecha y hora disponible:
       </Typography>
 
       <Box
         display="flex"
-        sx={{ width: "120vh", maxHeight: "250px", pr: "2vh" }}
+        sx={{ width: "120vh", maxHeight: "260px", pr: "2vh" }}
       >
-        <DateCalendar
-          onChange={handleDateChange}
-          value={
-            appointmentData.selectedDate
-              ? dayjs(appointmentData.selectedDate)
-              : null
-          }
-          slots={{ day: ServerDay }}
-          slotProps={{ day: { highlightedDays } }}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+            margin: "0 auto",
+          }}
+        >
+          <DateCalendar
+            onChange={handleDateChange}
+            value={
+              appointmentData.selectedDate
+                ? dayjs(appointmentData.selectedDate)
+                : null
+            }
+            slots={{ day: ServerDay }}
+            slotProps={{ day: { highlightedDays } }}
+          />{" "}
+          {appointmentData.selectedDate && appointmentData.selectedHour ? (
+            <Typography>
+              Fecha y Hora: {appointmentData.selectedDate}{" "}
+              {appointmentData.selectedHour}
+            </Typography>
+          ) : (
+            <Typography>No hay fecha ni hora reservada</Typography>
+          )}
+        </Box>
         <AvailableHoursBlock
           availableHours={appointmentData.availableHours}
           onHourClick={(hour) => {

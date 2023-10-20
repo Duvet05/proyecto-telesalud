@@ -63,7 +63,7 @@ const TriageManagement = () => {
             marginTop: "-50px",
           }}
         >
-          Gestión de TriajeS
+          Gestión de Triajes
         </Typography>
         <WidgetStateHolder providerId={1} />
         <Paper sx={{ my: 2, p: 2 }}>
