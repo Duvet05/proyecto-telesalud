@@ -34,6 +34,14 @@ const camposAtencion = [
 function AppointmentInfo() {
   const { appointmentData } = useAppointments();
   const pacienteData = appointmentData.selectedPatientData;
+  const doctorResponsable = appointmentData.selectedDoctor;
+  const nombreDoctor = doctorResponsable
+    ? `${doctorResponsable.sexo === "M" ? "Dr." : "Dra."} ${
+        doctorResponsable.nombres
+      } ${doctorResponsable.apellidoPaterno} ${
+        doctorResponsable.apellidoMaterno
+      }`
+    : "";
 
   return (
     <Container>
@@ -75,7 +83,17 @@ function AppointmentInfo() {
                 variant="outlined"
                 required
                 fullWidth
-                defaultValue={appointmentData ? appointmentData[campo.id] : ""}
+                defaultValue={
+                  campo.id === "fecha-atencion"
+                    ? appointmentData.selectedDate
+                    : campo.id === "hora-atencion"
+                    ? appointmentData.selectedHour
+                    : campo.id === "medico-responsable"
+                    ? nombreDoctor
+                    : campo.id === "estado"
+                    ? "PENDIENTE"
+                    : appointmentData[campo.id]
+                }
                 InputProps={{ readOnly: true }}
               />
             </Grid>
