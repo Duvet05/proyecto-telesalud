@@ -52,6 +52,8 @@ function AppointmentInfo() {
     doctorResponsable && doctorResponsable.especialidad
       ? doctorResponsable.especialidad.nombre
       : "";
+  const selectedTriage = appointmentData.selectedTriage; // Obtenemos el valor de selectedTriage
+
   const [loading, setLoading] = useState(false); // Para manejar el estado de carga
   const [error, setError] = useState(null); // Para manejar errores
 
@@ -67,7 +69,7 @@ function AppointmentInfo() {
         tipoCita: "PRUEBA",
         horaCita: appointmentData.selectedHour,
         fechaCita: appointmentData.selectedDate,
-        requiereTriaje: 0,
+        requiereTriaje: selectedTriage ? 1 : 0,
         estado: 1,
       };
 
