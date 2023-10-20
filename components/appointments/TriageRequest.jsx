@@ -22,7 +22,7 @@ const TriageRequest = () => {
               onClick={() => handleButtonClick("option1")}
               fullWidth
             >
-              Sí
+              Sí, enviar a triaje
             </Button>
           </Grid>
           <Grid item xs={6}>
@@ -32,7 +32,7 @@ const TriageRequest = () => {
               onClick={() => handleButtonClick("option2")}
               fullWidth
             >
-              No
+              No, no enviar a triaje
             </Button>
           </Grid>
         </Grid>

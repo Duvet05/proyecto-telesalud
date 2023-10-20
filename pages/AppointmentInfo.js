@@ -6,150 +6,79 @@ import {
   Button,
   TextField,
   Container,
-  Paper,
 } from "@mui/material";
 import Link from "next/link";
 
-// Componente Campo reutilizable
-const Campo = ({ id, label, type, iconButton }) => (
-  <Box>
-    <label htmlFor={id}>{label}</label>
-    {iconButton ? (
-      <Box>
-        <TextField
-          type={type}
-          id={id}
-          name={id}
-          variant="outlined"
-          required
-          fullWidth
-          readOnly
-          disabled
-        />
-      </Box>
-    ) : (
-      <TextField
-        type={type}
-        id={id}
-        name={id}
-        variant="outlined"
-        required
-        fullWidth
-        disabled
-      />
-    )}
-  </Box>
-);
-
-// Campos para el paciente
 const camposPaciente = [
-  {
-    id: "numero-documento-paciente",
-    label: "N° documento",
-    type: "tel",
-    iconButton: true,
-  },
+  { id: "numero-documento-paciente", label: "N° documento", type: "tel" },
   {
     id: "codigo-asegurado-sis",
     label: "Código del asegurado SIS",
     type: "text",
-    iconButton: false,
   },
-  {
-    id: "apellido-paterno",
-    label: "Apellido paterno",
-    type: "text",
-    iconButton: false,
-  },
-  {
-    id: "apellido-materno",
-    label: "Apellido materno",
-    type: "text",
-    iconButton: false,
-  },
-  { id: "nombres", label: "Nombres", type: "text", iconButton: false },
+  { id: "apellido-paterno", label: "Apellido paterno", type: "text" },
+  { id: "apellido-materno", label: "Apellido materno", type: "text" },
+  { id: "nombres", label: "Nombres", type: "text" },
 ];
 
-// Campos para la atención
 const camposAtencion = [
-  {
-    id: "numero-cita",
-    label: "Número de cita",
-    type: "text",
-    iconButton: false,
-  },
-  {
-    id: "fecha-atencion",
-    label: "Fecha de atención",
-    type: "date",
-    iconButton: false,
-  },
-  {
-    id: "hora-atencion",
-    label: "Hora de atención",
-    type: "time",
-    iconButton: false,
-  },
-  {
-    id: "medico-responsable",
-    label: "Médico responsable",
-    type: "text",
-    iconButton: true,
-  },
-  {
-    id: "especialidad",
-    label: "Especialidad",
-    type: "text",
-    iconButton: false,
-  },
-  { id: "estado", label: "Estado", type: "text", iconButton: false },
+  { id: "numero-cita", label: "Número de cita", type: "text" },
+  { id: "fecha-atencion", label: "Fecha de atención", type: "date" },
+  { id: "hora-atencion", label: "Hora de atención", type: "time" },
+  { id: "medico-responsable", label: "Médico responsable", type: "text" },
+  { id: "especialidad", label: "Especialidad", type: "text" },
+  { id: "estado", label: "Estado", type: "text" },
 ];
 
 function AppointmentInfo() {
   return (
     <Container>
-      <Typography variant="h5" gutterBottom>
-        Detalle de la cita
-      </Typography>
+      <Box sx={{ marginBottom: 4, color: "black" }}>
+        <Typography variant="h5" gutterBottom>
+          Información del paciente
+        </Typography>
+        <Grid container spacing={3}>
+          {camposPaciente.map((campo) => (
+            <Grid item xs={4} key={campo.id}>
+              <label htmlFor={campo.id}>{campo.label}</label>
+              <TextField
+                type={campo.type}
+                id={campo.id}
+                name={campo.id}
+                variant="outlined"
+                required
+                fullWidth
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
 
-      <div>
-        {/* Sección: Ver información de cita */}
-        <Box sx={{ marginBottom: 4, color: "black" }}>
-          <Typography variant="h5" gutterBottom>
-            Información del paciente
-          </Typography>
-          <Grid container spacing={3}>
-            {camposPaciente.map((campo) => (
-              <Grid item xs={4} key={campo.id}>
-                <Campo {...campo} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Sección: Información de la atención */}
-        <Box sx={{ marginBottom: 4, color: "black" }}>
-          <Typography variant="h5" gutterBottom>
-            Información de la atención
-          </Typography>
-          <Grid container spacing={3}>
-            {camposAtencion.map((campo) => (
-              <Grid item xs={4} key={campo.id}>
-                <Campo {...campo} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
-        {/* Botón para volver a la página principal de citas */}
-        <div>
-          <Link href="/AppointmentManagement">
-            <Button variant="contained" color="secondary" fullWidth>
-              Terminar
-            </Button>
-          </Link>
-        </div>
-      </div>
+      <Box sx={{ marginBottom: 4, color: "black" }}>
+        <Typography variant="h5" gutterBottom>
+          Información de la atención
+        </Typography>
+        <Grid container spacing={3}>
+          {camposAtencion.map((campo) => (
+            <Grid item xs={4} key={campo.id}>
+              <label htmlFor={campo.id}>{campo.label}</label>
+              <TextField
+                type={campo.type}
+                id={campo.id}
+                name={campo.id}
+                variant="outlined"
+                required
+                fullWidth
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Link href="/AppointmentManagement">
+        <Button variant="contained" color="secondary" fullWidth>
+          Terminar
+        </Button>
+      </Link>
     </Container>
   );
 }
