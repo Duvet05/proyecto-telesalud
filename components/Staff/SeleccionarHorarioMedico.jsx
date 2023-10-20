@@ -130,6 +130,8 @@ function SeleccionarHorarioMedico(props) {
     // Llama a la función para registrar los eventos
     registrarEventos();
     setIsCalendarEnabled(false);
+    
+
   };
   ///
   useEffect(() => {
