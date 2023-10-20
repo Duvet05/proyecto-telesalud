@@ -3,7 +3,6 @@ import { Button, Box, Typography, Fade } from "@mui/material";
 
 function AvailableHoursBlock({
   availableHours = [],
-  availableDays = [],
   onHourClick,
   selectedDate,
 }) {

@@ -20,14 +20,12 @@ function SelectMedic() {
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
   const [doctors, setDoctors] = useState([]);
-  const [availableHours, setAvailableHours] = useState([]);
-  const [availableDays, setAvailableDays] = useState([]);
 
   const fetchAvailableHours = (fecha, medicId) => {
     medicService
       .buscarHorariosByID(fecha, medicId)
       .then((data) => {
-        setAvailableHours(data);
+        setAppointmentData((prev) => ({ ...prev, availableHours: data }));
       })
       .catch((error) => {
         console.error("Error fetching available hours:", error);
@@ -38,7 +36,7 @@ function SelectMedic() {
     medicService
       .DiasDisponiblesByID(medicId)
       .then((data) => {
-        setAvailableDays(data);
+        setAppointmentData((prev) => ({ ...prev, availableDays: data }));
       })
       .catch((error) => {
         console.error("Error fetching available days:", error);
@@ -162,8 +160,6 @@ function SelectMedic() {
             }));
           }}
           selectedDate={appointmentData.selectedDate}
-          availableHours={availableHours}
-          availableDays={availableDays}
           onHourChange={handleHourChange}
           selectedHour={appointmentData.selectedHour}
         />
