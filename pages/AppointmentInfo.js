@@ -13,6 +13,7 @@ import {
 import Link from "next/link";
 import { useAppointments } from "./AppointmentsContext";
 import { appointmentService } from "@/services/appointmentService";
+import axios from "axios";
 
 const patientFieldsConfig = [
   { name: "dni", label: "DOCUMENTO DE IDENTIDAD" },
@@ -35,6 +36,7 @@ const camposAtencion = [
   { id: "estado", label: "Estado", type: "text" },
 ];
 function AppointmentInfo() {
+  const [response, setResponse] = useState(null);
   const theme = useTheme(); // Use theme for consistent styling
   const { appointmentData } = useAppointments();
   const pacienteData = appointmentData.selectedPatientData;
@@ -53,31 +55,30 @@ function AppointmentInfo() {
   const [loading, setLoading] = useState(false); // Para manejar el estado de carga
   const [error, setError] = useState(null); // Para manejar errores
 
-  const handleRegister = async () => {
+  const handleTestService = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await appointmentService.registrarCita({
-        id_cita: 1, // O cualquier valor que desees
-        idPaciente: pacienteData.id, // Asumiendo que `pacienteData` tiene un id
-        idMedico: doctorResponsable.id, // Asumiendo que `doctorResponsable` tiene un id
-        codigoCitaMedica: "CM-123", // O cualquier valor que desees
-        tipoCita: "MEDICA", // Debes obtener este dato desde alguna parte
+      const data = {
+        id_cita: 1,
+        paciente: { idPersona: pacienteData.idPersona },
+        medico: { idPersona: doctorResponsable.idPersona },
+        codigoCitaMedica: "GAA",
+        tipoCita: "PRUEBA",
         horaCita: appointmentData.selectedHour,
         fechaCita: appointmentData.selectedDate,
-        requiereTriaje: 0, // O cualquier valor que desees
-        estado: 1, // O cualquier estado inicial que desees
-      });
+        requiereTriaje: 0,
+        estado: 1,
+      };
 
-      if (response && response.success) {
-        console.log("Cita registrada con éxito.");
-        // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito.
-      } else {
-        throw new Error("No se pudo registrar la cita.");
-      }
-    } catch (err) {
-      console.error("Error al registrar la cita:", err.message);
-      setError(err.message);
+      const response = await axios.post(
+        "http://localhost:8080/admision/post/registrarCitaMedica",
+        data
+      );
+      setResponse(response.data);
+    } catch (error) {
+      console.error("Error al llamar al servicio:", error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -147,7 +148,7 @@ function AppointmentInfo() {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleRegister}
+          onClick={handleTestService}
           disabled={loading}
         >
           Registrar Cita
