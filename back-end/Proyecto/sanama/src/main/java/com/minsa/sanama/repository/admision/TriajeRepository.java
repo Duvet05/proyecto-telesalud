@@ -35,6 +35,50 @@ public class TriajeRepository {
         return jdbcTemplate.query(procedureCall, triajeMapper);
     }
 
+    public int actualizarTriaje(Triaje triaje) {
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withSchemaName("dbSanama")
+                .withProcedureName("ssm_adm_actualizar_triaje")
+                .declareParameters(
+                        new SqlParameter("pn_id_triaje", Types.INTEGER),
+                        new SqlParameter("pn_peso", Types.INTEGER),
+                        new SqlParameter("pn_talla", Types.INTEGER),
+                        new SqlParameter("pn_temperatura", Types.INTEGER),
+                        new SqlParameter("pv_motivo_visita", Types.VARCHAR),
+                        new SqlParameter("pn_presion_arterial", Types.INTEGER),
+                        new SqlParameter("pv_condicionesPrexistentes", Types.VARCHAR),
+                        new SqlParameter("pv_prioridad", Types.VARCHAR),
+                        new SqlParameter("pn_estado", Types.INTEGER),
+                        new SqlParameter("pn_saturacionOxigeno", Types.INTEGER),
+                        new SqlParameter("pn_frecuenciaCardiaca", Types.INTEGER),
+                        new SqlParameter("pv_nivelConciencia", Types.VARCHAR),
+                        new SqlParameter("pv_nivelDolor", Types.VARCHAR)
+                );
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource
+                .addValue("pn_id_triaje", triaje.getIdTriaje())
+                .addValue("pn_peso", triaje.getPeso())
+                .addValue("pn_talla", triaje.getTalla())
+                .addValue("pn_temperatura", triaje.getTemperatura())
+                .addValue("pv_motivo_visita", triaje.getMotivoVisita())
+                .addValue("pn_presion_arterial", triaje.getPresionArterial())
+                .addValue("pv_condicionesPrexistentes", triaje.getCondicionesPrexistentes())
+                .addValue("pv_prioridad", triaje.getPrioridad())
+                .addValue("pn_estado", triaje.getEstado())
+                .addValue("pn_saturacionOxigeno", triaje.getSaturacionOxigeno())
+                .addValue("pn_frecuenciaCardiaca", triaje.getFrecuenciaCardiaca())
+                .addValue("pv_nivelConciencia", triaje.getNivelConciencia())
+                .addValue("pv_nivelDolor", triaje.getNivelDolor());
+
+        Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
+
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     private static class TriajeMapper implements RowMapper<CitaMedica> {
         @Override
         public CitaMedica mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -20,4 +20,9 @@ public class TriajeService {
         lCitas = triajeRepository.listarTriajePorFiltro(pv_filtro);
         return lCitas;
     }
+
+    public int actualizarTriaje(Triaje triaje) {
+        return triajeRepository.actualizarTriaje(triaje);
+    }
+
 }
