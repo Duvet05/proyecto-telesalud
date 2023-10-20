@@ -19,12 +19,12 @@ const PAGES = [
     title: "Información del paciente",
   },
   {
-    component: <_testAppppp />,
-    title: "Test Approval",
-  },
-  {
     component: <SelectMedic />,
     title: "Seleccionar médico",
+  },
+  {
+    component: <_testAppppp />,
+    title: "Test Approval",
   },
   {
     component: <TriajeONo />,

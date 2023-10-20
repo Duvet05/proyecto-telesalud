@@ -81,7 +81,7 @@ export default function SelectDate() {
           onHourClick={(hour) => {
             setAppointmentData((prevData) => ({
               ...prevData,
-              selectedHour: dayjs(hour).format("HH:mm:ss"),
+              selectedHour: hour,
             }));
           }}
           selectedDate={appointmentData.selectedDate}

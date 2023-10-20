@@ -6,7 +6,7 @@ export const AppointmentsProvider = ({ children }) => {
   const [appointmentData, setAppointmentData] = useState({
     selectedPatientData: null,
     companionData: null,
-    selectedMedicData: null,
+    selectedDoctor: null,
     selectedTriage: null,
     selectedDate: null,
     selectedHour: null,

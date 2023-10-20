@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, Typography, Fade } from "@mui/material";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
-function AvailableHoursBlock({
-  availableHours = [],
-  onHourClick,
-  selectedDate,
-}) {
+function AvailableHoursBlock({ availableHours = [], onHourClick }) {
+  const { appointmentData, setAppointmentData } = useAppointments();
   const [selectedHour, setSelectedHour] = useState(null);
 
   useEffect(() => {
     setSelectedHour(null);
-  }, [selectedDate]);
+  }, [appointmentData.selectedHour]);
 
   if (availableHours.length === 0) {
     return (
