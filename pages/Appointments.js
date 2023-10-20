@@ -3,6 +3,7 @@ import { Typography, Paper, Grid, Container } from "@mui/material";
 import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
 import SelectMedic from "../components/appointments/SelectMedic";
 import TriajeONo from "../components/appointments/TriageRequest";
+import _testAppppp from "../components/appointments/_testAppppp";
 import AppointmentInfo from "./AppointmentInfo";
 import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
@@ -16,6 +17,10 @@ const PAGES = [
   {
     component: <PatientInfoAppointment />,
     title: "Información del paciente",
+  },
+  {
+    component: <_testAppppp />,
+    title: "Test Approval",
   },
   {
     component: <SelectMedic />,
