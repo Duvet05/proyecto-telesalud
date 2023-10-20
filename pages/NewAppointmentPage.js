@@ -1,4 +1,3 @@
-// Appointments.jsx
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Container, IconButton } from "@mui/material";
 import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
