@@ -7,6 +7,7 @@ import {
   Select,
   MenuItem,
   TextField,
+  Typography,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import SelectDate from "./SelectDate";
@@ -76,7 +77,7 @@ function SelectMedic() {
       setDoctors(data);
     } catch (error) {
       console.error("Error fetching doctors:", error);
-      setDoctors([]); // Limpiamos la lista de doctores en caso de error.
+      setDoctors([]);
       alert(
         "Ocurrió un error al buscar los médicos. Por favor, inténtalo de nuevo."
       );
@@ -92,7 +93,7 @@ function SelectMedic() {
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        maxHeight: "400px",
+        margin: "0 auto",
       }}
     >
       <Autocomplete

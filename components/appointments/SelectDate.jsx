@@ -62,7 +62,10 @@ export default function SelectDate(props) {
         Selecciona una Fecha y hora disponible:
       </Typography>
 
-      <Box display="flex" sx={{ width: "120vh", maxHeight: "250px" }}>
+      <Box
+        display="flex"
+        sx={{ width: "120vh", maxHeight: "250px", pr: "2vh" }}
+      >
         <DateCalendar
           onChange={handleDateChange}
           value={selectedDate ? dayjs(selectedDate) : null}
