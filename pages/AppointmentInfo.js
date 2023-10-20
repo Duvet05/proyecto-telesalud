@@ -33,7 +33,7 @@ const camposAtencion = [
 
 function AppointmentInfo() {
   const { appointmentData } = useAppointments();
-  const pacienteData = appointmentData.pacienteData;
+  const pacienteData = appointmentData.selectedPatientData;
 
   return (
     <Container>
@@ -43,16 +43,16 @@ function AppointmentInfo() {
         </Typography>
         <Grid container spacing={3}>
           {patientFieldsConfig.map((campo) => (
-            <Grid item xs={4} key={campo.id}>
-              <label htmlFor={campo.id}>{campo.label}</label>
+            <Grid item xs={4} key={campo.name}>
+              <label htmlFor={campo.name}>{campo.label}</label>
               <TextField
                 type={campo.type}
-                id={campo.id}
-                name={campo.id}
+                id={campo.name}
+                name={campo.name}
                 variant="outlined"
                 required
                 fullWidth
-                defaultValue={pacienteData ? pacienteData[campo.id] : ""}
+                defaultValue={pacienteData ? pacienteData[campo.name] : ""}
                 InputProps={{ readOnly: true }}
               />
             </Grid>
