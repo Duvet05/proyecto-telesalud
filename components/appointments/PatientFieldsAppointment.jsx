@@ -57,7 +57,6 @@ function PatientFieldsAppointment({ isDisabled, patientData = {} }) {
                 <MenuItem value={"Seguro A"}>Seguro A</MenuItem>
                 <MenuItem value={"Seguro B"}>Seguro B</MenuItem>
                 <MenuItem value={"Seguro C"}>Seguro C</MenuItem>
-                {/* Agrega más opciones según sea necesario */}
               </Select>
             </FormControl>
           ) : (

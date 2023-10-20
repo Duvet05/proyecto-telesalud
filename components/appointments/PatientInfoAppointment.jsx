@@ -12,12 +12,11 @@ function PatientInfoAppointment() {
     hasCompanion: "no",
     isEditing: false,
     allPatients: [],
-    searchResult: null,
     showFields: false,
     error: null,
   });
 
-  const { setAppointmentData } = useAppointments();
+  const { appointmentData, setAppointmentData } = useAppointments();
 
   useEffect(() => {
     async function fetchPatients() {
@@ -36,9 +35,13 @@ function PatientInfoAppointment() {
   }, []);
 
   const handlePatientSelect = (value) => {
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      selectedPatientData: value,
+    }));
+
     setFormData((prevData) => ({
       ...prevData,
-      searchResult: value,
       showFields: true,
       isEditing: false,
     }));
@@ -49,18 +52,17 @@ function PatientInfoAppointment() {
       ...prevData,
       showFields: true,
       isEditing: true,
-      searchResult: null,
     }));
   };
 
   const handleCancelClick = () => {
     setFormData((prevData) => ({
       ...prevData,
-      isEditing: false,
-      searchResult: null,
       showFields: false,
+      isEditing: false,
     }));
   };
+
   return (
     <Box padding={2} bgcolor="#fff">
       {formData.error && (
@@ -90,8 +92,7 @@ function PatientInfoAppointment() {
           <Grid item xs={12}>
             <PatientFieldsAppointment
               isDisabled={!formData.isEditing}
-              patientData={formData.searchResult}
-              selectedPatientData={formData.searchResult}
+              patientData={appointmentData.selectedPatientData}
             />
           </Grid>
         )}
