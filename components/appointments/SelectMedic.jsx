@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import {
-  Button,
+  Box,
   FormControl,
   InputLabel,
   Select,
@@ -87,7 +87,14 @@ function SelectMedic() {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        maxHeight: "400px",
+      }}
+    >
       <Autocomplete
         fullWidth
         disabled={isLoading}
@@ -141,7 +148,7 @@ function SelectMedic() {
           selectedHour={selectedHour}
         />
       )}
-    </div>
+    </Box>
   );
 }
 

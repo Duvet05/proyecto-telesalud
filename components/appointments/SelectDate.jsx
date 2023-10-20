@@ -62,7 +62,7 @@ export default function SelectDate(props) {
         Selecciona una Fecha y hora disponible:
       </Typography>
 
-      <Box display="flex" sx={{ width: 800, margin: 5 }}>
+      <Box display="flex" sx={{ width: "120vh", maxHeight: "250px" }}>
         <DateCalendar
           onChange={handleDateChange}
           value={selectedDate ? dayjs(selectedDate) : null}
@@ -70,7 +70,6 @@ export default function SelectDate(props) {
           slotProps={{ day: { highlightedDays } }}
         />
         <AvailableHoursBlock
-          sx={{ width: 800, margin: 5 }}
           availableHours={availableHours}
           onHourClick={onHourChange}
           selectedDate={selectedDate}

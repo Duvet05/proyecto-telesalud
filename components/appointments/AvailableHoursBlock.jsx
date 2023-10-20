@@ -25,7 +25,7 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
         flexDirection: "column",
         gap: 2,
         overflowY: "auto",
-        maxHeight: "300px",
+        maxHeight: "250px",
       }}
     >
       {availableHours.map((horario, index) => {
@@ -42,6 +42,7 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
               fullWidth
               onClick={() => handleHourClick(horaInicio)}
               sx={{
+                width: 400,
                 textTransform: "none",
                 transition: "0.3s",
                 "&:hover": {
