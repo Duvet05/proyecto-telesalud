@@ -28,6 +28,7 @@ public class PacienteRepository {
     }
     private final PacienteMapper pacienteMapper = new PacienteMapper();
     private final PacienteHistorialMapper pacienteHistorialMapper = new PacienteHistorialMapper();
+    private final PacienteHistorialMapperPrueba pacienteHistorialMapperPrueba = new PacienteHistorialMapperPrueba();
 
     public List<Paciente> listarPacientes() {
         String procedureCall = "{call dbSanama.ssm_adm_listar_paciente()};";
@@ -37,6 +38,11 @@ public class PacienteRepository {
     public List<Paciente> buscarPacienteFiltro(String pv_filtro){
         String procedureCall = "{call dbSanama.ssm_adm_buscar_paciente_filtro('"+pv_filtro+"')};";
         return jdbcTemplate.query(procedureCall, pacienteHistorialMapper);
+    }
+
+    public List<Paciente> buscarPacienteFiltroPrueba(String pv_filtro){
+        String procedureCall = "{call dbSanama.prueba_ssm_adm_buscar_paciente_filtro('"+pv_filtro+"')};";
+        return jdbcTemplate.query(procedureCall, pacienteHistorialMapperPrueba);
     }
 
     public List<Paciente> ObtenerDatosPaciente(String pv_filtro){
@@ -100,6 +106,32 @@ public class PacienteRepository {
             paciente.getHistorialClinico().setIdHistorialClinico(rs.getInt("id_historial_clinico"));
             paciente.getHistorialClinico().setCodigo(rs.getString("codigo"));
             paciente.getHistorialClinico().setEstado(rs.getInt("historial_estado"));
+
+            return paciente;
+        }
+
+    }
+
+    private static class PacienteHistorialMapperPrueba implements RowMapper<Paciente> {
+        @Override
+        public Paciente mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            Paciente paciente = new Paciente();
+
+            paciente.setIdPersona(rs.getInt("id_paciente"));
+            paciente.setNombres(rs.getString("nombres"));
+            paciente.setApellidoPaterno(rs.getString("apellido_paterno"));
+            paciente.setApellidoMaterno(rs.getString("apellido_materno"));
+            paciente.setDni(rs.getString("dni"));
+            paciente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+            paciente.setSexo(rs.getString("sexo"));
+            paciente.setTelefono(rs.getString("telefono"));
+            paciente.setFoto(rs.getBytes("foto"));
+            paciente.setCorreo(rs.getString("correo"));
+            paciente.setDireccion(rs.getString("direccion"));
+            paciente.setCodigoSeguro(rs.getString("codigo_seguro"));
+            paciente.setTipoSeguro(rs.getString("tipo_seguro"));
+            paciente.setEstado(rs.getInt("estado"));
 
             return paciente;
         }
