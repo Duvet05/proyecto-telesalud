@@ -57,7 +57,8 @@ const PerfilMedico = () => {
               <DatosMedico doctor={selectedDoctor} />
               <h3>Disponibilidad</h3>
               <br />
-              <SeleccionarHorarioMedico />
+              
+              <SeleccionarHorarioMedico doctor={selectedDoctor} />
               {/* Fin del contenido dentro del Paper */}
             </Paper>
           </Grid>
