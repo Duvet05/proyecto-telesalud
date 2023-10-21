@@ -10,6 +10,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 
+
 const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
   return (
     <TableContainer component={Paper}>
@@ -17,65 +18,56 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
         <TableHead>
           <TableRow>
             <TableCell 
-              sx={{
-                fontSize: '1.1em',
-                color: '#333',
-                paddingBottom: '10px',
-                paddingTop: '10px'
-              }}
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
-              Paciente
+              <TableSortLabel
+                active={orderBy === "fecha"}
+                direction={order}
+                onClick={() => handleSortRequest("fecha")}
+              >
+                Fecha
+              </TableSortLabel>
             </TableCell>
             <TableCell
-              sx={{
-                fontSize: '1.1em',
-                color: '#333',
-                paddingBottom: '10px',
-                paddingTop: '10px'
-              }}      
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
               <TableSortLabel
                 active={orderBy === "dni"}
                 direction={order}
                 onClick={() => handleSortRequest("dni")}
               >
-                Médico prescriptor
+                Nombre completo
               </TableSortLabel>
             </TableCell>
             <TableCell
-              sx={{
-                fontSize: '1.1em',
-                color: '#333',
-                paddingBottom: '10px',
-                paddingTop: '10px'
-              }}
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
-            <TableSortLabel
-                active={orderBy === "fecha"}
-                direction={order}
-                onClick={() => handleSortRequest("fecha")}
-              ></TableSortLabel>
-              Fecha
+              DNI
             </TableCell>
             <TableCell
-              sx={{
-                fontSize: '1.1em',
-                color: '#333',
-                paddingBottom: '10px',
-                paddingTop: '10px'
-              }}
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
               Estado
             </TableCell>
-            </TableRow>
+            <TableCell
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
+            >
+              Urgencia
+            </TableCell>
+            {}
+
+          </TableRow>
         </TableHead>
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>{order.patientName}</TableCell>
-              <TableCell>{order.doctorName}</TableCell>
               <TableCell>{order.fecha}</TableCell>
+              <TableCell>{order.nombreCompleto}</TableCell>
+              <TableCell>{order.dni}</TableCell>
               <TableCell>{order.estado}</TableCell>
+              <TableCell>{order.urgencia}</TableCell>
+              {}
+              <TableCell>{/* Acciones */}</TableCell>
             </TableRow>
           ))}
         </TableBody>

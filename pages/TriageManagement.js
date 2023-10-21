@@ -9,48 +9,42 @@ import {
   InputAdornment,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import TriageOrdersTable from "@/components/Triage/TriageOrdersTable"; // Asegúrate de que la ruta sea correcta
+import TriageOrdersTable from "@/components/Triage/TriageOrdersTable"; 
 import MainLayout from "@/components/layout/MainLayout";
 import WidgetStateHolder from "@/components/DATE/WidgetStateHolder";
+import EditIcon  from "@mui/icons-material/Edit";
+import Box from '@mui/material/Box';
+import Link from 'next/link';
+import axios from 'axios';
 
 const TriageManagement = () => {
   const [patientName, setPatientName] = useState("");
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
 
-  const handleSearchClick = () => {
+  const handleSearchClick = async () => {
     if (patientName.trim() !== "") {
       setError(null);
-      // Coloca aquí la lógica para buscar órdenes de triaje (servicio o función adecuada)
-      // Ejemplo ficticio:
-      const triageOrders = buscarOrdenesDeTriagePorNombre(patientName);
-      setOrders(triageOrders);
+      
+      try {
+        const response = await axios.post('http://localhost:8080/admision/post/listarTriajePorFiltro', {
+          patientName: patientName,  // nombre del paciente en la solicitud
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        console.log(response.data);
+        setOrders(response.data);  // lista de triajes
+      
+      } catch (error) {
+        console.error("Error al buscar triajes:", error);
+        setError('Error al buscar triajes.');
+      }
     }
   };
-
-  // Simulación de búsqueda de órdenes de triaje por nombre del paciente
-  const buscarOrdenesDeTriagePorNombre = (nombre) => {
-    // Aquí deberías implementar la búsqueda real en tu sistema
-    // Esto es solo un ejemplo ficticio:
-    return [
-      {
-        id: 1,
-        patientName: "Paciente 1",
-        doctorName: "Doctor A",
-        fecha: "2023-01-01",
-        estado: "Pendiente",
-      },
-      {
-        id: 2,
-        patientName: "Paciente 2",
-        doctorName: "Doctor B",
-        fecha: "2023-02-01",
-        estado: "Completo",
-      },
-      // Más órdenes aquí...
-    ];
-  };
-
+  
   return (
     <MainLayout>
       <Container maxWidth={false} style={{ height: "100vh" }}>
@@ -63,52 +57,72 @@ const TriageManagement = () => {
             marginTop: "-50px",
           }}
         >
-          Gestión de TriajeS
+          Gestión de Triajes
         </Typography>
         <WidgetStateHolder providerId={1} />
-        <Paper sx={{ my: 2, p: 2 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={5}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="Buscar por Nombre..."
-                value={patientName}
-                onChange={(e) => setPatientName(e.target.value)}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start"></InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <MUIButton
-                variant="contained"
-                sx={{
-                  backgroundColor: "#2196f3",
-                  color: "white",
-                  textTransform: "none",
-                  "&:hover": {
-                    backgroundColor: "#b3b3b3",
-                  },
-                  marginLeft: "0",
-                }}
-                startIcon={<SearchIcon />}
-                fullWidth
-                onClick={handleSearchClick}
-              >
-                Buscar
-              </MUIButton>
-            </Grid>
+        <Paper sx={{ my: 2, p: 2 }}>
+          <Grid 
+                container
+                spacing={2}
+                alignItems="center"
+                justifyContent="space-between"
+                sx={{ flexWrap: 'nowrap' }}>
+              <Grid item xs={12} md={8} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <TextField
+                      style={{ width: '333px' }}
+                      variant="outlined"
+                      label="Buscar por Nombre..."
+                      value={patientName}
+                      onChange={(e) => setPatientName(e.target.value)}
+                      InputProps={{
+                          startAdornment: (
+                              <InputAdornment position="start"></InputAdornment>
+                          ),
+                      }}
+                  /> 
+                  <MUIButton
+                      variant="contained"
+                      sx={{
+                          width: '150px',
+                          backgroundColor: "#2196f3",
+                          color: "white",
+                          textTransform: "none",
+                          "&:hover": {
+                              backgroundColor: "#b3b3b3",
+                          },
+                          marginLeft: "0.5em"
+                      }}
+                      startIcon={<SearchIcon />}
+                      onClick={handleSearchClick}
+                  >
+                      Buscar
+                  </MUIButton>
+              </Grid>
+
+              <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+                <Link href="/NewTriagePage">
+                  <MUIButton              
+                      variant="contained"
+                      sx={{
+                          width: '150px', 
+                          backgroundColor: "#2196f3", 
+                          color: "white",
+                          textTransform: "none",
+                          "&:hover": {
+                              backgroundColor: "#b3b3b3",
+                          },
+                      }}
+                      startIcon={<EditIcon  />}
+                  >
+                  <Link href="/newTriage">Editar</Link>
+                  </MUIButton> 
+                </Link>
+              </Grid>
           </Grid>
-        </Paper>
+      </Paper>
+
+
 
         {error && (
           <Typography variant="body2" color="error">

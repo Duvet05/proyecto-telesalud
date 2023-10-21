@@ -10,6 +10,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import TriajeONo from "../components/appointments/TriageRequest";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
 
+
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
 

@@ -55,13 +55,7 @@ function WidgetStateHolder(props) {
 
   return (
     <>
-      <EmbeddableHeader
-        stepIndex={stepIndex}
-        embedWidgetSteps={steps}
-        setStepIndex={setStepIndex}
-        headerText={"Book an Appointment"}
-      />
-      <currentStep.component {...commonProps} />
+
     </>
   );
 }
