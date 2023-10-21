@@ -45,6 +45,7 @@ const AppointmentsTable = () => {
     if (!Array.isArray(data)) return [];
     return data.map((appointment) => ({
       id: appointment.idCita,
+      codigoCita: appointment.codigoCita,
       patientName: `${appointment.paciente.nombres} ${appointment.paciente.apellidoPaterno} ${appointment.paciente.apellidoMaterno}`,
       doctorName: `${appointment.medico.nombres} ${appointment.medico.apellidoPaterno} ${appointment.medico.apellidoMaterno}`,
       speciality: appointment.medico.especialidad.nombre,
@@ -75,17 +76,15 @@ const AppointmentsTable = () => {
     }
     return 0;
   });
-
   const headers = [
+    { key: "codigoCita", label: "Codigo Cita" },
     { key: "patientName", label: "Paciente" },
     { key: "doctorName", label: "Doctor" },
     { key: "speciality", label: "Especialidad" },
     { key: "date", label: "Fecha" },
     { key: "time", label: "Hora" },
     { key: "status", label: "Estado" },
-    // ... Otros encabezados
   ];
-
   return (
     <TableContainer component={Paper} style={{ marginTop: 20 }}>
       <Table>
@@ -109,13 +108,14 @@ const AppointmentsTable = () => {
         <TableBody>
           {sortedAppointments.map((appointment) => (
             <TableRow key={appointment.id}>
+              <TableCell>{appointment.codigoCita}</TableCell>
               <TableCell>{appointment.patientName}</TableCell>
               <TableCell>{appointment.doctorName}</TableCell>
               <TableCell>{appointment.speciality}</TableCell>
               <TableCell>{appointment.date}</TableCell>
               <TableCell>{appointment.time}</TableCell>
               <TableCell>{appointment.status}</TableCell>
-              <TableCell>{/* Opciones para cada cita */}</TableCell>
+              {/* Opciones para cada cita */}
             </TableRow>
           ))}
         </TableBody>
