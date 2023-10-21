@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, Typography, Fade } from "@mui/material";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
-function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
+function AvailableHoursBlock({ availableHours = [], onHourClick }) {
+  const { appointmentData, setAppointmentData } = useAppointments();
   const [selectedHour, setSelectedHour] = useState(null);
 
   useEffect(() => {
-    // Restablece la hora seleccionada cuando cambia la fecha
     setSelectedHour(null);
-  }, [selectedDate]);
+  }, [appointmentData.selectedHour]);
 
   if (availableHours.length === 0) {
-    return <Typography variant="body1">No hay horarios disponibles</Typography>;
+    return (
+      <Typography
+        variant="body1"
+        sx={{
+          width: 400,
+          alignItems: "center",
+        }}
+      >
+        No hay horarios disponibles
+      </Typography>
+    );
   }
 
   const handleHourClick = (hour) => {
@@ -24,28 +35,24 @@ function AvailableHoursBlock({ availableHours, onHourClick, selectedDate }) {
         display: "flex",
         flexDirection: "column",
         gap: 2,
+        width: 400,
         overflowY: "auto",
-        maxHeight: "300px",
+        maxHeight: "250px",
       }}
     >
-      {availableHours.map((hour, index) => {
-        const horaInicio = hour.slice(0, 5);
-        const horaFin = availableHours[index + 1]
-          ? availableHours[index + 1].slice(0, 5)
-          : null;
-
-        if (!horaFin) return null;
-
-        const rangoHorario = `${horaInicio} - ${horaFin}`;
-        const isSelected = hour === selectedHour;
+      {availableHours.map((horario, index) => {
+        const { idTurno, horaInicio, horaFin } = horario;
+        const horaInicioFormateada = horaInicio.slice(0, 5);
+        const horaFinFormateada = horaFin.slice(0, 5);
+        const rangoHorario = `${horaInicioFormateada} - ${horaFinFormateada}`;
+        const isSelected = horaInicio === selectedHour;
 
         return (
-          <Fade in={true} timeout={500 * (index + 1)}>
+          <Fade in={true} timeout={500 * (index + 1)} key={idTurno}>
             <Button
-              key={index}
               variant={isSelected ? "contained" : "outlined"}
               fullWidth
-              onClick={() => handleHourClick(hour)}
+              onClick={() => handleHourClick(horaInicio)}
               sx={{
                 textTransform: "none",
                 transition: "0.3s",

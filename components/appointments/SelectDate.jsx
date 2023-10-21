@@ -8,6 +8,7 @@ import {
   DateCalendar,
 } from "@mui/x-date-pickers";
 import AvailableHoursBlock from "./AvailableHoursBlock";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 function ServerDay({
   highlightedDays = [],
@@ -33,50 +34,75 @@ function ServerDay({
   );
 }
 
-export default function SelectDate(props) {
-  const {
-    onDateChange,
-    selectedDate,
-    availableHours,
-    availableDays,
-    onHourChange,
-  } = props;
+export default function SelectDate() {
+  const { appointmentData, setAppointmentData } = useAppointments();
 
   const [highlightedDays, setHighlightedDays] = useState([]);
 
   useEffect(() => {
-    const daysToHighlight = availableDays.map((date) => dayjs(date).date());
+    const daysToHighlight = appointmentData.availableDays.map((date) =>
+      dayjs(date).date()
+    );
     setHighlightedDays(daysToHighlight);
-  }, [availableDays]);
+  }, [appointmentData.availableDays]);
 
   const handleDateChange = useCallback(
     (newDate) => {
-      onDateChange(dayjs(newDate).format("YYYY-MM-DD"));
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        selectedDate: dayjs(newDate).format("YYYY-MM-DD"),
+      }));
     },
-    [onDateChange]
+    [setAppointmentData]
   );
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom sx={{ padding: "-20vh" }}>
         Selecciona una Fecha y hora disponible:
       </Typography>
-      <Box display="flex" alignItems="center" gap={3}>
-        <Box mb={2}>
+
+      <Box
+        display="flex"
+        sx={{ width: "120vh", maxHeight: "260px", pr: "2vh" }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 1,
+            margin: "0 auto",
+          }}
+        >
           <DateCalendar
             onChange={handleDateChange}
-            value={selectedDate ? dayjs(selectedDate) : null}
+            value={
+              appointmentData.selectedDate
+                ? dayjs(appointmentData.selectedDate)
+                : null
+            }
             slots={{ day: ServerDay }}
             slotProps={{ day: { highlightedDays } }}
-          />
+          />{" "}
+          {appointmentData.selectedDate && appointmentData.selectedHour ? (
+            <Typography>
+              Fecha y Hora: {appointmentData.selectedDate}{" "}
+              {appointmentData.selectedHour}
+            </Typography>
+          ) : (
+            <Typography>No hay fecha ni hora reservada</Typography>
+          )}
         </Box>
-        <Box mb={2}>
-          <AvailableHoursBlock
-            availableHours={availableHours}
-            onHourClick={onHourChange}
-            selectedDate={selectedDate}
-          />
-        </Box>
+        <AvailableHoursBlock
+          availableHours={appointmentData.availableHours}
+          onHourClick={(hour) => {
+            setAppointmentData((prevData) => ({
+              ...prevData,
+              selectedHour: hour,
+            }));
+          }}
+          selectedDate={appointmentData.selectedDate}
+        />
       </Box>
     </LocalizationProvider>
   );

@@ -45,9 +45,14 @@ public class CitaController {
     @PostMapping(value = "/post/registrarCitaMedica")
     @ResponseBody
     public int registrarCitaMedicaPaciente(@RequestBody CitaMedica citaMedica) {
-        int idCitaMedica;
-
-        idCitaMedica = citaService.registrarCitaMedicaPaciente(citaMedica);
-        return idCitaMedica;
+        try {
+            int idCitaMedica=0;
+            idCitaMedica = citaService.registrarCitaMedicaPaciente(citaMedica);
+            return idCitaMedica;
+        } catch (Exception ex) {
+            // Manejo de excepciones aquí
+            ex.printStackTrace();
+        }
+        return -1;
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
 import {
-  Button,
+  Box,
   FormControl,
   InputLabel,
   Select,
@@ -11,23 +11,21 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import SelectDate from "./SelectDate";
 import { medicService } from "../../services/medicService";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 function SelectMedic() {
+  const { appointmentData, setAppointmentData } = useAppointments();
+
   const [isLoading, setIsLoading] = useState(true);
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
   const [doctors, setDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [availableHours, setAvailableHours] = useState([]);
-  const [availableDays, setAvailableDays] = useState([]);
-  const [selectedHour, setSelectedHour] = useState(null);
 
   const fetchAvailableHours = (fecha, medicId) => {
     medicService
       .buscarHorariosByID(fecha, medicId)
       .then((data) => {
-        setAvailableHours(data);
+        setAppointmentData((prev) => ({ ...prev, availableHours: data }));
       })
       .catch((error) => {
         console.error("Error fetching available hours:", error);
@@ -38,7 +36,7 @@ function SelectMedic() {
     medicService
       .DiasDisponiblesByID(medicId)
       .then((data) => {
-        setAvailableDays(data);
+        setAppointmentData((prev) => ({ ...prev, availableDays: data }));
       })
       .catch((error) => {
         console.error("Error fetching available days:", error);
@@ -46,16 +44,19 @@ function SelectMedic() {
   };
 
   useEffect(() => {
-    if (selectedDoctor) {
-      fetchAvailableDays(selectedDoctor);
+    if (appointmentData.selectedDoctor) {
+      fetchAvailableDays(appointmentData.selectedDoctor.idPersona);
     }
-  }, [selectedDoctor]);
+  }, [appointmentData.selectedDoctor]);
 
   useEffect(() => {
-    if (selectedDate && selectedDoctor) {
-      fetchAvailableHours(selectedDate, selectedDoctor);
+    if (appointmentData.selectedDate && appointmentData.selectedDoctor) {
+      fetchAvailableHours(
+        appointmentData.selectedDate,
+        appointmentData.selectedDoctor.idPersona
+      );
     }
-  }, [selectedDate, selectedDoctor]);
+  }, [appointmentData.selectedDate, appointmentData.selectedDoctor]);
 
   useEffect(() => {
     medicService
@@ -76,18 +77,30 @@ function SelectMedic() {
       setDoctors(data);
     } catch (error) {
       console.error("Error fetching doctors:", error);
-      setDoctors([]); // Limpiamos la lista de doctores en caso de error.
+      setDoctors([]);
       alert(
         "Ocurrió un error al buscar los médicos. Por favor, inténtalo de nuevo."
       );
     }
   };
+
   const handleHourChange = (hour) => {
-    setSelectedHour(dayjs(hour).format("HH:mm:ss"));
+    const formattedHour = dayjs(hour).format("HH:mm:ss");
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      selectedHour: formattedHour,
+    }));
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        margin: "0 auto",
+      }}
+    >
       <Autocomplete
         fullWidth
         disabled={isLoading}
@@ -96,7 +109,10 @@ function SelectMedic() {
         value={selectedSpeciality}
         onChange={async (event, newValue) => {
           setSelectedSpeciality(newValue);
-          setSelectedDoctor("");
+          setAppointmentData((prevData) => ({
+            ...prevData,
+            selectedDoctor: "",
+          }));
           if (newValue) {
             await obtenerDoctoresPorEspecialidad(newValue.nombre);
           } else {
@@ -112,13 +128,21 @@ function SelectMedic() {
           />
         )}
       />
-
       {selectedSpeciality && (
         <FormControl variant="outlined" fullWidth margin="normal">
           <InputLabel>Médico</InputLabel>
           <Select
-            value={selectedDoctor}
-            onChange={(event) => setSelectedDoctor(event.target.value)}
+            value={appointmentData.selectedDoctor || ""}
+            onChange={(event) => {
+              const doctorId = event.target.value;
+              const selectedDoc = doctors.find(
+                (doctor) => doctor.idPersona === doctorId
+              );
+              setAppointmentData((prevData) => ({
+                ...prevData,
+                selectedDoctor: selectedDoc,
+              }));
+            }}
           >
             {doctors.map((doctor) => (
               <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
@@ -131,17 +155,20 @@ function SelectMedic() {
         </FormControl>
       )}
 
-      {selectedDoctor && (
+      {appointmentData.selectedDoctor && (
         <SelectDate
-          onDateChange={setSelectedDate}
-          selectedDate={selectedDate}
-          availableHours={availableHours}
-          availableDays={availableDays}
+          onDateChange={(date) => {
+            setAppointmentData((prevData) => ({
+              ...prevData,
+              selectedDate: dayjs(date).format("YYYY-MM-DD"),
+            }));
+          }}
+          selectedDate={appointmentData.selectedDate}
           onHourChange={handleHourChange}
-          selectedHour={selectedHour}
+          selectedHour={appointmentData.selectedHour}
         />
       )}
-    </div>
+    </Box>
   );
 }
 

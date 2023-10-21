@@ -1,6 +1,8 @@
 package com.minsa.sanama.model.admision;
 
 import com.minsa.sanama.model.rrhh.Enfermera;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Triaje {
     private int idTriaje;
@@ -11,8 +13,15 @@ public class Triaje {
     private String motivoVisita;
     private int presionArterial;
     private int estado;
-    private String alergias;
     private String prioridad;
+    private LocalDate fechaTriaje;
+    private LocalTime horaTriaje;
+    private String saturacionOxigeno;
+    private String frecuenciaCardiaca;
+    private String frecuenciaRespiratoria;
+    private String nivelConciencia;
+    private String nivelDolor;
+    private String condicionesPrexistentes;
     private Enfermera enfermera;
 
     public Triaje() {
@@ -89,15 +98,7 @@ public class Triaje {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-
-    public String getAlergias() {
-        return alergias;
-    }
-
-    public void setAlergias(String alergias) {
-        this.alergias = alergias;
-    }
-
+    
     public String getPrioridad() {
         return prioridad;
     }
@@ -106,4 +107,67 @@ public class Triaje {
         this.prioridad = prioridad;
     }
 
+    public LocalDate getFechaTriaje() {
+        return fechaTriaje;
+    }
+
+    public void setFechaTriaje(LocalDate fechaTriaje) {
+        this.fechaTriaje = fechaTriaje;
+    }
+
+    public LocalTime getHoraTriaje() {
+        return horaTriaje;
+    }
+
+    public void setHoraTriaje(LocalTime horaTriaje) {
+        this.horaTriaje = horaTriaje;
+    }
+
+    public String getSaturacionOxigeno() {
+        return saturacionOxigeno;
+    }
+
+    public void setSaturacionOxigeno(String saturacionOxigeno) {
+        this.saturacionOxigeno = saturacionOxigeno;
+    }
+
+    public String getFrecuenciaCardiaca() {
+        return frecuenciaCardiaca;
+    }
+
+    public void setFrecuenciaCardiaca(String frecuenciaCardiaca) {
+        this.frecuenciaCardiaca = frecuenciaCardiaca;
+    }
+
+    public String getFrecuenciaRespiratoria() {
+        return frecuenciaRespiratoria;
+    }
+
+    public void setFrecuenciaRespiratoria(String frecuenciaRespiratoria) {
+        this.frecuenciaRespiratoria = frecuenciaRespiratoria;
+    }
+
+    public String getNivelConciencia() {
+        return nivelConciencia;
+    }
+
+    public void setNivelConciencia(String nivelConciencia) {
+        this.nivelConciencia = nivelConciencia;
+    }
+
+    public String getNivelDolor() {
+        return nivelDolor;
+    }
+
+    public void setNivelDolor(String nivelDolor) {
+        this.nivelDolor = nivelDolor;
+    }
+
+    public String getCondicionesPrexistentes() {
+        return condicionesPrexistentes;
+    }
+
+    public void setCondicionesPrexistentes(String condicionesPrexistentes) {
+        this.condicionesPrexistentes = condicionesPrexistentes;
+    }
 }

@@ -7,52 +7,100 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useAppointments } from "@/pages/AppointmentsContext";
 
 const companionFieldsConfig = [
-  "DOCUMENTO DE IDENTIDAD",
-  "NOMBRES",
-  "PRIMER APELLIDO",
-  "SEGUNDO APELLIDO",
+  {
+    label: "DOCUMENTO DE IDENTIDAD",
+    pattern: "[0-9]*",
+    maxLength: 8,
+    name: "documentoIdentidad",
+  },
+  {
+    label: "NOMBRES",
+    name: "nombres",
+  },
+  {
+    label: "PRIMER APELLIDO",
+    name: "primerApellido",
+  },
+  {
+    label: "SEGUNDO APELLIDO",
+    name: "segundoApellido",
+  },
+  {
+    label: "FECHA DE NACIMIENTO",
+    name: "fechaNacimiento",
+  },
 ];
 
 function CompanionFields() {
-  const [relationship, setRelationship] = useState("");
-  const [document, setDocument] = useState("");
+  const { setAppointmentData } = useAppointments();
+
+  const [companionData, setCompanionData] = useState({
+    documentoIdentidad: "",
+    nombres: "",
+    primerApellido: "",
+    segundoApellido: "",
+    fechaNacimiento: "",
+    relationship: "",
+  });
   const [documentError, setDocumentError] = useState(false);
 
-  const handleDocumentChange = (event) => {
-    const value = event.target.value;
-    setDocument(value);
-    setDocumentError(value.length !== 8);
+  const handleInputChange = (event, fieldName) => {
+    const { name, value } = event.target;
+
+    setCompanionData((prevData) => ({
+      ...prevData,
+      [fieldName || name]: value,
+    }));
+
+    if (fieldName === "documentoIdentidad") {
+      setDocumentError(value.length !== 8);
+    }
   };
 
+  useEffect(() => {
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      companionData: companionData,
+    }));
+  }, [companionData, setAppointmentData]);
+
+  const renderTextField = (field) => (
+    <TextField
+      label={field.label}
+      variant="outlined"
+      required
+      fullWidth
+      name={field.name}
+      inputProps={{
+        pattern: field.pattern,
+        maxLength: field.maxLength,
+      }}
+      error={field.name === "documentoIdentidad" ? documentError : false}
+      helperText={
+        field.name === "documentoIdentidad" && documentError
+          ? "Debe tener 8 dígitos"
+          : ""
+      }
+      onChange={(e) => handleInputChange(e, field.name)}
+    />
+  );
+
   return (
-    <Grid container spacing={3}>
-      {companionFieldsConfig.map((label, idx) => (
-        <Grid item xs={6} key={idx}>
-          <TextField
-            label={label}
-            variant="outlined"
-            required
-            fullWidth
-            inputProps={{
-              pattern: idx === 0 ? "[0-9]*" : undefined,
-              maxLength: idx === 0 ? 8 : undefined,
-            }}
-            error={idx === 0 && documentError}
-            helperText={
-              idx === 0 && documentError ? "Debe tener 8 dígitos" : ""
-            }
-            onChange={idx === 0 ? handleDocumentChange : undefined}
-          />
+    <Grid container spacing={4}>
+      {companionFieldsConfig.map((field, index) => (
+        <Grid item xs={4} key={index}>
+          {renderTextField(field)}
         </Grid>
       ))}
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         <FormControl variant="outlined" fullWidth required>
           <InputLabel>PARENTESCO</InputLabel>
           <Select
-            value={relationship}
-            onChange={(e) => setRelationship(e.target.value)}
+            value={companionData.relationship}
+            onChange={(e) => handleInputChange(e, "relationship")}
             label="PARENTESCO"
           >
             <MenuItem value={"hermano"}>Hermano</MenuItem>

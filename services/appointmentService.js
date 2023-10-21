@@ -23,34 +23,15 @@ const formatDate = (date) => {
 
 export const appointmentService = {
   registrarCita: async (params) => {
-    const {
-      id_cita,
-      idPaciente,
-      idMedico,
-      codigoCitaMedica,
-      tipoCita,
-      horaCita,
-      fechaCita,
-      requiereTriaje,
-      estado,
-    } = params;
-
     try {
-      const response = await axiosInstance.post(ENDPOINTS.REGISTRAR_CITA, {
-        id_cita,
-        paciente: { idPersona: idPaciente },
-        medico: { idPersona: idMedico },
-        codigoCitaMedica,
-        tipoCita,
-        horaCita,
-        fechaCita,
-        requiereTriaje,
-        estado,
-      });
+      const response = await axiosInstance.post(
+        ENDPOINTS.REGISTRAR_CITA,
+        params
+      );
       return response.data;
     } catch (error) {
       console.error("Error al registrar la cita médica:", error.message);
-      throw new Error("Failed to register appointment");
+      throw new Error("Error al registrar la cita médica");
     }
   },
 
