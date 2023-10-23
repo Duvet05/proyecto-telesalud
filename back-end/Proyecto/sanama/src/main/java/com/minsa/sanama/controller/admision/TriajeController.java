@@ -27,10 +27,11 @@ public class TriajeController {
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
+            System.out.println(cadena);
             triajes = triajeService.listarTriajePorFiltro(cadena);
-
+            System.out.println(triajes.get(0).getPaciente().getNombres());
         }catch(Exception ex){
-
+            System.out.println(ex);
         }
         return triajes;
     }
