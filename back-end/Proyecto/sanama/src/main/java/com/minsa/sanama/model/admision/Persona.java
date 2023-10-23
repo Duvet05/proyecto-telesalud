@@ -1,7 +1,9 @@
 package com.minsa.sanama.model.admision;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.time.LocalDate;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class Persona {
     private int idPersona;
     private String nombres;

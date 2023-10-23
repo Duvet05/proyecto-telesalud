@@ -1,8 +1,10 @@
 package com.minsa.sanama.model.rrhh;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HorarioAtencion {
     private int idHorarioAtencion;
     private LocalDate fechaIni;

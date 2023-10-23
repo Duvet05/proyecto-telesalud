@@ -1,8 +1,10 @@
 package com.minsa.sanama.model.atencionmedica;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HojaMedica {
     private int idHojaClinica;
     private String codigo;

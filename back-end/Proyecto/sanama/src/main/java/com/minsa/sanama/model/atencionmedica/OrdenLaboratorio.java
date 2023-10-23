@@ -1,7 +1,8 @@
 package com.minsa.sanama.model.atencionmedica;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.laboratorio.ExamenMedico;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdenLaboratorio {
     private int idOrdenLaboratorio;
     private String tipoOrden;

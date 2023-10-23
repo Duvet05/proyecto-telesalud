@@ -3,8 +3,9 @@ package com.minsa.sanama.model.admision;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.rrhh.Medico;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProgramacionCita {
     private int idCita;
     private Paciente paciente;

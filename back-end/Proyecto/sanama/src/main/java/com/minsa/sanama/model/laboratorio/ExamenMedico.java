@@ -1,6 +1,8 @@
 package com.minsa.sanama.model.laboratorio;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExamenMedico {
     private int idExamen;
     private String codigo;

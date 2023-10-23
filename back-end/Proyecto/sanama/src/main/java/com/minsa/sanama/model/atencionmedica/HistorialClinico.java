@@ -1,7 +1,9 @@
 package com.minsa.sanama.model.atencionmedica;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.ArrayList;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HistorialClinico {
     private int idHistorialClinico;
     private String codigo;
