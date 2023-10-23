@@ -34,6 +34,38 @@ public class CitaController {
         return Lcita;
     }
 
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/listarCitasPorFiltro")
+    @ResponseBody
+    public List<CitaMedica> listarCitasPorFiltro(@RequestBody String pv_datos) {
+        List<CitaMedica> Lcita = null;
+        try {
+            JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
+            System.out.println(pv_datos);
+            String pn_id_especialidad;
+            String pv_filtro = job.get("pv_filtro").toString();
+            String pd_fecha_inicio;
+            String pd_fecha_fin;
+
+            if(job.get("pn_id_especialidad") == null) pn_id_especialidad=null;
+            else pn_id_especialidad = job.get("pn_id_especialidad").toString();
+
+            if(job.get("pd_fecha_inicio") == null) pd_fecha_inicio=null;
+            else pd_fecha_inicio = job.get("pd_fecha_inicio").toString();
+
+            if(job.get("pd_fecha_fin") == null) pd_fecha_fin=null;
+            else pd_fecha_fin = job.get("pd_fecha_fin").toString();
+
+
+            // Llama al servicio para listar citas por filtros
+            Lcita = citaService.listarCitasxFiltro(pn_id_especialidad, pv_filtro, pd_fecha_inicio, pd_fecha_fin);
+        } catch (Exception ex) {
+            // Manejo de excepciones aquí
+            ex.printStackTrace();
+        }
+        return Lcita;
+    }
+
     @GetMapping(value = "/get/cita")
     @ResponseBody
     public List<CitaMedica> listarCitasTodas() {

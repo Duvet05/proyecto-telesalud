@@ -25,6 +25,12 @@ public class CitaService {
         return lCitas;
     }
 
+    public List<CitaMedica> listarCitasxFiltro(String pn_id_especialidad, String pv_filtro, String pd_fecha_inicio, String pd_fecha_fin) {
+        List<CitaMedica> lCitas;
+        lCitas = citaRepository.listarCitasxFiltro(pn_id_especialidad, pv_filtro, pd_fecha_inicio, pd_fecha_fin);
+        return lCitas;
+    }
+
     public int registrarCitaMedicaPaciente(CitaMedica citaMedica) {
         int idCita = 0;
         int dd, mm, aa, hora, min, seg;
