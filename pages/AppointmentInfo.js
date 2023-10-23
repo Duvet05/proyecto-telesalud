@@ -35,6 +35,7 @@ const camposAtencion = [
   { id: "especialidad", label: "Especialidad", type: "text" },
   { id: "estado", label: "Estado", type: "text" },
 ];
+
 function AppointmentInfo() {
   const [response, setResponse] = useState(null);
   const theme = useTheme(); // Use theme for consistent styling
@@ -62,11 +63,8 @@ function AppointmentInfo() {
     setError(null);
     try {
       const data = {
-        id_cita: 1,
         paciente: { idPersona: pacienteData.idPersona },
         medico: { idPersona: doctorResponsable.idPersona },
-        codigoCitaMedica: "GAA",
-        tipoCita: "PRUEBA",
         horaCita: appointmentData.selectedHour,
         fechaCita: appointmentData.selectedDate,
         requiereTriaje: selectedTriage ? 1 : 0,

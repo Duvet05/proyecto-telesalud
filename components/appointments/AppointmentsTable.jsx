@@ -30,7 +30,7 @@ const AppointmentsTable = () => {
         const data = await appointmentService.listar();
         const mappedData = mapDataToAppointments(data);
         setAppointments(mappedData);
-        setIsLoading(false); // Datos cargados
+        setIsLoading(false);
       } catch (err) {
         console.error("Error al obtener las citas:", err);
         setError("Hubo un problema al cargar las citas."); // Error seteado
@@ -51,8 +51,23 @@ const AppointmentsTable = () => {
       speciality: appointment.medico.especialidad.nombre,
       date: appointment.fechaCita,
       time: appointment.horaCita,
-      status: appointment.estado === 1 ? "Activo" : "Inactivo",
+      status: getStatus(appointment.estado),
     }));
+  };
+
+  const getStatus = (estado) => {
+    switch (estado) {
+      case 1:
+        return "Atendida";
+      case 2:
+        return "En Consultorio";
+      case 3:
+        return "Cancelada";
+      case 4:
+        return "Pendiente";
+      default:
+        return "Desconocido"; // Puedes cambiar este valor predeterminado por lo que consideres adecuado.
+    }
   };
 
   const requestSort = (key) => {
@@ -65,8 +80,39 @@ const AppointmentsTable = () => {
 
   const sortedAppointments = appointments.sort((a, b) => {
     if (sortConfig.key !== "") {
-      const keyA = a[sortConfig.key].toLowerCase();
-      const keyB = b[sortConfig.key].toLowerCase();
+      let keyA = a[sortConfig.key];
+      let keyB = b[sortConfig.key];
+
+      // String sort
+      if (
+        typeof keyA === "string" &&
+        sortConfig.key !== "date" &&
+        sortConfig.key !== "time"
+      ) {
+        keyA = keyA.toLowerCase();
+        keyB = keyB.toLowerCase();
+      }
+
+      // Date and Time sort
+      if (sortConfig.key === "date") {
+        keyA = new Date(`${a.date} ${a.time}`);
+        keyB = new Date(`${b.date} ${b.time}`);
+      }
+
+      // Status sort (optional: if you have a specific order for states, adjust accordingly)
+      if (sortConfig.key === "status") {
+        const statusOrder = {
+          Atendida: 1,
+          "En Consultorio": 2,
+          Cancelada: 3,
+          Pendiente: 4,
+          Desconocido: 5,
+        };
+        keyA = statusOrder[keyA];
+        keyB = statusOrder[keyB];
+      }
+
+      // Comparison logic
       if (keyA < keyB) {
         return sortConfig.direction === "ascending" ? -1 : 1;
       }
@@ -76,15 +122,16 @@ const AppointmentsTable = () => {
     }
     return 0;
   });
+
   const headers = [
     { key: "codigoCita", label: "Codigo Cita" },
     { key: "patientName", label: "Paciente" },
     { key: "doctorName", label: "Doctor" },
     { key: "speciality", label: "Especialidad" },
-    { key: "date", label: "Fecha" },
-    { key: "time", label: "Hora" },
+    { key: "date", label: "Fecha y Hora" }, // changed "date and time" to "date"
     { key: "status", label: "Estado" },
   ];
+
   return (
     <TableContainer component={Paper} style={{ marginTop: 20 }}>
       <Table>
@@ -112,10 +159,10 @@ const AppointmentsTable = () => {
               <TableCell>{appointment.patientName}</TableCell>
               <TableCell>{appointment.doctorName}</TableCell>
               <TableCell>{appointment.speciality}</TableCell>
-              <TableCell>{appointment.date}</TableCell>
-              <TableCell>{appointment.time}</TableCell>
+              <TableCell>
+                {appointment.date} - {appointment.time}
+              </TableCell>
               <TableCell>{appointment.status}</TableCell>
-              {/* Opciones para cada cita */}
             </TableRow>
           ))}
         </TableBody>
