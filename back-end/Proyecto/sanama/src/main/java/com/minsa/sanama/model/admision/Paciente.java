@@ -1,8 +1,10 @@
 package com.minsa.sanama.model.admision;
 
 import java.util.ArrayList;
-import com.minsa.sanama.model.atencionmedica.HistorialClinico;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.minsa.sanama.model.atencionmedica.HistorialClinico;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class  Paciente extends Persona{
     private String codigoSeguro;
     private String tipoSeguro;

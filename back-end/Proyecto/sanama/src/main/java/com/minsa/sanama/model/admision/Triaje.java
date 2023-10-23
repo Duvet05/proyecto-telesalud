@@ -1,9 +1,10 @@
 package com.minsa.sanama.model.admision;
 
-import com.minsa.sanama.model.rrhh.Enfermera;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Triaje {
     private int idTriaje;
     private String codigoTriaje;
@@ -22,19 +23,20 @@ public class Triaje {
     private String nivelConciencia;
     private String nivelDolor;
     private String condicionesPrexistentes;
-    private Enfermera enfermera;
+    private Paciente paciente;
+
 
     public Triaje() {
     }
-    
-    public Enfermera getEnfermera() {
-        return enfermera;
+
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setEnfermera(Enfermera enfermera) {
-        this.enfermera = enfermera;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
-    
+
     public int getIdTriaje() {
         return idTriaje;
     }

@@ -1,5 +1,8 @@
 package com.minsa.sanama.model.atencionmedica;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MedicamentoRecetado {
     private int idMedicamento;
     private String nombre;

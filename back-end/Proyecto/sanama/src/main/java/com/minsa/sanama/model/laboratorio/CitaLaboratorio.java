@@ -1,9 +1,11 @@
 package com.minsa.sanama.model.laboratorio;
 
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.rrhh.Enfermera;
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CitaLaboratorio extends ProgramacionCita{
     private String codigoCitaLaboratorio;
     private ArrayList<ExamenMedico> examenesMedicos;

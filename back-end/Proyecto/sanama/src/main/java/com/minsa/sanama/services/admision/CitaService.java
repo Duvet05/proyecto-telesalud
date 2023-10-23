@@ -37,7 +37,8 @@ public class CitaService {
         seg = citaMedica.getHoraCita().getSecond();
         citaMedica.setCodigoCitaMedica("CM-" + aa + mm + dd + "-" +
                 hora + min + seg + "-" + idMedico);
-
+        citaMedica.setTipoCita("MEDICA");
+        citaMedica.setEstado(4);
         idCita = citaRepository.registrarCita(citaMedica);
         if (idCita != -1)
             return idCita;

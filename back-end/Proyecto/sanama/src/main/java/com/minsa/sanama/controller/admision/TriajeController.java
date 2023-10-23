@@ -1,10 +1,7 @@
 package com.minsa.sanama.controller.admision;
 
-import com.minsa.sanama.model.admision.Paciente;
-import com.minsa.sanama.model.admision.ProgramacionCita;
-import com.minsa.sanama.model.atencionmedica.CitaMedica;
+
 import com.minsa.sanama.model.admision.Triaje;
-import com.minsa.sanama.services.admision.PacienteService;
 import com.minsa.sanama.services.admision.TriajeService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,8 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 @RestController
 @RequestMapping("/admision")
 @CrossOrigin
@@ -26,34 +22,35 @@ public class TriajeController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             value = "/post/listarTriajePorFiltro")
     @ResponseBody
-    public List<CitaMedica> listarTriajeporFiltro(@RequestBody String pv_filtro){
-        List<CitaMedica> programacionCitas = null;
+    public List<Triaje> listarTriajeporFiltro(@RequestBody String pv_filtro){
+        List<Triaje> triajes = null;
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
-            programacionCitas = triajeService.listarTriajePorFiltro(cadena);
-
+            System.out.println(cadena);
+            triajes = triajeService.listarTriajePorFiltro(cadena);
+            System.out.println(triajes.get(0).getPaciente().getNombres());
         }catch(Exception ex){
-
+            System.out.println(ex);
         }
-        return programacionCitas;
+        return triajes;
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
             value = "/post/buscarTriaje")
     @ResponseBody
-    public List<CitaMedica> buscarTriaje(@RequestBody String pv_filtro){
-        List<CitaMedica> programacionCitas = null;
+    public Triaje buscarTriaje(@RequestBody String pv_filtro){
+        Triaje triaje = null;
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
-            programacionCitas = triajeService.listarTriajePorFiltro(cadena);
+            triaje = triajeService.listarTriajePorFiltro(cadena).get(0);
 
         }catch(Exception ex){
 
         }
-        return programacionCitas;
+        return triaje;
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},

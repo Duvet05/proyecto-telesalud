@@ -1,8 +1,10 @@
 package com.minsa.sanama.model.rrhh;
 
 import java.util.ArrayList;
-import com.minsa.sanama.model.admision.Persona;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.minsa.sanama.model.admision.Persona;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Medico extends Persona {
     private String area;
     private String cmp;

@@ -1,6 +1,8 @@
 package com.minsa.sanama.model.rrhh;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Especialidad {
     private int idEspecialidad;
     private String codigo;
