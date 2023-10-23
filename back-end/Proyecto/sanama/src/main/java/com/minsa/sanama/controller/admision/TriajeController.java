@@ -26,34 +26,34 @@ public class TriajeController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             value = "/post/listarTriajePorFiltro")
     @ResponseBody
-    public List<CitaMedica> listarTriajeporFiltro(@RequestBody String pv_filtro){
-        List<CitaMedica> programacionCitas = null;
+    public List<Triaje> listarTriajeporFiltro(@RequestBody String pv_filtro){
+        List<Triaje> triajes = null;
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
-            programacionCitas = triajeService.listarTriajePorFiltro(cadena);
+            triajes = triajeService.listarTriajePorFiltro(cadena);
 
         }catch(Exception ex){
 
         }
-        return programacionCitas;
+        return triajes;
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
             value = "/post/buscarTriaje")
     @ResponseBody
-    public List<CitaMedica> buscarTriaje(@RequestBody String pv_filtro){
-        List<CitaMedica> programacionCitas = null;
+    public Triaje buscarTriaje(@RequestBody String pv_filtro){
+        Triaje triaje = null;
         try{
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
-            programacionCitas = triajeService.listarTriajePorFiltro(cadena);
+            triaje = triajeService.listarTriajePorFiltro(cadena).get(0);
 
         }catch(Exception ex){
 
         }
-        return programacionCitas;
+        return triaje;
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},

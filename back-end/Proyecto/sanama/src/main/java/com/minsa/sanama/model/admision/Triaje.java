@@ -22,19 +22,20 @@ public class Triaje {
     private String nivelConciencia;
     private String nivelDolor;
     private String condicionesPrexistentes;
-    private Enfermera enfermera;
+    private Paciente paciente;
+
 
     public Triaje() {
     }
-    
-    public Enfermera getEnfermera() {
-        return enfermera;
+
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setEnfermera(Enfermera enfermera) {
-        this.enfermera = enfermera;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
-    
+
     public int getIdTriaje() {
         return idTriaje;
     }

@@ -15,10 +15,10 @@ public class TriajeService {
     @Autowired
     TriajeRepository triajeRepository;
 
-    public List<CitaMedica> listarTriajePorFiltro(String pv_filtro) {
-        List<CitaMedica> lCitas;
-        lCitas = triajeRepository.listarTriajePorFiltro(pv_filtro);
-        return lCitas;
+    public List<Triaje> listarTriajePorFiltro(String pv_filtro) {
+        List<Triaje> triajes;
+        triajes = triajeRepository.listarTriajePorFiltro(pv_filtro);
+        return triajes;
     }
 
     public int actualizarTriaje(Triaje triaje) {
