@@ -32,14 +32,6 @@ const routesSideBar = [
     },
   },
   {
-    path: "/ScheduleManagement",
-    state: "staff.schedules",
-    sidebarProps: {
-      displayText: "Horarios",
-      icon: <Today />,
-    },
-  },
-  {
     path: "/AppointmentManagement",
     state: "staff.attentions",
     sidebarProps: {
