@@ -63,6 +63,20 @@ function PatientInfoAppointment() {
     }));
   };
 
+  const handlePatientFormDataChange = (updatedFormData) => {
+    if (formData.isEditing) {
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        newPatientData: updatedFormData,
+      }));
+    } else {
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        selectedPatientData: updatedFormData,
+      }));
+    }
+  };
+
   return (
     <Box padding={2} bgcolor="#fff">
       {formData.error && (
@@ -93,6 +107,7 @@ function PatientInfoAppointment() {
             <PatientFieldsAppointment
               isDisabled={!formData.isEditing}
               patientData={appointmentData.selectedPatientData}
+              onFormDataChange={handlePatientFormDataChange} // Pass the callback here
             />
           </Grid>
         )}

@@ -20,7 +20,11 @@ const patientFieldsConfig = [
   { name: "correo", label: "CORREO" },
 ];
 
-function PatientFieldsAppointment({ isDisabled, patientData = {} }) {
+function PatientFieldsAppointment({
+  isDisabled,
+  patientData = {},
+  onFormDataChange,
+}) {
   const initialState = patientFieldsConfig.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
@@ -36,8 +40,11 @@ function PatientFieldsAppointment({ isDisabled, patientData = {} }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const updatedData = { ...prev, [name]: value };
+      onFormDataChange(updatedData); // Trigger the callback with updated data
+      return updatedData;
+    });
   };
 
   return (
