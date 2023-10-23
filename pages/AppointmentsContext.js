@@ -4,6 +4,7 @@ const AppointmentsContext = createContext();
 
 export const AppointmentsProvider = ({ children }) => {
   const [appointmentData, setAppointmentData] = useState({
+    newPatientData: null,
     selectedPatientData: null,
     companionData: null,
     selectedDoctor: null,
