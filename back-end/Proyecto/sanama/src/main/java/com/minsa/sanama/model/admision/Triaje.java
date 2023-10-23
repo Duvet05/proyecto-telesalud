@@ -1,9 +1,10 @@
 package com.minsa.sanama.model.admision;
 
-import com.minsa.sanama.model.rrhh.Enfermera;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Triaje {
     private int idTriaje;
     private String codigoTriaje;

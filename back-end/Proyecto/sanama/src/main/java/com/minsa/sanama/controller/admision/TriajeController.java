@@ -1,10 +1,7 @@
 package com.minsa.sanama.controller.admision;
 
-import com.minsa.sanama.model.admision.Paciente;
-import com.minsa.sanama.model.admision.ProgramacionCita;
-import com.minsa.sanama.model.atencionmedica.CitaMedica;
+
 import com.minsa.sanama.model.admision.Triaje;
-import com.minsa.sanama.services.admision.PacienteService;
 import com.minsa.sanama.services.admision.TriajeService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,8 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 @RestController
 @RequestMapping("/admision")
 @CrossOrigin

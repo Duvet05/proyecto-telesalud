@@ -111,6 +111,7 @@ public class TriajeRepository {
             paciente.setFechaNacimiento(rs.getDate("paciente_fecha_nacimiento").toLocalDate());
             paciente.setSexo(rs.getString("paciente_sexo"));
 
+            triaje.setPaciente(paciente);
             return triaje;
         }
     }
