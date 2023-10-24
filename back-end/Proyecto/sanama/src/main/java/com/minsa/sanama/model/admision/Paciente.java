@@ -8,13 +8,8 @@ import com.minsa.sanama.model.atencionmedica.HistorialClinico;
 public class  Paciente extends Persona{
     private String codigoSeguro;
     private String tipoSeguro;
-    private boolean tieneAcompanhante;
-    private String nombreAcompnhante;
-    private String dniAcompanhante;
     private String correo;
     private String direccion;
-
-    private String parentezco;
     private HistorialClinico historialClinico;
     private ArrayList<ProgramacionCita>  programacionesCitas;
 
@@ -54,31 +49,7 @@ public class  Paciente extends Persona{
         this.programacionesCitas = programacionesCitas;
     }
 
-    public boolean isTieneAcompanhante() {
-        return tieneAcompanhante;
-    }
-
-    public void setTieneAcompanhante(boolean tieneAcompanhante) {
-        this.tieneAcompanhante = tieneAcompanhante;
-    }
-
-    public String getNombreAcompnhante() {
-        return nombreAcompnhante;
-    }
-
-    public void setNombreAcompnhante(String nombreAcompnhante) {
-        this.nombreAcompnhante = nombreAcompnhante;
-    }
-
-    public String getDniAcompanhante() {
-        return dniAcompanhante;
-    }
-
-    public void setDniAcompanhante(String dniAcompanhante) {
-        this.dniAcompanhante = dniAcompanhante;
-    }
-
-    public String getCorreo() {
+   public String getCorreo() {
         return correo;
     }
 
@@ -92,13 +63,5 @@ public class  Paciente extends Persona{
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public String getParentezco() {
-        return parentezco;
-    }
-
-    public void setParentezco(String parentezco) {
-        this.parentezco = parentezco;
     }
 }
