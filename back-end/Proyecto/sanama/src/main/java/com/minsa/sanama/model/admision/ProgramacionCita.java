@@ -17,10 +17,6 @@ public class ProgramacionCita {
     private String codigoCita;
     private EstadoCita estadoCita;
     private int estado;
-    private boolean tieneAcompanhante;
-    private String nombreAcompanhante;
-    private String dniAcompanhante;
-    private String parentezco;
     private Triaje triaje;
 
     public ProgramacionCita() {
@@ -112,37 +108,5 @@ public class ProgramacionCita {
 
     public void setEstado(int estado) {
         this.estado = estado;
-    }
-
-    public boolean isTieneAcompanhante() {
-        return tieneAcompanhante;
-    }
-
-    public void setTieneAcompanhante(boolean tieneAcompanhante) {
-        this.tieneAcompanhante = tieneAcompanhante;
-    }
-
-    public String getNombreAcompanhante() {
-        return nombreAcompanhante;
-    }
-
-    public void setNombreAcompanhante(String nombreAcompanhante) {
-        this.nombreAcompanhante = nombreAcompanhante;
-    }
-
-    public String getDniAcompanhante() {
-        return dniAcompanhante;
-    }
-
-    public void setDniAcompanhante(String dniAcompanhante) {
-        this.dniAcompanhante = dniAcompanhante;
-    }
-
-    public String getParentezco() {
-        return parentezco;
-    }
-
-    public void setParentezco(String parentezco) {
-        this.parentezco = parentezco;
     }
 }

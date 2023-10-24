@@ -96,6 +96,10 @@ public class CitaRepository {
                         new SqlParameter("pt_hora_cita", Types.TIME),
                         new SqlParameter("pd_fecha_cita", Types.DATE),
                         new SqlParameter("pn_requiere_triaje", Types.INTEGER),
+                        new SqlParameter("pb_tiene_acompanhante", Types.BOOLEAN),
+                        new SqlParameter("pv_nombre_acompanhante", Types.VARCHAR),
+                        new SqlParameter("pv_dni_acompanhante", Types.VARCHAR),
+                        new SqlParameter("pv_parentezco", Types.VARCHAR),
                         new SqlParameter("pn_estado", Types.INTEGER)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
@@ -107,6 +111,10 @@ public class CitaRepository {
                 .addValue("pt_hora_cita", citaMedica.getHoraCita())
                 .addValue("pd_fecha_cita", citaMedica.getFechaCita())
                 .addValue("pn_requiere_triaje", citaMedica.getRequiereTriaje())
+                .addValue("pb_tiene_acompanhante", citaMedica.isTieneAcompanhante())
+                .addValue("pv_nombre_acompanhante", citaMedica.getNombreAcompanhante())
+                .addValue("pv_dni_acompanhante", citaMedica.getDniAcompanhante())
+                .addValue("pv_parentezco", citaMedica.getParentezco())
                 .addValue("pn_estado", 1);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
