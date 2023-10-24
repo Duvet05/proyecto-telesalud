@@ -6,15 +6,15 @@ const axiosInstance = axios.create({
 });
 
 export const patientService = {
-  insertar: async (patientForm) => {
+  create: async (patientData) => {
     try {
       const response = await axiosInstance.put(
         "/admision/put/paciente",
-        patientForm
+        patientData
       );
-      return response.data;
+      return response.data; // Suponiendo que el ID del paciente creado se devuelve en la respuesta
     } catch (error) {
-      console.error("Error al insertar los datos del paciente", error);
+      console.error("Error al crear el paciente:", error);
       throw error;
     }
   },
