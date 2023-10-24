@@ -27,6 +27,10 @@ export const appointmentService = {
     medico,
     horaCita,
     fechaCita,
+    tieneAcompanhante,
+    nombreAcompanhante,
+    dniAcompanhante,
+    parentezco,
     requiereTriaje,
     estado = 1,
   }) => {
@@ -36,6 +40,10 @@ export const appointmentService = {
         medico: { idPersona: medico.idPersona },
         horaCita,
         fechaCita,
+        tieneAcompanhante,
+        nombreAcompanhante,
+        dniAcompanhante,
+        parentezco,
         requiereTriaje: requiereTriaje ? 1 : 0,
         estado,
       };
