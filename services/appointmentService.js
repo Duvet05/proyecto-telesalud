@@ -22,12 +22,25 @@ const formatDate = (date) => {
 };
 
 export const appointmentService = {
-  registrarCita: async (params) => {
+  registrarCita: async ({
+    paciente,
+    medico,
+    horaCita,
+    fechaCita,
+    requiereTriaje,
+    estado = 1,
+  }) => {
     try {
-      const response = await axiosInstance.post(
-        ENDPOINTS.REGISTRAR_CITA,
-        params
-      );
+      const data = {
+        paciente: { idPersona: paciente.idPersona },
+        medico: { idPersona: medico.idPersona },
+        horaCita,
+        fechaCita,
+        requiereTriaje: requiereTriaje ? 1 : 0,
+        estado,
+      };
+
+      const response = await axiosInstance.post(ENDPOINTS.REGISTRAR_CITA, data);
       return response.data;
     } catch (error) {
       console.error("Error al registrar la cita médica:", error.message);

@@ -13,7 +13,6 @@ import {
 import Link from "next/link";
 import { useAppointments } from "./AppointmentsContext";
 import { appointmentService } from "@/services/appointmentService";
-import axios from "axios";
 
 const patientFieldsConfig = [
   { name: "dni", label: "DOCUMENTO DE IDENTIDAD" },
@@ -58,7 +57,7 @@ function AppointmentInfo() {
   const [loading, setLoading] = useState(false); // Para manejar el estado de carga
   const [error, setError] = useState(null); // Para manejar errores
 
-  const handleTestService = async () => {
+  const handleRegisterAppointment = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -71,14 +70,11 @@ function AppointmentInfo() {
         estado: 1,
       };
 
-      const response = await axios.post(
-        "http://localhost:8080/admision/post/registrarCitaMedica",
-        data
-      );
-      setResponse(response.data);
+      const responseData = await appointmentService.registrarCita(data);
+      setResponse(responseData);
     } catch (error) {
-      console.error("Error al llamar al servicio:", error.message);
-      setError(error.message);
+      console.error("Error al registrar la cita médica:", error.message);
+      setError("Error al registrar la cita médica");
     } finally {
       setLoading(false);
     }
@@ -148,7 +144,7 @@ function AppointmentInfo() {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleTestService}
+          onClick={handleRegisterAppointment}
           disabled={loading}
         >
           Registrar Cita
