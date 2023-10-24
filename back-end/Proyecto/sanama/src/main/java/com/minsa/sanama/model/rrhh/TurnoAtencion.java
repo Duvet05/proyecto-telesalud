@@ -10,7 +10,8 @@ public class TurnoAtencion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private LocalDate fecha;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
 
     public TurnoAtencion() {
     }

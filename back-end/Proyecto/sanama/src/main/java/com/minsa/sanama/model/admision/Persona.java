@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDate;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class Persona {
-    private int idPersona;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idPersona=0;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -16,7 +17,8 @@ public abstract class Persona {
 
     private String correoElectronico;
     private byte[] foto;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
 
     public Persona() {
     }

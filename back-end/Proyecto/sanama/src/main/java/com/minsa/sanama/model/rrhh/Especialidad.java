@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Especialidad {
-    private int idEspecialidad;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idEspecialidad=0;
     private String codigo;
     private String nombre;
     private String descripcion;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
 
     public Especialidad() {
     }

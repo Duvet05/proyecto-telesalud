@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HistorialClinico {
-    private int idHistorialClinico;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idHistorialClinico=0;
     private String codigo;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
     private ArrayList<HojaMedica> hojasMedicas;
 
     public HistorialClinico() {

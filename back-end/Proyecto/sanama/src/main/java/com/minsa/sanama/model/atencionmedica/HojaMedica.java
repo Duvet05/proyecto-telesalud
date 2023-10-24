@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HojaMedica {
-    private int idHojaClinica;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idHojaClinica=0;
     private String codigo;
     private LocalDate fecha;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
     // private ArrayList<CitaMedica> citasMedicas;
     private Diagnostico diagnostico;
     private ArrayList<Resultado> resultados;
