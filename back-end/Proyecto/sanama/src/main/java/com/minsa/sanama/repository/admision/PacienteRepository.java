@@ -67,9 +67,6 @@ public class PacienteRepository {
             paciente.setFoto(rs.getBytes("foto"));
             paciente.setCorreo(rs.getString("correo"));
             paciente.setDireccion(rs.getString("direccion"));
-            paciente.setTieneAcompanhante(rs.getBoolean("tiene_acompanhante"));
-            paciente.setNombreAcompnhante(rs.getString("nombre_acompanhante"));
-            paciente.setDniAcompanhante(rs.getString("dni_acompanhante"));
             paciente.setCodigoSeguro(rs.getString("codigo_seguro"));
             paciente.setTipoSeguro(rs.getString("tipo_seguro"));
             paciente.setEstado(rs.getInt("estado"));
@@ -96,9 +93,6 @@ public class PacienteRepository {
             paciente.setFoto(rs.getBytes("foto"));
             paciente.setCorreo(rs.getString("correo"));
             paciente.setDireccion(rs.getString("direccion"));
-            paciente.setTieneAcompanhante(rs.getBoolean("tiene_acompanhante"));
-            paciente.setNombreAcompnhante(rs.getString("nombre_acompanhante"));
-            paciente.setDniAcompanhante(rs.getString("dni_acompanhante"));
             paciente.setCodigoSeguro(rs.getString("codigo_seguro"));
             paciente.setTipoSeguro(rs.getString("tipo_seguro"));
             paciente.setEstado(rs.getInt("estado"));
@@ -155,12 +149,7 @@ public class PacienteRepository {
                         new SqlParameter("pv_codigo_seguro", Types.VARCHAR),
                         new SqlParameter("pv_tipo_seguro", Types.VARCHAR),
                         new SqlParameter("pv_correo", Types.VARCHAR),
-                        new SqlParameter("pv_direccion", Types.VARCHAR),
-                        new SqlParameter("pb_tiene_acompanhante", Types.BOOLEAN),
-                        new SqlParameter("pv_nombre_acompanhante", Types.VARCHAR),
-                        new SqlParameter("pv_dni_acompanhante", Types.VARCHAR),
-                        new SqlParameter("pv_parentezco", Types.VARCHAR),
-                        new SqlParameter("pn_estado", Types.INTEGER)
+                        new SqlParameter("pv_direccion", Types.VARCHAR)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource
@@ -175,12 +164,7 @@ public class PacienteRepository {
                 .addValue("pv_codigo_seguro", paciente.getCodigoSeguro())
                 .addValue("pv_tipo_seguro", paciente.getTipoSeguro())
                 .addValue("pv_correo", paciente.getCorreo())
-                .addValue("pv_direccion", paciente.getDireccion())
-                .addValue("pb_tiene_acompanhante", paciente.isTieneAcompanhante())
-                .addValue("pv_nombre_acompanhante", paciente.getNombreAcompnhante())
-                .addValue("pv_dni_acompanhante", paciente.getDniAcompanhante())
-                .addValue("pv_parentezco", paciente.getParentezco())
-                .addValue("pn_estado", 1);
+                .addValue("pv_direccion", paciente.getDireccion());
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
         if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
@@ -210,12 +194,7 @@ public class PacienteRepository {
                         new SqlParameter("pv_codigo_seguro", Types.VARCHAR),
                         new SqlParameter("pv_tipo_seguro", Types.VARCHAR),
                         new SqlParameter("pv_correo", Types.VARCHAR),
-                        new SqlParameter("pv_direccion", Types.VARCHAR),
-                        new SqlParameter("pb_tiene_acompanhante", Types.BOOLEAN),
-                        new SqlParameter("pv_nombre_acompanhante", Types.VARCHAR),
-                        new SqlParameter("pv_dni_acompanhante", Types.VARCHAR),
-                        new SqlParameter("pv_parentezco", Types.VARCHAR),
-                        new SqlParameter("pn_estado", Types.INTEGER)
+                        new SqlParameter("pv_direccion", Types.VARCHAR)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource
@@ -231,12 +210,7 @@ public class PacienteRepository {
                 .addValue("pv_codigo_seguro", paciente.getCodigoSeguro())
                 .addValue("pv_tipo_seguro", paciente.getTipoSeguro())
                 .addValue("pv_correo", paciente.getCorreo())
-                .addValue("pv_direccion", paciente.getDireccion())
-                .addValue("pb_tiene_acompanhante", paciente.isTieneAcompanhante())
-                .addValue("pv_nombre_acompanhante", paciente.getNombreAcompnhante())
-                .addValue("pv_dni_acompanhante", paciente.getDniAcompanhante())
-                .addValue("pv_parentezco", paciente.getParentezco())
-                .addValue("pn_estado", 1);
+                .addValue("pv_direccion", paciente.getDireccion());
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
         if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
