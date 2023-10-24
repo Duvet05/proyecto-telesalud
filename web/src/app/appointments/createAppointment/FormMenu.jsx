@@ -4,6 +4,10 @@ import InformacionDelPaciente from "./PatientInfoAppointment";
 import SeleccionarMedico from "./SelectMedic";
 import SelectDate from "./SelectDate";
 import TriageRequest from "./TriageRequest";
+import {
+  AppointmentsProvider,
+  useAppointments,
+} from "@/context/AppointmentsContext";
 
 const PAGES = [
   { component: InformacionDelPaciente, title: "Información del Paciente" },
@@ -22,28 +26,30 @@ const FormMenu = () => {
   const CurrentPageComponent = PAGES[currentPage].component;
 
   return (
-    <div className="flex">
-      <nav className="w-1/5 pt-10 px-6 text-xl text-gray-800 leading-normal">
-        <ul className="list-reset py-2 md:py-0">
-          {PAGES.map((page, index) => (
-            <li
-              key={index}
-              className={`py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent ${
-                currentPage === index ? "font-bold border-yellow-600" : ""
-              }`}
-              onClick={() => navigateToPage(index)}
-            >
-              <span className="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600 pb-1 md:pb-0 text-sm">
-                {page.title}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div className="w-4/5">
-        <CurrentPageComponent />
+    <AppointmentsProvider>
+      <div className="flex">
+        <nav className="w-1/5 pt-10 px-6 text-xl text-gray-800 leading-normal">
+          <ul className="list-reset py-2 md:py-0">
+            {PAGES.map((page, index) => (
+              <li
+                key={index}
+                className={`py-1 md:my-2 hover:bg-yellow-100 lg:hover:bg-transparent border-l-4 border-transparent ${
+                  currentPage === index ? "font-bold border-yellow-600" : ""
+                }`}
+                onClick={() => navigateToPage(index)}
+              >
+                <span className="block pl-4 align-middle text-gray-700 no-underline hover:text-yellow-600 pb-1 md:pb-0 text-sm">
+                  {page.title}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="w-4/5">
+          <CurrentPageComponent />
+        </div>
       </div>
-    </div>
+    </AppointmentsProvider>
   );
 };
 
