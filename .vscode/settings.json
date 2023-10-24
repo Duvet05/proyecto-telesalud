@@ -1,4 +1,3 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "r.lsp.promptToInstall": false
 }

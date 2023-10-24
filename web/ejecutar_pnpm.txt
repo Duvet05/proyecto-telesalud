@@ -1,0 +1,11 @@
+Paso 1)
+
+Cambiar temporalmente la política de ejecución para permitir que se ejecuten scripts con:
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+Paso 2)
+
+Instalar pnpm:
+
+pnpm install
