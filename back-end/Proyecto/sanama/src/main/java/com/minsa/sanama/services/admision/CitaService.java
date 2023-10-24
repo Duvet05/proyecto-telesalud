@@ -31,6 +31,12 @@ public class CitaService {
         return lCitas;
     }
 
+    public List<CitaMedica> listarCitasxMedico(String pn_id_medico, String pn_estado) {
+        List<CitaMedica> lCitas;
+        lCitas = citaRepository.listarCitasxMedico(pn_id_medico, pn_estado);
+        return lCitas;
+    }
+
     public int registrarCitaMedicaPaciente(CitaMedica citaMedica) {
         int idCita = 0;
         int dd, mm, aa, hora, min, seg;

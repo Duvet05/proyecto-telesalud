@@ -30,6 +30,7 @@ public class CitaRepository {
     }
 
     private final CitaMedicaMapper citaMedicaMapper = new CitaMedicaMapper();
+    private final CitaMedicaMedicoMapper citaMedicaMedicoMapper = new CitaMedicaMedicoMapper();
     private final CitaMedicaPacienteMapper citaMedicaPacienteMapper = new CitaMedicaPacienteMapper();
     public List<CitaMedica> listarCitasTodas() {
         String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas()};";
@@ -46,6 +47,12 @@ public class CitaRepository {
         if (pd_fecha_fin != null)pd_fecha_fin = "'"+pd_fecha_fin+"'";
         String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_filtro("+pn_id_especialidad+",'"+pv_filtro+"',"+pd_fecha_inicio+","+pd_fecha_fin+")};";
         return jdbcTemplate.query(procedureCall, citaMedicaMapper);
+    }
+
+    public List<CitaMedica> listarCitasxMedico(String pn_id_medico, String pn_estado) {
+        if (pn_estado != null)pn_estado = "'"+pn_estado+"'";
+        String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_x_medico("+pn_id_medico+","+pn_estado+")};";
+        return jdbcTemplate.query(procedureCall, citaMedicaMedicoMapper);
     }
 
     private static class CitaMedicaMapper implements RowMapper<CitaMedica> {
@@ -78,6 +85,30 @@ public class CitaRepository {
             citaMedica.setHoraCita(rs.getTime("hora_cita").toLocalTime());
             citaMedica.setEstado(rs.getInt("estado"));
             citaMedica.setCodigoCita(rs.getString("codigo_cita_medica"));
+            return citaMedica;
+        }
+    }
+
+    private static class CitaMedicaMedicoMapper implements RowMapper<CitaMedica> {
+        @Override
+        public CitaMedica mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            CitaMedica citaMedica = new CitaMedica();
+
+            citaMedica.setIdCita(rs.getInt("id_cita"));
+            citaMedica.setTipoCita(rs.getString("tipo_cita"));
+            citaMedica.setCodigoCita(rs.getString("codigo_cita_medica"));
+
+            Paciente paciente = new Paciente();
+            paciente.setNombres(rs.getString("nombres_paciente"));
+            paciente.setApellidoPaterno(rs.getString("apellido_paterno_paciente"));
+            paciente.setApellidoMaterno(rs.getString("apellido_materno_paciente"));
+
+            citaMedica.setPaciente(paciente);
+            citaMedica.setHoraCita(rs.getTime("hora_cita").toLocalTime());
+            citaMedica.setFechaCita(rs.getDate("fecha_cita").toLocalDate());
+            citaMedica.setEstado(rs.getInt("estado"));
+
             return citaMedica;
         }
     }
