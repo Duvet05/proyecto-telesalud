@@ -40,17 +40,22 @@ const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <BaseTableHead
-          handleSortRequest={handleSortRequest}
-          order={order}
-          orderBy={orderBy}
-          columns={columns}
-        />
-        <BaseTableBody data={data} RowComponent={RowComponent} />
-      </Table>
-    </TableContainer>
+    <>
+      <div style={{ marginBottom: '1rem', color: 'black' }}>
+        Número de resultados: {data.length} {console.log(data)}
+      </div>
+      <TableContainer component={Paper}>
+        <Table>
+          <BaseTableHead
+            handleSortRequest={handleSortRequest}
+            order={order}
+            orderBy={orderBy}
+            columns={columns}
+          />
+          <BaseTableBody data={data} RowComponent={RowComponent} />
+        </Table>
+      </TableContainer>
+    </>
   )
 }
 

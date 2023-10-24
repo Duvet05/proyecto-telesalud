@@ -63,6 +63,8 @@ const DoctorRowComponent = ({ data }) => (
 
 const DoctorTable = (props) => {
   const columns = [
+
+
     { id: "nombreCompleto", label: "Nombre Completo", sortable: false },
     { id: "dni", label: "DNI", sortable: true },
     { id: "codigoMedico", label: "Código Médico", sortable: false },
@@ -71,12 +73,14 @@ const DoctorTable = (props) => {
   ]
 
   return (
-    <BaseTable
-      fetchData={fetchDoctors}
-      columns={columns}
-      RowComponent={DoctorRowComponent}
-      extraProps={props}
-    />
+    <>
+      <BaseTable
+        fetchData={fetchDoctors}
+        columns={columns}
+        RowComponent={DoctorRowComponent}
+        extraProps={props}
+      />
+    </>
   )
 }
 

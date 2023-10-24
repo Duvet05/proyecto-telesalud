@@ -106,6 +106,7 @@ const StaffManagement = () => {
                 value={selectedSpecialty}
                 onChange={(event) => setSelectedSpecialty(event.target.value)}
               >
+
                 <MenuItem value="todasLasEspecialidades">Todos</MenuItem> {/* Agrega la opción "TODOS" */}
                 {specialties.map((specialty) => (
                   <MenuItem
