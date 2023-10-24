@@ -1,42 +1,23 @@
 import React, { useState, useEffect, useCallback } from "react";
 import dayjs from "dayjs";
-import { Badge, Typography, Box } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import {
-  LocalizationProvider,
-  PickersDay,
-  DateCalendar,
-} from "@mui/x-date-pickers";
 import AvailableHoursBlock from "./AvailableHoursBlock";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 
-function ServerDay({
-  highlightedDays = [],
-  day,
-  outsideCurrentMonth,
-  ...other
-}) {
+function ServerDay({ highlightedDays, day, outsideCurrentMonth, ...other }) {
   const isSelected =
     !outsideCurrentMonth && highlightedDays.includes(day.date());
-
+  const badgeClass = isSelected ? "badge-selected" : "";
   return (
-    <Badge
-      key={day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? "✅" : undefined}
-    >
-      <PickersDay
-        {...other}
-        outsideCurrentMonth={outsideCurrentMonth}
-        day={day}
-      />
-    </Badge>
+    <div className={`badge ${badgeClass}`} key={day.toString()}>
+      <div className="pickers-day" {...other}>
+        {day.format("D")}
+      </div>
+    </div>
   );
 }
 
 export default function SelectDate() {
   const { appointmentData, setAppointmentData } = useAppointments();
-
   const [highlightedDays, setHighlightedDays] = useState([]);
 
   useEffect(() => {
@@ -56,43 +37,36 @@ export default function SelectDate() {
     [setAppointmentData]
   );
 
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Typography variant="subtitle1" gutterBottom sx={{ padding: "-20vh" }}>
-        Selecciona una Fecha y hora disponible:
-      </Typography>
+  const renderDays = () => {
+    const daysInMonth = dayjs().daysInMonth();
+    return Array.from({ length: daysInMonth }, (_, i) => {
+      const day = dayjs().date(i + 1);
+      return (
+        <ServerDay
+          key={i}
+          day={day}
+          highlightedDays={highlightedDays}
+          onClick={() => handleDateChange(day)}
+        />
+      );
+    });
+  };
 
-      <Box
-        display="flex"
-        sx={{ width: "120vh", maxHeight: "260px", pr: "2vh" }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 1,
-            margin: "0 auto",
-          }}
-        >
-          <DateCalendar
-            onChange={handleDateChange}
-            value={
-              appointmentData.selectedDate
-                ? dayjs(appointmentData.selectedDate)
-                : null
-            }
-            slots={{ day: ServerDay }}
-            slotProps={{ day: { highlightedDays } }}
-          />{" "}
+  return (
+    <div className="localization-provider">
+      <p className="subtitle">Selecciona una Fecha y hora disponible:</p>
+      <div className="calendar-container">
+        <div className="date-calendar">
+          {renderDays()}
           {appointmentData.selectedDate && appointmentData.selectedHour ? (
-            <Typography>
+            <p>
               Fecha y Hora: {appointmentData.selectedDate}{" "}
               {appointmentData.selectedHour}
-            </Typography>
+            </p>
           ) : (
-            <Typography>No hay fecha ni hora reservada</Typography>
+            <p>No hay fecha ni hora reservada</p>
           )}
-        </Box>
+        </div>
         <AvailableHoursBlock
           availableHours={appointmentData.availableHours}
           onHourClick={(hour) => {
@@ -103,7 +77,7 @@ export default function SelectDate() {
           }}
           selectedDate={appointmentData.selectedDate}
         />
-      </Box>
-    </LocalizationProvider>
+      </div>
+    </div>
   );
 }

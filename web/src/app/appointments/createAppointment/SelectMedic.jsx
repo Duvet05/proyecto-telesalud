@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-} from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import SelectDate from "./SelectDate";
-import { medicService } from "../../services/medicService";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { medicService } from "@/services/medicService";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 function SeleccionarMedico() {
   const { appointmentData, setAppointmentData } = useAppointments();
@@ -93,48 +84,59 @@ function SeleccionarMedico() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        margin: "0 auto",
-      }}
-    >
-      <Autocomplete
-        fullWidth
-        disabled={isLoading}
-        options={specialities}
-        getOptionLabel={(option) => option.nombre}
-        value={selectedSpeciality}
-        onChange={async (event, newValue) => {
-          setSelectedSpeciality(newValue);
-          setAppointmentData((prevData) => ({
-            ...prevData,
-            selectedDoctor: "",
-          }));
-          if (newValue) {
-            await obtenerDoctoresPorEspecialidad(newValue.nombre);
-          } else {
-            setDoctors([]);
-          }
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Especialidad"
-            variant="outlined"
-            placeholder="Seleccionar Especialidad"
-          />
-        )}
-      />
+    <div className="flex flex-col gap-4 mx-auto">
+      <div className="w-full">
+        <label
+          htmlFor="speciality"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Especialidad
+        </label>
+        <select
+          id="speciality"
+          disabled={isLoading}
+          value={selectedSpeciality?.nombre || ""}
+          onChange={async (e) => {
+            const newSpeciality = specialities.find(
+              (s) => s.nombre === e.target.value
+            );
+            setSelectedSpeciality(newSpeciality);
+            setAppointmentData((prevData) => ({
+              ...prevData,
+              selectedDoctor: "",
+            }));
+            if (newSpeciality) {
+              await obtenerDoctoresPorEspecialidad(newSpeciality.nombre);
+            } else {
+              setDoctors([]);
+            }
+          }}
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="" disabled>
+            Seleccionar Especialidad
+          </option>
+          {specialities.map((speciality) => (
+            <option key={speciality.nombre} value={speciality.nombre}>
+              {speciality.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {selectedSpeciality && (
-        <FormControl variant="outlined" fullWidth margin="normal">
-          <InputLabel>Médico</InputLabel>
-          <Select
-            value={appointmentData.selectedDoctor || ""}
-            onChange={(event) => {
-              const doctorId = event.target.value;
+        <div className="w-full">
+          <label
+            htmlFor="doctor"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Médico
+          </label>
+          <select
+            id="doctor"
+            value={appointmentData.selectedDoctor?.idPersona || ""}
+            onChange={(e) => {
+              const doctorId = parseInt(e.target.value, 10);
               const selectedDoc = doctors.find(
                 (doctor) => doctor.idPersona === doctorId
               );
@@ -143,16 +145,20 @@ function SeleccionarMedico() {
                 selectedDoctor: selectedDoc,
               }));
             }}
+            className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
+            <option value="" disabled>
+              Seleccionar Médico
+            </option>
             {doctors.map((doctor) => (
-              <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
+              <option key={doctor.idPersona} value={doctor.idPersona}>
                 {`${doctor.sexo === "M" ? "Dr." : "Dra."} ${doctor.nombres} ${
                   doctor.apellidoPaterno
                 } ${doctor.apellidoMaterno}`}
-              </MenuItem>
+              </option>
             ))}
-          </Select>
-        </FormControl>
+          </select>
+        </div>
       )}
 
       {appointmentData.selectedDoctor && (
@@ -168,7 +174,7 @@ function SeleccionarMedico() {
           selectedHour={appointmentData.selectedHour}
         />
       )}
-    </Box>
+    </div>
   );
 }
 

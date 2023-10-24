@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Box, TextField, Autocomplete, Button, Tooltip } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import CloseIcon from "@mui/icons-material/Close";
 
 function PatientSearchAppointment({
   allPatients,
@@ -13,7 +10,12 @@ function PatientSearchAppointment({
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState(null);
 
-  const handleAutoCompleteChange = (event, value) => {
+  const handleAutoCompleteChange = (event) => {
+    const value = allPatients.find(
+      (patient) =>
+        `${patient.nombres} ${patient.apellidoPaterno} ${patient.apellidoMaterno}` ===
+        event.target.value
+    );
     onSelect(value);
     setSelectedValue(value);
     if (!value) {
@@ -29,57 +31,45 @@ function PatientSearchAppointment({
 
   const isAddMode = !selectedValue && inputValue !== "";
 
-  let icon = <AddIcon />;
-  let label = "Agregar paciente";
-  let color = "primary";
-
-  if (isEditing) {
-    icon = <CloseIcon />;
-    label = "Cancelar";
-    color = "error";
-  } else if (isAddMode) {
-    label = "Agregar";
-    color = "primary";
-  }
-
+  const label = isEditing
+    ? "Cancelar"
+    : isAddMode
+    ? "Agregar"
+    : "Agregar paciente";
+  const icon = isEditing ? "✕" : "＋";
+  const buttonClass = isEditing ? "bg-red-500" : "bg-blue-500";
   const isButtonDisabled = selectedValue || inputValue;
 
   return (
-    <Box display="flex" alignItems="center">
-      <Autocomplete
-        options={allPatients}
-        getOptionLabel={(option) =>
-          `${option.nombres} ${option.apellidoPaterno} ${option.apellidoMaterno}`
-        }
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Buscar por nombre..."
-            variant="outlined"
-            fullWidth
-            disabled={disabled}
-            sx={{ flex: 1, width: "100vh", marginRight: 2 }} // Use flex to make it responsive
-          />
-        )}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
-        value={selectedValue}
-        onChange={handleAutoCompleteChange}
+    <div className="flex items-center">
+      <input
+        type="text"
+        list="patients"
+        className="border p-2 flex-1 mr-2"
+        placeholder="Buscar por nombre..."
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        onBlur={handleAutoCompleteChange}
         disabled={disabled}
       />
-      <Tooltip title={label}>
-        <Button
-          color={color}
-          onClick={handleAddOrCancel}
-          variant="contained"
-          startIcon={icon}
-          disabled={isButtonDisabled}
-          sx={{ height: "56px", width: "250px" }}
-        >
-          {label}
-        </Button>
-      </Tooltip>
-    </Box>
+      <datalist id="patients">
+        {allPatients.map((patient, index) => (
+          <option
+            key={index}
+            value={`${patient.nombres} ${patient.apellidoPaterno} ${patient.apellidoMaterno}`}
+          />
+        ))}
+      </datalist>
+      <button
+        onClick={handleAddOrCancel}
+        className={`text-white p-2 ${buttonClass} ${
+          isButtonDisabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        disabled={isButtonDisabled}
+      >
+        {icon} {label}
+      </button>
+    </div>
   );
 }
 

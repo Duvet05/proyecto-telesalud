@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Typography, Button, Container, Grid, Paper } from "@mui/material";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 const TriageRequest = () => {
   const [selectedButton, setSelectedButton] = useState(null);
-  const { setAppointmentData } = useAppointments(); // Usamos el hook personalizado
+  const { setAppointmentData } = useAppointments();
 
   const handleButtonClick = (button) => {
     setSelectedButton(button);
@@ -19,35 +18,33 @@ const TriageRequest = () => {
   };
 
   return (
-    <Container maxWidth="sm" style={{ marginTop: "2rem" }}>
-      <Paper elevation={3} style={{ padding: "2rem" }}>
-        <Typography variant="h6" gutterBottom align="center">
-          ¿Desea enviar al paciente a triaje?
-        </Typography>
-        <Grid container spacing={3} style={{ marginTop: "1rem" }}>
-          <Grid item xs={6}>
-            <Button
-              variant={selectedButton === "option1" ? "contained" : "outlined"}
-              color="primary"
-              onClick={() => handleButtonClick("option1")}
-              fullWidth
-            >
-              Sí, enviar a triaje
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant={selectedButton === "option2" ? "contained" : "outlined"}
-              color="secondary"
-              onClick={() => handleButtonClick("option2")}
-              fullWidth
-            >
-              No, no enviar a triaje
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Container>
+    <div className="max-w-sm mt-8 mx-auto p-8 bg-white shadow-md">
+      <h2 className="text-xl font-semibold text-center mb-4">
+        ¿Desea enviar al paciente a triaje?
+      </h2>
+      <div className="grid grid-cols-2 gap-4 mt-4">
+        <button
+          onClick={() => handleButtonClick("option1")}
+          className={`w-full px-4 py-2 rounded-md text-white transition ${
+            selectedButton === "option1"
+              ? "bg-blue-500 hover:bg-blue-600"
+              : "bg-gray-500 hover:bg-gray-600"
+          }`}
+        >
+          Sí, enviar a triaje
+        </button>
+        <button
+          onClick={() => handleButtonClick("option2")}
+          className={`w-full px-4 py-2 rounded-md text-white transition ${
+            selectedButton === "option2"
+              ? "bg-red-500 hover:bg-red-600"
+              : "bg-gray-500 hover:bg-gray-600"
+          }`}
+        >
+          No, no enviar a triaje
+        </button>
+      </div>
+    </div>
   );
 };
 

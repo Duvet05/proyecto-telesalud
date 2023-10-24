@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Box, Divider } from "@mui/material";
 import PatientSearchAppointment from "./PatientSearchAppointment";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
 import CompanionFields from "./CompanionFields";
 import CompanionQuestion from "./CompanionQuestion";
-import { patientService } from "../../services/patientService";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { patientService } from "@/services/patientService";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 function InformacionDelPaciente() {
   const [formData, setFormData] = useState({
@@ -78,13 +77,11 @@ function InformacionDelPaciente() {
   };
 
   return (
-    <Box padding={2} bgcolor="#fff">
-      {formData.error && (
-        <Typography color="error">{formData.error}</Typography>
-      )}
+    <div className="p-2 bg-white">
+      {formData.error && <p className="text-red-500">{formData.error}</p>}
 
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <div className="grid gap-3">
+        <div className="col-span-12">
           <PatientSearchAppointment
             allPatients={formData.allPatients}
             onSelect={handlePatientSelect}
@@ -94,43 +91,43 @@ function InformacionDelPaciente() {
             isEditing={formData.isEditing}
             disabled={formData.isEditing}
           />
-        </Grid>
+        </div>
 
         {(formData.showFields || !formData.isEditing) && (
-          <Grid item xs={12}>
-            <Divider />
-          </Grid>
-        )}
+          <>
+            <div className="col-span-12">
+              <div className="border-t border-gray-200 my-3" />
+            </div>
 
-        {(formData.showFields || !formData.isEditing) && (
-          <Grid item xs={12}>
-            <PatientFieldsAppointment
-              isDisabled={!formData.isEditing}
-              patientData={appointmentData.selectedPatientData}
-              onFormDataChange={handlePatientFormDataChange} // Pass the callback here
-            />
-          </Grid>
+            <div className="col-span-12">
+              <PatientFieldsAppointment
+                isDisabled={!formData.isEditing}
+                patientData={appointmentData.selectedPatientData}
+                onFormDataChange={handlePatientFormDataChange} // Pass the callback here
+              />
+            </div>
+
+            <div className="col-span-12">
+              <CompanionQuestion
+                value={formData.hasCompanion}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    hasCompanion: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            {formData.hasCompanion === "no" && (
+              <div className="col-span-12">
+                <CompanionFields />
+              </div>
+            )}
+          </>
         )}
-        {(formData.showFields || !formData.isEditing) && (
-          <Grid item xs={12}>
-            <CompanionQuestion
-              value={formData.hasCompanion}
-              onChange={(e) =>
-                setFormData((prevData) => ({
-                  ...prevData,
-                  hasCompanion: e.target.value,
-                }))
-              }
-            />
-          </Grid>
-        )}
-        {formData.hasCompanion === "no" && (
-          <Grid item xs={12}>
-            <CompanionFields />
-          </Grid>
-        )}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   );
 }
 

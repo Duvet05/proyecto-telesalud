@@ -1,14 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  TextField,
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
 const patientFieldsConfig = [
@@ -53,7 +43,7 @@ function PatientFieldsAppointment({
   };
 
   const handleDateChange = (name, value) => {
-    updateFormData(name, value ? value.format("YYYY-MM-DD") : "");
+    updateFormData(name, value ? dayjs(value).format("YYYY-MM-DD") : "");
   };
 
   const updateFormData = (name, value) => {
@@ -65,65 +55,75 @@ function PatientFieldsAppointment({
   };
 
   return (
-    <Grid container spacing={4}>
+    <div className="grid grid-cols-3 gap-4">
       {patientFieldsConfig.map((field) => (
-        <Grid item xs={4} key={field.name}>
-          {field.name === "tipoSeguro" ? (
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>{field.label}</InputLabel>
-              <Select
+        <div className="col-span-1" key={field.name}>
+          {field.type === "select" ? (
+            <div className="mb-4">
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium text-gray-700"
+              >
+                {field.label}
+              </label>
+              <select
+                id={field.name}
                 name={field.name}
+                required
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
                 value={formData[field.name]}
                 onChange={handleInputChange}
-                disabled={isDisabled}
-                label={field.label}
               >
-                <MenuItem value={"Seguro A"}>Seguro A</MenuItem>
-                <MenuItem value={"Seguro B"}>Seguro B</MenuItem>
-                <MenuItem value={"Seguro C"}>Seguro C</MenuItem>
-              </Select>
-            </FormControl>
-          ) : field.name === "fechaNacimiento" ? (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label={field.label}
-                value={
-                  formData[field.name] ? dayjs(formData[field.name]) : null
-                }
-                onChange={(newValue) => handleDateChange(field.name, newValue)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    variant="outlined"
-                    disabled={isDisabled}
-                  />
-                )}
+                <option value="Seguro A">Seguro A</option>
+                <option value="Seguro B">Seguro B</option>
+                <option value="Seguro C">Seguro C</option>
+              </select>
+            </div>
+          ) : field.type === "date" ? (
+            <div className="mb-4">
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium text-gray-700"
+              >
+                {field.label}
+              </label>
+              <input
+                type="date"
+                id={field.name}
+                name={field.name}
+                required
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
+                value={formData[field.name]}
+                onChange={(e) => handleDateChange(field.name, e.target.value)}
               />
-            </LocalizationProvider>
+            </div>
           ) : (
-            <TextField
-              name={field.name}
-              label={field.label}
-              variant="outlined"
-              required
-              fullWidth
-              disabled={isDisabled}
-              value={formData[field.name]}
-              onChange={handleInputChange}
-              inputProps={
-                field.name === "dni"
-                  ? {
-                      pattern: "[0-9]*",
-                      maxLength: 8,
-                    }
-                  : undefined
-              }
-            />
+            <div className="mb-4">
+              <label
+                htmlFor={field.name}
+                className="block text-sm font-medium text-gray-700"
+              >
+                {field.label}
+              </label>
+              <input
+                type="text"
+                id={field.name}
+                name={field.name}
+                required
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
+                disabled={isDisabled}
+                value={formData[field.name]}
+                onChange={handleInputChange}
+                pattern={field.name === "dni" ? "[0-9]*" : undefined}
+                maxLength={field.name === "dni" ? 8 : undefined}
+              />
+            </div>
           )}
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   );
 }
 
