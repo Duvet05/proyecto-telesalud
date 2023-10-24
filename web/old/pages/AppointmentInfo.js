@@ -40,6 +40,7 @@ function AppointmentInfo() {
   const theme = useTheme(); // Use theme for consistent styling
   const { appointmentData } = useAppointments();
   const pacienteData = appointmentData.selectedPatientData;
+  const companionData = appointmentData.companionData;
   const doctorResponsable = appointmentData.selectedDoctor;
   const nombreDoctor = doctorResponsable
     ? `${doctorResponsable.sexo === "M" ? "Dr." : "Dra."} ${
@@ -66,6 +67,10 @@ function AppointmentInfo() {
         medico: { idPersona: doctorResponsable.idPersona },
         horaCita: appointmentData.selectedHour,
         fechaCita: appointmentData.selectedDate,
+        tieneAcompanhante: companionData ? true : false,
+        nombreAcompanhante: companionData.nombres,
+        dniAcompanhante: companionData.documentoIdentidad,
+        parentezco: companionData.relationship,
         requiereTriaje: selectedTriage ? 1 : 0,
         estado: 1,
       };
