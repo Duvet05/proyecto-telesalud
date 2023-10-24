@@ -138,7 +138,7 @@ function SeleccionarHorarioMedico(props) {
     const obtenerEventos = async () => {
       const eventosTotales = [];
       for (let i = 0; i < 14; i++) {
-        fechaHoy.setDate(fechaHoy.getDate() + i + 1);
+        fechaHoy.setDate(fechaHoy.getDate() + i -1);
         const year = fechaHoy.getFullYear();
         const month = fechaHoy.getMonth() + 1;
         const day = fechaHoy.getDate();
