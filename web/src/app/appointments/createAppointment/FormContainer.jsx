@@ -1,45 +1,42 @@
-"use client"
-import LegalResponsibility from "./LegalResponsibility"
-import PatientForm from "./PatientForm"
+"use client";
+import LegalResponsibility from "./LegalResponsibility";
+import PatientForm from "./PatientForm";
 
 // Para acceder a los elementos
 // elements.namedItem("first_last_name").value
 
 const FormContainer = () => {
+  const handleSubmit = async (event) => {
+    // //Evitar que el boton me rompa la pagina
+    // event.preventDefault()
+    // //Recuperar datos del formulario
+    // const elements = event.target.elements
+    // console.log(elements.namedItem("option1").checked ?? elements.namedItem("option1").value)
+    // let nombre = elements.namedItem("option1").value
+    // let apellido = elements.namedItem("option1").value
+    // let aplleiomaterno = elements.namedItem("option1").value
+    // let Nombres = nombre + apellido + aplleiomaterno
+    // //llamar al servicio
+    // const response = await citasService.citar({
+    //     nombreCompleto: Nombres
+    // })
+  };
 
-    const handleSubmit = async (event) => {
-        // //Evitar que el boton me rompa la pagina
-        // event.preventDefault()
-        // //Recuperar datos del formulario
-        // const elements = event.target.elements
-        // console.log(elements.namedItem("option1").checked ?? elements.namedItem("option1").value)
-        // let nombre = elements.namedItem("option1").value
-        // let apellido = elements.namedItem("option1").value
-        // let aplleiomaterno = elements.namedItem("option1").value
+  return (
+    <form onSubmit={handleSubmit} className="px-10 w-4/5">
+      <hr className="bg-gray-600 mt-12" />
+      <PatientForm />
+      <hr className="bg-gray-300 mt-12" />
+      <LegalResponsibility />
+      <button
+        type="submit"
+        className="mt-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+                font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+      >
+        Registrar
+      </button>
 
-        // let Nombres = nombre + apellido + aplleiomaterno
-
-        // //llamar al servicio
-        // const response = await citasService.citar({
-        //     nombreCompleto: Nombres
-
-        // })
-    }
-
-
-    return (
-        <form onSubmit={handleSubmit} className="px-10 w-4/5" >
-            <hr className="bg-gray-600 mt-12" />
-            <PatientForm />
-            <hr className="bg-gray-300 mt-12" />
-            <LegalResponsibility />
-            <button
-                type="submit"
-                className="mt-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
-                font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar</button>
-
-
-            {/*
+      {/*
             <h2 className="font-sans font-bold break-normal text-gray-700 px-2 mt-10 text-xl">Seleccionar medico y horarios disponibles</h2>
             <div id='section3' className="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
                 <form>
@@ -69,7 +66,7 @@ const FormContainer = () => {
                 </form>
             </div> */}
 
-            {/* <hr className="bg-gray-300 my-12" />
+      {/* <hr className="bg-gray-300 my-12" />
 
             <h2 className="font-sans font-bold break-normal text-gray-700 px-2 pb-8 text-xl">Section 4</h2>
 
@@ -155,8 +152,8 @@ const FormContainer = () => {
                     </button>
                 </div>
             </div> */}
-        </form>
-    )
-}
+    </form>
+  );
+};
 
-export default FormContainer
+export default FormContainer;

@@ -1,4 +1,3 @@
-"use client";
 import FormContainer from "./FormContainer";
 import FormMenu from "./FormMenu";
 
@@ -8,10 +7,7 @@ const CreateAppointmentForm = () => {
       <h1 className="pl-10 pt-10 font-bold tracking-wide text-3xl">
         Crear nueva cita
       </h1>
-      <section className="flex">
-        <FormContainer />
-        <FormMenu />
-      </section>
+      <section className="flex"></section>
     </>
   );
 };

@@ -124,7 +124,7 @@ const AppointmentsTable = () => {
   return (
     <div className="mt-5 overflow-x-auto">
       <table className="min-w-full">
-        <thead>
+        <thead className="border-gray-200 border-2 text-left text-[16px] text-gray-700 uppercase bg-gray-50">
           <tr>
             {headers.map((header) => (
               <th
