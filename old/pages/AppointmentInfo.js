@@ -41,6 +41,7 @@ function AppointmentInfo() {
   const { appointmentData } = useAppointments();
   const pacienteData = appointmentData.selectedPatientData;
   const companionData = appointmentData.companionData;
+
   const doctorResponsable = appointmentData.selectedDoctor;
   const nombreDoctor = doctorResponsable
     ? `${doctorResponsable.sexo === "M" ? "Dr." : "Dra."} ${
