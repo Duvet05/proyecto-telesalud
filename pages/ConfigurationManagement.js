@@ -6,7 +6,6 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  InputAdornment,
 } from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
 import { patientService } from "@/services/patientService";

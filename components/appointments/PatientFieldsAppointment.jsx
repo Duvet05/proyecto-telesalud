@@ -7,6 +7,9 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const patientFieldsConfig = [
   { name: "dni", label: "DOCUMENTO DE IDENTIDAD" },
@@ -15,9 +18,15 @@ const patientFieldsConfig = [
   { name: "nombres", label: "NOMBRES" },
   { name: "apellidoPaterno", label: "PRIMER APELLIDO" },
   { name: "apellidoMaterno", label: "SEGUNDO APELLIDO" },
-  { name: "fechaNacimiento", label: "FECHA DE NACIMIENTO" },
+  { name: "fechaNacimiento", label: "FECHA DE NACIMIENTO", type: "date" },
   { name: "telefono", label: "TELEFONO" },
   { name: "correo", label: "CORREO" },
+  {
+    name: "sexo",
+    label: "SEXO",
+    type: "select",
+    options: ["Femenino", "Masculino", "Otro"],
+  },
 ];
 
 function PatientFieldsAppointment({
@@ -40,9 +49,17 @@ function PatientFieldsAppointment({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    updateFormData(name, value);
+  };
+
+  const handleDateChange = (name, value) => {
+    updateFormData(name, value ? value.format("YYYY-MM-DD") : "");
+  };
+
+  const updateFormData = (name, value) => {
     setFormData((prev) => {
       const updatedData = { ...prev, [name]: value };
-      onFormDataChange(updatedData); // Trigger the callback with updated data
+      onFormDataChange(updatedData);
       return updatedData;
     });
   };
@@ -66,6 +83,24 @@ function PatientFieldsAppointment({
                 <MenuItem value={"Seguro C"}>Seguro C</MenuItem>
               </Select>
             </FormControl>
+          ) : field.name === "fechaNacimiento" ? (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={field.label}
+                value={
+                  formData[field.name] ? dayjs(formData[field.name]) : null
+                }
+                onChange={(newValue) => handleDateChange(field.name, newValue)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    variant="outlined"
+                    disabled={isDisabled}
+                  />
+                )}
+              />
+            </LocalizationProvider>
           ) : (
             <TextField
               name={field.name}

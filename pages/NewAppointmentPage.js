@@ -1,7 +1,6 @@
 // Appointments.jsx
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Container, IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AppointmentForm from "../components/appointments/AppointmentForm";
 import AppointmentInfo from "./AppointmentInfo";
 import SelectMedic from "../components/appointments/SelectMedic";
@@ -9,7 +8,6 @@ import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
 import TriajeONo from "../components/appointments/TriageRequest";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
-
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
