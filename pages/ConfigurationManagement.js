@@ -1,59 +1,60 @@
 import React, { useState } from "react";
-import { Button, Typography, TextField } from "@mui/material";
+import {
+  Button,
+  Typography,
+  TextField,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+  InputAdornment,
+} from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
-import axios from "axios";
+import { patientService } from "@/services/patientService";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 export default function ConfigurationManagement() {
   const [patientId, setPatientId] = useState(null);
   const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    nombres: "",
+    apellidoPaterno: "",
+    apellidoMaterno: "",
+    dni: "",
+    fechaNacimiento: "1990-09-29",
+    sexo: "MASCULINO",
+    telefono: "937581949",
+    estado: 1,
+    codigoSeguro: "",
+    tipoSeguro: "Pacífico",
+    correo: "javier@gmail.com",
+    direccion: "Av. Vulcano 115, Ate Vitarte",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleDateChange = (date) => {
+    setFormData({
+      ...formData,
+      fechaNacimiento: date,
+    });
+  };
 
   const handleTestService = async () => {
     setError(null);
     try {
-      const data = {
-        nombres: "gaaaUpdate",
-        apellidoPaterno: "gaaaUpdate",
-        apellidoMaterno: "gaaaUpdate",
-        dni: "70336303",
-        fechaNacimiento: "1990-09-29",
-        sexo: "MASCULINO",
-        telefono: "937581947",
-        estado: 1,
-        tipoSeguro: "Pacífico",
-        codigoSeguro: "156",
-        correo: "javier.mendez@gmail.com",
-        direccion: "Av. Vulcano 115, Ate Vitarte",
-        programacionesCitas: null,
-      };
-      const response = await axios.put(
-        "http://localhost:8080/admision/put/paciente",
-        data
-      );
-      setPatientId(response.data.patientId);
+      const patient = await patientService.create(formData);
+      setPatientId(patient.patientId);
     } catch (error) {
-      console.error("Error al llamar al servicio:", error);
-      // Capturando errores específicos del servidor
-      if (error.response) {
-        // El servidor respondió con un código de estado fuera del rango 2xx
-        console.error("Data:", error.response.data);
-        console.error("Status:", error.response.status);
-        console.error("Headers:", error.response.headers);
-        setError(
-          `Error al registrar el paciente: ${
-            error.response.data.message || error.message
-          }`
-        );
-      } else if (error.request) {
-        // La petición fue hecha pero no se recibió respuesta
-        console.error("Error Request:", error.request);
-        setError(
-          "Error al registrar el paciente: No se recibió respuesta del servidor"
-        );
-      } else {
-        // Algo sucedió al configurar la petición y provocó un error
-        console.error("Error Message:", error.message);
-        setError(`Error al registrar el paciente: ${error.message}`);
-      }
+      console.error("Error al registrar el paciente:", error);
+      setError(`Error al registrar el paciente: ${error.message}`);
     }
   };
 
@@ -63,6 +64,67 @@ export default function ConfigurationManagement() {
         Registro de Paciente
       </Typography>
       <form>
+        <TextField
+          label="Nombres"
+          name="nombres"
+          value={formData.nombres}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Apellido Paterno"
+          name="apellidoPaterno"
+          value={formData.apellidoPaterno}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Apellido Materno"
+          name="apellidoMaterno"
+          value={formData.apellidoMaterno}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="DNI"
+          name="dni"
+          value={formData.dni}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          inputProps={{ maxLength: 8, pattern: "\\d*" }}
+        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Fecha de Nacimiento"
+            value={formData.fechaNacimiento}
+            onChange={handleDateChange}
+            renderInput={(params) => (
+              <TextField {...params} fullWidth margin="normal" />
+            )}
+          />
+        </LocalizationProvider>
+        <RadioGroup
+          row
+          name="sexo"
+          value={formData.sexo}
+          onChange={handleChange}
+        >
+          <FormControlLabel value="M" control={<Radio />} label="Masculino" />
+          <FormControlLabel value="F" control={<Radio />} label="Femenino" />
+        </RadioGroup>
+        <TextField
+          label="Código Seguro"
+          name="codigoSeguro"
+          value={formData.codigoSeguro}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          inputProps={{ pattern: "\\d*" }}
+        />
         <Button variant="contained" color="primary" onClick={handleTestService}>
           Registrar Paciente
         </Button>

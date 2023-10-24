@@ -15,7 +15,16 @@ export const patientService = {
       return response.data; // Suponiendo que el ID del paciente creado se devuelve en la respuesta
     } catch (error) {
       console.error("Error al crear el paciente:", error);
-      throw error;
+      if (error.response) {
+        // El servidor respondió con un código de estado fuera del rango 2xx
+        throw new Error(error.response.data.message || error.message);
+      } else if (error.request) {
+        // La petición fue hecha pero no se recibió respuesta
+        throw new Error("No se recibió respuesta del servidor");
+      } else {
+        // Algo sucedió al configurar la petición y provocó un error
+        throw new Error(error.message);
+      }
     }
   },
 
