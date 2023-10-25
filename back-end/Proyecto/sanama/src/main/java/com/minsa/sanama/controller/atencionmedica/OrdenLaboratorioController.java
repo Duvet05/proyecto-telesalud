@@ -19,9 +19,9 @@ public class OrdenLaboratorioController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/buscarOrdenLaboratorioFiltro")
+            value = "/post/listarOrdenLaboratorioFiltro")
     @ResponseBody
-    public List<CitaMedica> buscarOrdenLaboratorioFiltro(@RequestBody String pv_datos){
+    public List<CitaMedica> listarOrdenLaboratorioxFiltro(@RequestBody String pv_datos){
         List<CitaMedica> Lcita = null;
         try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
