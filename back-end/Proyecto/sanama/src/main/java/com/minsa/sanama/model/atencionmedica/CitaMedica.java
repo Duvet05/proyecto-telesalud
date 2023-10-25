@@ -9,16 +9,17 @@ import com.minsa.sanama.model.admision.ProgramacionCita;
 public class CitaMedica extends ProgramacionCita{
     private String codigoCitaMedica;
     private HojaMedica hojaMedica;
-    private ArrayList<OrdenLaboratorio> ordenesLaboratorio;
+    private OrdenLaboratorio ordenLaboratorio;
     private int requiereTriaje;
     private boolean tieneAcompanhante;
     private String nombreAcompanhante;
     private String dniAcompanhante;
     private String parentezco;
 
+
     public CitaMedica() {
     }
-    
+
     public String getCodigoCitaMedica() {
         return codigoCitaMedica;
     }
@@ -34,13 +35,13 @@ public class CitaMedica extends ProgramacionCita{
     public void setHojaMedica(HojaMedica hojaMedica) {
         this.hojaMedica = hojaMedica;
     }
-    
-    public ArrayList<OrdenLaboratorio> getOrdenesLaboratorio() {
-        return ordenesLaboratorio;
+
+    public OrdenLaboratorio getOrdenLaboratorio() {
+        return ordenLaboratorio;
     }
 
-    public void setOrdenesLaboratorio(ArrayList<OrdenLaboratorio> ordenesLaboratorio) {
-        this.ordenesLaboratorio = ordenesLaboratorio;
+    public void setOrdenLaboratorio(OrdenLaboratorio ordenLaboratorio) {
+        this.ordenLaboratorio = ordenLaboratorio;
     }
 
     public int getRequiereTriaje() {

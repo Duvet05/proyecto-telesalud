@@ -2,6 +2,10 @@ package com.minsa.sanama.model.atencionmedica;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.laboratorio.ExamenMedico;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdenLaboratorio {
     private int idOrdenLaboratorio;
@@ -10,7 +14,26 @@ public class OrdenLaboratorio {
     private int estado;
     private ExamenMedico examenMedico;
 
+    private LocalTime horaOrden;
+    private LocalDate fechaOrden;
+
     public OrdenLaboratorio() {
+    }
+
+    public LocalTime getHoraOrden() {
+        return horaOrden;
+    }
+
+    public void setHoraOrden(LocalTime horaOrden) {
+        this.horaOrden = horaOrden;
+    }
+
+    public LocalDate getFechaOrden() {
+        return fechaOrden;
+    }
+
+    public void setFechaOrden(LocalDate fechaOrden) {
+        this.fechaOrden = fechaOrden;
     }
 
     public int getIdOrdenLaboratorio() {
