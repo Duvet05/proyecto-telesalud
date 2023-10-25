@@ -9,7 +9,6 @@ const CreateAppointmentForm = () => {
         Crear nueva cita
       </h1>
       <section className="flex">
-        <FormContainer />
         <FormMenu />
       </section>
     </>

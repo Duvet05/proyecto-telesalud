@@ -28,6 +28,9 @@ const FormMenu = () => {
   return (
     <AppointmentsProvider>
       <div className="flex">
+        <div className="w-4/5">
+          <CurrentPageComponent />
+        </div>
         <nav className="w-1/5 pt-10 px-6 text-xl text-gray-800 leading-normal">
           <ul className="list-reset py-2 md:py-0">
             {PAGES.map((page, index) => (
@@ -45,9 +48,6 @@ const FormMenu = () => {
             ))}
           </ul>
         </nav>
-        <div className="w-4/5">
-          <CurrentPageComponent />
-        </div>
       </div>
     </AppointmentsProvider>
   );
