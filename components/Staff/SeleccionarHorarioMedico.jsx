@@ -42,8 +42,8 @@ function combinarEventosContiguos(eventos) {
 }
 
 function convertirDatosParaCalendar(datos) {
-  console.log(1);
-  console.log(datos);
+  //console.log(1);
+  //console.log(datos);
   const eventos = datos.map((dato) => {
     // Asegúrate de que las fechas y horas estén en el formato adecuado
 
@@ -52,18 +52,18 @@ function convertirDatosParaCalendar(datos) {
     const horaInicio = new Date(`1970-01-01T${dato.horaInicio}`);
     const horaFin = new Date(`1970-01-01T${dato.horaFin}`);
     // Combina la fecha y la hora de inicio y fin
-    console.log(2);
-    console.log(dato.fecha);
-    
+    //console.log(2);
+    //console.log(dato.fecha);
+
     const start = new Date(fecha);
     start.setHours(horaInicio.getHours());
     start.setMinutes(horaInicio.getMinutes());
-    console.log(start);
-    
+    //console.log(start);
+
     const end = new Date(fecha);
     end.setHours(horaFin.getHours());
     end.setMinutes(horaFin.getMinutes());
-    console.log(end);
+    //console.log(end);
     // Crea un evento con las propiedades necesarias para react-big-calendar
     return {
       id: dato.idTurno, // Puedes usar el ID o un identificador único como id
@@ -83,6 +83,7 @@ function SeleccionarHorarioMedico(props) {
   //console.log(doctor)
 
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(false);
+  const [backData, setBackData] = useState([]);
   const [events, setEvents] = useState([]);
   const [view, setView] = useState("month"); // Estado para controlar la vista
   const [calendarHeight, setCalendarHeight] = useState(600); // Altura 
@@ -90,54 +91,61 @@ function SeleccionarHorarioMedico(props) {
   fechaHoy.setDate(fechaHoy.getDate() - 15); // Resta 6 días
   ///
   const handleIngresarDisponibilidad = () => {
+    setBackData(events);
     setIsCalendarEnabled(true);
   };
+
+  const handleCancelarIngresoDisponibilidad = () => {
+    setEvents(backData);
+    setIsCalendarEnabled(false);
+  };
+
   const handleGuardar = () => {
     // Aquí puedes realizar el envío al servidor con los datos del calendario
     // Por ejemplo, puedes enviar el estado 'events' al servidor
     // Luego, puedes reiniciar el estado del calendario
-    const eventosTransformados = events.map((evento) => {
-      return {
-        pn_id_medico: `${doctor.idPersona}`,
-        pt_hora_inicio: evento.start.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-        pt_hora_fin: evento.end.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-        pd_fecha: evento.start.toISOString().split("T")[0],
-      };
-    });
+    // const eventosTransformados = events.map((evento) => {
+    //   return {
+    //     pn_id_medico: `${doctor.idPersona}`,
+    //     pt_hora_inicio: evento.start.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+    //     pt_hora_fin: evento.end.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+    //     pd_fecha: evento.start.toISOString().split("T")[0],
+    //   };
+    // });
 
-    const url = "http://localhost:8080/rrhh/post/registrarHorarioMedico";
+    // const url = "http://localhost:8080/rrhh/post/registrarHorarioMedico";
 
-    const registrarEvento = async (evento) => {
-      const requestOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(evento),
-      };
+    // const registrarEvento = async (evento) => {
+    //   const requestOptions = {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(evento),
+    //   };
 
-      try {
-        const response = await fetch(url, requestOptions);
-        if (response.ok) {
-          // La solicitud se completó con éxito, puedes manejar la respuesta aquí
-          console.log("Solicitud exitosa");
-        } else {
-          // La solicitud no se completó con éxito, puedes manejar el error aquí
-          console.error("Error en la solicitud:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error en la solicitud:", error);
-      }
-    };
+    //   try {
+    //     const response = await fetch(url, requestOptions);
+    //     if (response.ok) {
+    //       // La solicitud se completó con éxito, puedes manejar la respuesta aquí
+    //       console.log("Solicitud exitosa");
+    //     } else {
+    //       // La solicitud no se completó con éxito, puedes manejar el error aquí
+    //       console.error("Error en la solicitud:", response.statusText);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error en la solicitud:", error);
+    //   }
+    // };
 
-    const registrarEventos = async () => {
-      for (const evento of eventosTransformados) {
-        await registrarEvento(evento);
-      }
-    };
+    // const registrarEventos = async () => {
+    //   for (const evento of eventosTransformados) {
+    //     await registrarEvento(evento);
+    //   }
+    // };
 
-    // Llama a la función para registrar los eventos
-    registrarEventos();
+    // // Llama a la función para registrar los eventos
+    // registrarEventos();
     setIsCalendarEnabled(false);
 
 
@@ -259,6 +267,14 @@ function SeleccionarHorarioMedico(props) {
         <Button variant="contained" color="primary" onClick={handleGuardar} disabled={!isCalendarEnabled}>
           Guardar
         </Button>
+        <Button
+          variant="contained"
+          onClick={handleCancelarIngresoDisponibilidad}
+          disabled={!isCalendarEnabled}
+          color="error"
+        >
+          Cancelar
+        </Button>
       </Stack>
 
       <Calendar
@@ -275,16 +291,10 @@ function SeleccionarHorarioMedico(props) {
           dayFormat: "dddd", // Configura los días de la semana en español
         }}
         onSelectSlot={handleSelectSlot}
-        onDoubleClickEvent={handleDoubleClickEvent} // Manejador para doble clic en eventos
+        onDoubleClickEvent={isCalendarEnabled && handleDoubleClickEvent} // Manejador para doble clic en eventos
         selectable={view === "week" && isCalendarEnabled} // Habilita la selección solo en la vista "Week"
         onView={handleView} // Actualiza el estado de la vista
       />
-      {
-        events.map((event) => {
-          console.log(event.start)
-          console.log(event.end)
-        })
-      }
       {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
       </Button> */}
