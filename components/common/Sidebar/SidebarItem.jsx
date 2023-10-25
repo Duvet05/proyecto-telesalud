@@ -10,7 +10,6 @@ const SidebarItem = ({ item, isSidebarOpen }) => {
     isSidebarOpen ? (
       <Link href={item.path}>
         {" "}
-        {/* Usa href en lugar de to */}
         <ListItemButton
           className={`list-item-button ${
             appState === item.state ? "list-item-button-active" : ""
@@ -25,7 +24,6 @@ const SidebarItem = ({ item, isSidebarOpen }) => {
     ) : (
       <Link href={item.path}>
         {" "}
-        {/* Usa href en lugar de to */}
         <ListItemButton
           className={`list-item-button ${
             appState === item.state ? "list-item-button-active" : ""

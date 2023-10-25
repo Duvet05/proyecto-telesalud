@@ -6,12 +6,7 @@ import { useRouter } from "next/router";
 function DynamicBreadcrumbs() {
   const router = useRouter();
 
-  // Tomamos el pathname directamente del router de Next.js
-  const pathnames = router.pathname.split("/").filter((x) => x);
-
-  const handleNavigation = (route) => {
-    router.push(route);
-  };
+  const pathnames = router.asPath.split("/").filter((x) => x);
 
   return (
     <Breadcrumbs

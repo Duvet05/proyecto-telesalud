@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Avatar,
   Drawer,
   List,
   Toolbar,
@@ -58,7 +57,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 width={40}
                 height={40}
               />{" "}
-              {/* Asumiendo que el logo está en la carpeta public/assets */}
             </Grid>
 
             {isSidebarOpen && (
