@@ -42,7 +42,7 @@ const BaseTable = ({ fetchData, columns, RowComponent, extraProps }) => {
   return (
     <>
       <div style={{ marginBottom: '1rem', color: 'black' }}>
-        Número de resultados: {data.length} {console.log(data)}
+        Número de resultados: {data.length}
       </div>
       <TableContainer component={Paper}>
         <Table>

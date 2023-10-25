@@ -42,20 +42,28 @@ function combinarEventosContiguos(eventos) {
 }
 
 function convertirDatosParaCalendar(datos) {
+  console.log(1);
+  console.log(datos);
   const eventos = datos.map((dato) => {
     // Asegúrate de que las fechas y horas estén en el formato adecuado
-    const fecha = dato.fecha ? new Date(dato.fecha) : new Date(); // Usamos la fecha actual si fecha es nula
+
+    const fecha = dato.fecha ? new Date(dato.fecha.replace(/-/g, '/')) : new Date(); // Usamos la fecha actual si fecha es nula
+
     const horaInicio = new Date(`1970-01-01T${dato.horaInicio}`);
     const horaFin = new Date(`1970-01-01T${dato.horaFin}`);
     // Combina la fecha y la hora de inicio y fin
+    console.log(2);
+    console.log(dato.fecha);
+    
     const start = new Date(fecha);
     start.setHours(horaInicio.getHours());
     start.setMinutes(horaInicio.getMinutes());
-
+    console.log(start);
+    
     const end = new Date(fecha);
     end.setHours(horaFin.getHours());
     end.setMinutes(horaFin.getMinutes());
-
+    console.log(end);
     // Crea un evento con las propiedades necesarias para react-big-calendar
     return {
       id: dato.idTurno, // Puedes usar el ID o un identificador único como id
@@ -79,6 +87,7 @@ function SeleccionarHorarioMedico(props) {
   const [view, setView] = useState("month"); // Estado para controlar la vista
   const [calendarHeight, setCalendarHeight] = useState(600); // Altura 
   const fechaHoy = new Date();
+  fechaHoy.setDate(fechaHoy.getDate() - 15); // Resta 6 días
   ///
   const handleIngresarDisponibilidad = () => {
     setIsCalendarEnabled(true);
@@ -130,18 +139,19 @@ function SeleccionarHorarioMedico(props) {
     // Llama a la función para registrar los eventos
     registrarEventos();
     setIsCalendarEnabled(false);
-    
+
 
   };
   ///
   useEffect(() => {
     const obtenerEventos = async () => {
       const eventosTotales = [];
-      for (let i = 0; i < 14; i++) {
-        fechaHoy.setDate(fechaHoy.getDate() + i -1);
+      for (let i = 0; i < 30; i++) {
+        fechaHoy.setDate(fechaHoy.getDate());
         const year = fechaHoy.getFullYear();
         const month = fechaHoy.getMonth() + 1;
         const day = fechaHoy.getDate();
+        //console.log(`${day} ${month} ${year} `);
         const requestData = {
           pn_id_medico: doctor[0].idPersona,
           pd_fecha: `${year}-${month}-${day}`,
@@ -160,7 +170,7 @@ function SeleccionarHorarioMedico(props) {
           const response = await fetch(url, requestOptions);
           if (response.ok) {
             const data = await response.json();
-            console.log();
+            //console.log(data);
             data.forEach((d) => {
               d.fecha = `${year}-${month}-${day}`;
             });
@@ -169,7 +179,9 @@ function SeleccionarHorarioMedico(props) {
         } catch (error) {
           console.error("Error al obtener los horarios:", error);
         }
+        fechaHoy.setDate(fechaHoy.getDate() + 1);
       }
+      //console.log(eventosTotales);
       setEvents(eventosTotales);
     };
 
