@@ -1,61 +1,35 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-
-const AppointmentDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
 
 const CustomizedDialog = ({ onClose, open }) => {
+  if (!open) return null; // No renderizar el diálogo si no está abierto
+
   return (
     <div>
-      <Button variant="outlined" onClick={onClose}>
+      <button onClick={onClose} className="border px-4 py-2">
         Abrir pop-up
-      </Button>
-      <AppointmentDialog
-        onClose={onClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Confirmar Cita
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{
-              position: "absolute",
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            ¿Desea reservar esta cita médica?
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={onClose}>
-            Cancelar
-          </Button>
-          <Button onClick={onClose}>Reservar</Button>
-        </DialogActions>
-      </AppointmentDialog>
+      </button>
+      <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
+        <div className="bg-white p-6 rounded shadow-xl max-w-xl w-full">
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-semibold">Confirmar Cita</h2>
+            <button onClick={onClose} className="text-lg font-bold">
+              X
+            </button>
+          </div>
+          <div className="mt-4">¿Desea reservar esta cita médica?</div>
+          <div className="mt-6 flex justify-end space-x-4">
+            <button onClick={onClose} className="border px-4 py-2">
+              Cancelar
+            </button>
+            <button
+              onClick={onClose}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Reservar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
