@@ -1,30 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  idAppointment: -1,
-  fecha: null,
-  idMedico: -1,
-};
-
-export const appointmentSlice = createSlice({
-  name: "appointment", // Nombre del slice
-  initialState, // Estado inicial
+const appointmentSlice = createSlice({
+  name: "appointment",
+  initialState: {
+    newPatientData: null,
+    selectedPatientData: null,
+    companionData: null,
+    selectedDoctor: null,
+    selectedTriage: null,
+    selectedDate: null,
+    selectedHour: null,
+    availableHours: [],
+    availableDays: [],
+  },
   reducers: {
-    setAppointment: (state, action) => {
-      state.idAppointment = action.payload.idAppointment;
-      state.fecha = action.payload.fecha;
-      state.idMedico = action.payload.idMedico;
+    setAppointmentData: (state, action) => {
+      state.newPatientData = action.payload.newPatientData;
     },
-    // Si necesitas más reducers, puedes agregarlos aquí. Por ejemplo:
-    // clearAppointment: (state) => {
-    //   state.idAppointment = -1;
-    //   state.fecha = null;
-    //   state.idMedico = -1;
-    // },
   },
 });
 
-export const { setAppointment /* , clearAppointment */ } =
-  appointmentSlice.actions;
-
+export const { setAppointmentData } = appointmentSlice.actions;
 export default appointmentSlice.reducer;

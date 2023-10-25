@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Typography, Grid, Box, Divider } from "@mui/material";
 import PatientSearchAppointment from "./PatientSearchAppointment";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
-import CompanionFields from "./CompanionFields";
-import CompanionQuestion from "./CompanionQuestion";
 import { patientService } from "../../services/patientService";
 import { useAppointments } from "@/pages/AppointmentsContext";
+import CompanionInfo from "./CompanionInfo";
 
 function PatientInfoAppointment() {
   const [formData, setFormData] = useState({
@@ -113,7 +112,7 @@ function PatientInfoAppointment() {
         )}
         {(formData.showFields || !formData.isEditing) && (
           <Grid item xs={12}>
-            <CompanionQuestion
+            <CompanionInfo
               value={formData.hasCompanion}
               onChange={(e) =>
                 setFormData((prevData) => ({
@@ -122,11 +121,6 @@ function PatientInfoAppointment() {
                 }))
               }
             />
-          </Grid>
-        )}
-        {formData.hasCompanion === "no" && (
-          <Grid item xs={12}>
-            <CompanionFields />
           </Grid>
         )}
       </Grid>
