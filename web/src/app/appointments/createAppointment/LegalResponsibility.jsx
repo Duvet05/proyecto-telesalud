@@ -2,11 +2,36 @@
 
 import DatePicker from "@/components/buttons/DatePicker";
 import PickerHider from "@/components/buttons/PickerHider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppointments } from "@/context/AppointmentsContext";
 
 const LegalResponsibility = () => {
+  const { setAppointmentData } = useAppointments();
   const [isResponsible, setIsResponsible] = useState("Si");
+
+  const [responsibilityData, setResponsibilityData] = useState({
+    primerApellido: "",
+    segundoApellido: "",
+    nombres: "",
+    fechaNacimiento: "",
+    relationship: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setResponsibilityData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      responsibilityData: responsibilityData,
+    }));
+  }, [responsibilityData, setAppointmentData]);
 
   const handleResponsibilityChange = (option) => {
     setIsResponsible(option);
@@ -36,6 +61,7 @@ const LegalResponsibility = () => {
                 className="..."
                 placeholder=" "
                 required
+                onChange={handleInputChange}
               />
               <label htmlFor="primerApellido" className="...">
                 Apellido paterno
@@ -49,6 +75,7 @@ const LegalResponsibility = () => {
                 className="..."
                 placeholder=" "
                 required
+                onChange={handleInputChange}
               />
               <label htmlFor="segundoApellido" className="...">
                 Apellido materno
@@ -63,6 +90,7 @@ const LegalResponsibility = () => {
               className="..."
               placeholder=" "
               required
+              onChange={handleInputChange}
             />
             <label htmlFor="nombres" className="...">
               Nombres
@@ -70,7 +98,7 @@ const LegalResponsibility = () => {
           </div>
 
           <div className="grid grid-cols-2 items-center">
-            <DatePicker name={"fechaNacimiento"} />
+            <DatePicker name={"fechaNacimiento"} onChange={handleInputChange} />
             <div className="relative z-0 w-full mb-6 group">
               <input
                 type="text"
@@ -79,6 +107,7 @@ const LegalResponsibility = () => {
                 className="..."
                 placeholder=" "
                 required
+                onChange={handleInputChange}
               />
               <label htmlFor="relationship" className="...">
                 Parentesco

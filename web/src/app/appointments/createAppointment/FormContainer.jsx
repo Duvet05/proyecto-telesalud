@@ -11,7 +11,6 @@ const FormContainer = () => {
       <hr className="bg-gray-600 mt-12" />
       <PatientForm />
       <hr className="bg-gray-300 mt-12" />
-      <LegalResponsibility />
       <button
         type="submit"
         className="mt-10 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 

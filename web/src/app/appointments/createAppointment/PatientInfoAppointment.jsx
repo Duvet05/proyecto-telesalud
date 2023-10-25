@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PatientSearchAppointment from "./PatientSearchAppointment";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
-import CompanionFields from "./CompanionFields";
-import CompanionQuestion from "./CompanionQuestion";
+import LegalResponsibility from "./LegalResponsibility";
 import { patientService } from "@/services/patientService";
 import { useAppointments } from "@/context/AppointmentsContext";
 
@@ -107,23 +106,7 @@ function InformacionDelPaciente() {
               />
             </div>
 
-            <div className="col-span-12">
-              <CompanionQuestion
-                value={formData.hasCompanion}
-                onChange={(e) =>
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    hasCompanion: e.target.value,
-                  }))
-                }
-              />
-            </div>
-
-            {formData.hasCompanion === "no" && (
-              <div className="col-span-12">
-                <CompanionFields />
-              </div>
-            )}
+            <LegalResponsibility />
           </>
         )}
       </div>
