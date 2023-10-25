@@ -81,7 +81,7 @@ function convertirDatosParaCalendar(datos) {
 function SeleccionarHorarioMedico(props) {
   const { doctor } = props;
   //console.log(doctor)
-
+  const [isLoading, setIsLoading] = useState(true);
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(false);
   const [backData, setBackData] = useState([]);
   const [events, setEvents] = useState([]);
@@ -104,50 +104,49 @@ function SeleccionarHorarioMedico(props) {
     // Aquí puedes realizar el envío al servidor con los datos del calendario
     // Por ejemplo, puedes enviar el estado 'events' al servidor
     // Luego, puedes reiniciar el estado del calendario
-    // const eventosTransformados = events.map((evento) => {
-    //   return {
-    //     pn_id_medico: `${doctor.idPersona}`,
-    //     pt_hora_inicio: evento.start.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-    //     pt_hora_fin: evento.end.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-    //     pd_fecha: evento.start.toISOString().split("T")[0],
-    //   };
-    // });
+    const eventosTransformados = events.map((evento) => {
+      return {
+        pn_id_medico: `${doctor[0].idPersona}`,
+        pt_hora_inicio: evento.start.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false }),
+        pt_hora_fin: evento.end.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: false }),
+        pd_fecha: evento.start.toISOString().split("T")[0],
+      };
+    });
+    console.log(eventosTransformados);
+    const url = "http://localhost:8080/rrhh/post/registrarHorarioMedico";
 
-    // const url = "http://localhost:8080/rrhh/post/registrarHorarioMedico";
+    const registrarEvento = async (evento) => {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(evento),
+      };
 
-    // const registrarEvento = async (evento) => {
-    //   const requestOptions = {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(evento),
-    //   };
+      try {
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+          // La solicitud se completó con éxito, puedes manejar la respuesta aquí
+          console.log("Solicitud exitosa");
+        } else {
+          // La solicitud no se completó con éxito, puedes manejar el error aquí
+          console.error("Error en la solicitud:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+      }
+    };
 
-    //   try {
-    //     const response = await fetch(url, requestOptions);
-    //     if (response.ok) {
-    //       // La solicitud se completó con éxito, puedes manejar la respuesta aquí
-    //       console.log("Solicitud exitosa");
-    //     } else {
-    //       // La solicitud no se completó con éxito, puedes manejar el error aquí
-    //       console.error("Error en la solicitud:", response.statusText);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error en la solicitud:", error);
-    //   }
-    // };
+    const registrarEventos = async () => {
+      for (const evento of eventosTransformados) {
+        await registrarEvento(evento);
+      }
+    };
 
-    // const registrarEventos = async () => {
-    //   for (const evento of eventosTransformados) {
-    //     await registrarEvento(evento);
-    //   }
-    // };
-
-    // // Llama a la función para registrar los eventos
-    // registrarEventos();
+    // Llama a la función para registrar los eventos
+    registrarEventos();
     setIsCalendarEnabled(false);
-
 
   };
   ///
@@ -191,9 +190,11 @@ function SeleccionarHorarioMedico(props) {
       }
       //console.log(eventosTotales);
       setEvents(eventosTotales);
+      setIsLoading(false);
     };
 
     obtenerEventos();
+    
   }, []);
 
   const isEventOverlapping = (newEvent) => {
@@ -259,45 +260,51 @@ function SeleccionarHorarioMedico(props) {
   // };
 
   return (
-    <div style={{ height: "auto" }}>
-      <Stack direction="row" spacing={10} justifyContent="center" style={{ margin: "2rem 0" }}>
-        <Button variant="contained" color="secondary" onClick={handleIngresarDisponibilidad}>
-          Ingresar Disponibilidad
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleGuardar} disabled={!isCalendarEnabled}>
-          Guardar
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleCancelarIngresoDisponibilidad}
-          disabled={!isCalendarEnabled}
-          color="error"
-        >
-          Cancelar
-        </Button>
-      </Stack>
+    <div>
+      {isLoading ? (
+        <p>Cargando...</p>
+      ) : (
+        <div style={{ height: "auto" }}>
+          <Stack direction="row" spacing={10} justifyContent="center" style={{ margin: "2rem 0" }}>
+            <Button variant="contained" color="secondary" onClick={handleIngresarDisponibilidad} disabled={isCalendarEnabled}>
+              Ingresar Disponibilidad
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleGuardar} disabled={!isCalendarEnabled}>
+              Guardar
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleCancelarIngresoDisponibilidad}
+              disabled={!isCalendarEnabled}
+              color="error"
+            >
+              Cancelar
+            </Button>
+          </Stack>
 
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: calendarHeight }}
-        views={{
-          month: true,
-          week: true,
-        }}
-        formats={{
-          dayFormat: "dddd", // Configura los días de la semana en español
-        }}
-        onSelectSlot={handleSelectSlot}
-        onDoubleClickEvent={isCalendarEnabled && handleDoubleClickEvent} // Manejador para doble clic en eventos
-        selectable={view === "week" && isCalendarEnabled} // Habilita la selección solo en la vista "Week"
-        onView={handleView} // Actualiza el estado de la vista
-      />
-      {/* <Button variant="contained" onClick={handleSaveAvailability}>
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: calendarHeight }}
+            views={{
+              month: true,
+              week: true,
+            }}
+            formats={{
+              dayFormat: "dddd", // Configura los días de la semana en español
+            }}
+            onSelectSlot={handleSelectSlot}
+            onDoubleClickEvent={isCalendarEnabled && handleDoubleClickEvent} // Manejador para doble clic en eventos
+            selectable={view === "week" && isCalendarEnabled} // Habilita la selección solo en la vista "Week"
+            onView={handleView} // Actualiza el estado de la vista
+          />
+          {/* <Button variant="contained" onClick={handleSaveAvailability}>
         Guardar Disponibilidad
       </Button> */}
+        </div>
+      )}
     </div>
   );
 }
