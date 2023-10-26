@@ -10,10 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Blob;
-import java.time.LocalDate;
-import java.util.List;
-
 @RestController
 @RequestMapping("/laboratorio")
 @CrossOrigin
@@ -56,19 +52,19 @@ public class ExamenMedicoController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/listarExamenesMedico")
+            value = "/post/buscarExamenMedico")
     @ResponseBody
-    public List<ExamenMedico> listarExamenesMedicosporID(@RequestBody String pv_datos){
-        List<ExamenMedico> lexamenes = null;
+    public ExamenMedico buscarExamenMedico(@RequestBody String pv_datos){
+        ExamenMedico examenMedico = null;
         try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
             String pv_filtro = job.get("pv_filtro").toString();
-            lexamenes = examenmedicoService.listarExamenMedico(pv_filtro);
+            examenMedico = examenmedicoService.buscarExamenMedico(pv_filtro);
         } catch (Exception ex) {
             // Manejo de excepciones aquí
             ex.printStackTrace();
         }
 
-        return lexamenes;
+        return examenMedico;
     }
 }

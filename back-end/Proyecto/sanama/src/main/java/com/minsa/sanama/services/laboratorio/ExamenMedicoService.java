@@ -24,9 +24,9 @@ public class ExamenMedicoService {
         return idExamenMedico;
     }
 
-    public List<ExamenMedico> listarExamenMedico(String pv_filtro) {
+    public ExamenMedico buscarExamenMedico(String pv_filtro) {
         List<ExamenMedico> lexamenes;
-        lexamenes = examenMedicoRepository.listarExamenMedicoID(pv_filtro);
-        return lexamenes;
+        lexamenes = examenMedicoRepository.buscarExamenMedicoID(pv_filtro);
+        return lexamenes.get(0);
     }
 }
