@@ -1,45 +1,42 @@
-import { useEffect, useState } from "react"
-import { Grid, Typography, Button, Paper, TextField } from "@mui/material"
-import MainLayout from "@/components/layout/MainLayout"
-import PatientTable from "@/components/Patients/PatientTable"
-import SearchIcon from "@mui/icons-material/Search"
-import { patientService } from "@/services/patientService"
-import { setLoading, setPatients } from "@/redux/features/patient/patientSlice"
-import { useDispatch } from "react-redux"
+import { useEffect, useState } from "react";
+import { Grid, Typography, Button, Paper, TextField } from "@mui/material";
+import MainLayout from "@/components/layout/MainLayout";
+import PatientTable from "@/components/Patients/PatientTable";
+import SearchIcon from "@mui/icons-material/Search";
+import { patientService } from "@/services/patientService";
 
 const PatientManagement = () => {
-  const [filtro, setFiltro] = useState("")
-  const dispatch = useDispatch()
+  const [filtro, setFiltro] = useState("");
+  const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     try {
-      const data = await patientService.listar({})
-      dispatch(setPatients(data))
-      dispatch(setLoading(false))
-      return data
+      const data = await patientService.listar({});
+      setPatients(data);
+      setLoading(false);
+      return data;
     } catch (err) {
-      console.error(err)
-      throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.")
+      console.error(err);
+      throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.");
     }
-  }
+  };
 
   const handleSearch = async () => {
-
+    setLoading(true);
     try {
-      dispatch(setLoading(true))
-      const data = await patientService.buscarPorFiltro(filtro)
-      dispatch(setPatients(data))
+      const data = await patientService.buscarPorFiltro(filtro);
+      setPatients(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      dispatch(setLoading(false))
+      setLoading(false);
     }
-  }
-
-
+  };
 
   return (
     <MainLayout>
@@ -65,7 +62,7 @@ const PatientManagement = () => {
               variant="outlined"
               value={filtro}
               onChange={(event) => {
-                setFiltro(event.target.value)
+                setFiltro(event.target.value);
               }}
             />
           </Grid>
@@ -102,7 +99,6 @@ const PatientManagement = () => {
                       margin: 0,
                       marginRight: "4px",
                     },
-
                   }}
                   startIcon={<SearchIcon />}
                   onClick={handleSearch}
@@ -116,7 +112,7 @@ const PatientManagement = () => {
       </Paper>
       <PatientTable className="tablaPacientes" filtro={filtro} />
     </MainLayout>
-  )
-}
+  );
+};
 
-export default PatientManagement
+export default PatientManagement;
