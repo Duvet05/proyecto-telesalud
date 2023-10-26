@@ -1,0 +1,1046 @@
+{
+	"info": {
+		"_postman_id": "5f5f5e8a-a8a5-4332-8178-2c8ca1e93f04",
+		"name": "SANAMA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29931628"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "RegistrarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 1,\r\n        \"nombres\": \"Carlos Andrés\",\r\n        \"apellidoPaterno\": \"De la Valle\",\r\n        \"apellidoMaterno\": \"Orbegoso\",\r\n        \"dni\": \"39482739\",\r\n        \"fechaNacimiento\": \"1990-09-29\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"937581946\",\r\n        \"foto\": null,\r\n        \"estado\": 1,\r\n        \"codigoSeguro\": \"SEG39482739\",\r\n        \"tipoSeguro\": \"Pacífico\",\r\n        \"tieneAcompanhante\": true,\r\n        \"nombreAcompnhante\": \"Maria\",\r\n        \"dniAcompanhante\": \"302948538\",\r\n        \"parentezco\": \"Mamá\",\r\n        \"correo\": \"javier.mendez@gmail.com\",\r\n        \"direccion\": \"Av. Vulcano 115, Ate Vitarte\",\r\n        \"historialClinico\": null,\r\n        \"programacionesCitas\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/paciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarPacientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/get/paciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"get",
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ObtenerPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Retorna solo 1 paciente\r\n//Filtros: DNI, NOMBRE(no apellidos)\r\n{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/obtenerPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"obtenerPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPacientesFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros: NOMBRES Y APELLIDOS, DNI, CODIGOSEGURO, IDPACIENTE\r\n{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPacientesFiltroPrueba",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros: NOMBRES Y APELLIDOS, DNI, CODIGOSEGURO, IDPACIENTE\r\n{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarPacientePrueba",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarPacientePrueba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 23,\r\n        \"nombres\": \"Javier\",\r\n        \"apellidoPaterno\": \"Mendes\",\r\n        \"apellidoMaterno\": \"Molinas\",\r\n        \"dni\": \"74032409\",\r\n        \"fechaNacimiento\": \"1990-09-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"937581946\",\r\n        \"estado\": 1,\r\n        \"codigoSeguro\": \"SEG74032409\",\r\n        \"tipoSeguro\": \"Pacífico\",\r\n        \"correo\": \"javier.mendez@gmail.com\",\r\n        \"direccion\": \"Av. Vulcano 115, Ate Vitarte\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/actualizarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"actualizarPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPaciente",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 101,\r\n        \"nombres\": \"\",\r\n        \"apellidoPaterno\": \"\",\r\n        \"apellidoMaterno\": \"\",\r\n        \"dni\": \"2\",\r\n        \"fechaNacimiento\": \"1990-09-29\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"937581949\",\r\n        \"estado\": 1,\r\n        \"codigoSeguro\": \"2\",\r\n        \"tipoSeguro\": \"Pacífico\",\r\n        \"correo\": \"javier@gmail.com\",\r\n        \"direccion\": \"Av. Vulcano 115, Ate Vitarte\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/delete/eliminarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"delete",
+								"eliminarPaciente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medico",
+			"item": [
+				{
+					"name": "buscarMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros OPCIONALES: CMP, DNI, NOMBRES Y APELLIDOS, IDMEDICO\r\n{    \r\n  \"pv_filtro\":\"Fernanda\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/buscarMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"buscarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sabila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/post/registrarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"registrarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarMedico",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sábila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/put/actualizarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"put",
+								"actualizarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarMedicos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/get/medico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"medico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarMedicosNombreEspecialidad",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtro OPCIONAL pv_medico: NOMBRES Y APELLIDOS\r\n//Filtro OPCIONAL pv_especialidad: NOMBRE ESPECIALIDAD\r\n{\r\n\t\"pv_medico\" : \"\",\r\n\t\"pv_especialidad\" : \"\" \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/medicoNombre",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"medicoNombre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTurnosDisponiblesPorMedicoFecha",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtro OBLIGATORIO pn_id_medico: ID DEL MEDICO A REVISAR\r\n//Filtro OBLIGATORIO pd_fecha: FECHA DESEADA PARA REVISAR\r\n{\r\n    \"pn_id_medico\": \"2\",\r\n    \"pd_fecha\": \"2023-10-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/horarios_por_medico_y_fecha",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"horarios_por_medico_y_fecha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarDiasDisponiblesPorMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Devuelve un arreglo de fechas tipo date en las que el medico tiene espacio disponible para citas\r\n//Filtro OBLIGATORIO pn_id_medico: ID DEL MEDICO A REVISAR\r\n{\r\n    \"pn_id_medico\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/dias_disponibles_por_medico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"dias_disponibles_por_medico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarMedico",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//tampoco funciona, pero si da el mensaje como si lo hubiera hecho :/\r\n{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sábila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/delete/eliminarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"delete",
+								"eliminarMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Citas",
+			"item": [
+				{
+					"name": "ListarCitas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admision/get/cita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"get",
+								"cita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasPorPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_paciente\":\"23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasPorFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_especialidad\": null,\r\n    \"pv_filtro\":\"Pablo Varas\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarCitaMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id_cita\": 1,\r\n  \"paciente\": {\r\n    \"idPersona\": 35\r\n  },\r\n  \"medico\": {\r\n    \"idPersona\": 2\r\n  },\r\n  \"codigoCitaMedica\": \"CM-123\",\r\n  \"tipoCita\": \"MEDICA\",\r\n  \"horaCita\": \"09:40\",\r\n  \"fechaCita\": \"2023-10-23\",\r\n  \"requiereTriaje\": 0,\r\n  \"estado\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/registrarCitaMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"registrarCitaMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasPorMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_medico\":\"2\",\r\n    \"pn_estado\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enfermera",
+			"item": [
+				{
+					"name": "ListarEnfermeras",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/get/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarEnfermera",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonás\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/put/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"put",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarEnfermera",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonás\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/patch/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"patch",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarEnfermera",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//por alguna razon no funciona xd, osea si aparece que funciono pero no termina eliminandolo\r\n{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonas\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/delete/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"delete",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Especialidad",
+			"item": [
+				{
+					"name": "ListarEspecialidades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rrhh/get/especialidad",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"especialidad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarEspecialidadesNombre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"Ca\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/especialidadNombre",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"especialidadNombre"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HorarioAtencion",
+			"item": [
+				{
+					"name": "registrarHorarioMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//call ssm_rrhh_registrar_turno_atencion(@nTurnos, 1, '8:00', '16:00', '2022-10-29');\r\n{\r\n    \"pn_id_medico\": \"2\",\r\n    \"pt_hora_inicio\": \"18:00\",\r\n    \"pt_hora_fin\": \"20:00\",\r\n    \"pd_fecha\": \"2023-10-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/registrarHorarioMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"registrarHorarioMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OrdenLaboratorio",
+			"item": [
+				{
+					"name": "ListarOrdenLaboratorioFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"74032409\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\": null\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/listarOrdenLaboratorioFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"listarOrdenLaboratorioFiltro"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Triaje",
+			"item": [
+				{
+					"name": "ListarTriajePorFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarTriajePorFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarTriajePorFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTriaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarTriaje",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarTriaje"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarTriaje",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_triaje\": 2,\r\n    \"pn_peso\": 80,\r\n    \"pn_talla\": 176,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Dolor de cabeza\",\r\n    \"pn_presion_arterial\": 120,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Media\",\r\n    \"pn_saturacionOxigeno\": \"98\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pv_nivelConciencia\": \"Consciente\",\r\n    \"pv_nivelDolor\": \"Leve\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/actualizarTriaje",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"actualizarTriaje"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LookUpValue",
+			"item": [
+				{
+					"name": "ListarParentezcos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarParentezcos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarParentezcos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarSeguros",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarSeguros",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarSeguros"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExamenMedico",
+			"item": [
+				{
+					"name": "listarExamenesMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/listarExamenesMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"listarExamenesMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
