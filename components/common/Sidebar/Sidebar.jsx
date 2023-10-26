@@ -6,8 +6,9 @@ import {
   Grid,
   Typography,
   IconButton,
+  Box,
 } from "@mui/material";
-import Image from "next/image"; // Importamos Image de Next.js para manejar imágenes
+import Image from "next/image";
 import routesSideBar from "./routesSideBar";
 import SidebarItem from "./SidebarItem";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -22,18 +23,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        transition: (theme) =>
-          theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
         "& .MuiDrawer-paper": {
           width: drawerWidth,
-          transition: (theme) =>
-            theme.transitions.create("width", {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
+          boxSizing: "border-box",
+          transition: "width 225ms cubic-bezier(0.4, 0, 0.2, 1)",
         },
       }}
     >
@@ -56,7 +49,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 alt="Sanama Logo"
                 width={40}
                 height={40}
-              />{" "}
+              />
             </Grid>
 
             {isSidebarOpen && (
@@ -71,21 +64,23 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               container
               justifyContent={isSidebarOpen ? "flex-end" : "center"}
             >
-              <IconButton onClick={toggleSidebar}>
+              <IconButton onClick={toggleSidebar} sx={{ borderRadius: "50%" }}>
                 <MenuIcon />
               </IconButton>
             </Grid>
           </Grid>
         </Toolbar>
-        {routesSideBar.map((route, index) =>
-          route.sidebarProps ? (
-            <SidebarItem
-              key={index}
-              item={route}
-              isSidebarOpen={isSidebarOpen}
-            />
-          ) : null
-        )}
+        <Box sx={{ overflow: "auto", height: "calc(100vh - 64px)" }}>
+          {routesSideBar.map((route, index) =>
+            route.sidebarProps ? (
+              <SidebarItem
+                key={index}
+                item={route}
+                isSidebarOpen={isSidebarOpen}
+              />
+            ) : null
+          )}
+        </Box>
       </List>
     </Drawer>
   );

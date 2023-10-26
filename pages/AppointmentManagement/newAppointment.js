@@ -12,7 +12,6 @@ import PatientInfoAppointment from "@/components/appointments/PatientInfoAppoint
 import SelectMedic from "@/components/appointments/SelectMedic";
 import TriajeONo from "@/components/appointments/TriageRequest";
 import AppointmentInfo from "@/components/appointments/AppointmentInfo";
-import NavigationButtons from "@/components/common/NavigationButtons";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
