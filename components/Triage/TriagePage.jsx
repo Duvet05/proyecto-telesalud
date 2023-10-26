@@ -13,7 +13,7 @@ function TriagePage() {
   const [painScale, setPainScale] = useState(5);
 
   const handleSubmit = () => {
-    // Aquí puedes manejar el envío de datos, por ejemplo, a tu backend una vez que lo tengas
+
     console.log({
       symptoms,
       duration,

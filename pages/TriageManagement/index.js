@@ -20,56 +20,36 @@ const TriageManagement = () => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
 
-  // useEffect(async() => {
-  //   await llenarInicio();
-  // }, []);
+  const fetchTriageOrders = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/admision/post/listarTriajePorFiltro",
+        {
+          "pv_filtro": patientName, // nombre del paciente en la solicitud
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  // async function llenarInicio() {
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:8080/admision/post/listarTriajePorFiltro",
-  //       {
-  //         "pv_filtro": patientName, // nombre del paciente en la solicitud
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
+      console.log(response.data);
+      setOrders(response.data); // lista de triajes
+    } catch (error) {
+      console.error("Error al buscar triajes:", error);
+      setError("Error al buscar triajes.");
+    }
+  };
 
-  //     console.log(response.data);
-  //     setOrders(response.data); // lista de triajes
-  //   } catch (error) {
-  //     console.error("Error al buscar triajes:", error);
-  //     setError("Error al buscar triajes.");
-  //   }
-
-  // }
+  useEffect(() => {
+    fetchTriageOrders(); // Cargamos la lista de triajes cuando se monta el componente
+  }, []);
 
   const handleSearchClick = async () => {
     if (patientName.trim() !== "") {
       setError(null);
-
-      try {
-        const response = await axios.post(
-          "http://localhost:8080/admision/post/listarTriajePorFiltro",
-          {
-            "pv_filtro": patientName, // nombre del paciente en la solicitud
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        console.log(response.data);
-        setOrders(response.data); // lista de triajes
-      } catch (error) {
-        console.error("Error al buscar triajes:", error);
-        setError("Error al buscar triajes.");
-      }
+      fetchTriageOrders();
     }
   };
 
@@ -126,7 +106,7 @@ const TriageManagement = () => {
                   marginLeft: "0.5em",
                 }}
                 startIcon={<SearchIcon />}
-                onClick={(handleSearchClick)}
+                onClick={handleSearchClick}
               >
                 Buscar
               </MUIButton>
@@ -138,23 +118,6 @@ const TriageManagement = () => {
               md={6}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <Link href="./NewTriagePage">
-                <MUIButton
-                  variant="contained"
-                  sx={{
-                    width: "150px",
-                    backgroundColor: "#2196f3",
-                    color: "white",
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: "#b3b3b3",
-                    },
-                  }}
-                  startIcon={<EditIcon />}
-                >
-                  <Link href="/newTriage">Editar</Link>
-                </MUIButton>
-              </Link>
             </Grid>
           </Grid>
         </Paper>

@@ -7,9 +7,35 @@ import {
   TableRow,
   TableCell,
   Paper,
+  Button,
   TableSortLabel,
 } from "@mui/material";
 import Link from "next/link";
+
+function getEstadoTexto(estado) {
+  let estadoTexto = "";
+
+  switch (estado) {
+      case 1:
+          estadoTexto = "Atendida";
+          break;
+      case 2:
+          estadoTexto = "En Consultorio";
+          break;
+      case 3:
+          estadoTexto = "Cancelada";
+          break;
+      case 4:
+          estadoTexto = "Pendiente";
+          break;
+      default:
+          estadoTexto = "Desconocido";
+  }
+
+  return estadoTexto;
+}
+
+
 const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
   return (
     <TableContainer component={Paper}>
@@ -31,9 +57,9 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
               sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
               <TableSortLabel
-                active={orderBy === "dni"}
+                active={orderBy === "nombreCompleto"}
                 direction={order}
-                onClick={() => handleSortRequest("dni")}
+                onClick={() => handleSortRequest("nombreCompleto")}
               >
                 Nombre completo
               </TableSortLabel>
@@ -58,22 +84,25 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
             >
               Opción
             </TableCell>
-
           </TableRow>
         </TableHead>
         <TableBody>
           {orders.map((order) => (
-            <TableRow key={order.id}>
+            <TableRow key={order.idTriaje}>
               <TableCell>{order.fechaTriaje}</TableCell>
               <TableCell>{order.paciente.apellidoPaterno + " " + order.paciente.apellidoMaterno + ", " + order.paciente.nombres}</TableCell>
-              <TableCell>{order.dni}</TableCell>
-              <TableCell>{order.estado}</TableCell>
-              <TableCell>{order.urgencia}</TableCell>
+              <TableCell>{order.paciente.dni}</TableCell>  
+              <TableCell>{getEstadoTexto(order.estado)}</TableCell>       
+              <TableCell>{order.prioridad}</TableCell>    
               <TableCell>
                 <Link href={`/TriageManagement/${order.idTriaje}`} passHref>
-                  <button>
-                    Actualizar
-                  </button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Actualizar
+                </Button>
                 </Link>
               </TableCell>
             </TableRow>
