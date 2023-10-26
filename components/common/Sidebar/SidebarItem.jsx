@@ -1,41 +1,49 @@
 import React from "react";
-import { ListItemButton, ListItemIcon } from "@mui/material";
-import { useSelector } from "react-redux";
-import Link from "next/link"; // Importa Link de next/link
+import { useRouter } from "next/router";
+import { ListItemButton, ListItemIcon, styled } from "@mui/material";
+import Link from "next/link";
+
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+  "&.list-item-button": {
+    borderRadius: "8px",
+    margin: theme.spacing(1, 0),
+    "&:hover": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    "&.list-item-button-active": {
+      backgroundColor: theme.palette.action.selected,
+      "& .list-item-icon": {
+        color: theme.palette.primary.main,
+      },
+    },
+  },
+  "& .list-item-icon": {
+    color: theme.palette.action.active,
+  },
+}));
 
 const SidebarItem = ({ item, isSidebarOpen }) => {
-  const { appState } = useSelector((state) => state.appState);
+  const router = useRouter();
+  const currentPage = router.pathname;
+  const isActive = currentPage === item.path;
 
-  return item.sidebarProps && item.path ? (
-    isSidebarOpen ? (
-      <Link href={item.path}>
-        {" "}
-        <ListItemButton
-          className={`list-item-button ${
-            appState === item.state ? "list-item-button-active" : ""
-          }`}
-        >
-          <ListItemIcon className="list-item-icon">
-            {item.sidebarProps.icon && item.sidebarProps.icon}
-          </ListItemIcon>
-          {item.sidebarProps.displayText}
-        </ListItemButton>
-      </Link>
-    ) : (
-      <Link href={item.path}>
-        {" "}
-        <ListItemButton
-          className={`list-item-button ${
-            appState === item.state ? "list-item-button-active" : ""
-          }`}
-        >
-          <ListItemIcon className="list-item-icon">
-            {item.sidebarProps.icon && item.sidebarProps.icon}
-          </ListItemIcon>
-        </ListItemButton>
-      </Link>
-    )
-  ) : null;
+  if (!item.sidebarProps || !item.path) return null;
+
+  return (
+    <Link href={item.path} passHref>
+      <StyledListItemButton
+        className={`list-item-button ${
+          isActive ? "list-item-button-active" : ""
+        }`}
+        aria-label={item.sidebarProps.displayText}
+      >
+        <ListItemIcon className="list-item-icon">
+          {item.sidebarProps.icon}
+        </ListItemIcon>
+        {isSidebarOpen && item.sidebarProps.displayText}
+      </StyledListItemButton>
+    </Link>
+  );
 };
 
 export default SidebarItem;
