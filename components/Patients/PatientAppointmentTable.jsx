@@ -1,7 +1,7 @@
 import {
   Button,
-  Table,
   Paper,
+  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -16,7 +16,7 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
     <>
       {!cargando && (
         <TableContainer component={Paper}>
-          <Table aria-label="simple table">
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell
