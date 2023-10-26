@@ -1,14 +1,10 @@
 package com.minsa.sanama.repository.admision;
 
 import com.minsa.sanama.model.admision.Triaje;
-import com.minsa.sanama.model.atencionmedica.CitaMedica;
 import com.minsa.sanama.model.admision.Paciente;
-import com.minsa.sanama.model.rrhh.Medico;
-import com.minsa.sanama.model.rrhh.Especialidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
