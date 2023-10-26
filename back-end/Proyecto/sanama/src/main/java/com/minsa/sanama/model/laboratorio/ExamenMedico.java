@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExamenMedico {
-    private int idExamen;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idExamen=0;
     private String nombre;
     private String tipo;
     private byte[] archivo;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
     private OrdenLaboratorio ordenLaboratorio;
 
     private String observaciones;

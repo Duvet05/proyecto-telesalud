@@ -77,7 +77,6 @@ public class ExamenMedicoRepository {
             examen.setTipo(rs.getString("tipo_examen"));
             examen.setObservaciones(rs.getString("observaciones"));
             examen.setArchivo(rs.getBytes("archivo"));
-            examen.setEstado(rs.getInt("estado"));
 
             Paciente paciente = new Paciente();
             paciente.setDni(rs.getString("dni_paciente"));

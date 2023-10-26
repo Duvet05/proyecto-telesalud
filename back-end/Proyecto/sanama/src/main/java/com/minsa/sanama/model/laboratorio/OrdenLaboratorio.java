@@ -14,7 +14,8 @@ public class OrdenLaboratorio {
     private String instrucciones;
     private LocalTime horaOrden;
     private LocalDate fechaOrden;
-    private int estado;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int estado=0;
     private CitaMedica citaMedica;
     private ExamenMedico examenMedico;
 
