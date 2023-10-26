@@ -16,6 +16,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const drawerWidth = isSidebarOpen ? 300 : 60;
 
+  const handleToggleSidebar = () => {
+    toggleSidebar();
+  };
+
   return (
     <Drawer
       variant="persistent"
@@ -27,6 +31,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           width: drawerWidth,
           boxSizing: "border-box",
           transition: "width 225ms cubic-bezier(0.4, 0, 0.2, 1)",
+          overflowX: "hidden",
+          backgroundColor: "#3d5af1", // Establece el color de fondo
+          borderRadius: "0 10px 10px 0", // Establece los bordes redondeados
         },
       }}
     >
@@ -40,21 +47,34 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
           >
             <Grid
               item
-              xs={isSidebarOpen ? 2 : 12}
+              xs={isSidebarOpen ? 2 : 8}
               container
               justifyContent="center"
             >
-              <Image
-                src="/assets/images/medical-logo-png-878.png"
-                alt="Sanama Logo"
-                width={40}
-                height={40}
-              />
+              <Box
+                sx={{
+                  backgroundColor: "white", // Fondo blanco para el logo
+                  borderRadius: 3, // Bordes redondeados
+                  padding: 1, // Espaciado interior para que no toque los bordes
+                  display: "flex", // Asegurar que el contenido esté centrado
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  src="/assets/images/medical-logo-png-878.png"
+                  alt="Sanama Logo"
+                  width={30}
+                  height={30}
+                />
+              </Box>
             </Grid>
 
             {isSidebarOpen && (
               <Grid item xs={8}>
-                <Typography variant="h5">Sanama</Typography>
+                <Typography variant="h5" sx={{ color: "white" }}>
+                  Sanama
+                </Typography>
               </Grid>
             )}
 
@@ -64,21 +84,33 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               container
               justifyContent={isSidebarOpen ? "flex-end" : "center"}
             >
-              <IconButton onClick={toggleSidebar} sx={{ borderRadius: "50%" }}>
+              <IconButton
+                onClick={handleToggleSidebar}
+                sx={{ borderRadius: "50%" }}
+              >
                 <MenuIcon />
               </IconButton>
             </Grid>
           </Grid>
         </Toolbar>
-        <Box sx={{ overflow: "auto", height: "calc(100vh - 64px)" }}>
-          {routesSideBar.map((route, index) =>
-            route.sidebarProps ? (
-              <SidebarItem
-                key={index}
-                item={route}
-                isSidebarOpen={isSidebarOpen}
-              />
-            ) : null
+        <Box
+          sx={{
+            height: "100%",
+            overflowY: "auto",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            "&::-webkit-scrollbar": { display: "none" },
+          }}
+        >
+          {routesSideBar.map(
+            (route, index) =>
+              route.sidebarProps && (
+                <SidebarItem
+                  key={index}
+                  item={route}
+                  isSidebarOpen={isSidebarOpen}
+                />
+              )
           )}
         </Box>
       </List>

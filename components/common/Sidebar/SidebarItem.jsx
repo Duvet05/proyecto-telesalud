@@ -4,21 +4,22 @@ import { ListItemButton, ListItemIcon, styled } from "@mui/material";
 import Link from "next/link";
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
-  "&.list-item-button": {
-    borderRadius: "8px",
-    margin: theme.spacing(1, 0),
-    "&:hover": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    "&.list-item-button-active": {
-      backgroundColor: theme.palette.action.selected,
-      "& .list-item-icon": {
-        color: theme.palette.primary.main,
-      },
+  // ... tus otros estilos
+  "&.MuiListItemButton-root": {
+    color: "white", // Texto blanco
+  },
+  "&:hover": {
+    backgroundColor: "#3c50cb", // Color de fondo al pasar el cursor
+    ".MuiListItemIcon-root": {
+      color: "white", // Ícono blanco al pasar el cursor
     },
   },
-  "& .list-item-icon": {
-    color: theme.palette.action.active,
+  "&.Mui-selected, &.Mui-selected:hover": {
+    backgroundColor: "#3c50cb", // Mantén el color al seleccionar
+    color: "white", // Texto blanco al seleccionar
+    ".MuiListItemIcon-root": {
+      color: "white", // Ícono blanco al seleccionar
+    },
   },
 }));
 
