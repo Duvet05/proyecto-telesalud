@@ -60,31 +60,30 @@ public class CitaRepository {
         public CitaMedica mapRow(ResultSet rs, int rowNum) throws SQLException {
 
             CitaMedica citaMedica = new CitaMedica();
-
             citaMedica.setIdCita(rs.getInt("id_cita"));
-            Paciente paciente = new Paciente();
-            paciente.setIdPersona(rs.getInt("id_paciente"));
-            paciente.setNombres(rs.getString("nombres_paciente"));
-            paciente.setApellidoPaterno(rs.getString("apellido_paterno_paciente"));
-            paciente.setApellidoMaterno(rs.getString("apellido_materno_paciente"));
-            paciente.setDni(rs.getString("dni"));
-            citaMedica.setPaciente(paciente);
-            Medico medico = new Medico();
-            medico.setIdPersona(rs.getInt("id_medico"));
-            medico.setNombres(rs.getString("nombres_medico"));
-            medico.setApellidoPaterno(rs.getString("apellido_paterno_medico"));
-            medico.setApellidoMaterno(rs.getString("apellido_materno_medico"));
-            Especialidad especialidad = new Especialidad();
-            especialidad.setNombre(rs.getString("nombre_especialidad"));
-            medico.setEspecialidad(especialidad);
-            citaMedica.setMedico(medico);
-            HojaMedica hoja = new HojaMedica();
-            hoja.setIdHojaClinica(rs.getInt("id_hoja_medica"));
-            citaMedica.setHojaMedica(hoja);
+            citaMedica.setCodigoCita(rs.getString("codigo_cita_medica"));
             citaMedica.setFechaCita(rs.getDate("fecha_cita").toLocalDate());
             citaMedica.setHoraCita(rs.getTime("hora_cita").toLocalTime());
             citaMedica.setEstado(rs.getInt("estado"));
-            citaMedica.setCodigoCita(rs.getString("codigo_cita_medica"));
+
+            Paciente paciente = new Paciente();
+            paciente.setNombres(rs.getString("nombres_paciente"));
+            paciente.setApellidoPaterno(rs.getString("apellido_paterno_paciente"));
+            paciente.setApellidoMaterno(rs.getString("apellido_materno_paciente"));
+            paciente.setDni(rs.getString("dni_paciente"));
+
+            Medico medico = new Medico();
+            medico.setNombres(rs.getString("nombres_medico"));
+            medico.setApellidoPaterno(rs.getString("apellido_paterno_medico"));
+            medico.setApellidoMaterno(rs.getString("apellido_materno_medico"));
+
+            Especialidad especialidad = new Especialidad();
+            especialidad.setNombre(rs.getString("nombre_especialidad"));
+            medico.setEspecialidad(especialidad);
+
+            citaMedica.setMedico(medico);
+            citaMedica.setPaciente(paciente);
+
             return citaMedica;
         }
     }
