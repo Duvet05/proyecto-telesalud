@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Paper, Grid, Container } from "@mui/material";
+import {
+  Typography,
+  Paper,
+  Grid,
+  Container,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
 import {
@@ -7,7 +15,6 @@ import {
   useAppointments,
 } from "@/context/AppointmentsContext";
 
-// Componentes
 import PatientInfoAppointment from "@/components/appointments/PatientInfoAppointment";
 import SelectMedic from "@/components/appointments/SelectMedic";
 import TriajeONo from "@/components/appointments/TriageRequest";
@@ -19,37 +26,20 @@ const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
 
 const PAGES = [
-  {
-    component: <PatientInfoAppointment />,
-    title: "Información del paciente",
-  },
-  {
-    component: <CompanionInfo />,
-    title: "Responsable legal",
-  },
-  {
-    component: <SelectMedic />,
-    title: "Seleccionar médico",
-  },
-  {
-    component: <SelectDate />,
-    title: "Seleccionar fecha",
-  },
-  {
-    component: <TriajeONo />,
-    title: "Triage",
-  },
+  { component: <PatientInfoAppointment />, title: "Información del paciente" },
+  { component: <CompanionInfo />, title: "Responsable legal" },
+  { component: <SelectMedic />, title: "Seleccionar médico" },
+  { component: <SelectDate />, title: "Seleccionar fecha" },
+  { component: <TriajeONo />, title: "Triage" },
   { component: <AppointmentInfo />, title: "Información de la cita" },
 ];
 
-const newAppointment = () => {
+const NewAppointment = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
   const { appointmentData, setAppointmentData } = useAppointments();
 
-  const navigateToPage = (pageIndex) => {
-    setCurrentPage(pageIndex);
-  };
+  const navigateToPage = (pageIndex) => setCurrentPage(pageIndex);
 
   useEffect(() => {
     const confirmExit = (e) => {
@@ -59,10 +49,7 @@ const newAppointment = () => {
     };
 
     window.addEventListener("beforeunload", confirmExit);
-
-    return () => {
-      window.removeEventListener("beforeunload", confirmExit);
-    };
+    return () => window.removeEventListener("beforeunload", confirmExit);
   }, []);
 
   return (
@@ -70,26 +57,25 @@ const newAppointment = () => {
       <MainLayout>
         <Container
           maxWidth="lg"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            height: "85vh",
-            width: "190vh",
-          }}
+          sx={{ display: "flex", height: "85vh", width: "100%" }}
         >
           <Paper
-            style={{
-              width: "70%", // fijo pero escalable
+            elevation={3}
+            sx={{
+              width: "70%",
               padding: "30px",
               overflowY: "auto",
-              marginBottom: "10px",
-              marginRight: "2%", // Espacio entre Paper y nav
+              mb: "10px",
+              mr: "2%",
             }}
           >
-            <Typography variant="h4" style={{ marginBottom: "30px" }}>
+            <Typography
+              variant="h4"
+              sx={{ mb: "30px", fontWeight: "bold", color: "#333" }}
+            >
               {PAGES[currentPage].title}
             </Typography>
-            <Grid>
+            <Grid container>
               <Grid item xs={12}>
                 {React.cloneElement(PAGES[currentPage].component, {
                   updateAppointmentData: setAppointmentData,
@@ -100,20 +86,20 @@ const newAppointment = () => {
             </Grid>
           </Paper>
           <nav
-            style={{
-              width: "30%",
-              paddingTop: "20px",
-              paddingLeft: "20px",
-              fontSize: "20px",
+            sx={{
+              width: "10%",
+              pt: "20px",
+              pl: "20px",
+              fontSize: "1px",
               color: "#333",
             }}
           >
-            <ul>
+            <List>
               {PAGES.map((page, index) => (
-                <li
+                <ListItem
                   key={index}
-                  style={{
-                    padding: "10px 0",
+                  sx={{
+                    p: "10px 0",
                     cursor: "pointer",
                     borderLeft:
                       currentPage === index
@@ -123,18 +109,18 @@ const newAppointment = () => {
                   }}
                   onClick={() => navigateToPage(index)}
                 >
-                  <span
-                    style={{
-                      display: "block",
-                      paddingLeft: "20px",
-                      color: currentPage === index ? "#ffd700" : "#333",
+                  <ListItemText
+                    primary={page.title}
+                    primaryTypographyProps={{
+                      sx: {
+                        pl: "20px",
+                        color: currentPage === index ? "#ffd700" : "#333",
+                      },
                     }}
-                  >
-                    {page.title}
-                  </span>
-                </li>
+                  />
+                </ListItem>
               ))}
-            </ul>
+            </List>
           </nav>
         </Container>
         {isProcessCompleted && (
@@ -148,4 +134,4 @@ const newAppointment = () => {
   );
 };
 
-export default newAppointment;
+export default NewAppointment;
