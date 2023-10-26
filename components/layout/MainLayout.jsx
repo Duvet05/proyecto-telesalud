@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   };
 
-  const sidebarWidth = isSidebarOpen ? "300px" : "60px";
+  const sidebarWidth = isSidebarOpen ? "236px" : "56px";
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
