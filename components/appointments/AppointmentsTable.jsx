@@ -66,7 +66,7 @@ const AppointmentsTable = () => {
       case 4:
         return "Pendiente";
       default:
-        return "Desconocido"; // Puedes cambiar este valor predeterminado por lo que consideres adecuado.
+        return "Desconocido";
     }
   };
 
