@@ -1,5 +1,6 @@
 import {
   Button,
+  Table,
   Paper,
   TableBody,
   TableCell,
@@ -8,7 +9,6 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
-import { Table } from "react-bootstrap";
 import DescriptionIcon from "@mui/icons-material/Description";
 
 export default function PatientAppointmentTable({ appointmentList, cargando }) {
