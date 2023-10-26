@@ -10,8 +10,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import { laboratoryService } from "../services/laboratoryService"; // Asegúrate de que la ruta sea correcta
+import { laboratoryService } from "@/services/laboratoryService"; // Asegúrate de que la ruta sea correcta
 import LaboratoryOrderTable from "@/components/Laboratory/LaboratoryOrderTable";
 import MainLayout from "@/components/layout/MainLayout";
 

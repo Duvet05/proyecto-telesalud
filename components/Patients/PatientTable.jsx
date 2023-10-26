@@ -1,84 +1,65 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { CircularProgress, Button } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { CircularProgress, Button, TableCell, TableRow } from "@mui/material";
 import Link from "next/link";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { patientService } from "@/services/patientService";
-import { setPatients, setLoading } from "@/redux/features/patient/patientSlice";
 import BaseTable from "../common/BaseTable";
-import { TableRow, TableCell } from "@mui/material";
 
-export const PatientTable = ({ filtro }) => {
-  const dispatch = useDispatch();
-  const { loading, patients } = useSelector((state) => state.patient);
+// Function to fetch patients
+const fetchPatients = async (filtro) => {
+  try {
+    const data = await patientService.buscarPorFiltro(filtro);
+    data.forEach((element) => {
+      element["id"] = element.idPersona;
+    });
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.");
+  }
+};
 
-  const fetchData = async () => {
-    try {
-      const data = await patientService.buscarPorFiltro(filtro);
-      data.forEach((element) => {
-        element["id"] = element.idPersona;
-      });
-      dispatch(setLoading(false));
-      return data;
-    } catch (err) {
-      console.error(err);
-      throw new Error("Hubo un error al cargar los datos. Inténtelo de nuevo.");
-    }
-  };
+const PatientRowComponent = ({ data }) => (
+  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+    <TableCell>{`${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno}`}</TableCell>
+    <TableCell>{data.dni}</TableCell>
+    <TableCell>{data.fechaNacimiento}</TableCell>
+    <TableCell>
+      <Link href={`/PatientManagement/${data.idPersona}`} passHref>
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: "#2196f3",
+            color: "white",
+            textTransform: "none",
+            "&:hover": { backgroundColor: "#b3b3b3" },
+          }}
+          startIcon={<VisibilityIcon />}
+        >
+          Ver Perfil
+        </Button>
+      </Link>
+    </TableCell>
+  </TableRow>
+);
 
+const PatientTable = ({ filtro }) => {
   const columns = [
-    { id: "name", label: "Nombre completo" },
-    { id: "dni", label: "DNI" },
-    { id: "birthdate", label: "Fecha de Nacimiento" },
-    { id: "actions", label: "Acciones" },
+    { id: "name", label: "Nombre completo", sortable: false },
+    { id: "dni", label: "DNI", sortable: true },
+    { id: "birthdate", label: "Fecha de Nacimiento", sortable: false },
+    { id: "actions", label: "Acciones", sortable: false },
   ];
 
   return (
     <>
-      {loading ? (
-        <div
-          style={{ display: "flex", justifyContent: "center", padding: "2em" }}
-        >
-          <CircularProgress />
-        </div>
-      ) : (
-        <BaseTable
-          fetchData={fetchData}
-          columns={columns}
-          RowComponent={PatientRow}
-        />
-      )}
+      <BaseTable
+        fetchData={() => fetchPatients(filtro)}
+        columns={columns}
+        RowComponent={PatientRowComponent}
+        extraProps={{ filtro }}
+      />
     </>
-  );
-};
-
-const PatientRow = ({ data }) => {
-  const {
-    idPersona,
-    nombres,
-    apellidoPaterno,
-    apellidoMaterno,
-    dni,
-    fechaNacimiento,
-  } = data;
-
-  return (
-    <TableRow key={idPersona}>
-      <TableCell>{`${nombres} ${apellidoPaterno} ${apellidoMaterno}`}</TableCell>
-      <TableCell>{dni}</TableCell>
-      <TableCell>{fechaNacimiento}</TableCell>
-      <TableCell>
-        <Link href={`/PatientManagement/${idPersona}`} passHref>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<VisibilityIcon />}
-          >
-            Ver Perfil
-          </Button>
-        </Link>
-      </TableCell>
-    </TableRow>
   );
 };
 
