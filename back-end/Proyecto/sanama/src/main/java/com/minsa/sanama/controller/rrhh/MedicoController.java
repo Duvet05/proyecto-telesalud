@@ -1,6 +1,5 @@
 package com.minsa.sanama.controller.rrhh;
 
-import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.model.rrhh.Medico;
 import com.minsa.sanama.model.rrhh.TurnoAtencion;
 import com.minsa.sanama.services.rrhh.MedicoService;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,15 +21,14 @@ public class MedicoController {
 
     @GetMapping(value = "/get/medico")
     @ResponseBody
-    public List<Medico> listarMedicos(){
+    public List<Medico> listarMedicos() {
         List<Medico> medicos;
         medicos = medicoService.listarMedicos();
         return medicos;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/medicoNombre")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/medicoNombre")
     @ResponseBody
     public List<Medico> listarMedicosPorEspecialidad(@RequestBody String pv_filtro) {
         List<Medico> medicos = null;
@@ -40,7 +36,8 @@ public class MedicoController {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String pv_medico = job.get("pv_medico").toString();
             String pv_especialidad = job.get("pv_especialidad").toString();
-            // Llama al servicio para listar médicos por especialidad usando pv_medico y pv_especialidad
+            // Llama al servicio para listar médicos por especialidad usando pv_medico y
+            // pv_especialidad
             medicos = medicoService.listarMedicosporEspecialidad(pv_medico, pv_especialidad);
         } catch (Exception ex) {
             // Manejo de excepciones aquí
@@ -48,11 +45,10 @@ public class MedicoController {
         return medicos;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/horarios_por_medico_y_fecha")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/horarios_por_medico_y_fecha")
     @ResponseBody
-    public List<TurnoAtencion> listarHorariosDisponibles(@RequestBody String pv_datos){
+    public List<TurnoAtencion> listarHorariosDisponibles(@RequestBody String pv_datos) {
         List<TurnoAtencion> horarios = null;
         try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
@@ -68,11 +64,10 @@ public class MedicoController {
         return horarios;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/dias_disponibles_por_medico")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/dias_disponibles_por_medico")
     @ResponseBody
-    public List<LocalDate> listarDiasDisponibles(@RequestBody String pv_datos){
+    public List<LocalDate> listarDiasDisponibles(@RequestBody String pv_datos) {
         List<LocalDate> dias = null;
         try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
@@ -87,21 +82,20 @@ public class MedicoController {
         return dias;
     }
 
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/buscarMedico")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/buscarMedico")
 
     @ResponseBody
-    public List<Medico> buscarMedicoFiltro(@RequestBody String pv_filtro){
+    public List<Medico> buscarMedicoFiltro(@RequestBody String pv_filtro) {
         List<Medico> medicos = null;
-        try{
+        try {
             System.out.println(pv_filtro);
             JSONObject job = (JSONObject) new JSONParser().parse(pv_filtro);
             String cadena = job.get("pv_filtro").toString();
             System.out.println(cadena);
             medicos = medicoService.buscarMedicoFiltro(cadena);
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
 
         }
         return medicos;
@@ -109,16 +103,17 @@ public class MedicoController {
 
     @PostMapping(value = "/post/registrarMedico")
     @ResponseBody
-    public int registrarMedicos(@RequestBody Medico medico){
+    public int registrarMedicos(@RequestBody Medico medico) {
         int idMedico;
 
         idMedico = medicoService.registrarMedico(medico);
         return idMedico;
     }
-    /*Cambios en el actualizar y en el eliminar Medico*/
+
+    /* Cambios en el actualizar y en el eliminar Medico */
     @PutMapping(value = "/put/actualizarMedico")
     @ResponseBody
-    public int actualizarMedico(@RequestBody Medico medico){
+    public int actualizarMedico(@RequestBody Medico medico) {
         int n;
         n = medicoService.actualizarMedico(medico);
         return n;
@@ -126,14 +121,10 @@ public class MedicoController {
 
     @DeleteMapping(value = "/delete/eliminarMedico")
     @ResponseBody
-    public int eliminarMedico (@RequestBody Medico medico){
+    public int eliminarMedico(@RequestBody Medico medico) {
         int n;
         n = medicoService.eliminarMedico(medico);
         return n;
     }
 
-
-
 }
-
-
