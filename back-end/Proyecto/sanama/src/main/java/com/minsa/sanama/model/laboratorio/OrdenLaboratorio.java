@@ -1,4 +1,4 @@
-package com.minsa.sanama.model.atencionmedica;
+package com.minsa.sanama.model.laboratorio;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.laboratorio.ExamenMedico;
