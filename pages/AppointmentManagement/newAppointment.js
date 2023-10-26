@@ -12,6 +12,8 @@ import PatientInfoAppointment from "@/components/appointments/PatientInfoAppoint
 import SelectMedic from "@/components/appointments/SelectMedic";
 import TriajeONo from "@/components/appointments/TriageRequest";
 import AppointmentInfo from "@/components/appointments/AppointmentInfo";
+import CompanionInfo from "@/components/appointments/CompanionInfo";
+import SelectDate from "@/components/appointments/SelectDate";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
@@ -22,8 +24,16 @@ const PAGES = [
     title: "Información del paciente",
   },
   {
+    component: <CompanionInfo />,
+    title: "Responsable legal",
+  },
+  {
     component: <SelectMedic />,
     title: "Seleccionar médico",
+  },
+  {
+    component: <SelectDate />,
+    title: "Seleccionar fecha",
   },
   {
     component: <TriajeONo />,

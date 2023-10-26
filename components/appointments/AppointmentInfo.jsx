@@ -153,7 +153,7 @@ function AppointmentInfo() {
         {error && <Typography color="error">{error}</Typography>}
         <Link href="/AppointmentManagement" passHref>
           <Button variant="contained" color="secondary" fullWidth>
-            Terminar
+            Volver
           </Button>
         </Link>
       </Paper>

@@ -19,7 +19,6 @@ import CompanionInfo from "./CompanionInfo";
 function PatientInfoAppointment() {
   const [state, setState] = useState({
     allPatients: [],
-    showFields: false,
     hasCompanion: "no",
     isEditing: false,
     error: null,
@@ -49,7 +48,7 @@ function PatientInfoAppointment() {
         ...prevData,
         selectedPatientData: value,
       }));
-      setState((prev) => ({ ...prev, showFields: true, isEditing: false }));
+      setState((prev) => ({ ...prev, isEditing: false }));
     },
     [setAppointmentData]
   );
@@ -104,43 +103,28 @@ function PatientInfoAppointment() {
           </Box>
         </Grid>
 
-        {state.showFields && (
-          <>
-            <Grid item xs={12}>
-              <Divider />
-            </Grid>
-            <Grid item xs={12}>
-              <PatientFieldsAppointment
-                isDisabled={!state.isEditing}
-                patientData={appointmentData.selectedPatientData}
-                onFormDataChange={(updatedFormData) => {
-                  if (state.isEditing) {
-                    setAppointmentData((prevData) => ({
-                      ...prevData,
-                      newPatientData: updatedFormData,
-                    }));
-                  } else {
-                    setAppointmentData((prevData) => ({
-                      ...prevData,
-                      selectedPatientData: updatedFormData,
-                    }));
-                  }
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <CompanionInfo
-                value={state.hasCompanion}
-                onChange={(e) =>
-                  setState((prev) => ({
-                    ...prev,
-                    hasCompanion: e.target.value,
-                  }))
-                }
-              />
-            </Grid>
-          </>
-        )}
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
+          <PatientFieldsAppointment
+            isDisabled={!state.isEditing}
+            patientData={appointmentData.selectedPatientData}
+            onFormDataChange={(updatedFormData) => {
+              if (state.isEditing) {
+                setAppointmentData((prevData) => ({
+                  ...prevData,
+                  newPatientData: updatedFormData,
+                }));
+              } else {
+                setAppointmentData((prevData) => ({
+                  ...prevData,
+                  selectedPatientData: updatedFormData,
+                }));
+              }
+            }}
+          />
+        </Grid>
       </Grid>
     </Box>
   );
