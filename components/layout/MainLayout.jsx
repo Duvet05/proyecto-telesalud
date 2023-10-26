@@ -11,21 +11,25 @@ const MainLayout = ({ children }) => {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   };
 
-  const sidebarWidth = isSidebarOpen ? "236px" : "56px";
+  const sidebarWidth = isSidebarOpen ? "255px" : "75px";
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>
       <Box
         component="nav"
         className="main-layout-nav"
-        style={{ flexShrink: 0, width: sidebarWidth }}
+        style={{
+          flexShrink: 0,
+          width: sidebarWidth,
+          backgroundColor: "#c8e9ec",
+        }}
       >
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </Box>
       <Box
         component="main"
         className="main-layout-content"
-        style={{ backgroundColor: "#F5F5F5", flex: 1 }}
+        style={{ backgroundColor: "#c8e9ec", flex: 1 }}
       >
         <DynamicBreadcrumbs /> {/* Aquí están tus breadcrumbs */}
         {children} {/* Aquí se renderizará el contenido de tu página */}

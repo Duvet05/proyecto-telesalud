@@ -1,20 +1,23 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { AppointmentsProvider } from "@/context/AppointmentsContext";
 
 const theme = createTheme({
   palette: {
     background: {
-      default: "#F5F5F5",
+      default: "#c8e9ec",
     },
   },
 });
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <AppointmentsProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </AppointmentsProvider>
   );
 }
 
