@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -6,24 +6,24 @@ import {
   Paper,
   TextField,
   MenuItem,
-  Button as MUIButton,
+  Button,
   InputAdornment,
-  Autocomplete,
-} from "@mui/material"
-import SearchIcon from "@mui/icons-material/Search"
-import PersonAddIcon from "@mui/icons-material/PersonAdd"
-import { medicService } from "../services/medicService" // Asegúrate de que la ruta sea correcta
-import DoctorTable from "@/components/Staff/DoctorTable"
-import MainLayout from "@/components/layout/MainLayout"
-import IconButton from '@mui/material/IconButton'
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { medicService } from "@/services/medicService";
+import DoctorTable from "@/components/Staff/DoctorTable";
+import MainLayout from "@/components/layout/MainLayout";
+import IconButton from "@mui/material/IconButton";
 
 const StaffManagement = () => {
-  const [doctorName, setDoctorName] = useState("")
-  const [doctors, setDoctors] = useState([])
-  const [selectedSpecialty, setSelectedSpecialty] = useState("todasLasEspecialidades")
-  const [specialties, setSpecialties] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [doctorName, setDoctorName] = useState("");
+  const [doctors, setDoctors] = useState([]);
+  const [selectedSpecialty, setSelectedSpecialty] = useState(
+    "todasLasEspecialidades"
+  );
+  const [specialties, setSpecialties] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Cargar la lista de especialidades una vez al inicio
@@ -31,10 +31,10 @@ const StaffManagement = () => {
       .listarEspecialidades()
       .then((data) => setSpecialties(data))
       .catch((error) => {
-        console.error("Error al obtener la lista de especialidades:", error)
-        setError("Error al obtener la lista de especialidades")
-      })
-  }, [])
+        console.error("Error al obtener la lista de especialidades:", error);
+        setError("Error al obtener la lista de especialidades");
+      });
+  }, []);
 
   const handleSearchClick = () => {
     // if (doctorName.trim() !== "") {
@@ -55,7 +55,7 @@ const StaffManagement = () => {
     //       setLoading(false);
     //     });
     // }
-  }
+  };
 
   return (
     <MainLayout>
@@ -66,7 +66,7 @@ const StaffManagement = () => {
             color: "#000",
             gap: "0.1mm",
             marginBottom: "5px",
-            marginTop: "-50px"
+            marginTop: "-50px",
           }}
         >
           Gestión de Médicos
@@ -81,33 +81,29 @@ const StaffManagement = () => {
                 variant="outlined"
                 label="Buscar por Nombre o DNI..."
                 fullWidth
-                sx={{ marginRight: '0' }} // Elimina cualquier margen a la derecha
+                sx={{ marginRight: "0" }} // Elimina cualquier margen a la derecha
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton
-                        edge="end"
-                        onClick={handleSearchClick}
-                      >
+                      <IconButton edge="end" onClick={handleSearchClick}>
                         <SearchIcon />
                       </IconButton>
                     </InputAdornment>
-                  )
+                  ),
                 }}
               ></TextField>
             </Grid>
 
-
             <Grid item xs={12} md={6}>
-              <TextField label="Especialidad"
+              <TextField
+                label="Especialidad"
                 fullWidth
                 select
                 variant="outlined"
                 value={selectedSpecialty}
                 onChange={(event) => setSelectedSpecialty(event.target.value)}
               >
-
-                <MenuItem value="todasLasEspecialidades">Todos</MenuItem> {/* Agrega la opción "TODOS" */}
+                <MenuItem value="todasLasEspecialidades">Todos</MenuItem>{" "}
                 {specialties.map((specialty) => (
                   <MenuItem
                     key={specialty.idEspecialidad}
@@ -117,25 +113,7 @@ const StaffManagement = () => {
                   </MenuItem>
                 ))}
               </TextField>
-
             </Grid>
-
-            {/* <Grid
-              item
-              xs={12}
-              md={2}
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              <MUIButton
-                variant="contained"
-                color="primary"
-                // startIcon={<PersonAddIcon />}
-                fullWidth
-                onClick={handleSearchClick}
-              >
-                Buscar
-              </MUIButton>
-            </Grid> */}
           </Grid>
         </Paper>
 
@@ -144,10 +122,13 @@ const StaffManagement = () => {
             {error}
           </Typography>
         )}
-        <DoctorTable doctorNameIngresado={doctorName} especialidad={selectedSpecialty} />
+        <DoctorTable
+          doctorNameIngresado={doctorName}
+          especialidad={selectedSpecialty}
+        />
       </Container>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default StaffManagement
+export default StaffManagement;
