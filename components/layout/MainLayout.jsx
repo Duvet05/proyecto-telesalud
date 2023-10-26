@@ -14,7 +14,9 @@ const MainLayout = ({ children }) => {
   const sidebarWidth = isSidebarOpen ? "255px" : "75px";
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box
+      sx={{ display: "flex", minHeight: "100vh", backgroundColor: "#c8e9ec" }}
+    >
       <Box
         component="nav"
         className="main-layout-nav"

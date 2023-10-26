@@ -62,11 +62,12 @@ const NewAppointment = () => {
           <Paper
             elevation={3}
             sx={{
-              width: "70%",
+              width: "140vh",
               padding: "30px",
               overflowY: "auto",
               mb: "10px",
               mr: "2%",
+              height: "75vh", // Establece un tamaño fijo
             }}
           >
             <Typography
