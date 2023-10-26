@@ -6,10 +6,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@mui/material"
-import React, { useEffect, useState } from "react"
-import { Table } from "react-bootstrap"
-import DescriptionIcon from '@mui/icons-material/Description'
+} from "@mui/material";
+import React from "react";
+import { Table } from "react-bootstrap";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 export default function PatientAppointmentTable({ appointmentList, cargando }) {
   return (
@@ -20,45 +20,45 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
             <TableHead>
               <TableRow>
                 <TableCell
-                  style={{ width: '30%' }}
+                  style={{ width: "30%" }}
                   sx={{
-                    fontSize: '1.1em',
-                    color: '#333',
-                    paddingBottom: '10px',
-                    paddingTop: '10px'
+                    fontSize: "1.1em",
+                    color: "#333",
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
                   }}
                 >
                   Nombre del Doctor
                 </TableCell>
                 <TableCell
-                  style={{ width: '20%' }}
+                  style={{ width: "20%" }}
                   sx={{
-                    fontSize: '1.1em',
-                    color: '#333',
-                    paddingBottom: '10px',
-                    paddingTop: '10px'
+                    fontSize: "1.1em",
+                    color: "#333",
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
                   }}
                 >
                   Especialidad
                 </TableCell>
                 <TableCell
-                  style={{ width: '20%' }}
+                  style={{ width: "20%" }}
                   sx={{
-                    fontSize: '1.1em',
-                    color: '#333',
-                    paddingBottom: '10px',
-                    paddingTop: '10px'
+                    fontSize: "1.1em",
+                    color: "#333",
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
                   }}
                 >
                   Fecha
                 </TableCell>
                 <TableCell
-                  style={{ width: '10%' }}
+                  style={{ width: "10%" }}
                   sx={{
-                    fontSize: '1.1em',
-                    color: '#333',
-                    paddingBottom: '10px',
-                    paddingTop: '10px'
+                    fontSize: "1.1em",
+                    color: "#333",
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
                   }}
                 >
                   Hora
@@ -92,21 +92,21 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
                         )
                       }
                       sx={{
-                        backgroundColor: '#2196f3',
-                        color: '#ffffff',  // Texto blanco
-                        fontSize: '1.0em',  // Tamaño del texto
-                        textTransform: 'none',  // Sin transformación de texto (mayúsculas)
-                        minWidth: '80px',  // Ancho mínimo
-                        width: 'auto',  // Ancho fijo
-                        '&:hover': {
-                          backgroundColor: '#b3b3b3',  // Color de fondo al pasar el cursor
+                        backgroundColor: "#2196f3",
+                        color: "#ffffff", // Texto blanco
+                        fontSize: "1.0em", // Tamaño del texto
+                        textTransform: "none", // Sin transformación de texto (mayúsculas)
+                        minWidth: "80px", // Ancho mínimo
+                        width: "auto", // Ancho fijo
+                        "&:hover": {
+                          backgroundColor: "#b3b3b3", // Color de fondo al pasar el cursor
                         },
-                        '& .MuiButton-startIcon': {
+                        "& .MuiButton-startIcon": {
                           margin: 0,
-                          marginRight: '4px',  // Margen derecho del ícono
-                        }
+                          marginRight: "4px", // Margen derecho del ícono
+                        },
                       }}
-                      startIcon={<DescriptionIcon />}  // Ícono de documento al inicio del botón
+                      startIcon={<DescriptionIcon />} // Ícono de documento al inicio del botón
                     >
                       Detalles
                     </Button>
@@ -118,5 +118,5 @@ export default function PatientAppointmentTable({ appointmentList, cargando }) {
         </TableContainer>
       )}
     </>
-  )
+  );
 }

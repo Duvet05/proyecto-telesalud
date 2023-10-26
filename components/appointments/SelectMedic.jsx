@@ -11,7 +11,7 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import SelectDate from "./SelectDate";
 import { medicService } from "../../services/medicService";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 function SelectMedic() {
   const { appointmentData, setAppointmentData } = useAppointments();

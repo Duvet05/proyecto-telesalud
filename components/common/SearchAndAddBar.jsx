@@ -14,7 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 const SearchAndAddBar = ({
   searchTerm,
   onSearchChange,
-  linkHref = "/Appointments",
+  linkHref = "AppointmentManagement/newAppointment",
 }) => (
   <Paper sx={{ my: 2, p: 2 }}>
     <Grid

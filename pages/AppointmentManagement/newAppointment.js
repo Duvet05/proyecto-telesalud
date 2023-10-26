@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Container } from "@mui/material";
-import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
-import SelectMedic from "../components/appointments/SelectMedic";
-import TriajeONo from "../components/appointments/TriageRequest";
-import AppointmentInfo from "./AppointmentInfo";
-import NavigationButtons from "../components/common/NavigationButtons";
 import MainLayout from "@/components/layout/MainLayout";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
-import { AppointmentsProvider, useAppointments } from "./AppointmentsContext";
+import {
+  AppointmentsProvider,
+  useAppointments,
+} from "@/context/AppointmentsContext";
+
+// Componentes
+import PatientInfoAppointment from "@/components/appointments/PatientInfoAppointment";
+import SelectMedic from "@/components/appointments/SelectMedic";
+import TriajeONo from "@/components/appointments/TriageRequest";
+import AppointmentInfo from "@/components/appointments/AppointmentInfo";
+import NavigationButtons from "@/components/common/NavigationButtons";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
@@ -28,23 +33,13 @@ const PAGES = [
   { component: <AppointmentInfo />, title: "Información de la cita" },
 ];
 
-const Appointments = () => {
+const newAppointment = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
-  const [isBackButtonVisible, setIsBackButtonVisible] = useState(false);
   const { appointmentData, setAppointmentData } = useAppointments();
 
-  const navigate = (delta) => {
-    const nextPage = Math.min(
-      Math.max(currentPage + delta, 0),
-      PAGES.length - 1
-    );
-    setCurrentPage(nextPage);
-    setIsBackButtonVisible(nextPage !== 0);
-  };
-
-  const handleProcessCompletion = () => {
-    setIsProcessCompleted(true);
+  const navigateToPage = (pageIndex) => {
+    setCurrentPage(pageIndex);
   };
 
   useEffect(() => {
@@ -67,19 +62,19 @@ const Appointments = () => {
         <Container
           maxWidth="lg"
           style={{
-            marginTop: "-40px",
-            marginBottom: "20px",
-            display: "flex", // Flex layout
-            flexDirection: "column", // Column direction
-            height: "85vh", // 100% of viewport height
+            display: "flex",
+            flexDirection: "row",
+            height: "85vh",
+            width: "190vh",
           }}
         >
           <Paper
             style={{
+              width: "70%", // fijo pero escalable
               padding: "30px",
-              flex: 1, // This will make the Paper take up all the available space
-              overflowY: "auto", // This will add a scrollbar if content overflows
+              overflowY: "auto",
               marginBottom: "10px",
+              marginRight: "2%", // Espacio entre Paper y nav
             }}
           >
             <Typography variant="h4" style={{ marginBottom: "30px" }}>
@@ -89,21 +84,49 @@ const Appointments = () => {
               <Grid item xs={12}>
                 {React.cloneElement(PAGES[currentPage].component, {
                   updateAppointmentData: setAppointmentData,
-                  handleProcessCompletion: handleProcessCompletion,
                   pacienteData: appointmentData.selectedPatientData,
                   acompananteData: appointmentData.companionData,
                 })}
               </Grid>
             </Grid>
           </Paper>
-          <Grid item xs={12}>
-            <NavigationButtons
-              currentPage={currentPage}
-              totalPages={PAGES.length}
-              navigate={navigate}
-              isProcessCompleted={isProcessCompleted}
-            />
-          </Grid>
+          <nav
+            style={{
+              width: "30%",
+              paddingTop: "20px",
+              paddingLeft: "20px",
+              fontSize: "20px",
+              color: "#333",
+            }}
+          >
+            <ul>
+              {PAGES.map((page, index) => (
+                <li
+                  key={index}
+                  style={{
+                    padding: "10px 0",
+                    cursor: "pointer",
+                    borderLeft:
+                      currentPage === index
+                        ? "4px solid #ffd700"
+                        : "4px solid transparent",
+                    fontWeight: currentPage === index ? "bold" : "normal",
+                  }}
+                  onClick={() => navigateToPage(index)}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      paddingLeft: "20px",
+                      color: currentPage === index ? "#ffd700" : "#333",
+                    }}
+                  >
+                    {page.title}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </Container>
         {isProcessCompleted && (
           <CustomizedDialog
@@ -116,4 +139,4 @@ const Appointments = () => {
   );
 };
 
-export default Appointments;
+export default newAppointment;
