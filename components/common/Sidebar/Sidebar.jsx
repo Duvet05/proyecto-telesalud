@@ -14,7 +14,7 @@ import SidebarItem from "./SidebarItem";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-  const drawerWidth = isSidebarOpen ? 300 : 60;
+  const drawerWidth = isSidebarOpen ? 240 : 60;
 
   const handleToggleSidebar = () => {
     toggleSidebar();
@@ -38,25 +38,33 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       }}
     >
       <List disablePadding>
-        <Toolbar sx={{ padding: 2 }}>
+        <Toolbar
+          sx={{
+            padding: 2,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Grid
             container
             direction={isSidebarOpen ? "row" : "column"}
             alignItems="center"
+            justifyContent="center"
             spacing={2}
           >
             <Grid
               item
-              xs={isSidebarOpen ? 2 : 8}
+              xs={isSidebarOpen ? 2 : 12}
               container
               justifyContent="center"
             >
               <Box
                 sx={{
-                  backgroundColor: "white", // Fondo blanco para el logo
-                  borderRadius: 3, // Bordes redondeados
-                  padding: 1, // Espaciado interior para que no toque los bordes
-                  display: "flex", // Asegurar que el contenido esté centrado
+                  backgroundColor: "white",
+                  borderRadius: 3,
+                  padding: 1,
+                  display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -64,15 +72,18 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 <Image
                   src="/assets/images/medical-logo-png-878.png"
                   alt="Sanama Logo"
-                  width={30}
-                  height={30}
+                  width={25}
+                  height={25}
                 />
               </Box>
             </Grid>
 
             {isSidebarOpen && (
               <Grid item xs={8}>
-                <Typography variant="h5" sx={{ color: "white" }}>
+                <Typography
+                  variant="h5"
+                  sx={{ color: "white", fontFamily: "Roboto, sans-serif" }}
+                >
                   Sanama
                 </Typography>
               </Grid>
@@ -93,6 +104,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </Grid>
           </Grid>
         </Toolbar>
+
         <Box
           sx={{
             height: "100%",

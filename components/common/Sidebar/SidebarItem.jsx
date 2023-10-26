@@ -4,10 +4,8 @@ import { ListItemButton, ListItemIcon, styled } from "@mui/material";
 import Link from "next/link";
 
 const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
-  // ... tus otros estilos
-  "&.MuiListItemButton-root": {
-    color: "white", // Texto blanco
-  },
+  fontFamily: "Roboto, sans-serif", // Agrega esta línea para establecer la fuente
+  color: "white", // Texto blanco
   "&:hover": {
     backgroundColor: "#3c50cb", // Color de fondo al pasar el cursor
     ".MuiListItemIcon-root": {
@@ -38,7 +36,7 @@ const SidebarItem = ({ item, isSidebarOpen }) => {
         }`}
         aria-label={item.sidebarProps.displayText}
       >
-        <ListItemIcon className="list-item-icon">
+        <ListItemIcon className="list-item-icon" sx={{ color: "white" }}>
           {item.sidebarProps.icon}
         </ListItemIcon>
         {isSidebarOpen && item.sidebarProps.displayText}
