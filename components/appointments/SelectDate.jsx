@@ -17,8 +17,9 @@ function ServerDay({
   outsideCurrentMonth,
   ...other
 }) {
+  const dayString = day.format("YYYY-MM-DD");
   const isSelected =
-    !outsideCurrentMonth && highlightedDays.includes(day.date());
+    !outsideCurrentMonth && highlightedDays.includes(dayString);
 
   return (
     <Badge
@@ -86,7 +87,7 @@ export default function SelectDate() {
 
   useEffect(() => {
     const daysToHighlight = appointmentData.availableDays.map((date) =>
-      dayjs(date).date()
+      dayjs(date).format("YYYY-MM-DD")
     );
     setHighlightedDays(daysToHighlight);
   }, [appointmentData.availableDays]);
@@ -103,32 +104,26 @@ export default function SelectDate() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Typography variant="subtitle1" gutterBottom sx={{ padding: "-20vh" }}>
+      <Typography variant="subtitle1">
         Selecciona una Fecha y hora disponible:
       </Typography>
-
-      <Box
-        display="flex"
-        sx={{ width: "120vh", maxHeight: "260px", pr: "2vh" }}
-      >
+      <Box display="flex">
+        <DateCalendar
+          onChange={handleDateChange}
+          value={
+            appointmentData.selectedDate
+              ? dayjs(appointmentData.selectedDate)
+              : null
+          }
+          slots={{ day: ServerDay }}
+          slotProps={{ day: { highlightedDays } }}
+        />
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 1,
-            margin: "0 auto",
           }}
         >
-          <DateCalendar
-            onChange={handleDateChange}
-            value={
-              appointmentData.selectedDate
-                ? dayjs(appointmentData.selectedDate)
-                : null
-            }
-            slots={{ day: ServerDay }}
-            slotProps={{ day: { highlightedDays } }}
-          />{" "}
           {appointmentData.selectedDate && appointmentData.selectedHour ? (
             <Typography>
               Fecha y Hora: {appointmentData.selectedDate}{" "}
@@ -137,17 +132,17 @@ export default function SelectDate() {
           ) : (
             <Typography>No hay fecha ni hora reservada</Typography>
           )}
+          <AvailableHoursBlock
+            availableHours={appointmentData.availableHours}
+            onHourClick={(hour) => {
+              setAppointmentData((prevData) => ({
+                ...prevData,
+                selectedHour: hour,
+              }));
+            }}
+            selectedDate={appointmentData.selectedDate}
+          />
         </Box>
-        <AvailableHoursBlock
-          availableHours={appointmentData.availableHours}
-          onHourClick={(hour) => {
-            setAppointmentData((prevData) => ({
-              ...prevData,
-              selectedHour: hour,
-            }));
-          }}
-          selectedDate={appointmentData.selectedDate}
-        />
       </Box>
     </LocalizationProvider>
   );

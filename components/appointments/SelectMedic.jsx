@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import dayjs from "dayjs";
 import {
   Box,
   FormControl,
@@ -14,37 +13,55 @@ import { useAppointments } from "@/context/AppointmentsContext";
 
 function SelectMedic() {
   const { appointmentData, setAppointmentData } = useAppointments();
-
   const [isLoading, setIsLoading] = useState(true);
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
   const [doctors, setDoctors] = useState([]);
 
   useEffect(() => {
-    medicService
-      .listarEspecialidades()
-      .then((data) => {
+    const fetchSpecialties = async () => {
+      try {
+        const data = await medicService.listarEspecialidades();
         setSpecialties(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
+      } catch (error) {
         console.error("Error fetching specialties:", error);
-      });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchSpecialties();
   }, []);
+
+  const handleSpecialityChange = async (_, newValue) => {
+    setSelectedSpeciality(newValue);
+    setAppointmentData((prev) => ({ ...prev, selectedDoctor: null }));
+    setDoctors(
+      newValue ? await obtenerDoctoresPorEspecialidad(newValue.nombre) : []
+    );
+  };
 
   const obtenerDoctoresPorEspecialidad = async (especialidadNombre) => {
     try {
-      const data = await medicService.buscarPorEspecialidad(especialidadNombre);
-      setDoctors(data);
+      return await medicService.buscarPorEspecialidad(especialidadNombre);
     } catch (error) {
       console.error("Error fetching doctors:", error);
-      setDoctors([]);
       alert(
         "Ocurrió un error al buscar los médicos. Por favor, inténtalo de nuevo."
       );
+      return [];
     }
   };
+
+  const handleDoctorChange = (event) => {
+    const doctorId = event.target.value;
+    const selectedDoctor = doctors.find((doc) => doc.idPersona === doctorId);
+    setAppointmentData((prev) => ({ ...prev, selectedDoctor }));
+  };
+
+  const renderDoctorName = (doctor) =>
+    `${doctor.sexo === "M" ? "Dr." : "Dra."} ${doctor.nombres} ${
+      doctor.apellidoPaterno
+    } ${doctor.apellidoMaterno}`;
 
   return (
     <Box
@@ -61,18 +78,7 @@ function SelectMedic() {
         options={specialities}
         getOptionLabel={(option) => option.nombre}
         value={selectedSpeciality}
-        onChange={async (event, newValue) => {
-          setSelectedSpeciality(newValue);
-          setAppointmentData((prevData) => ({
-            ...prevData,
-            selectedDoctor: "",
-          }));
-          if (newValue) {
-            await obtenerDoctoresPorEspecialidad(newValue.nombre);
-          } else {
-            setDoctors([]);
-          }
-        }}
+        onChange={handleSpecialityChange}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -86,23 +92,19 @@ function SelectMedic() {
         <FormControl variant="outlined" fullWidth margin="normal">
           <InputLabel>Médico</InputLabel>
           <Select
-            value={appointmentData.selectedDoctor || ""}
-            onChange={(event) => {
-              const doctorId = event.target.value;
-              const selectedDoc = doctors.find(
-                (doctor) => doctor.idPersona === doctorId
-              );
-              setAppointmentData((prevData) => ({
-                ...prevData,
-                selectedDoctor: selectedDoc,
-              }));
-            }}
+            value={appointmentData.selectedDoctor?.idPersona || ""}
+            onChange={handleDoctorChange}
+            renderValue={(selected) =>
+              selected ? (
+                renderDoctorName(appointmentData.selectedDoctor)
+              ) : (
+                <em>Selecciona un médico</em>
+              )
+            }
           >
-            {doctors.map((doctor) => (
-              <MenuItem key={doctor.idPersona} value={doctor.idPersona}>
-                {`${doctor.sexo === "M" ? "Dr." : "Dra."} ${doctor.nombres} ${
-                  doctor.apellidoPaterno
-                } ${doctor.apellidoMaterno}`}
+            {doctors.map((doc) => (
+              <MenuItem key={doc.idPersona} value={doc.idPersona}>
+                {renderDoctorName(doc)}
               </MenuItem>
             ))}
           </Select>

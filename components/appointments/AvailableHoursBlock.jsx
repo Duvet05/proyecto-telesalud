@@ -1,73 +1,101 @@
-import React, { useState, useEffect } from "react";
-import { Button, Box, Typography, Fade } from "@mui/material";
+import React, { useEffect, useMemo } from "react";
+import { Button, Box, Typography, Fade, CircularProgress } from "@mui/material";
 import { useAppointments } from "@/context/AppointmentsContext";
+import PropTypes from "prop-types";
 
-function AvailableHoursBlock({ availableHours = [], onHourClick }) {
-  const { appointmentData, setAppointmentData } = useAppointments();
-  const [selectedHour, setSelectedHour] = useState(null);
+function AvailableHoursBlock({ availableHours = [], onHourClick, isLoading }) {
+  const { appointmentData } = useAppointments();
 
   useEffect(() => {
-    setSelectedHour(null);
-  }, [appointmentData.selectedHour]);
+    if (availableHours.length > 0 && !appointmentData.selectedHour) {
+      onHourClick(availableHours[0].horaInicio);
+    }
+  }, [availableHours, appointmentData.selectedHour, onHourClick]);
+
+  const formattedHours = useMemo(
+    () =>
+      availableHours.map((horario) => {
+        const horaInicioFormateada = horario.horaInicio.slice(0, 5);
+        const horaFinFormateada = horario.horaFin.slice(0, 5);
+        return {
+          ...horario,
+          rangoHorario: `${horaInicioFormateada} - ${horaFinFormateada}`,
+        };
+      }),
+    [availableHours]
+  );
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <CircularProgress size={24} />
+      </Box>
+    );
+  }
 
   if (availableHours.length === 0) {
     return (
-      <Typography
-        variant="body1"
-        sx={{
-          width: 400,
-          alignItems: "center",
-        }}
-      >
+      <Typography variant="body2" align="center" sx={{ mt: 2 }}>
         No hay horarios disponibles
       </Typography>
     );
   }
-
-  const handleHourClick = (hour) => {
-    setSelectedHour(hour);
-    onHourClick(hour);
-  };
 
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 2,
-        width: 400,
+        gap: 1,
+        width: "100%",
         overflowY: "auto",
         maxHeight: "250px",
+        mt: 2,
       }}
     >
-      {availableHours.map((horario, index) => {
-        const { idTurno, horaInicio, horaFin } = horario;
-        const horaInicioFormateada = horaInicio.slice(0, 5);
-        const horaFinFormateada = horaFin.slice(0, 5);
-        const rangoHorario = `${horaInicioFormateada} - ${horaFinFormateada}`;
-        const isSelected = horaInicio === selectedHour;
-
-        return (
-          <Fade in={true} timeout={500 * (index + 1)} key={idTurno}>
-            <Button
-              variant={isSelected ? "contained" : "outlined"}
-              fullWidth
-              onClick={() => handleHourClick(horaInicio)}
-              sx={{
-                textTransform: "none",
-                transition: "0.3s",
-                "&:hover": {
-                  backgroundColor: isSelected ? "#1a75ff" : "#e6e6e6",
-                },
-              }}
-            >
-              {rangoHorario}
-            </Button>
-          </Fade>
-        );
-      })}
+      {formattedHours.map((horario, index) => (
+        <Fade in key={horario.idTurno} timeout={500 * (index + 1)}>
+          <Button
+            variant={
+              appointmentData.selectedHour === horario.horaInicio
+                ? "contained"
+                : "outlined"
+            }
+            fullWidth
+            onClick={() => onHourClick(horario.horaInicio)}
+            sx={{
+              textTransform: "none",
+              transition: "0.3s",
+              "&:hover": {
+                backgroundColor:
+                  appointmentData.selectedHour === horario.horaInicio
+                    ? null
+                    : "#e6e6e6",
+              },
+            }}
+          >
+            {horario.rangoHorario}
+          </Button>
+        </Fade>
+      ))}
     </Box>
   );
 }
+
+AvailableHoursBlock.propTypes = {
+  availableHours: PropTypes.arrayOf(
+    PropTypes.shape({
+      idTurno: PropTypes.number.isRequired,
+      horaInicio: PropTypes.string.isRequired,
+      horaFin: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onHourClick: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+};
+
+AvailableHoursBlock.defaultProps = {
+  isLoading: false,
+};
 
 export default AvailableHoursBlock;
