@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Sidebar from "../common/Sidebar/Sidebar";
 import DynamicBreadcrumbs from "../common/DynamicBreadcrumbs";
-import "./styles.css"; // Asegúrate de que este archivo CSS está en la ubicación correcta
+import "@/styles/globals.css"; // Asegúrate de que este archivo CSS está en la ubicación correcta
 
 const MainLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
