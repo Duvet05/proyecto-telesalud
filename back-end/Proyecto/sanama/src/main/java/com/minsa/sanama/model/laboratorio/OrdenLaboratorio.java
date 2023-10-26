@@ -1,8 +1,6 @@
 package com.minsa.sanama.model.laboratorio;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.minsa.sanama.model.laboratorio.ExamenMedico;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
