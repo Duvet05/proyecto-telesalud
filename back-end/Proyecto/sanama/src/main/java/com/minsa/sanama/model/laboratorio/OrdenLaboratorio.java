@@ -1,6 +1,8 @@
 package com.minsa.sanama.model.laboratorio;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.minsa.sanama.model.atencionmedica.CitaMedica;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,11 +11,11 @@ public class OrdenLaboratorio {
     private int idOrdenLaboratorio;
     private String tipoOrden;
     private String instrucciones;
-    private int estado;
-    private ExamenMedico examenMedico;
-
     private LocalTime horaOrden;
     private LocalDate fechaOrden;
+    private int estado;
+    private CitaMedica citaMedica;
+    private ExamenMedico examenMedico;
 
     public OrdenLaboratorio() {
     }
@@ -74,4 +76,11 @@ public class OrdenLaboratorio {
         this.examenMedico = examenMedico;
     }
 
+    public CitaMedica getCitaMedica() {
+        return citaMedica;
+    }
+
+    public void setCitaMedica(CitaMedica citaMedica) {
+        this.citaMedica = citaMedica;
+    }
 }
