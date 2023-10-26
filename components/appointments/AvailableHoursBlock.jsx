@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Box, Typography, Fade } from "@mui/material";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 function AvailableHoursBlock({ availableHours = [], onHourClick }) {
   const { appointmentData, setAppointmentData } = useAppointments();

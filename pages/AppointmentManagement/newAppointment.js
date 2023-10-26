@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Typography, Paper, Grid, Container } from "@mui/material";
 import MainLayout from "@/components/layout/MainLayout";
 import CustomizedDialog from "@/components/appointments/CustomizedDialog";
-import { AppointmentsProvider, useAppointments } from "./AppointmentsContext";
+import {
+  AppointmentsProvider,
+  useAppointments,
+} from "@/context/AppointmentsContext";
 
 // Componentes
-import PatientInfoAppointment from "../components/appointments/PatientInfoAppointment";
-import SelectMedic from "../components/appointments/SelectMedic";
-import TriajeONo from "../components/appointments/TriageRequest";
-import AppointmentInfo from "./AppointmentInfo";
-import NavigationButtons from "../components/common/NavigationButtons";
+import PatientInfoAppointment from "@/components/appointments/PatientInfoAppointment";
+import SelectMedic from "@/components/appointments/SelectMedic";
+import TriajeONo from "@/components/appointments/TriageRequest";
+import AppointmentInfo from "@/components/appointments/AppointmentInfo";
+import NavigationButtons from "@/components/common/NavigationButtons";
 
 const CONFIRM_EXIT_MESSAGE =
   "¿Está seguro de que desea abandonar esta página? Sus datos no guardados se perderán.";
@@ -30,7 +33,7 @@ const PAGES = [
   { component: <AppointmentInfo />, title: "Información de la cita" },
 ];
 
-const Appointments = () => {
+const newAppointment = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isProcessCompleted, setIsProcessCompleted] = useState(false);
   const { appointmentData, setAppointmentData } = useAppointments();
@@ -136,4 +139,4 @@ const Appointments = () => {
   );
 };
 
-export default Appointments;
+export default newAppointment;

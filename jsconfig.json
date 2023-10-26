@@ -9,7 +9,8 @@
       "@/styles/*": ["styles/*"],
       "@/config/*": ["configs/*"],
       "@/pages/*": ["pages/*"],
-      "@/public/*": ["public/*"]
+      "@/public/*": ["public/*"],
+      "@/context/*": ["context/*"]
     }
   }
 }

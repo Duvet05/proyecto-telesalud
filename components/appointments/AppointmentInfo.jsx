@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Link from "next/link";
-import { useAppointments } from "./AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 import { appointmentService } from "@/services/appointmentService";
 
 const patientFieldsConfig = [

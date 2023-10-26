@@ -8,7 +8,7 @@ import {
   DateCalendar,
 } from "@mui/x-date-pickers";
 import AvailableHoursBlock from "./AvailableHoursBlock";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 function ServerDay({
   highlightedDays = [],

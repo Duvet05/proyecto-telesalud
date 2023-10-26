@@ -13,7 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
 import { patientService } from "../../services/patientService";
-import { useAppointments } from "@/pages/AppointmentsContext";
+import { useAppointments } from "@/context/AppointmentsContext";
 import CompanionInfo from "./CompanionInfo";
 
 function PatientInfoAppointment() {
