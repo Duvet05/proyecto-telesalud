@@ -74,7 +74,7 @@ public class ExamenMedicoRepository {
             ExamenMedico examen = new ExamenMedico();
 
             Paciente paciente = new Paciente();
-            paciente.setDni(rs.getString("dni_paciente"));
+
             paciente.setNombres(rs.getString("nombres_paciente"));
             paciente.setApellidoPaterno(rs.getString("apellido_paterno_paciente"));
             paciente.setApellidoMaterno(rs.getString("apellido_materno_paciente"));
