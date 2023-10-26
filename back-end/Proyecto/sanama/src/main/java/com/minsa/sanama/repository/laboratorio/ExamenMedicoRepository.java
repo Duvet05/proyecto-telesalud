@@ -40,9 +40,9 @@ public class ExamenMedicoRepository {
                 .withProcedureName("ssm_lab_registrar_examen_medico")
                 .declareParameters(new SqlParameter[] {
                         new SqlOutParameter("pn_id_examen", Types.INTEGER),
-                        new SqlParameter("pn_id_cita", Types.INTEGER),
                         new SqlParameter("pn_id_orden_laboratorio", Types.INTEGER),
                         new SqlParameter("pv_nombre_doctor_firmante", Types.VARCHAR),
+                        new SqlParameter("pv_nombre_archivo", Types.VARCHAR),
                         new SqlParameter("pv_tipo", Types.VARCHAR),
                         new SqlParameter("pv_observaciones", Types.VARCHAR),
                         new SqlParameter("pv_archivo", Types.BLOB),
@@ -50,9 +50,9 @@ public class ExamenMedicoRepository {
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource
-                .addValue("pn_id_cita", examenMedico.getOrdenLaboratorio().getCitaMedica().getIdCita())
                 .addValue("pn_id_orden_laboratorio", examenMedico.getOrdenLaboratorio().getIdOrdenLaboratorio())
-                .addValue("pv_nombre_doctor_firmante", examenMedico.getNombre())
+                .addValue("pv_nombre_doctor_firmante", examenMedico.getDoctorFirmante())
+                .addValue("pv_nombre_archivo", examenMedico.getNombre())
                 .addValue("pv_tipo", examenMedico.getTipo())
                 .addValue("pv_observaciones", examenMedico.getObservaciones())
                 .addValue("pv_archivo", examenMedico.getArchivo())

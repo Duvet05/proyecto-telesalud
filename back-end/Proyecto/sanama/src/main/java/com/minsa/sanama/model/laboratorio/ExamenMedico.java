@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ExamenMedico {
     private int idExamen;
-    private String codigo;
     private String nombre;
     private String tipo;
     private byte[] archivo;
@@ -24,14 +23,6 @@ public class ExamenMedico {
 
     public void setIdExamen(int idExamen) {
         this.idExamen = idExamen;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getNombre() {
