@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
-import SelectDate from "./SelectDate";
 import { medicService } from "../../services/medicService";
 import { useAppointments } from "@/context/AppointmentsContext";
 
@@ -20,43 +19,6 @@ function SelectMedic() {
   const [specialities, setSpecialties] = useState([]);
   const [selectedSpeciality, setSelectedSpeciality] = useState(null);
   const [doctors, setDoctors] = useState([]);
-
-  const fetchAvailableHours = (fecha, medicId) => {
-    medicService
-      .buscarHorariosByID(fecha, medicId)
-      .then((data) => {
-        setAppointmentData((prev) => ({ ...prev, availableHours: data }));
-      })
-      .catch((error) => {
-        console.error("Error fetching available hours:", error);
-      });
-  };
-
-  const fetchAvailableDays = (medicId) => {
-    medicService
-      .DiasDisponiblesByID(medicId)
-      .then((data) => {
-        setAppointmentData((prev) => ({ ...prev, availableDays: data }));
-      })
-      .catch((error) => {
-        console.error("Error fetching available days:", error);
-      });
-  };
-
-  useEffect(() => {
-    if (appointmentData.selectedDoctor) {
-      fetchAvailableDays(appointmentData.selectedDoctor.idPersona);
-    }
-  }, [appointmentData.selectedDoctor]);
-
-  useEffect(() => {
-    if (appointmentData.selectedDate && appointmentData.selectedDoctor) {
-      fetchAvailableHours(
-        appointmentData.selectedDate,
-        appointmentData.selectedDoctor.idPersona
-      );
-    }
-  }, [appointmentData.selectedDate, appointmentData.selectedDoctor]);
 
   useEffect(() => {
     medicService
@@ -82,14 +44,6 @@ function SelectMedic() {
         "Ocurrió un error al buscar los médicos. Por favor, inténtalo de nuevo."
       );
     }
-  };
-
-  const handleHourChange = (hour) => {
-    const formattedHour = dayjs(hour).format("HH:mm:ss");
-    setAppointmentData((prevData) => ({
-      ...prevData,
-      selectedHour: formattedHour,
-    }));
   };
 
   return (
@@ -153,20 +107,6 @@ function SelectMedic() {
             ))}
           </Select>
         </FormControl>
-      )}
-
-      {appointmentData.selectedDoctor && (
-        <SelectDate
-          onDateChange={(date) => {
-            setAppointmentData((prevData) => ({
-              ...prevData,
-              selectedDate: dayjs(date).format("YYYY-MM-DD"),
-            }));
-          }}
-          selectedDate={appointmentData.selectedDate}
-          onHourChange={handleHourChange}
-          selectedHour={appointmentData.selectedHour}
-        />
       )}
     </Box>
   );

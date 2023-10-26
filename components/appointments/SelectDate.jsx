@@ -9,6 +9,7 @@ import {
 } from "@mui/x-date-pickers";
 import AvailableHoursBlock from "./AvailableHoursBlock";
 import { useAppointments } from "@/context/AppointmentsContext";
+import { medicService } from "../../services/medicService";
 
 function ServerDay({
   highlightedDays = [],
@@ -36,8 +37,52 @@ function ServerDay({
 
 export default function SelectDate() {
   const { appointmentData, setAppointmentData } = useAppointments();
-
   const [highlightedDays, setHighlightedDays] = useState([]);
+
+  const handleHourChange = (hour) => {
+    const formattedHour = dayjs(hour).format("HH:mm:ss");
+    setAppointmentData((prevData) => ({
+      ...prevData,
+      selectedHour: formattedHour,
+    }));
+  };
+
+  const fetchAvailableHours = (fecha, medicId) => {
+    medicService
+      .buscarHorariosByID(fecha, medicId)
+      .then((data) => {
+        setAppointmentData((prev) => ({ ...prev, availableHours: data }));
+      })
+      .catch((error) => {
+        console.error("Error fetching available hours:", error);
+      });
+  };
+
+  const fetchAvailableDays = (medicId) => {
+    medicService
+      .DiasDisponiblesByID(medicId)
+      .then((data) => {
+        setAppointmentData((prev) => ({ ...prev, availableDays: data }));
+      })
+      .catch((error) => {
+        console.error("Error fetching available days:", error);
+      });
+  };
+
+  useEffect(() => {
+    if (appointmentData.selectedDoctor) {
+      fetchAvailableDays(appointmentData.selectedDoctor.idPersona);
+    }
+  }, [appointmentData.selectedDoctor]);
+
+  useEffect(() => {
+    if (appointmentData.selectedDate && appointmentData.selectedDoctor) {
+      fetchAvailableHours(
+        appointmentData.selectedDate,
+        appointmentData.selectedDoctor.idPersona
+      );
+    }
+  }, [appointmentData.selectedDate, appointmentData.selectedDoctor]);
 
   useEffect(() => {
     const daysToHighlight = appointmentData.availableDays.map((date) =>
