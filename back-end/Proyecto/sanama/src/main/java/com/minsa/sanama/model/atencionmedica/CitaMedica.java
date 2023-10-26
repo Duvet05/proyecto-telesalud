@@ -1,9 +1,8 @@
 package com.minsa.sanama.model.atencionmedica;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.minsa.sanama.model.admision.ProgramacionCita;
+import com.minsa.sanama.model.laboratorio.OrdenLaboratorio;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CitaMedica extends ProgramacionCita{

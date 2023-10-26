@@ -1,8 +1,7 @@
-package com.minsa.sanama.services.atencionmedica;
+package com.minsa.sanama.services.laboratorio;
 
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
-import com.minsa.sanama.model.atencionmedica.OrdenLaboratorio;
-import com.minsa.sanama.repository.atencionmedica.OrdenLaboratorioRepository;
+import com.minsa.sanama.repository.laboratorio.OrdenLaboratorioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
