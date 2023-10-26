@@ -8,7 +8,8 @@ import java.time.LocalTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrdenLaboratorio {
-    private int idOrdenLaboratorio;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private int idOrdenLaboratorio=0;
     private String tipoOrden;
     private String instrucciones;
     private LocalTime horaOrden;

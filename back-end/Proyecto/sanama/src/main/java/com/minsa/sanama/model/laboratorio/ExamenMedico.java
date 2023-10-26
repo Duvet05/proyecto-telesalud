@@ -10,6 +10,10 @@ public class ExamenMedico {
     private String tipo;
     private byte[] archivo;
     private int estado;
+    private OrdenLaboratorio ordenLaboratorio;
+
+    private String observaciones;
+    private String doctorFirmante;
 
     public ExamenMedico() {
     }
@@ -61,5 +65,28 @@ public class ExamenMedico {
     public void setEstado(int estado) {
         this.estado = estado;
     }
-    
+
+    public OrdenLaboratorio getOrdenLaboratorio() {
+        return ordenLaboratorio;
+    }
+
+    public void setOrdenLaboratorio(OrdenLaboratorio ordenLaboratorio) {
+        this.ordenLaboratorio = ordenLaboratorio;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public String getDoctorFirmante() {
+        return doctorFirmante;
+    }
+
+    public void setDoctorFirmante(String doctorFirmante) {
+        this.doctorFirmante = doctorFirmante;
+    }
 }
