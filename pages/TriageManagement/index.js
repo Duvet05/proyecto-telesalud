@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -20,6 +20,33 @@ const TriageManagement = () => {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
 
+  // useEffect(async() => {
+  //   await llenarInicio();
+  // }, []);
+
+  // async function llenarInicio() {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:8080/admision/post/listarTriajePorFiltro",
+  //       {
+  //         "pv_filtro": patientName, // nombre del paciente en la solicitud
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     console.log(response.data);
+  //     setOrders(response.data); // lista de triajes
+  //   } catch (error) {
+  //     console.error("Error al buscar triajes:", error);
+  //     setError("Error al buscar triajes.");
+  //   }
+
+  // }
+
   const handleSearchClick = async () => {
     if (patientName.trim() !== "") {
       setError(null);
@@ -28,7 +55,7 @@ const TriageManagement = () => {
         const response = await axios.post(
           "http://localhost:8080/admision/post/listarTriajePorFiltro",
           {
-            patientName: patientName, // nombre del paciente en la solicitud
+            "pv_filtro": patientName, // nombre del paciente en la solicitud
           },
           {
             headers: {
@@ -99,7 +126,7 @@ const TriageManagement = () => {
                   marginLeft: "0.5em",
                 }}
                 startIcon={<SearchIcon />}
-                onClick={handleSearchClick}
+                onClick={(handleSearchClick)}
               >
                 Buscar
               </MUIButton>
@@ -111,7 +138,7 @@ const TriageManagement = () => {
               md={6}
               sx={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <Link href="/NewTriagePage">
+              <Link href="./NewTriagePage">
                 <MUIButton
                   variant="contained"
                   sx={{

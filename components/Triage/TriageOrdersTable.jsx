@@ -9,15 +9,14 @@ import {
   Paper,
   TableSortLabel,
 } from "@mui/material";
-
-
+import Link from "next/link";
 const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="triage orders table">
         <TableHead>
           <TableRow>
-            <TableCell 
+            <TableCell
               sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
             >
               <TableSortLabel
@@ -54,20 +53,29 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
             >
               Urgencia
             </TableCell>
-            {}
+            <TableCell
+              sx={{ fontSize: '1.1em', color: '#333', paddingBottom: '10px', paddingTop: '10px' }}
+            >
+              Opción
+            </TableCell>
 
           </TableRow>
         </TableHead>
         <TableBody>
           {orders.map((order) => (
             <TableRow key={order.id}>
-              <TableCell>{order.fecha}</TableCell>
-              <TableCell>{order.nombreCompleto}</TableCell>
+              <TableCell>{order.fechaTriaje}</TableCell>
+              <TableCell>{order.paciente.apellidoPaterno + " " + order.paciente.apellidoMaterno + ", " + order.paciente.nombres}</TableCell>
               <TableCell>{order.dni}</TableCell>
               <TableCell>{order.estado}</TableCell>
               <TableCell>{order.urgencia}</TableCell>
-              {}
-              <TableCell>{/* Acciones */}</TableCell>
+              <TableCell>
+                <Link href={`/TriageManagement/${order.idTriaje}`} passHref>
+                  <button>
+                    Actualizar
+                  </button>
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
