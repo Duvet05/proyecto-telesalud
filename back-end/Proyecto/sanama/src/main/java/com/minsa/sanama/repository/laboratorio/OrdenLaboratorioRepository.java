@@ -1,4 +1,4 @@
-package com.minsa.sanama.repository.atencionmedica;
+package com.minsa.sanama.repository.laboratorio;
 
 import com.minsa.sanama.model.admision.Paciente;
 import com.minsa.sanama.model.atencionmedica.CitaMedica;

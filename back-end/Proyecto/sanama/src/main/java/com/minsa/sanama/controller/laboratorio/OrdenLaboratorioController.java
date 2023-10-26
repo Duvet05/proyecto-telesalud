@@ -1,7 +1,7 @@
-package com.minsa.sanama.controller.atencionmedica;
+package com.minsa.sanama.controller.laboratorio;
 
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
-import com.minsa.sanama.services.atencionmedica.OrdenLaboratorioService;
+import com.minsa.sanama.services.laboratorio.OrdenLaboratorioService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
