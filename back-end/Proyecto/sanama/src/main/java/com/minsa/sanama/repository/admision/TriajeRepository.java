@@ -47,6 +47,7 @@ public class TriajeRepository {
                         new SqlParameter("pn_estado", Types.INTEGER),
                         new SqlParameter("pn_saturacionOxigeno", Types.INTEGER),
                         new SqlParameter("pn_frecuenciaCardiaca", Types.INTEGER),
+                        new SqlParameter("pn_frecuenciaRespiratoria", Types.INTEGER),
                         new SqlParameter("pv_nivelConciencia", Types.VARCHAR),
                         new SqlParameter("pv_nivelDolor", Types.VARCHAR)
                 );
@@ -63,6 +64,7 @@ public class TriajeRepository {
                 .addValue("pn_estado", triaje.getEstado())
                 .addValue("pn_saturacionOxigeno", triaje.getSaturacionOxigeno())
                 .addValue("pn_frecuenciaCardiaca", triaje.getFrecuenciaCardiaca())
+                .addValue("pn_frecuenciaRespiratoria", triaje.getFrecuenciaRespiratoria())
                 .addValue("pv_nivelConciencia", triaje.getNivelConciencia())
                 .addValue("pv_nivelDolor", triaje.getNivelDolor());
 
@@ -94,6 +96,7 @@ public class TriajeRepository {
             triaje.setHoraTriaje(rs.getTime("hora").toLocalTime());
             triaje.setSaturacionOxigeno(rs.getString("saturacionOxigeno"));
             triaje.setFrecuenciaCardiaca(rs.getString("frecuenciaCardiaca"));
+            triaje.setFrecuenciaRespiratoria(rs.getString("frecuenciaRespiratoria"));
             triaje.setNivelConciencia(rs.getString("nivelConciencia"));
             triaje.setNivelDolor(rs.getString("nivelDolor"));
             triaje.setCondicionesPrexistentes(rs.getString("condicionesPrexistentes"));

@@ -31,7 +31,8 @@
     "react-calendly": "^4.2.0",
     "react-datepicker": "^4.20.0",
     "react-dom": "^18.2.0",
-    "react-final-form": "^6.5.9"
+    "react-final-form": "^6.5.9",
+    "react-router-dom": "^6.17.0"
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.19.0"

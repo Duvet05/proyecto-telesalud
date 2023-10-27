@@ -27,6 +27,12 @@ public class ExamenMedicoService {
     public ExamenMedico buscarExamenMedico(String pv_filtro) {
         List<ExamenMedico> lexamenes;
         lexamenes = examenMedicoRepository.buscarExamenMedicoID(pv_filtro);
-        return lexamenes.get(0);
+        if (!lexamenes.isEmpty()) {
+            return lexamenes.get(0);
+        } else {
+            // Manejar el caso en que la lista está vacía, por ejemplo, lanzar una excepción o devolver un valor predeterminado.
+            // Aquí un ejemplo de devolver null:
+            return null;
+        }
     }
 }

@@ -84,7 +84,8 @@ const TriageManagement = () => {
               <TextField
                 style={{ width: "333px" }}
                 variant="outlined"
-                label="Buscar por Nombre..."
+                label="Buscar por Nombre o DNI..."
+                fullWidth
                 value={patientName}
                 onChange={(e) => setPatientName(e.target.value)}
                 InputProps={{
@@ -93,6 +94,9 @@ const TriageManagement = () => {
                   ),
                 }}
               />
+
+
+
               <MUIButton
                 variant="contained"
                 sx={{
