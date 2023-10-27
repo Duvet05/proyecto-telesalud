@@ -915,7 +915,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pn_id_triaje\": 2,\r\n    \"pn_peso\": 80,\r\n    \"pn_talla\": 176,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Dolor de cabeza\",\r\n    \"pn_presion_arterial\": 120,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Media\",\r\n    \"pn_saturacionOxigeno\": \"98\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pv_nivelConciencia\": \"Consciente\",\r\n    \"pv_nivelDolor\": \"Leve\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}",
+							"raw": "{\r\n    \"pn_id_triaje\": 2,\r\n    \"pn_peso\": 80,\r\n    \"pn_talla\": 176,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Dolor de cabeza\",\r\n    \"pn_presion_arterial\": 120,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Media\",\r\n    \"pn_saturacionOxigeno\": \"98\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pn_frecuenciaRespiratoria\": \"20\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}\r\n\r\n/*{\r\n    \"pn_id_triaje\": 3,\r\n    \"pn_peso\": 75,\r\n    \"pn_talla\": 180,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 2\",\r\n    \"pn_presion_arterial\": 130,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"90\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pn_frecuenciaRespiratoria\": \"18\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"3\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia a la penicilina\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 4,\r\n    \"pn_peso\": 68,\r\n    \"pn_talla\": 170,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 3\",\r\n    \"pn_presion_arterial\": 125,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"99\",\r\n    \"pn_frecuenciaCardiaca\": \"66\",\r\n    \"pn_frecuenciaRespiratoria\": \"18\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 5,\r\n    \"pn_peso\": 72,\r\n    \"pn_talla\": 178,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 4\",\r\n    \"pn_presion_arterial\": 122,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"93\",\r\n    \"pn_frecuenciaCardiaca\": \"146\",\r\n    \"pn_frecuenciaRespiratoria\": \"19\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"5\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia al polen\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 6,\r\n    \"pn_peso\": 69,\r\n    \"pn_talla\": 172,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 4\",\r\n    \"pn_presion_arterial\": 128,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"93\",\r\n    \"pn_frecuenciaCardiaca\": \"124\",\r\n    \"pn_frecuenciaRespiratoria\": \"20\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia a los frutos secos\"\r\n}*/",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1018,7 +1018,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pv_filtro\":\"\"\r\n}\r\n",
+							"raw": "{\r\n    \"pv_filtro\":\"1\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1026,7 +1026,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/laboratorio/post/listarExamenesMedico",
+							"raw": "localhost:8080/laboratorio/post/buscarExamenMedico",
 							"host": [
 								"localhost"
 							],
@@ -1034,7 +1034,7 @@
 							"path": [
 								"laboratorio",
 								"post",
-								"listarExamenesMedico"
+								"buscarExamenMedico"
 							]
 						}
 					},
