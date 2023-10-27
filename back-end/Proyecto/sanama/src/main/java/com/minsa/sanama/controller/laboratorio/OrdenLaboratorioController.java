@@ -42,4 +42,23 @@ public class OrdenLaboratorioController {
 
         return lordenes;
     }
+
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            value = "/post/buscarOrdenLaboratorio")
+    @ResponseBody
+    public OrdenLaboratorio buscarOrdenLaboratorio(@RequestBody String pv_datos){
+        OrdenLaboratorio orden = null;
+        try {
+            JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
+            System.out.println(pv_datos);
+            String pn_id_orden_laboratorio = job.get("pn_id_orden_laboratorio").toString();
+            orden = ordenLaboratorioService.buscarOrdenLaboratorio(pn_id_orden_laboratorio);
+        } catch (Exception ex) {
+            // Manejo de excepciones aquí
+            ex.printStackTrace();
+        }
+
+        return orden;
+    }
 }
