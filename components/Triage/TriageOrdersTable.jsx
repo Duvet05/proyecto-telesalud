@@ -11,6 +11,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import Link from "next/link";
+import EditIcon from '@mui/icons-material/Edit';
 
 function getEstadoTexto(estado) {
   let estadoTexto = "";
@@ -97,11 +98,23 @@ const TriageOrdersTable = ({ orders, order, orderBy, handleSortRequest }) => {
               <TableCell>
                 <Link href={`/TriageManagement/${order.idTriaje}`} passHref>
                 <Button
-                  variant="contained"
-                  color="primary"
                   fullWidth
+                  sx={{
+                    backgroundColor: "#2196f3",
+                    color: "#ffffff",
+                    fontSize: "1.0em",
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "#b3b3b3",
+                    },
+                    "& .MuiButton-startIcon": {
+                      margin: 0,
+                      marginRight: "4px",
+                    },
+                  }}
+                  startIcon={<EditIcon  />}
                 >
-                  Actualizar
+                  
                 </Button>
                 </Link>
               </TableCell>
