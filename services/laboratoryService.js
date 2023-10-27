@@ -8,7 +8,11 @@ const axiosInstance = axios.create({
 export const laboratoryService = {
   searchOrders: async (doctorForm) => {
     try {
-      const response = await axiosInstance.put("/rrhh/put/doctor", doctorForm);
+      const response = await axiosInstance.post("/laboratorio/post/listarOrdenLaboratorioFiltro", {
+        "pv_filtro": doctorForm,
+        "pd_fecha_inicio": null,
+        "pd_fecha_fin": null
+      });
       return response.data;
     } catch (error) {
       console.error("Error al insertar los datos del doctor", error);

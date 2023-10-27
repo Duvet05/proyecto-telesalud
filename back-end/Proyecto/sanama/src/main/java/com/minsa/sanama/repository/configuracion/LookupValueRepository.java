@@ -19,6 +19,7 @@ public class LookupValueRepository {
     }
 
     private final ListaValoresMapper listaValoresMapper = new ListaValoresMapper();
+    private final ListaValoresMedicosMapper listaValoresMedicosMapper = new ListaValoresMedicosMapper();
     public List<LookupValue> listarValoresParentezcos() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_parentezcos()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
@@ -27,6 +28,11 @@ public class LookupValueRepository {
     public List<LookupValue> listarValoresSeguros() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_seguros()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
+    }
+
+    public List<LookupValue> listarMedicosLab() {
+        String procedureCall = "{call dbSanama.ssm_conf_listar_lab_medicos()};";
+        return jdbcTemplate.query(procedureCall, listaValoresMedicosMapper);
     }
 
     private static class ListaValoresMapper implements RowMapper<LookupValue> {
@@ -39,6 +45,19 @@ public class LookupValueRepository {
             lookupValue.setDescripcion(rs.getString("descripcion"));
             lookupValue.setEstado(1);
 
+            return lookupValue;
+        }
+    }
+
+    private static class ListaValoresMedicosMapper implements RowMapper<LookupValue> {
+        @Override
+        public LookupValue mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            LookupValue lookupValue = new LookupValue();
+
+            lookupValue.setIdValue(rs.getInt("id_medico"));
+            lookupValue.setDescripcion(rs.getString("nombre_completo"));
+            lookupValue.setEstado(1);
             return lookupValue;
         }
     }

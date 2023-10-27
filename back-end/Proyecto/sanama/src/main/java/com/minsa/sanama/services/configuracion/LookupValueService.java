@@ -22,4 +22,10 @@ public class LookupValueService {
         lvalores = valueRepository.listarValoresSeguros();
         return lvalores;
     }
+
+    public List<LookupValue> listarMedicosLab() {
+        List<LookupValue> lmedicos;
+        lmedicos = valueRepository.listarMedicosLab();
+        return lmedicos;
+    }
 }

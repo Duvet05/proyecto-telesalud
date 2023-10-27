@@ -27,7 +27,9 @@ const LaboratoryManagement = () => {
       laboratoryService
         .searchOrders(patientName)
         .then((result) => {
+
           setOrders(result);
+          console.log(result);
         })
         .catch((error) => {
           console.error(
@@ -64,7 +66,7 @@ const LaboratoryManagement = () => {
             <Grid item xs={12} md={5}>
               <TextField
                 fullWidth
-                label="Buscar por nombre del paciente"
+                label="Buscar por DNI del paciente"
                 value={patientName}
                 onChange={(e) => setPatientName(e.target.value)}
                 InputProps={{
@@ -74,7 +76,7 @@ const LaboratoryManagement = () => {
                 }}
               />
             </Grid>
-
+              
             <Grid
               item
               xs={12}
