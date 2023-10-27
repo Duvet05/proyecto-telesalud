@@ -19,4 +19,14 @@ export const laboratoryService = {
       throw error;
     }
   },
+  listarMedicosLab: async () => {
+    try {
+      const response = await axiosInstance.get("/configuracion/get/listarMedicosLab");
+      return response.data;
+    } catch (error) {
+      console.error("Error al insertar los datos del doctor", error);
+      throw error;
+    }
+  },
 };
+
