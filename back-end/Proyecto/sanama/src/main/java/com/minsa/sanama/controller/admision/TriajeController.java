@@ -73,6 +73,7 @@ public class TriajeController {
             int pn_estado = Integer.parseInt(json.get("pn_estado").toString());
             String pn_saturacionOxigeno = json.get("pn_saturacionOxigeno").toString();
             String pn_frecuenciaCardiaca = json.get("pn_frecuenciaCardiaca").toString();
+            String pn_frecuenciaRespiratoria = json.get("pn_frecuenciaRespiratoria").toString();
             String pv_nivelConciencia = json.get("pv_nivelConciencia").toString();
             String pv_nivelDolor = json.get("pv_nivelDolor").toString();
             triaje.setIdTriaje(pn_id_triaje);
@@ -86,6 +87,7 @@ public class TriajeController {
             triaje.setEstado(pn_estado);
             triaje.setSaturacionOxigeno(pn_saturacionOxigeno);
             triaje.setFrecuenciaCardiaca(pn_frecuenciaCardiaca);
+            triaje.setFrecuenciaRespiratoria(pn_frecuenciaRespiratoria);
             triaje.setNivelConciencia(pv_nivelConciencia);
             triaje.setNivelDolor(pv_nivelDolor);
             updatedTriaje = triajeService.actualizarTriaje(triaje);
