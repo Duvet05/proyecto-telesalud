@@ -41,6 +41,7 @@ function AppointmentInfo() {
   const { appointmentData } = useAppointments();
   const pacienteData = appointmentData.selectedPatientData;
   const doctorResponsable = appointmentData.selectedDoctor;
+  const companionData = appointmentData.companionData;
   const nombreDoctor = doctorResponsable
     ? `${doctorResponsable.sexo === "M" ? "Dr." : "Dra."} ${
         doctorResponsable.nombres
@@ -56,6 +57,8 @@ function AppointmentInfo() {
 
   const [loading, setLoading] = useState(false); // Para manejar el estado de carga
   const [error, setError] = useState(null); // Para manejar errores
+  const [isAppointmentRegistered, setIsAppointmentRegistered] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState("");
 
   const handleRegisterAppointment = async () => {
     setLoading(true);
@@ -66,12 +69,17 @@ function AppointmentInfo() {
         medico: { idPersona: doctorResponsable.idPersona },
         horaCita: appointmentData.selectedHour,
         fechaCita: appointmentData.selectedDate,
+        tieneAcompanhante: companionData ? true : false,
+        nombreAcompanhante: companionData.nombreAcompanhante,
+        dniAcompanhante: companionData ? companionData.dniAcompanhante : null,
+        parentezco: companionData ? companionData.parentezco : null,
         requiereTriaje: selectedTriage ? 1 : 0,
-        estado: 1,
       };
 
       const responseData = await appointmentService.registrarCita(data);
       setResponse(responseData);
+      setIsAppointmentRegistered(true);
+      setConfirmationMessage("La cita se ha registrado exitosamente.");
     } catch (error) {
       console.error("Error al registrar la cita médica:", error.message);
       setError("Error al registrar la cita médica");
@@ -145,10 +153,17 @@ function AppointmentInfo() {
           color="primary"
           fullWidth
           onClick={handleRegisterAppointment}
-          disabled={loading}
+          disabled={loading || isAppointmentRegistered}
         >
           Registrar Cita
         </Button>
+
+        {error && <Typography color="error">{error}</Typography>}
+        {isAppointmentRegistered && (
+          <Typography color="primary" style={{ marginTop: 16 }}>
+            {confirmationMessage}
+          </Typography>
+        )}
 
         {error && <Typography color="error">{error}</Typography>}
         <Link href="/AppointmentManagement" passHref>
