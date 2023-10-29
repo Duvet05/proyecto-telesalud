@@ -519,7 +519,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pn_id_especialidad\": null,\r\n    \"pv_filtro\":\"Pablo Varas\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null\r\n}",
+							"raw": "{\r\n    \"pn_id_especialidad\": null,\r\n    \"pv_filtro\":\"\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null,\r\n    \"pn_estado\":null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1041,13 +1041,13 @@
 			"name": "ExamenMedico",
 			"item": [
 				{
-					"name": "listarExamenesMedico",
+					"name": "ListarExamenesMedico",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pv_filtro\":\"3\"\r\n}\r\n",
+							"raw": "//el filtro es el id de la orden de laboratorio\r\n{\r\n    \"pv_filtro\":\"3\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1064,6 +1064,35 @@
 								"laboratorio",
 								"post",
 								"buscarExamenMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarExamenMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ordenLaboratorio\": {\r\n        \"idOrdenLaboratorio\": 6\r\n    },\r\n    \"doctorFirmante\": \"Dr. Juan Pérez\",\r\n    \"nombre\": \"analisis.pdf\",\r\n    \"tipo\": \"ORINA\",\r\n    \"archivo\": \"\",\r\n    \"observaciones\": \"Observaciones del examen\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/registrarExamenMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"registrarExamenMedico"
 							]
 						}
 					},
