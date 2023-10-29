@@ -844,6 +844,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "BuscarOrdenLaboratorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_orden_laboratorio\":\"3\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/buscarOrdenLaboratorio",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"buscarOrdenLaboratorio"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1018,7 +1047,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pv_filtro\":\"1\"\r\n}\r\n",
+							"raw": "{\r\n    \"pv_filtro\":\"3\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
