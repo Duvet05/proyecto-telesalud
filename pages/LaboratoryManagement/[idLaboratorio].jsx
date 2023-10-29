@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { laboratoryService } from "@/services/laboratoryService";
+import axios from 'axios';
 function AtenderLaboratorio() {
   const [selectedDoctor, setSelectedDoctor] = useState('');
   const [observations, setObservations] = useState('');
@@ -29,7 +30,6 @@ function AtenderLaboratorio() {
       .listarMedicosLab()
       .then((data) => {
         setMedicosLab(data)
-        console.log(data);
       }
       )
       .catch((error) => {
@@ -48,7 +48,6 @@ function AtenderLaboratorio() {
 
     if (pdfFiles.length > 0) {
       setSelectedFiles((prevFiles) => [...prevFiles, ...pdfFiles]);
-      console.log(selectedFiles);
     } else {
       alert('Selecciona archivos PDF válidos.');
     }
@@ -62,8 +61,64 @@ function AtenderLaboratorio() {
   };
 
   const handleSave = () => {
-    // Implementa la lógica de guardar los datos
+    const file = selectedFiles[0]; // Obtén el archivo seleccionado
+  
+    // Verifica si se ha seleccionado un archivo
+    if (file) {
+      const jsonData = {
+        ordenLaboratorio: {
+          idOrdenLaboratorio: "12"
+        },
+        doctorFirmante: 'Dr. Juan Pérez',
+        nombre: file.name,
+        tipo: 'ORINA',
+        observaciones: 'Observaciones del examen'
+      };
+  
+      // Lee el contenido del archivo como un Blob
+      const reader = new FileReader();
+      reader.onload = function () {
+        const fileBlob = new Blob([reader.result], { type: file.type });
+  
+        // Convierte el Blob en una cadena (binario)
+        const fileReader = new FileReader();
+        fileReader.onload = function () {
+          const fileBinaryString = fileReader.result;
+  
+          // Convierte el archivo en base64
+          const fileBase64 = btoa(fileBinaryString);
+          jsonData.archivo = fileBase64;
+  
+          // Realiza la solicitud POST con fetch
+          fetch('http://localhost:8080/laboratorio/post/registrarExamenMedico', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json', // Establece el tipo de contenido a JSON
+            },
+            body: JSON.stringify(jsonData),
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(jsonData);
+              console.log('Éxito:', data);
+              // Realiza cualquier otra acción después del guardado exitoso si es necesario.
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // Maneja errores o muestra un mensaje al usuario si la solicitud falla.
+            });
+        };
+        fileReader.readAsBinaryString(fileBlob);
+      };
+  
+      reader.readAsArrayBuffer(file);
+    } else {
+      // Maneja el caso en que no se haya seleccionado un archivo
+      console.error('No se ha seleccionado un archivo.');
+    }
   };
+  
+
 
   const handleCancel = () => {
     // Implementa la lógica de cancelar

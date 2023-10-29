@@ -152,7 +152,16 @@ const LaboratoryOrdersTable = ({
                 </Button>
               </TableCell>
               <TableCell>
-                <Link href={`/LaboratoryManagement/${order.idOrdenLaboratorio}`} passHref>
+                <Link
+                  href={`/LaboratoryManagement/${order.idOrdenLaboratorio}`}
+                  passHref
+                  onClick={() => {
+                    router.push({
+                      pathname: `/LaboratoryManagement/${order.idOrdenLaboratorio}`,
+                      query: { order:  "Hola"}, //JSON.stringify(order) Aquí pasamos el objeto `order` como un parámetro en la URL
+                    });
+                  }}
+                  >
                   <Button
                     variant="contained"
                     color="primary"
