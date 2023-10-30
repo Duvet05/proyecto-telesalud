@@ -67,7 +67,7 @@ function AtenderLaboratorio() {
     if (file) {
       const jsonData = {
         ordenLaboratorio: {
-          idOrdenLaboratorio: "12"
+          idOrdenLaboratorio: "12",
         },
         doctorFirmante: 'Dr. Juan Pérez',
         nombre: file.name,
@@ -75,43 +75,33 @@ function AtenderLaboratorio() {
         observaciones: 'Observaciones del examen'
       };
   
-      // Lee el contenido del archivo como un Blob
+      // Lee el contenido del archivo como base64
       const reader = new FileReader();
       reader.onload = function () {
-        const fileBlob = new Blob([reader.result], { type: file.type });
-  
-        // Convierte el Blob en una cadena (binario)
-        const fileReader = new FileReader();
-        fileReader.onload = function () {
-          const fileBinaryString = fileReader.result;
-  
-          // Convierte el archivo en base64
-          const fileBase64 = btoa(fileBinaryString);
-          jsonData.archivo = fileBase64;
-  
-          // Realiza la solicitud POST con fetch
-          fetch('http://localhost:8080/laboratorio/post/registrarExamenMedico', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json', // Establece el tipo de contenido a JSON
-            },
-            body: JSON.stringify(jsonData),
+        const fileBase64 = reader.result.split(',')[1]; // Extrae la parte de base64
+        jsonData.archivo = fileBase64;
+        {console.log(JSON.stringify(jsonData))}
+        // Realiza la solicitud POST con fetch utilizando JSON.stringify
+        fetch('http://localhost:8080/laboratorio/post/registrarExamenMedico', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonData), // Convierte el objeto JSON a cadena
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Éxito:', data);
+            // Realiza cualquier otra acción después del guardado exitoso si es necesario.
           })
-            .then(response => response.json())
-            .then(data => {
-              console.log(jsonData);
-              console.log('Éxito:', data);
-              // Realiza cualquier otra acción después del guardado exitoso si es necesario.
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              // Maneja errores o muestra un mensaje al usuario si la solicitud falla.
-            });
-        };
-        fileReader.readAsBinaryString(fileBlob);
+          .catch(error => {
+            console.error('Error:', error);
+            // Maneja errores o muestra un mensaje al usuario si la solicitud falla.
+          });
       };
   
-      reader.readAsArrayBuffer(file);
+      // Lee el archivo como base64
+      reader.readAsDataURL(file);
     } else {
       // Maneja el caso en que no se haya seleccionado un archivo
       console.error('No se ha seleccionado un archivo.');
