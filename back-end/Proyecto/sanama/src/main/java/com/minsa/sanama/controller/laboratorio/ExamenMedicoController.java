@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class ExamenMedicoController {
     @Autowired
     ExamenMedicoService examenmedicoService;
-    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE},
-
-            produces = {MediaType.APPLICATION_JSON_VALUE},
-            value = "/post/registrarExamenMedico")
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {
+            MediaType.APPLICATION_JSON_VALUE}, value = "/post/registrarExamenMedico")
     @ResponseBody
     public int registrarMedicos(@RequestBody ExamenMedico examenMedico) {
         int idExamenMedico=0;
