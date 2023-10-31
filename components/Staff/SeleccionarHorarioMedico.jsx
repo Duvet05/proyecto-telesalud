@@ -80,7 +80,7 @@ function convertirDatosParaCalendar(datos) {
 
 function SeleccionarHorarioMedico(props) {
   const { doctor } = props;
-  //console.log(doctor)
+  console.log(doctor)
   const [isLoading, setIsLoading] = useState(true);
   const [isCalendarEnabled, setIsCalendarEnabled] = useState(false);
   const [backData, setBackData] = useState([]);

@@ -46,6 +46,7 @@ public class CitaController {
             String pv_filtro = job.get("pv_filtro").toString();
             String pd_fecha_inicio;
             String pd_fecha_fin;
+            String pn_estado;
 
             if(job.get("pn_id_especialidad") == null) pn_id_especialidad=null;
             else pn_id_especialidad = job.get("pn_id_especialidad").toString();
@@ -56,9 +57,11 @@ public class CitaController {
             if(job.get("pd_fecha_fin") == null) pd_fecha_fin=null;
             else pd_fecha_fin = job.get("pd_fecha_fin").toString();
 
+            if(job.get("pn_estado") == null) pn_estado=null;
+            else pn_estado = job.get("pn_estado").toString();
 
             // Llama al servicio para listar citas por filtros
-            Lcita = citaService.listarCitasxFiltro(pn_id_especialidad, pv_filtro, pd_fecha_inicio, pd_fecha_fin);
+            Lcita = citaService.listarCitasxFiltro(pn_id_especialidad, pv_filtro, pd_fecha_inicio, pd_fecha_fin, pn_estado);
         } catch (Exception ex) {
             // Manejo de excepciones aquí
             ex.printStackTrace();

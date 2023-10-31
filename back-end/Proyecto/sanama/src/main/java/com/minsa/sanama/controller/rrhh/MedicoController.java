@@ -28,7 +28,7 @@ public class MedicoController {
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-            MediaType.APPLICATION_JSON_VALUE }, value = "/post/medicoNombre")
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/listarMedicosPorEspecialidadNombreCmp")
     @ResponseBody
     public List<Medico> listarMedicosPorEspecialidad(@RequestBody String pv_filtro) {
         List<Medico> medicos = null;
