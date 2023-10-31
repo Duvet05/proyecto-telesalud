@@ -14,6 +14,7 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { useAppointments } from "@/context/AppointmentsContext";
 
 const companionFieldsConfig = [
   {
@@ -34,11 +35,9 @@ const companionFieldsConfig = [
   },
 ];
 
-function CompanionInfo({
-  isDisabled = false,
-  companionData = {},
-  onFormDataChange,
-}) {
+function CompanionInfo() {
+  const { appointmentData, setAppointmentData } = useAppointments();
+
   const initialState = companionFieldsConfig.reduce((acc, field) => {
     acc[field.name] = "";
     return acc;
@@ -46,44 +45,71 @@ function CompanionInfo({
 
   const [formData, setFormData] = useState({
     ...initialState,
-    ...companionData,
+    ...appointmentData.companionData,
   });
-  const [value, setValue] = useState("yes");
+  const [isLegalResponsible, setIsLegalResponsible] = useState("yes");
 
   useEffect(() => {
-    setFormData((prev) =>
-      companionData ? { ...prev, ...companionData } : initialState
-    );
-  }, [companionData]);
+    if (isLegalResponsible === "yes") {
+      setFormData(initialState);
+      setAppointmentData((prev) => ({ ...prev, companionData: null }));
+    } else if (!appointmentData.companionData) {
+      setFormData(initialState);
+    }
+  }, [isLegalResponsible]);
 
+  const updateAppointmentData = (companionData) => {
+    if (
+      JSON.stringify(appointmentData.companionData) !==
+      JSON.stringify(companionData)
+    ) {
+      setAppointmentData((prevData) => ({
+        ...prevData,
+        companionData,
+      }));
+    }
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     updateFormData(name, value);
   };
 
   const handleDateChange = (name, value) => {
-    updateFormData(name, value ? value.format("YYYY-MM-DD") : "");
+    updateFormData(name, value);
   };
-
   const updateFormData = (name, value) => {
     setFormData((prev) => {
       const updatedData = { ...prev, [name]: value };
-      onFormDataChange && onFormDataChange(updatedData);
+      const hasCompanion = Object.values(updatedData).some((v) => v);
+      const companionData = hasCompanion
+        ? {
+            tieneAcompanhante: true,
+            nombreAcompanhante:
+              `${updatedData.nombres} ${updatedData.primerApellido} ${updatedData.segundoApellido}`.trim(),
+            dniAcompanhante: updatedData.documentoIdentidad,
+            parentezco: updatedData.relationship,
+          }
+        : null;
+      updateAppointmentData(companionData);
       return updatedData;
     });
   };
+  const isDisabled = false;
 
   return (
     <>
       <Typography variant="h6" gutterBottom>
         ¿El paciente es responsable legal?
       </Typography>
-      <RadioGroup row value={value} onChange={(e) => setValue(e.target.value)}>
+      <RadioGroup
+        row
+        value={isLegalResponsible}
+        onChange={(e) => setIsLegalResponsible(e.target.value)}
+      >
         <FormControlLabel value="yes" control={<Radio />} label="Sí" />
         <FormControlLabel value="no" control={<Radio />} label="No" />
       </RadioGroup>
-
-      {value === "no" && (
+      {isLegalResponsible === "no" && (
         <Grid container spacing={4}>
           {companionFieldsConfig.map((field) => (
             <Grid item xs={4} key={field.name}>

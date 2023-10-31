@@ -14,7 +14,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import PatientFieldsAppointment from "./PatientFieldsAppointment";
 import { patientService } from "../../services/patientService";
 import { useAppointments } from "@/context/AppointmentsContext";
-import CompanionInfo from "./CompanionInfo";
 
 function PatientInfoAppointment() {
   const [state, setState] = useState({
