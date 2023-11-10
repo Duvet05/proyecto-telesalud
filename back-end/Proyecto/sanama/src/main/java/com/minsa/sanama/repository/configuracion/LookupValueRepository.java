@@ -20,19 +20,25 @@ public class LookupValueRepository {
 
     private final ListaValoresMapper listaValoresMapper = new ListaValoresMapper();
     private final ListaValoresMedicosMapper listaValoresMedicosMapper = new ListaValoresMedicosMapper();
+
     public List<LookupValue> listarValoresParentezcos() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_parentezcos()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
     public List<LookupValue> listarValoresSeguros() {
-        String procedureCall = "{call dbSanama.ssm_conf_listar_seguros()};";
+        String procedureCall = "{call dbSanama.ssm_conf_listar_estados_citas()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
     public List<LookupValue> listarMedicosLab() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_lab_medicos()};";
         return jdbcTemplate.query(procedureCall, listaValoresMedicosMapper);
+    }
+
+    public List<LookupValue> listarEstados() {
+        String procedureCall = "{call dbSanama.ssm_conf_listar_estados_citas()};";
+        return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
     private static class ListaValoresMapper implements RowMapper<LookupValue> {

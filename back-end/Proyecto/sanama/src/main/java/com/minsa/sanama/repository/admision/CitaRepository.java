@@ -37,6 +37,11 @@ public class CitaRepository {
         return jdbcTemplate.query(procedureCall, citaMedicaMapper);
     }
 
+    public List<CitaMedica> listarCitasUltimas() {
+        String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_finales()};";
+        return jdbcTemplate.query(procedureCall, citaMedicaMapper);
+    }
+
     public List<CitaMedica> listarCitasxPaciente(int pn_idPaciente) {
         String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_x_paciente('" + pn_idPaciente + "')};";
         return jdbcTemplate.query(procedureCall, citaMedicaPacienteMapper);

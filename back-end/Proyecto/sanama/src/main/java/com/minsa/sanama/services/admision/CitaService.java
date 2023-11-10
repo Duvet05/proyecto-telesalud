@@ -1,6 +1,7 @@
 package com.minsa.sanama.services.admision;
 
 import com.minsa.sanama.model.atencionmedica.CitaMedica;
+import com.minsa.sanama.model.rrhh.Medico;
 import com.minsa.sanama.repository.admision.CitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,12 @@ public class CitaService {
     public List<CitaMedica> listarCitasTodas() {
         List<CitaMedica> lCitas;
         lCitas = citaRepository.listarCitasTodas();
+        return lCitas;
+    }
+
+    public List<CitaMedica> listarCitasUltimas() {
+        List<CitaMedica> lCitas;
+        lCitas = citaRepository.listarCitasUltimas();
         return lCitas;
     }
 
@@ -57,4 +64,5 @@ public class CitaService {
         else
             return -1;
     }
+
 }

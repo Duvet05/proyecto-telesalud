@@ -1,6 +1,7 @@
 package com.minsa.sanama.model.atencionmedica;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.minsa.sanama.model.rrhh.Medico;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class HojaMedica {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int idHojaClinica=0;
     private String codigo;
-    private LocalDate fecha;
+    private LocalDate proximaCita;
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private int estado=0;
     // private ArrayList<CitaMedica> citasMedicas;
@@ -17,8 +18,9 @@ public class HojaMedica {
     private ArrayList<Resultado> resultados;
     private RecetaMedica recetaMedica;
 
-    public HojaMedica() {
-    }
+    private Medico medicoAsignado;
+
+    private byte[] sello;
 
     public int getIdHojaClinica() {
         return idHojaClinica;
@@ -36,12 +38,12 @@ public class HojaMedica {
         this.codigo = codigo;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getProximaCita() {
+        return proximaCita;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setProximaCita(LocalDate fecha) {
+        this.proximaCita = proximaCita;
     }
 
     public int getEstado() {
@@ -83,6 +85,22 @@ public class HojaMedica {
 
     public void setRecetaMedica(RecetaMedica recetaMedica) {
         this.recetaMedica = recetaMedica;
+    }
+
+    public Medico getMedico() {
+        return medicoAsignado;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medicoAsignado = medicoAsignado;
+    }
+
+    public byte[] getSello() {
+        return sello;
+    }
+
+    public void setSello(byte[] sello) {
+        this.sello = sello;
     }
 
 }

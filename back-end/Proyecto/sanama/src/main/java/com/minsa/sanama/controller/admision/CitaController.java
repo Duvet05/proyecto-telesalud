@@ -100,6 +100,14 @@ public class CitaController {
         return citas;
     }
 
+    @GetMapping(value = "/get/citaUltimas")
+    @ResponseBody
+    public List<CitaMedica> listarCitasUltimas() {
+        List<CitaMedica> citas;
+        citas = citaService.listarCitasUltimas();
+        return citas;
+    }
+
     @PostMapping(value = "/post/registrarCitaMedica")
     @ResponseBody
     public int registrarCitaMedicaPaciente(@RequestBody CitaMedica citaMedica) {

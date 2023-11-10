@@ -1,5 +1,6 @@
 package com.minsa.sanama.controller.admision;
 import com.minsa.sanama.model.admision.Paciente;
+import com.minsa.sanama.model.rrhh.TurnoAtencion;
 import com.minsa.sanama.services.admision.PacienteService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -90,11 +91,27 @@ public class PacienteController {
         return idPaciente;
     }
 
-    @PutMapping(value = "/put/actualizarPaciente")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/actualizarPaciente")
     @ResponseBody
-    public int actualizarPaciente(@RequestBody Paciente paciente){
-        int n;
-        n = pacienteService.actualizarPaciente(paciente);
+    public int actualizarPaciente(@RequestBody String pv_datos){
+        int n=0;
+        Paciente paciente= new Paciente();
+        try {
+            JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
+            int pn_id_paciente = Integer.parseInt(job.get("pn_id_paciente").toString());
+            String pv_telefono = job.get("pv_telefono").toString();
+            String pv_correo = job.get("pv_correo").toString();
+            String pv_direccion = job.get("pv_direccion").toString();
+            System.out.println(pn_id_paciente);
+            paciente.setIdPersona(pn_id_paciente);
+            paciente.setTelefono(pv_telefono);
+            paciente.setCorreo(pv_correo);
+            paciente.setDireccion(pv_direccion);
+            n = pacienteService.actualizarPaciente(paciente);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return n;
     }
 
