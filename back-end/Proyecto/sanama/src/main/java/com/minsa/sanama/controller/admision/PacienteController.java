@@ -92,7 +92,7 @@ public class PacienteController {
     }
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = {
-            MediaType.APPLICATION_JSON_VALUE }, value = "/post/actualizarPaciente")
+            MediaType.APPLICATION_JSON_VALUE }, value = "/post/actualizarPacienteShort")
     @ResponseBody
     public int actualizarPaciente(@RequestBody String pv_datos){
         int n=0;
