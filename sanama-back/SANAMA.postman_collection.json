@@ -1,0 +1,1624 @@
+{
+	"info": {
+		"_postman_id": "5f5f5e8a-a8a5-4332-8178-2c8ca1e93f04",
+		"name": "SANAMA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29931628"
+	},
+	"item": [
+		{
+			"name": "Citas",
+			"item": [
+				{
+					"name": "ListarCitasPorPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_paciente\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasPorFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_especialidad\": null,\r\n    \"pv_filtro\":\"\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null,\r\n    \"arregloEstados\":\r\n    [\r\n        {\r\n            \"estado\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasDeMedicoPorFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_medico\": 3,\r\n    \"pv_filtro\":\"Sofia\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null,\r\n    \"arregloEstados\":\r\n    [\r\n        {\r\n            \"estado\": null\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasDeMedicoPorFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasDeMedicoPorFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitasPorMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_medico\":\"2\",\r\n    \"pn_estado\": null\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarCitasPorMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarCitasPorMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarCitaMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_cita\" : 41\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarCitaMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarCitaMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCitas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admision/get/cita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"get",
+								"cita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarCitaMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"paciente\": {\r\n    \"idPersona\": 109\r\n  },\r\n  \"medico\": {\r\n    \"idPersona\": 2\r\n  },\r\n\"hojaMedica\": {\r\n    \"idHojaMedica\": 9\r\n  },\r\n  \"horaCita\": \"15:20\",\r\n  \"fechaCita\": \"2023-10-23\",\r\n  \"tieneAcompanhante\" : true,\r\n  \"nombreAcompanhante\" : \"MAGDALENA\",\r\n  \"dniAcompanhante\" : \"456789\",\r\n  \"parentezco\" : \"MAMA\",\r\n  \"requiereTriaje\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/registrarCitaMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"registrarCitaMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CambiarEstadoCita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_cita\":\"3\",\r\n    \"pn_estado\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/cambiarEstadoCita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"cambiarEstadoCita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CambiarHorarioCita",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_cita\":\"3\",\r\n    \"pt_hora_cita\":\"08:00\",\r\n    \"pd_fecha_cita\":\"2023-11-06\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/cambiarHorarioCita",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"cambiarHorarioCita"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "listarPacientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/get/paciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"get",
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPacientesFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros: NOMBRES Y APELLIDOS, DNI, CODIGOSEGURO, IDPACIENTE\r\n{\r\n    \"pv_filtro\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MostrarPacienteRegistrado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Retorna solo 1 paciente\r\n//Filtros: DNI, NOMBRE(no apellidos)\r\n{\r\n    \"pn_id_paciente\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/mostrarPacienteRegistrado",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"mostrarPacienteRegistrado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarPacientesModalFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros: NOMBRES Y APELLIDOS, DNI, CODIGOSEGURO, IDPACIENTE\r\n{\r\n    \"pv_nombre_dni\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarPacienteModal",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarPacienteModal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres\": \"Jhuver\",\r\n    \"apellidoPaterno\": \"Cataño\",\r\n    \"apellidoMaterno\": \"Rodriguez\",\r\n    \"dni\": \"51903765\",\r\n    \"fechaNacimiento\": \"1997-08-29\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"telefono\": \"957379456\",\r\n    \"estado\": 1,\r\n    \"codigoSeguro\": \"SEG115\",\r\n    \"tipoSeguro\": \"ESSALUD\",\r\n    \"correo\": \"cataño.rodriguez@gmail.com\",\r\n    \"direccion\": \"Av. Vulcano 115, Ate Vitarte\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/paciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"paciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPersona\": 109,\r\n    \"nombres\": \"Aracelli\",\r\n    \"apellidoPaterno\": \"Novoa\",\r\n    \"apellidoMaterno\": \"Martinez\",\r\n    \"dni\": \"70336777\",\r\n    \"fechaNacimiento\": \"1990-09-29\",\r\n    \"sexo\": \"FEMENINO\",\r\n    \"telefono\": \"937581949\",\r\n    \"codigoSeguro\": \"1478777\",\r\n    \"tipoSeguro\": 1,\r\n    \"correo\": \"javier.mendez@gmail.com\",\r\n    \"direccion\": \"Av. Vulcano 115, Ate Vitarte\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/actualizarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"actualizarPaciente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPaciente",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 101,\r\n        \"nombres\": \"\",\r\n        \"apellidoPaterno\": \"\",\r\n        \"apellidoMaterno\": \"\",\r\n        \"dni\": \"2\",\r\n        \"fechaNacimiento\": \"1990-09-29\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"937581949\",\r\n        \"estado\": 1,\r\n        \"codigoSeguro\": \"2\",\r\n        \"tipoSeguro\": \"Pacífico\",\r\n        \"correo\": \"javier@gmail.com\",\r\n        \"direccion\": \"Av. Vulcano 115, Ate Vitarte\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/delete/eliminarPaciente",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"delete",
+								"eliminarPaciente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Triaje",
+			"item": [
+				{
+					"name": "ListarTriajePorFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"Echevarria\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null,\r\n    \"arregloEstados\":\r\n    [\r\n        {\r\n            \"estado\": 4\r\n        },\r\n        {\r\n            \"estado\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/listarTriajePorFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"listarTriajePorFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarTriaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"52\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/post/buscarTriaje",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"post",
+								"buscarTriaje"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarTriaje",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_triaje\": 2,\r\n    \"pn_peso\": 80,\r\n    \"pn_talla\": 176,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Dolor de cabeza\",\r\n    \"pv_presion_sistolica\": \"120\",\r\n    \"pv_presion_diastolica\": \"120\",\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Media\",\r\n    \"pn_saturacionOxigeno\": \"98\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pn_frecuenciaRespiratoria\": \"20\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}\r\n\r\n/*{\r\n    \"pn_id_triaje\": 3,\r\n    \"pn_peso\": 75,\r\n    \"pn_talla\": 180,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 2\",\r\n    \"pn_presion_arterial\": 130,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"90\",\r\n    \"pn_frecuenciaCardiaca\": \"75\",\r\n    \"pn_frecuenciaRespiratoria\": \"18\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"3\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia a la penicilina\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 4,\r\n    \"pn_peso\": 68,\r\n    \"pn_talla\": 170,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 3\",\r\n    \"pn_presion_arterial\": 125,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"99\",\r\n    \"pn_frecuenciaCardiaca\": \"66\",\r\n    \"pn_frecuenciaRespiratoria\": \"18\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Ninguna\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 5,\r\n    \"pn_peso\": 72,\r\n    \"pn_talla\": 178,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 4\",\r\n    \"pn_presion_arterial\": 122,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"93\",\r\n    \"pn_frecuenciaCardiaca\": \"146\",\r\n    \"pn_frecuenciaRespiratoria\": \"19\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"5\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia al polen\"\r\n}\r\n\r\n{\r\n    \"pn_id_triaje\": 6,\r\n    \"pn_peso\": 69,\r\n    \"pn_talla\": 172,\r\n    \"pn_temperatura\": 37,\r\n    \"pv_motivo_visita\": \"Motivo de la visita 4\",\r\n    \"pn_presion_arterial\": 128,\r\n    \"pn_estado\": 4,\r\n    \"pv_prioridad\": \"Urgente\",\r\n    \"pn_saturacionOxigeno\": \"93\",\r\n    \"pn_frecuenciaCardiaca\": \"124\",\r\n    \"pn_frecuenciaRespiratoria\": \"20\",\r\n    \"pv_nivelConciencia\": \"Alerta\",\r\n    \"pv_nivelDolor\": \"4\",\r\n    \"pv_condicionesPrexistentes\": \"Alergia a los frutos secos\"\r\n}*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admision/put/actualizarTriaje",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admision",
+								"put",
+								"actualizarTriaje"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HistorialClinica",
+			"item": [
+				{
+					"name": "BuscarHistorialClinico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_paciente\":\"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/buscarHistorialClinico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"buscarHistorialClinico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HojaMedica",
+			"item": [
+				{
+					"name": "RegistrarHojaMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idHistorialClinico\": 10,\r\n    \"hojasMedicas\":\r\n    [   \r\n        {\r\n           \"idCitaMedica\": 112,\r\n            \"hojaRefencia\": {\r\n                \"idHojaReferenciada\": 17\r\n            },\r\n            \"horaAtencion\":  \"18:20\",\r\n            \"fechaAtencion\": \"2023-11-10\"\r\n        }\r\n    ]\r\n}\r\n//borrar eventualmente el atributo de la fechaAtencion y horaAtencion\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/registrarHojaMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"registrarHojaMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarHojaMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_hoja_medica\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/eliminarHojaMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"eliminarHojaMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarHojasMedicasFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_paciente\": null,\r\n    \"pn_id_especialidad\": null,\r\n    \"pd_fecha_inicio\": null,\r\n    \"pd_fecha_fin\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/ListarHojasMedicasFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"ListarHojasMedicasFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarResultadosPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_hoja_medica\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/atencion/post/buscarResultadosPaciente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"buscarResultadosPaciente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LookUpValue",
+			"item": [
+				{
+					"name": "ListarParentezcos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarParentezcos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarParentezcos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarMedicosLab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarMedicosLab",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarMedicosLab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarSeguros",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarSeguros",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarSeguros"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarEstadosCitas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarEstadosCitas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarEstadosCitas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarEstadosOrdenesLaboratorio",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarEstadosOrdenesLaboratorio",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarEstadosOrdenesLaboratorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarEstadosTriajes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/configuracion/get/listarEstadosTriajes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"configuracion",
+								"get",
+								"listarEstadosTriajes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ExamenMedico",
+			"item": []
+		},
+		{
+			"name": "OrdenLaboratorio",
+			"item": [
+				{
+					"name": "ListarOrdenLaboratorioFiltro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"\",\r\n    \"pd_fecha_inicio\":null,\r\n    \"pd_fecha_fin\":null,\r\n    \"arregloEstados\":\r\n    [\r\n        {\r\n            \"estado\": 1\r\n        },\r\n        {\r\n            \"estado\": 3\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/listarOrdenLaboratorioFiltro",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"listarOrdenLaboratorioFiltro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarOrdenLaboratorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pn_id_orden_laboratorio\":\"17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/buscarOrdenLaboratorio",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"buscarOrdenLaboratorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AtenderOrdenLaboratorioV1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idOrdenLaboratorio\": 36,\r\n    \"doctorFirmante\": \"Doctor Pavlikov\",\r\n    \"estado\": 4,\r\n    \"examenMedico\":\r\n    [\r\n        {\r\n            \"nombreArchivo\" : \"analisis.pdf\",\r\n            \"tipoPrueba\" : \"tipoPrueba\",\r\n            \"archivo\": \"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IDAgb2JqCjw8L1R5cGUgL0ZvbnREZXNjcmlwdG9yCi9Gb250TmFtZSAvQUFBQUFBK0FyaWFsTVQKL0ZsYWdzIDQKL0FzY2VudCA5MDUuMjczNDQKL0Rlc2NlbnQgLTIxMS45MTQwNgovU3RlbVYgNDUuODk4NDM4Ci9DYXBIZWlnaHQgNzE1LjgyMDMxCi9JdGFsaWNBbmdsZSAwCi9Gb250QkJveCBbLTY2NC41NTA3OCAtMzI0LjcwNzAzIDIwMDAgMTAwNS44NTkzOF0KL0ZvbnRGaWxlMiA4IDAgUj4+CmVuZG9iagoxMCAwIG9iago8PC9UeXBlIC9Gb250Ci9Gb250RGVzY3JpcHRvciA5IDAgUgovQmFzZUZvbnQgL0FBQUFBQStBcmlhbE1UCi9TdWJ0eXBlIC9DSURGb250VHlwZTIKL0NJRFRvR0lETWFwIC9JZGVudGl0eQovQ0lEU3lzdGVtSW5mbyA8PC9SZWdpc3RyeSAoQWRvYmUpCi9PcmRlcmluZyAoSWRlbnRpdHkpCi9TdXBwbGVtZW50IDA+PgovVyBbMCBbNzUwXSAxMyBbMzg5LjE2MDE2IDAgMCAwIDI3Ny44MzIwMyAyNzcuODMyMDNdIDE5IDI4IDU1Ni4xNTIzNCAyOSBbMjc3LjgzMjAzXSAzNiBbNjY2Ljk5MjE5IDAgNzIyLjE2Nzk3IDcyMi4xNjc5NyAwIDYxMC44Mzk4NCA3NzcuODMyMDMgNzIyLjE2Nzk3XSA0NyBbNTU2LjE1MjM0IDgzMy4wMDc4MSA3MjIuMTY3OTcgMCA2NjYuOTkyMTkgMCA3MjIuMTY3OTcgNjY2Ljk5MjE5IDYxMC44Mzk4NF0gNjggNjkgNTU2LjE1MjM0IDcxIDcyIDU1Ni4xNTIzNCA3MyBbMjc3LjgzMjAzIDU1Ni4xNTIzNCA1NTYuMTUyMzRdIDc2IDc5IDIyMi4xNjc5NyA4MCBbODMzLjAwNzgxXSA4MSA4NCA1NTYuMTUyMzQgODUgWzMzMy4wMDc4MV0gODcgWzI3Ny44MzIwMyA1NTYuMTUyMzRdIDEwNSAxMTIgNTU2LjE1MjM0IDExNiBbMjc3LjgzMjAzXSAxMjEgWzU1Ni4xNTIzNF1dCi9EVyA1MDA+PgplbmRvYmoKMTEgMCBvYmoKPDwvRmlsdGVyIC9GbGF0ZURlY29kZQovTGVuZ3RoIDM0MT4+IHN0cmVhbQp4nF1Sy26DMBC88xU+poeIN0kkhJTmIXHoQ6X9AGIvKVIxliEH/r5mh6RSLRlpdmd2Z1n7h/JY6nYU/rvtZUWjaFqtLA39zUoSF7q22gsjoVo5Loi/squN5ztxNQ0jdaVuei/PhfA/XHYY7SRWe9Vf6Mnz36wi2+qrWH0dKoermzE/1JEeReAVhVDUuEovtXmtOxI+y9alcvl2nNZO88f4nAyJiHEIN7JXNJhakq31lbw8cKcQ+dmdwiOt/uW3UF0a+V1bZh8dOwiifTGjKGGUhEDIJcjFMaM0YJTtGJ3A3ARAOyBUOR2BwDzH7GfpvLv7eNgOQ6aFW/g5sTbcIwgj8Qa2MlA2cBcjiC7RM4IZgmfoUDo5YI70XozHiTiYLIOjUYapEshTlM4gT9EhBXOzXabCHPMPnx/GY5vyZq1bJL8e3uC8u1bT44GZ3syq+f4CIvexLgplbmRzdHJlYW0KZW5kb2JqCjQgMCBvYmoKPDwvVHlwZSAvRm9udAovU3VidHlwZSAvVHlwZTAKL0Jhc2VGb250IC9BQUFBQUErQXJpYWxNVAovRW5jb2RpbmcgL0lkZW50aXR5LUgKL0Rlc2NlbmRhbnRGb250cyBbMTAgMCBSXQovVG9Vbmljb2RlIDExIDAgUj4+CmVuZG9iagp4cmVmCjAgMTIKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDE1IDAwMDAwIG4gCjAwMDAwMDIyMzMgMDAwMDAgbiAKMDAwMDAwMDE3NSAwMDAwMCBuIAowMDAwMDI5MTg4IDAwMDAwIG4gCjAwMDAwMDAyMTIgMDAwMDAgbiAKMDAwMDAwMjQ0MSAwMDAwMCBuIAowMDAwMDAyNDk2IDAwMDAwIG4gCjAwMDAwMDI1NDMgMDAwMDAgbiAKMDAwMDAyNzg5OSAwMDAwMCBuIAowMDAwMDI4MTMzIDAwMDAwIG4gCjAwMDAwMjg3NzYgMDAwMDAgbiAKdHJhaWxlcgo8PC9TaXplIDEyCi9Sb290IDcgMCBSCi9JbmZvIDEgMCBSPj4Kc3RhcnR4cmVmCjI5MzI3CiUlRU9GCg==\"\r\n        }\r\n    ],\r\n    \"observaciones\": \"Observaciones del examen\"\r\n}\r\n\r\n/*{\r\n    \"codigoOrden\": \"O-003\",\r\n    \"tipoMuestra\": \"Orina\",\r\n    \"instrucciones\": \"Realizarse un analisis de orina\",\r\n    \"doctorFirmante\": \"Ricardo Gómez López\",\r\n    \"observaciones\": \"Observaciones\",\r\n    \"citaMedica\": {\r\n        \"paciente\": {\r\n            \"nombres\": \"Javier\",\r\n            \"apellidoPaterno\": \"Mendes\",\r\n            \"apellidoMaterno\": \"Molinas\",\r\n            \"dni\": \"74032409\",\r\n            \"fechaNacimiento\": \"1990-09-27\",\r\n            \"sexo\": \"M\"\r\n        },\r\n        \"medico\": {\r\n            \"nombres\": \"Fernanda\",\r\n            \"apellidoPaterno\": \"Medina\",\r\n            \"apellidoMaterno\": \"de las Casas\"\r\n        },\r\n        \"requiereTriaje\": 0,\r\n        \"tieneAcompanhante\": false\r\n    },\r\n    \"examenMedico\": [\r\n        {\r\n            \"idExamen\": 2,\r\n            \"nombreArchivo\": \"Laboratorio.pdf\",\r\n            \"archivo\": \"\"\r\n        }\r\n    ]\r\n}*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/atenderOrdenLaboratorioV1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"atenderOrdenLaboratorioV1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarOrdenLaboratorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoMuestra\": \"Sangre\",\r\n    \"instrucciones\": \"Por favor, realiza un análisis de sangre para evaluar los niveles de hierro y detectar posibles problemas de deficiencia\",\r\n    \"citaMedica\": {\r\n        \"idCita\": 112\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/registrarOrdenLaboratorio",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"registrarOrdenLaboratorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarOrdenLaboratorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idOrdenLaboratorio\": 4,\r\n    \"codigoOrden\": \"O-004\",\r\n    \"tipoMuestra\": \"Orina\",\r\n    \"instrucciones\": \"Realizarse un analisis de orina\",\r\n    \"doctorFirmante\": \"Ricardo Gómez de la Huerta\",\r\n    \"observaciones\": \"Observaciones\",\r\n    \"citaMedica\": {\r\n        \"paciente\": {\r\n            \"nombres\": \"Javier\",\r\n            \"apellidoPaterno\": \"Mendes\",\r\n            \"apellidoMaterno\": \"Molinas\",\r\n            \"dni\": \"74032409\",\r\n            \"fechaNacimiento\": \"1990-09-27\",\r\n            \"sexo\": \"M\"\r\n        },\r\n        \"medico\": {\r\n            \"nombres\": \"Fernanda\",\r\n            \"apellidoPaterno\": \"Medina\",\r\n            \"apellidoMaterno\": \"de las Casas\"\r\n        },\r\n        \"requiereTriaje\": 0,\r\n        \"tieneAcompanhante\": false\r\n    },\r\n    \"examenMedico\": [ ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/laboratorio/post/actualizarOrdenLaboratorio",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"laboratorio",
+								"post",
+								"actualizarOrdenLaboratorio"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enfermera",
+			"item": [
+				{
+					"name": "ListarEnfermeras",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/get/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarEnfermera",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonás\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/put/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"put",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarEnfermera",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonás\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/patch/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"patch",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarEnfermera",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//por alguna razon no funciona xd, osea si aparece que funciono pero no termina eliminandolo\r\n{\r\n        \"idPersona\": 3,\r\n        \"nombres\": \"Jonas\",\r\n        \"apellidoPaterno\": \"Sanchez\",\r\n        \"apellidoMaterno\": \"Cerro\",\r\n        \"dni\": \"739434801\",\r\n        \"fechaNacimiento\": \"1999-03-27\",\r\n        \"sexo\": \"MASCULINO\",\r\n        \"telefono\": \"82837491\",\r\n        \"estado\": 1,\r\n        \"area\": \"area\",\r\n        \"numeroLicencia\": \"numeroLicencia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/delete/enfermera",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"delete",
+								"enfermera"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Especialidad",
+			"item": [
+				{
+					"name": "ListarEspecialidades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/rrhh/get/especialidad",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"especialidad"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarEspecialidadesNombre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pv_filtro\":\"Ca\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/especialidadNombre",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"especialidadNombre"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HorarioAtencion",
+			"item": [
+				{
+					"name": "registrarHorarioMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//usa call ssm_rrhh_eliminar_turno_atencion(1, '2022-10-25','2022-11-05')\r\n//usa call ssm_rrhh_registrar_turno_atencion(@nTurnos, 1, '8:00', '16:00', '2022-10-29');\r\n{\r\n    \"pn_id_medico\": \"1\",\r\n    \"pd_fecha_inicio\": \"2023-11-02\",\r\n    \"pd_fecha_fin\": \"2023-11-05\",\r\n    \"arregloHorarios\":\r\n    [\r\n        {\r\n            \"horaInicio\": \"09:00\",\r\n            \"horaFin\":  \"15:00\",\r\n            \"fecha\": \"2023-11-02\"\r\n        },\r\n        {\r\n            \"horaInicio\": \"09:00\",\r\n            \"horaFin\": \"15:00\",\r\n            \"fecha\": \"2023-11-03\"\r\n        },\r\n        {\r\n            \"horaInicio\": \"09:00\",\r\n            \"horaFin\": \"15:00\",\r\n            \"fecha\": \"2023-11-05\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/registrarHorarioMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"registrarHorarioMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medico",
+			"item": [
+				{
+					"name": "ListarMedicos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/get/medico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"get",
+								"medico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarMedicosNombreEspecialidad",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtro OPCIONAL pv_medico: NOMBRES Y APELLIDOS\r\n//Filtro OPCIONAL pv_especialidad: NOMBRE ESPECIALIDAD\r\n{\r\n\t\"pv_medico\" : \"\",\r\n\t\"pv_especialidad\" : \"\" \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/listarMedicosPorEspecialidadNombreCmp",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"listarMedicosPorEspecialidadNombreCmp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTurnosPorMedicoFecha",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtro OBLIGATORIO pn_id_medico: ID DEL MEDICO A REVISAR\r\n//Filtro OBLIGATORIO pd_fecha: FECHA DESEADA PARA REVISAR\r\n{\r\n    \"pn_id_medico\": \"2\",\r\n    \"pd_fecha\": \"2023-11-05\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/horarios_por_medico_y_fecha",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"horarios_por_medico_y_fecha"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarTurnosPorMedicoyFechas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtro OBLIGATORIO pn_id_medico: ID DEL MEDICO A REVISAR\r\n//Filtro OBLIGATORIO pd_fecha_inicio: FECHA inicial DESEADA PARA REVISAR\r\n//Filtro OBLIGATORIO pd_fecha_inicio: FECHA final DESEADA PARA REVISAR\r\n{\r\n    \"pn_id_medico\": \"1\",\r\n    \"pd_fecha_inicio\": \"2023-11-03\",\r\n    \"pd_fecha_fin\": \"2023-11-05\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/horarios_por_medico_e_intervaloFechas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"horarios_por_medico_e_intervaloFechas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarDiasDisponiblesPorMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Devuelve un arreglo de fechas tipo date en las que el medico tiene espacio disponible para citas\r\n//Filtro OBLIGATORIO pn_id_medico: ID DEL MEDICO A REVISAR\r\n{\r\n    \"pn_id_medico\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/dias_disponibles_por_medico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"dias_disponibles_por_medico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//Filtros obligatorio: id del medico\r\n{    \r\n  \"pv_filtro\":\"17\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/rrhh/post/buscarMedico",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"buscarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegistrarMedico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sabila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/post/registrarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"post",
+								"registrarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarMedico",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sábila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/put/actualizarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"put",
+								"actualizarMedico"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarMedico",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//tampoco funciona, pero si da el mensaje como si lo hubiera hecho :/\r\n{\r\n        \"idPersona\": 17,\r\n        \"nombres\": \"Juan\",\r\n        \"apellidoPaterno\": \"Sábila\",\r\n        \"apellidoMaterno\": \"Palomino\",\r\n        \"dni\": \"94837582\",\r\n        \"fechaNacimiento\": \"1980-06-11\",\r\n        \"sexo\": \"M\",\r\n        \"telefono\": \"69375912\",\r\n        \"correoElectronico\": \"juan.sabila@example.com\",\r\n        \"area\": \"Atencion Medica\",\r\n        \"cmp\": \"cmp\",\r\n        \"especialidad\": {\r\n            \"idEspecialidad\": 1\r\n        }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rrhh/delete/eliminarMedico",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rrhh",
+								"delete",
+								"eliminarMedico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EvaluacionMedica",
+			"item": [
+				{
+					"name": "registrarEvaluacionMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"hojaMedica\":{\r\n        \"idHojaMedica\":1\r\n    },\r\n    \"motivoConsulta\": \"motivoConsulta\",\r\n    \"antecedentes\": \"cqcqc\",\r\n    \"examenGeneral\": \"cqcqc\",\r\n    \"pielYFaneras\": \"cqcqc\",\r\n    \"cabezaYCuello\": \"cqcqc\",\r\n    \"toraxYPulmones\": \"cqcqc\",\r\n    \"cardiovascular\": \"cardiovascular\",\r\n    \"abdomen\": \"cqcqc\",\r\n    \"urogenital\": \"cqcqc\",\r\n    \"extremidades\": \"cqcqc\",\r\n    \"snc\": \"cqcqc\",\r\n    \"glasgow\": 5,\r\n    \"eyesOpen\": 5,\r\n    \"talkingCorrectly\": false,\r\n    \"ableToMoveBody\": false,\r\n    \"observaciones\": \"cqcqc\",\r\n    \"indicacionesFinales\": \"cqcqc\",\r\n    \"requiereSignosVitales\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/registrarEvaluacionMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"registrarEvaluacionMedica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarEvaluacionMedica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idEvaluacion\": 1,\r\n    \"motivoConsulta\": \"motivoConsulta\",\r\n    \"antecedentes\": \"antecedentes\",\r\n    \"examenGeneral\": \"examenGeneral\",\r\n    \"pielYFaneras\": \"pielYFaneras\",\r\n    \"cabezaYCuello\": \"cabezaYCuello\",\r\n    \"toraxYPulmones\": \"toraxYPulmones\",\r\n    \"cardiovascular\": \"cardiovascular\",\r\n    \"abdomen\": \"cqcqc\",\r\n    \"urogenital\": \"cqcqc\",\r\n    \"extremidades\": \"cqcqc\",\r\n    \"snc\": \"cqcqc\",\r\n    \"glasgow\": 5,\r\n    \"eyesOpen\": 5,\r\n    \"talkingCorrectly\": false,\r\n    \"ableToMoveBody\": false,\r\n    \"observaciones\": \"cqcqc\",\r\n    \"indicacionesFinales\": \"cqcqc\",\r\n    \"requiereSignosVitales\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/atencion/post/actualizarEvaluacionMedica",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"atencion",
+								"post",
+								"actualizarEvaluacionMedica"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

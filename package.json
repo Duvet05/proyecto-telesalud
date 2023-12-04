@@ -1,40 +1,12 @@
 {
   "name": "sanama",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.11",
-    "@mui/lab": "^5.0.0-alpha.146",
-    "@mui/material": "^5.14.11",
-    "@mui/x-date-pickers": "^6.16.3",
-    "@reduxjs/toolkit": "^1.9.5",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.53",
-    "@types/react": "^18.2.22",
-    "@types/react-big-calendar": "^1.6.5",
-    "@types/react-dom": "^18.2.7",
-    "axios": "^1.5.1",
-    "classnames": "^2.3.2",
-    "moment": "^2.29.4",
-    "next": "^13.5.5",
-    "react": "^18.2.0",
-    "react-big-calendar": "^1.8.4",
-    "react-calendar": "^4.6.0",
-    "react-calendly": "^4.2.0",
-    "react-datepicker": "^4.20.0",
-    "react-dom": "^18.2.0",
-    "react-final-form": "^6.5.9",
-    "react-router-dom": "^6.17.0"
-  },
-  "devDependencies": {
-    "@types/react-datepicker": "^4.19.0"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -1,2 +1,0 @@
-# sanama-app
-Proyecto Telesalud
