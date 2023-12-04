@@ -29,6 +29,7 @@ public class LookupValueService {
         return lmedicos;
     }
 
+<<<<<<< HEAD:sanama-back/src/main/java/com/minsa/sanama/services/configuracion/LookupValueService.java
     public List<LookupValue> listarEstadosCitas() {
         List<LookupValue> lcitas;
         lcitas = valueRepository.listarEstadosCitas();
@@ -45,6 +46,12 @@ public class LookupValueService {
         LookupValue cita;
         cita = valueRepository.getStatusCita(pn_id_cita).get(0);
         return cita;
+=======
+    public List<LookupValue> listarEstados() {
+        List<LookupValue> lvalores;
+        lvalores = valueRepository.listarEstados();
+        return lvalores;
+>>>>>>> d1d045bf47a1ea0a83037bd028ca92e300e85c54:back-end/Proyecto/sanama/src/main/java/com/minsa/sanama/services/configuracion/LookupValueService.java
     }
 
 }

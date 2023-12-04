@@ -193,32 +193,14 @@ public class PacienteRepository {
                 .withProcedureName("ssm_adm_actualizar_paciente")
                 .declareParameters(new SqlParameter[]{
                         new SqlParameter("pn_id_paciente ", Types.INTEGER),
-                        new SqlParameter("pv_nombres ", Types.VARCHAR),
-                        new SqlParameter("pv_apellido_paterno", Types.VARCHAR),
-                        new SqlParameter("pv_apellido_materno", Types.VARCHAR),
-                        new SqlParameter("pv_dni", Types.VARCHAR),
-                        new SqlParameter("pd_fecha_nacimiento", Types.DATE),
-                        new SqlParameter("pv_sexo", Types.VARCHAR),
                         new SqlParameter("pv_telefono", Types.VARCHAR),
-                        new SqlParameter("pb_foto", Types.BLOB),
-                        new SqlParameter("pv_codigo_seguro", Types.VARCHAR),
-                        new SqlParameter("pv_tipo_seguro", Types.VARCHAR),
                         new SqlParameter("pv_correo", Types.VARCHAR),
                         new SqlParameter("pv_direccion", Types.VARCHAR)
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource
                 .addValue("pn_id_paciente", paciente.getIdPersona())
-                .addValue("pv_nombres", paciente.getNombres())
-                .addValue("pv_apellido_paterno", paciente.getApellidoPaterno())
-                .addValue("pv_apellido_materno", paciente.getApellidoMaterno())
-                .addValue("pv_dni", paciente.getDni())
-                .addValue("pd_fecha_nacimiento", paciente.getFechaNacimiento())
-                .addValue("pv_sexo", paciente.getSexo())
                 .addValue("pv_telefono", paciente.getTelefono())
-                .addValue("pb_foto", paciente.getFoto())
-                .addValue("pv_codigo_seguro", paciente.getCodigoSeguro())
-                .addValue("pv_tipo_seguro", paciente.getTipoSeguro())
                 .addValue("pv_correo", paciente.getCorreo())
                 .addValue("pv_direccion", paciente.getDireccion());
 
