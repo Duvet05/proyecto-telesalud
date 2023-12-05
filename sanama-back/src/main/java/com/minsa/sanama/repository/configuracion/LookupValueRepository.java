@@ -19,14 +19,13 @@ public class LookupValueRepository {
 
     private final ListaValoresMapper listaValoresMapper = new ListaValoresMapper();
     private final ListaValoresMedicosMapper listaValoresMedicosMapper = new ListaValoresMedicosMapper();
-
     public List<LookupValue> listarValoresParentezcos() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_parentezcos()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
     public List<LookupValue> listarValoresSeguros() {
-        String procedureCall = "{call dbSanama.ssm_conf_listar_estados_citas()};";
+        String procedureCall = "{call dbSanama.ssm_conf_listar_seguros()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
@@ -35,16 +34,11 @@ public class LookupValueRepository {
         return jdbcTemplate.query(procedureCall, listaValoresMedicosMapper);
     }
 
-<<<<<<< HEAD:sanama-back/src/main/java/com/minsa/sanama/repository/configuracion/LookupValueRepository.java
     public List<LookupValue> listarEstadosCitas() {
-=======
-    public List<LookupValue> listarEstados() {
->>>>>>> d1d045bf47a1ea0a83037bd028ca92e300e85c54:back-end/Proyecto/sanama/src/main/java/com/minsa/sanama/repository/configuracion/LookupValueRepository.java
         String procedureCall = "{call dbSanama.ssm_conf_listar_estados_citas()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
     }
 
-<<<<<<< HEAD:sanama-back/src/main/java/com/minsa/sanama/repository/configuracion/LookupValueRepository.java
     public List<LookupValue> listarEstadosCitasOrdenes() {
         String procedureCall = "{call dbSanama.ssm_conf_listar_estados_citas_ordenes()};";
         return jdbcTemplate.query(procedureCall, listaValoresMapper);
@@ -56,8 +50,6 @@ public class LookupValueRepository {
     }
 
 
-=======
->>>>>>> d1d045bf47a1ea0a83037bd028ca92e300e85c54:back-end/Proyecto/sanama/src/main/java/com/minsa/sanama/repository/configuracion/LookupValueRepository.java
     private static class ListaValoresMapper implements RowMapper<LookupValue> {
         @Override
         public LookupValue mapRow(ResultSet rs, int rowNum) throws SQLException {

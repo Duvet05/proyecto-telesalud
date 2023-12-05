@@ -42,15 +42,9 @@ public class CitaRepository {
         return jdbcTemplate.query(procedureCall, citaMedicaMapper);
     }
 
-<<<<<<< HEAD:sanama-back/src/main/java/com/minsa/sanama/repository/admision/CitaRepository.java
     public List<CitaMedica> buscarCitaMedica(int pn_id_cita) {
         String procedureCall = "{call dbSanama.ssm_adm_buscar_cita_medica("+ pn_id_cita +")};";
         return jdbcTemplate.query(procedureCall, citaMapper);
-=======
-    public List<CitaMedica> listarCitasUltimas() {
-        String procedureCall = "{call dbSanama.ssm_adm_listar_citas_medicas_finales()};";
-        return jdbcTemplate.query(procedureCall, citaMedicaMapper);
->>>>>>> d1d045bf47a1ea0a83037bd028ca92e300e85c54:back-end/Proyecto/sanama/src/main/java/com/minsa/sanama/repository/admision/CitaRepository.java
     }
 
     public List<CitaMedica> listarCitasxPaciente(int pn_idPaciente) {
