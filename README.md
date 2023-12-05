@@ -1,60 +1,59 @@
-****Descripción del Proyecto****
+# SANAMA - Proyecto Telesalud
 
-SANAMA es una aplicación web moderna que utiliza un backend en Java y un frontend en React con Next.js. Su objetivo es optimizar la calidad y eficiencia de los servicios de salud en la posta médica de Santa Clotilde en Loreto, Perú. Este sistema digitaliza y almacena de forma segura historias clínicas, facilitando el acceso a información médica y mejorando la trazabilidad de suministros médicos.
+SANAMA es una aplicación web que combina un backend en Java y un frontend en React con Next.js. Está diseñada para mejorar los servicios de salud en la posta médica de Santa Clotilde, Loreto, Perú, mediante la digitalización y almacenamiento seguro de historias clínicas y la mejora en la trazabilidad de suministros médicos.
 Prerrequisitos
 
-Antes de comenzar, asegúrate de tener instalado:
+Antes de iniciar, asegúrate de tener instalado:
 
     JDK 17
     Maven
     Node.js (incluye npm)
-    Git (para clonar el repositorio)
 
-Instalación
-Backend
+## Instalación
 
-    Clona el Repositorio
+Primero, clona el repositorio:
 
-    bash
+bash
 
-git clone [URL-del-repositorio-backend]
-cd [nombre-repositorio-backend]
+git clone https://github.com/Duvet05/sanama-app
 
-Compila con Maven
+### Backend
 
+Navega al directorio del backend y compila con Maven:
+
+bash
+
+cd sanama-app/sanama-backend
 mvn clean install
 
-Ejecuta el archivo JAR
+Ejecuta el archivo JAR generado:
 
-css
+bash
 
-    java -jar target/[nombre-archivo-jar].jar
+java -jar target/[nombre-archivo-jar].jar
 
-    Sustituye [nombre-archivo-jar] con el nombre del archivo JAR generado en el directorio target.
+Sustituye [nombre-archivo-jar] con el nombre del archivo JAR generado.
 
-Frontend
+### Frontend
 
-    Clona el Repositorio Frontend
+Navega al directorio del frontend e instala las dependencias:
 
-    bash
+bash
 
-git clone [URL-del-repositorio-frontend]
-cd [nombre-repositorio-frontend]
-
-Instala Dependencias
-
+cd ../sanama-frontend
 npm install
 
-Ejecuta la Aplicación Next.js
+Inicia la aplicación Next.js:
 
-arduino
+bash
 
-    npm run dev
+npm run dev
 
-Uso
+## Uso
 
-Una vez que el backend y el frontend estén funcionando, puedes acceder a la aplicación web en http://localhost:3000 (asumiendo el puerto predeterminado de Next.js).
-Integrantes del Grupo
+Una vez que el backend y el frontend estén funcionando, puedes acceder a la aplicación en http://localhost:3000 (puerto predeterminado de Next.js).
+
+## Integrantes del Grupo
 
     Visalot Arrieta, Aida Valeria
     Saras Rivera, Andre Edgardo
@@ -62,7 +61,3 @@ Integrantes del Grupo
     Galvez Cortez, Gonzalo
     Escalante Gonzales, Sergio Alonso
     Vargas Nuñez, Pedro Matias
-
-Coordinador del Proyecto
-
-Galvez Cortez, Gonzalo Alonso
