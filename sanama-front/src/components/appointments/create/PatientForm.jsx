@@ -481,7 +481,7 @@ const PatientForm = ({
 
         <div className="grid grid-cols-2 md:gap-6">
           <div>
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="fecha-nacimiento">
+            <label className="block text-gray-500 text-xs  mb-2" htmlFor="fecha-nacimiento">
               Fecha de nacimiento
             </label>
             <DatePicker

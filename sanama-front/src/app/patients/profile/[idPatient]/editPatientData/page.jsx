@@ -6,7 +6,7 @@ import { TextInput } from "flowbite-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
-
+import { MdArrowBack } from 'react-icons/md'
 const EditPatientData = ({ params }) => {
     //console.log(params.idPatient)
     const router = useRouter()
@@ -122,7 +122,18 @@ const EditPatientData = ({ params }) => {
     }, [params.idPatient])
 
     return (
-        <form className="p-20" onSubmit={handleSubmit}>
+        <form className="pr-20 pl-20" onSubmit={handleSubmit}>
+            {/* <div className="flex justify-start py-10">
+                <div className="flex-start justify-start">
+                    <button
+                        type="button"
+                        className="text-black hover:bg-gray-300 hover:underline font-medium rounded-lg text-sm px-2 py-2 flex items-center"
+                        onClick={() => router.back()}>
+                        <MdArrowBack className="mr-2 h-5 w-5" />
+                        Volver
+                    </button>
+                </div>
+            </div> */}
             <legend className="text-2xl font-bold tracking-wider pb-10">Editar datos del paciente</legend>
             <div className="grid gap-6 mb-6 md:grid-cols-2">
                 <div>

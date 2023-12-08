@@ -2,23 +2,34 @@ import { appointmentService } from "@/services/appointmentService";
 import { useState, useEffect } from "react";
 import { parseAppointmentTable } from "@/util/appointmentParser";
 import AppointmentTable from "@/components/appointments/AppointmentTable";
-import SearchBar from "@/components/bars/SearchBar"
-import DateRangePicker from "@/components/Date/DateRangePicker"
-import DropdownCheckbox from "@/components/Dropdowns/DropdownCheckbox"
-import { format } from "date-fns"
+import SearchBar from "@/components/bars/SearchBar";
+import DateRangePicker from "@/components/Date/DateRangePicker";
+import DropdownCheckbox from "@/components/Dropdowns/DropdownCheckbox";
+import { format } from "date-fns";
+
 function CitasMedico({ dataDoctor }) {
   const doctor = dataDoctor[0];
   const [appointmentTable, setAppointmentTable] = useState([]);
-  const [statusList, setStatusList] = useState([])
-  const [statusState, setStatusState] = useState({})
+  const [statusList, setStatusList] = useState([]);
+  const [statusState, setStatusState] = useState({});
   const [cargando, setCargando] = useState(true);
-  const [dateInitial, setDateInitial] = useState(null)
-  const [dateFinal, setDateFinal] = useState(null)
-  const fetchData = async ({ pn_id_medico, pv_filtro, pd_fecha_inicio, pd_fecha_fin, arregloEstados }) => {
-    // console.log("datos recibidos",pn_id_medico, pv_filtro, pd_fecha_inicio, pd_fecha_fin,pn_estado)
+  const [dateInitial, setDateInitial] = useState(null);
+  const [dateFinal, setDateFinal] = useState(null);
+  const fetchData = async ({
+    pn_id_medico,
+    pv_filtro,
+    pd_fecha_inicio,
+    pd_fecha_fin,
+    arregloEstados,
+  }) => {
     try {
-      const data = await appointmentService.citasMedicoPorID(pn_id_medico, pv_filtro, pd_fecha_inicio, pd_fecha_fin, arregloEstados);
-      // console.log("citas pendientes", data);
+      const data = await appointmentService.citasMedicoPorID(
+        pn_id_medico,
+        pv_filtro,
+        pd_fecha_inicio,
+        pd_fecha_fin,
+        arregloEstados
+      );
       const citasMapeadas = data.map((cita) => ({
         ...cita,
         idCita: cita.idCita,
@@ -37,7 +48,7 @@ function CitasMedico({ dataDoctor }) {
       console.log("parse", tableData);
       setAppointmentTable(tableData);
 
-      setCargando(false)
+      setCargando(false);
     } catch (error) {
       console.log("No se pudo obtener la lista de las citas");
     }
@@ -52,62 +63,52 @@ function CitasMedico({ dataDoctor }) {
         {
           estado: null,
         },
-      ]
-    })
+      ],
+    });
     fetchStateList();
   }, []);
 
   const fetchStateList = async () => {
     try {
-      const data = await appointmentService.listarEstados()
+      const data = await appointmentService.listarEstados();
       console.log("e c", data);
-      setStatusList(data)
-      let initialValues = {}
+      setStatusList(data);
+      let initialValues = {};
       data.forEach((status) => {
-        initialValues[status.idValue] = false
-      })
-      console.log(initialValues)
-      setStatusState(initialValues)
+        initialValues[status.idValue] = false;
+      });
+      console.log(initialValues);
+      setStatusState(initialValues);
     } catch (error) {
-      console.log("No se pudo obtener la lista de estados")
+      console.log("No se pudo obtener la lista de estados");
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log("Hola")
-    const elements = e.target.elements
-    const filtro = elements.namedItem("search-bar-appointments").value
+    e.preventDefault();
+    console.log("Hola");
+    const elements = e.target.elements;
+    const filtro = elements.namedItem("search-bar-appointments").value;
     const stateArray = Object.entries(statusState)
       .filter(([key, value]) => value)
       .map(([key, value]) => {
         return {
           estado: key,
-        }
-      })
+        };
+      });
     const request = {
       pn_id_medico: doctor.idPersona,
       pv_filtro: filtro,
       pd_fecha_inicio: dateInitial ? format(dateInitial, "yyyy-MM-dd") : null,
       pd_fecha_fin: dateFinal ? format(dateFinal, "yyyy-MM-dd") : null,
       arregloEstados: stateArray,
-    }
-    await fetchData(request)
-  }
+    };
+    await fetchData(request);
+  };
 
   useEffect(() => {
     console.log(appointmentTable);
   }, [appointmentTable]);
-
-  // const columns = [
-  //   { name: "idCita", visible: false },
-  //   { name: "Código cita", sortable: true, sortKey: "string", visible: true },
-  //   { name: "Nombre del paciente", sortable: true, sortKey: "patientName", visible: true },
-  //   { name: "Fecha", sortable: true, sortKey: "date", visible: true },
-  //   { name: "Hora", sortable: true, sortKey: "time" , visible: true},
-  //   { name: "Estado", sortable: true, sortKey: "status" , visible: true},
-  //   { name: "Opciones", sortable: false },
-  // ];
 
   const columns = [
     { name: "Código cita", sortable: true, sortKey: "string", visible: true },
@@ -131,8 +132,10 @@ function CitasMedico({ dataDoctor }) {
       <div>
         {!cargando ? (
           <div>
-
-            <form className=" flex items-center space-x-4" onSubmit={handleSubmit}>
+            <form
+              className=" flex items-center space-x-4"
+              onSubmit={handleSubmit}
+            >
               <DropdownCheckbox
                 text={"Selecciona el estado de la cita"}
                 statusList={statusList}
@@ -151,12 +154,7 @@ function CitasMedico({ dataDoctor }) {
                 width={"w-full"}
                 placeholderText={"Buscar por Nombre, DNI o Código de la Cita"}
               />
-              {/* <button
-                type="submit"
-                className="text-white bg-primary-dark-blue hover:bg-primary-dusk-blue focus:ring-4 focus:outline-none focus:ring-primary-light-periwinkle font-medium rounded-lg text-sm px-4 py-2.5"
-              >
-                Buscar
-              </button> */}
+
               <button
                 type="submit"
                 className="h-[45px] text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-sm px-4 py-2.5"

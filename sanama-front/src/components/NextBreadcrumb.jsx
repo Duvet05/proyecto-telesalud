@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { MdArrowBack } from "react-icons/md";
 
 const NextBreadcrumb = ({
   homeElement,
@@ -10,6 +11,7 @@ const NextBreadcrumb = ({
   activeClasses,
   capitalizeLinks,
 }) => {
+  const router = useRouter();
   const paths = usePathname();
   const pathNames = paths.split("/").filter((path) => path);
 
@@ -39,6 +41,20 @@ const NextBreadcrumb = ({
           );
         })}
       </ul>
+      {paths !== "/" && (
+        <div>
+          <button
+            className={activeClasses}
+            type="button"
+            onClick={() => router.back()}
+          >
+            <div className="flex items-center">
+              <MdArrowBack className="ml-4 mr-2" />
+              <span>Volver</span>
+            </div>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

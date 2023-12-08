@@ -1,44 +1,46 @@
-"use client"
-import DoctorTable from "./DoctorsTable"
-import { doctorService } from "@/services/doctorService"
-import { useEffect, useState } from "react"
-import { parseDoctorsTable } from "@/util/doctorParser"
-import Dropdown from "@/components/Dropdowns/Dropdown"
-import SearchBar from "@/components/bars/SearchBar"
-import DoctorIcon from "@/components/icons/DoctorIcon"
-import TitleWithIcon from "@/components/TitleWithIcon"
-import Link from "next/link"
+"use client";
+import { useEffect, useState } from "react";
+import { doctorService } from "@/services/doctorService";
+import { parseDoctorsTable } from "@/util/doctorParser";
+import DoctorTable from "@/components/doctors/DoctorsTable";
+import Dropdown from "@/components/Dropdowns/Dropdown";
+import SearchBar from "@/components/bars/SearchBar";
+import DoctorIcon from "@/components/icons/DoctorIcon";
+import TitleWithIcon from "@/components/TitleWithIcon";
+import Link from "next/link";
 
 const DoctorsPage = () => {
-  const [doctorTable, setDoctorTable] = useState([])
-  const [specialties, setSpecialties] = useState([])
-  const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("Todas las especialidades")
-  const [loadingTable, setLoadingTable] = useState(true)
+  const [doctorTable, setDoctorTable] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
+  const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState(
+    "Todas las especialidades"
+  );
+  const [loadingTable, setLoadingTable] = useState(true);
 
   const fetchData = async (filtro, especialidad) => {
     try {
       const data = await doctorService.buscarPorMedicoEspecialidad(
         filtro,
         especialidad
-      )
-      const tableData = parseDoctorsTable(data)
-      setDoctorTable(tableData)
-      setLoadingTable(false)
+      );
+      const tableData = parseDoctorsTable(data);
+      setDoctorTable(tableData);
+      setLoadingTable(false);
     } catch (error) {
-      console.log("No se pudo obtener los datos de los doctores")
-      setLoadingTable(false)
+      console.log("No se pudo obtener los datos de los doctores");
+      setLoadingTable(false);
     }
-  }
+  };
 
   const fetchSpecialty = async () => {
     try {
-      const data = await doctorService.listarEspecialidades()
-      setSpecialties(data)
+      const data = await doctorService.listarEspecialidades();
+      setSpecialties(data);
       //console.log(data)
     } catch (error) {
-      console.log("No se pudo obtener los datos de las especialidades")
+      console.log("No se pudo obtener los datos de las especialidades");
     }
-  }
+  };
 
   const options = [
     {
@@ -46,24 +48,24 @@ const DoctorsPage = () => {
       link: "/doctors/profile",
       icon: "fa fa-eye",
     },
-  ]
+  ];
 
   useEffect(() => {
-    fetchData("", "")
-    fetchSpecialty()
-  }, [])
+    fetchData("", "");
+    fetchSpecialty();
+  }, []);
 
   // useEffect(() => {
   //     fetchData("", especialidadSeleccionada)
   // }, [especialidadSeleccionada])
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const elements = e.target.elements
-    const dropdownValue = elements.namedItem("speciality-dropdown").value
-    const filtro = elements.namedItem("doctor-search").value
-    fetchData(filtro, dropdownValue)
-  }
+    e.preventDefault();
+    const elements = e.target.elements;
+    const dropdownValue = elements.namedItem("speciality-dropdown").value;
+    const filtro = elements.namedItem("doctor-search").value;
+    fetchData(filtro, dropdownValue);
+  };
 
   return (
     <section className="w-full px-14 py-6">
@@ -95,7 +97,7 @@ const DoctorsPage = () => {
           width={"w-[400px]"}
           height={"h-[44px]"}
           handleChange={(event) => {
-            setEspecialidadSeleccionada(event.target.value)
+            setEspecialidadSeleccionada(event.target.value);
           }}
         ></Dropdown>
 
@@ -108,10 +110,14 @@ const DoctorsPage = () => {
       </form>
 
       <section className="w-full">
-        <DoctorTable data={doctorTable} options={options} loadingTable={loadingTable}></DoctorTable>
+        <DoctorTable
+          data={doctorTable}
+          options={options}
+          loadingTable={loadingTable}
+        ></DoctorTable>
       </section>
     </section>
-  )
-}
+  );
+};
 
-export default DoctorsPage
+export default DoctorsPage;

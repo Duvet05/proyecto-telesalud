@@ -440,7 +440,7 @@ const TriajeProfile = ({ params }) => {
 
         {/* <section style={{ maxWidth: '100rem' }} className="rounded-lg p-8 mx-auto flex flex-col space-y-6"> */}
         <section className="rounded-lg p-8 mx-auto flex flex-col space-y-6 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl">
-          <div className="flex justify-end ">
+          {/* <div className="flex justify-end ">
             <div className="flex-end">
               <button
                 type="button"
@@ -451,7 +451,7 @@ const TriajeProfile = ({ params }) => {
                 Volver
               </button>
             </div>
-          </div>
+          </div> */}
           <div className="flex justify-end space-x-4">
             <button
               className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded"

@@ -1,13 +1,11 @@
 package com.minsa.sanama.repository.atencionmedica;
 
 import com.minsa.sanama.model.atencionmedica.Resultado;
-import com.minsa.sanama.model.laboratorio.ExamenMedico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,11 +16,14 @@ public class ResultadoRepository {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ResultadoRepository(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+    public ResultadoRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     private final ResultadoMapper resultadoMapper = new ResultadoMapper();
 
     public List<Resultado> listarResultados(int pn_id_hoja_medica) {
-        String procedureCall = "{call dbSanama.ssm_ate_listar_resultados("+pn_id_hoja_medica+")};";
+        String procedureCall = "{call dbSanama.ssm_ate_listar_resultados(" + pn_id_hoja_medica + ")};";
         return jdbcTemplate.query(procedureCall, resultadoMapper);
     }
 

@@ -127,12 +127,12 @@ const HistorialClinico = () => {
     {
       text: "Ver hoja médica",
       link: "/",
-      icon: "/icons/eye.svg",
+      icon: "fa fa-eye",
     },
     {
       text: "Ver laboratorios",
       link: "/laboratories",
-      icon: "/icons/eye.svg",
+      icon: "fa fa-file",
     },
   ];
 
@@ -194,11 +194,10 @@ const HistorialClinico = () => {
         <div className="flex mb-6 space-x-4">
           <button
             type="button"
-            className={`font-bold py-2 px-4 rounded ${
-              isEvaluationButtonDisabled
-                ? "bg-gray-500"
-                : "bg-green-500 hover:bg-green-700"
-            } text-white`}
+            className={`font-bold py-2 px-4 rounded ${isEvaluationButtonDisabled
+              ? "bg-gray-500"
+              : "bg-green-500 hover:bg-green-700"
+              } text-white`}
             onClick={handleNewMedicalEvaluation}
             disabled={isEvaluationButtonDisabled}
           >
@@ -206,11 +205,10 @@ const HistorialClinico = () => {
           </button>
           <button
             onClick={handleOpenModal}
-            className={`font-bold py-2 px-4 rounded ${
-              isOrderButtonDisabled
-                ? "bg-gray-500"
-                : "bg-blue-500 hover:bg-blue-700"
-            } text-white`}
+            className={`font-bold py-2 px-4 rounded ${isOrderButtonDisabled
+              ? "bg-gray-500"
+              : "bg-blue-500 hover:bg-blue-700"
+              } text-white`}
             disabled={isOrderButtonDisabled}
           >
             Nueva Orden de Laboratorio

@@ -69,7 +69,6 @@ const ReviewAppointment = ({ params }) => {
   const handleAttendClick = useCallback(() => {
     handleActionClick(2)
       .then(() => {
-        // Realizar la navegación solo si la acción fue exitosa
         router.push(
           `appointments/${idCita}/${state.appointmentData.paciente.idPersona}`
         );

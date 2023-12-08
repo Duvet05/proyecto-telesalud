@@ -1,6 +1,5 @@
 package com.minsa.sanama.repository.atencionmedica;
 
-import com.minsa.sanama.model.atencionmedica.HojaMedica;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,15 @@ public class RecetaMedicaRepository {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public RecetaMedicaRepository(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+    public RecetaMedicaRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public int registrarRecetaMedicaPrueba() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_ate_registrar_medicamentos_receta_ft")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlOutParameter("pn_id_receta", Types.INTEGER),
                         new SqlParameter("pd_fecha_caducidad", Types.DATE),
                         new SqlParameter("pj_medicamentos_json", Types.VARCHAR)
@@ -53,17 +54,16 @@ public class RecetaMedicaRepository {
 
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
         mapSqlParameterSource
-                    .addValue("pd_fecha_caducidad", LocalDate.now())
-                    .addValue("pj_medicamentos_json", jsonArray.toJSONString());
+                .addValue("pd_fecha_caducidad", LocalDate.now())
+                .addValue("pj_medicamentos_json", jsonArray.toJSONString());
 
         System.out.println("Paso la lectura del procedure");
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
-            int idReceta = (int)result.get("pn_id_receta");
+        } else {
+            int idReceta = (int) result.get("pn_id_receta");
             return idReceta;
         }
     }

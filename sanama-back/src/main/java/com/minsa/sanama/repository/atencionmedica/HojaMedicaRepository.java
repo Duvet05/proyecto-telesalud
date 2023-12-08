@@ -4,7 +4,6 @@ import com.minsa.sanama.model.admision.Paciente;
 import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.admision.Triaje;
 import com.minsa.sanama.model.atencionmedica.*;
-import com.minsa.sanama.model.laboratorio.OrdenLaboratorio;
 import com.minsa.sanama.model.rrhh.Especialidad;
 import com.minsa.sanama.model.rrhh.Medico;
 import org.json.simple.JSONArray;
@@ -35,34 +34,43 @@ public class HojaMedicaRepository {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public HojaMedicaRepository(JdbcTemplate jdbcTemplate) {this.jdbcTemplate = jdbcTemplate;}
+    public HojaMedicaRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     private final TriajeMap triajeMap = new TriajeMap();
     private final HojaMedicaMapper hojaMedicaMapper = new HojaMedicaMapper();
     private final DatosResultadosMapper datosResultadosMapper = new DatosResultadosMapper();
 
     private final CodigoHojaMedicaMapper codigoHojaMedicaMapper = new CodigoHojaMedicaMapper();
 
-    public List<HojaMedica> listarHojasMedicasFiltro(String pn_id_paciente, String pn_id_especialidad, String pd_fecha_inicio, String pd_fecha_fin) {
-        if (pn_id_paciente != null)pn_id_paciente = "'"+pn_id_paciente+"'";
-        if (pn_id_especialidad != null)pn_id_especialidad = "'"+pn_id_especialidad+"'";
-        if (pd_fecha_inicio != null)pd_fecha_inicio = "'"+pd_fecha_inicio+"'";
-        if (pd_fecha_fin != null)pd_fecha_fin = "'"+pd_fecha_fin+"'";
-        String procedureCall = "{call dbSanama.ssm_ate_listar_hoja_medica_filtro("+pn_id_paciente+","+pn_id_especialidad+","+pd_fecha_inicio+","+pd_fecha_fin+")};";
+    public List<HojaMedica> listarHojasMedicasFiltro(String pn_id_paciente, String pn_id_especialidad,
+            String pd_fecha_inicio, String pd_fecha_fin) {
+        if (pn_id_paciente != null)
+            pn_id_paciente = "'" + pn_id_paciente + "'";
+        if (pn_id_especialidad != null)
+            pn_id_especialidad = "'" + pn_id_especialidad + "'";
+        if (pd_fecha_inicio != null)
+            pd_fecha_inicio = "'" + pd_fecha_inicio + "'";
+        if (pd_fecha_fin != null)
+            pd_fecha_fin = "'" + pd_fecha_fin + "'";
+        String procedureCall = "{call dbSanama.ssm_ate_listar_hoja_medica_filtro(" + pn_id_paciente + ","
+                + pn_id_especialidad + "," + pd_fecha_inicio + "," + pd_fecha_fin + ")};";
         return jdbcTemplate.query(procedureCall, hojaMedicaMapper);
     }
 
     public List<ProgramacionCita> buscarTriajeCitaMedica(int pn_id_cita) {
-        String procedureCall = "{call dbSanama.ssm_ate_buscar_triaje_x_cita_medica("+pn_id_cita+")};";
+        String procedureCall = "{call dbSanama.ssm_ate_buscar_triaje_x_cita_medica(" + pn_id_cita + ")};";
         return jdbcTemplate.query(procedureCall, triajeMap);
     }
 
     public List<HojaMedica> buscarDatosResultadosHojaMedica(int pn_id_hoja_medica) {
-        String procedureCall = "{call dbSanama.ssm_ate_buscar_resultados_hoja_medica("+pn_id_hoja_medica+")};";
+        String procedureCall = "{call dbSanama.ssm_ate_buscar_resultados_hoja_medica(" + pn_id_hoja_medica + ")};";
         return jdbcTemplate.query(procedureCall, datosResultadosMapper);
     }
 
     public List<HojaMedica> mostrarCodigoHojaMedicaCita(int pn_id_cita) {
-        String procedureCall = "{call dbSanama.ssm_ate_mostrar_codigo_hoja_medica_x_cita("+pn_id_cita+")};";
+        String procedureCall = "{call dbSanama.ssm_ate_mostrar_codigo_hoja_medica_x_cita(" + pn_id_cita + ")};";
         return jdbcTemplate.query(procedureCall, codigoHojaMedicaMapper);
     }
 
@@ -113,7 +121,7 @@ public class HojaMedicaRepository {
         }
     }
 
-    public int registrarHojaMedica(HojaMedica hojaMedica,int pn_id_historial) {
+    public int registrarHojaMedica(HojaMedica hojaMedica, int pn_id_historial) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_ate_registrar_hoja_medica")
@@ -130,7 +138,7 @@ public class HojaMedicaRepository {
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
-        if(hojaMedica.getHojaRefencia() != null){
+        if (hojaMedica.getHojaRefencia() != null) {
             mapSqlParameterSource
                     .addValue("pn_id_historial_clinico", pn_id_historial)
                     .addValue("pn_id_cita_medica", hojaMedica.getIdCitaMedica())
@@ -140,8 +148,7 @@ public class HojaMedicaRepository {
                     .addValue("pt_hora_atencion", hojaMedica.getHoraAtencion())
                     .addValue("pb_firma", hojaMedica.getFirma())
                     .addValue("pn_estado", hojaMedica.getEstado());
-        }
-        else{
+        } else {
 
             mapSqlParameterSource
                     .addValue("pn_id_historial_clinico", pn_id_historial)
@@ -154,11 +161,10 @@ public class HojaMedicaRepository {
                     .addValue("pn_estado", hojaMedica.getEstado());
         }
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
-            int idHojaMedica = (int)result.get("pn_id_hoja_medica");
+        } else {
+            int idHojaMedica = (int) result.get("pn_id_hoja_medica");
             return idHojaMedica;
         }
     }
@@ -175,10 +181,9 @@ public class HojaMedicaRepository {
                 .addValue("pn_id_hoja_medica", pn_id_hoja_medica);
 
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
+        } else {
             return 1;
         }
     }
@@ -189,7 +194,7 @@ public class HojaMedicaRepository {
             ProgramacionCita programacionCita = new ProgramacionCita();
 
             Paciente paciente = new Paciente();
-            if(rs.getInt("id_triaje") != 0 && rs.getInt("estado") == 1){
+            if (rs.getInt("id_triaje") != 0 && rs.getInt("estado") == 1) {
                 Triaje triaje = new Triaje();
 
                 // Mapea los campos de Triaje
@@ -210,7 +215,6 @@ public class HojaMedicaRepository {
             paciente.setSexo(rs.getString("sexo"));
             paciente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
 
-
             programacionCita.setPaciente(paciente);
 
             return programacionCita;
@@ -224,7 +228,7 @@ public class HojaMedicaRepository {
         System.out.println("Funcion Registrar nueva Hoja Medica");
         // Crear un JSONArray de Medicamentos con los objetos JSONObject
         JSONArray jsonArrayMedicamentos = new JSONArray();
-        for(Medicamento medicamento : lmedicamentos){
+        for (Medicamento medicamento : lmedicamentos) {
             // Inicializamos el objeto
             JSONObject jsonObjectMedicamento = new JSONObject();
             jsonObjectMedicamento.put("nombre", medicamento.getNombre());
@@ -238,7 +242,7 @@ public class HojaMedicaRepository {
         ldiagnosticos = hojaMedica.getEvaluacionMedica().getDiagnosticos();
         // Crear un JSONArray de Diagnosticos con los objetos JSONObject
         JSONArray jsonArrayDiagnosticos = new JSONArray();
-        for(Diagnostico diagnostico : ldiagnosticos){
+        for (Diagnostico diagnostico : ldiagnosticos) {
             // Inicializamos el objeto
             JSONObject jsonObjectDiagnostico = new JSONObject();
             jsonObjectDiagnostico.put("idDiagnostico", diagnostico.getIdDiagnostico());
@@ -285,7 +289,7 @@ public class HojaMedicaRepository {
                 });
         MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
 
-        if(hojaMedica.getHojaRefencia() != null){
+        if (hojaMedica.getHojaRefencia() != null) {
             mapSqlParameterSource
                     .addValue("pn_id_cita_medica", hojaMedica.getIdCitaMedica())
                     .addValue("pn_id_hoja_referenciada", hojaMedica.getHojaRefencia().getIdHojaReferenciada())
@@ -293,10 +297,14 @@ public class HojaMedicaRepository {
                     .addValue("pd_fecha_caducidad", hojaMedica.getRecetaMedica().getFechaCaducidad())
                     .addValue("pj_medicamentos_json", jsonArrayMedicamentos.toJSONString())
                     .addValue("pn_temperatura", hojaMedica.getEvaluacionMedica().getSignosVitales().getTemperatura())
-                    .addValue("pn_frecuencia_cardiaca", hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaCardiaca())
-                    .addValue("pn_frecuencia_respiratoria", hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaRespiratoria())
-                    .addValue("pn_presion_arterial", hojaMedica.getEvaluacionMedica().getSignosVitales().getPresionArterial())
-                    .addValue("pn_saturacion_oxigeno", hojaMedica.getEvaluacionMedica().getSignosVitales().getSaturacionOxigeno())
+                    .addValue("pn_frecuencia_cardiaca",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaCardiaca())
+                    .addValue("pn_frecuencia_respiratoria",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaRespiratoria())
+                    .addValue("pn_presion_arterial",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getPresionArterial())
+                    .addValue("pn_saturacion_oxigeno",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getSaturacionOxigeno())
                     .addValue("pn_peso", hojaMedica.getEvaluacionMedica().getSignosVitales().getPeso())
                     .addValue("pn_talla", hojaMedica.getEvaluacionMedica().getSignosVitales().getTalla())
                     .addValue("pv_motivo_consulta", hojaMedica.getEvaluacionMedica().getMotivoConsulta())
@@ -317,8 +325,7 @@ public class HojaMedicaRepository {
                     .addValue("pv_observaciones", hojaMedica.getEvaluacionMedica().getObservaciones())
                     .addValue("pv_indicaciones_finales", hojaMedica.getEvaluacionMedica().getIndicacionesFinales())
                     .addValue("pj_diagnosticos_json", jsonArrayDiagnosticos.toJSONString());
-        }
-        else{
+        } else {
             mapSqlParameterSource
                     .addValue("pn_id_cita_medica", hojaMedica.getIdCitaMedica())
                     .addValue("pn_id_hoja_referenciada", hojaMedica.getHojaRefencia())
@@ -326,10 +333,14 @@ public class HojaMedicaRepository {
                     .addValue("pd_fecha_caducidad", hojaMedica.getRecetaMedica().getFechaCaducidad())
                     .addValue("pj_medicamentos_json", jsonArrayMedicamentos.toJSONString())
                     .addValue("pn_temperatura", hojaMedica.getEvaluacionMedica().getSignosVitales().getTemperatura())
-                    .addValue("pn_frecuencia_cardiaca", hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaCardiaca())
-                    .addValue("pn_frecuencia_respiratoria", hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaRespiratoria())
-                    .addValue("pn_presion_arterial", hojaMedica.getEvaluacionMedica().getSignosVitales().getPresionArterial())
-                    .addValue("pn_saturacion_oxigeno", hojaMedica.getEvaluacionMedica().getSignosVitales().getSaturacionOxigeno())
+                    .addValue("pn_frecuencia_cardiaca",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaCardiaca())
+                    .addValue("pn_frecuencia_respiratoria",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getFrecuenciaRespiratoria())
+                    .addValue("pn_presion_arterial",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getPresionArterial())
+                    .addValue("pn_saturacion_oxigeno",
+                            hojaMedica.getEvaluacionMedica().getSignosVitales().getSaturacionOxigeno())
                     .addValue("pn_peso", hojaMedica.getEvaluacionMedica().getSignosVitales().getPeso())
                     .addValue("pn_talla", hojaMedica.getEvaluacionMedica().getSignosVitales().getTalla())
                     .addValue("pv_motivo_consulta", hojaMedica.getEvaluacionMedica().getMotivoConsulta())
@@ -352,11 +363,10 @@ public class HojaMedicaRepository {
                     .addValue("pj_diagnosticos_json", jsonArrayDiagnosticos.toJSONString());
         }
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
-        if(result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")){
+        if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return -1;
-        }
-        else{
-            int idHojaMedica = (int)result.get("pn_id_hoja_medica");
+        } else {
+            int idHojaMedica = (int) result.get("pn_id_hoja_medica");
             return idHojaMedica;
         }
     }
@@ -366,7 +376,7 @@ public class HojaMedicaRepository {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_ate_buscar_hoja_medica_paciente")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlParameter("pn_id_hoja_medica", Types.INTEGER),
                         new SqlOutParameter("pn_id_hoja_referenciada", Types.INTEGER),
                         new SqlOutParameter("pv_codigo_hoja_medica", Types.VARCHAR),
@@ -407,24 +417,27 @@ public class HojaMedicaRepository {
             return null;
         } else {
             hojaMedica.setHojaRefencia(new HojaRefencia());
-            if(result.get("pn_id_hoja_referenciada")==null){
+            if (result.get("pn_id_hoja_referenciada") == null) {
                 hojaMedica.getHojaRefencia().setIdHojaReferenciada(-1);
-            }
-            else{
+            } else {
                 hojaMedica.getHojaRefencia().setIdHojaReferenciada((int) result.get("pn_id_hoja_referenciada"));
             }
 
             hojaMedica.setCodigo(result.get("pv_codigo_hoja_medica").toString());
-            //String archivoString = (String) result.get("pb_firma");
-            //hojaMedica.setFirma(archivoString.getBytes(StandardCharsets.UTF_8));
+            // String archivoString = (String) result.get("pb_firma");
+            // hojaMedica.setFirma(archivoString.getBytes(StandardCharsets.UTF_8));
             hojaMedica.setFirma((byte[]) result.get("pb_firma"));
             hojaMedica.setEvaluacionMedica(new EvaluacionMedica());
             hojaMedica.getEvaluacionMedica().setSignosVitales(new SignosVitales());
             hojaMedica.getEvaluacionMedica().getSignosVitales().setTemperatura((String) result.get("pn_temperatura"));
-            hojaMedica.getEvaluacionMedica().getSignosVitales().setFrecuenciaCardiaca((String) result.get("pn_frecuencia_cardiaca"));
-            hojaMedica.getEvaluacionMedica().getSignosVitales().setFrecuenciaRespiratoria((String) result.get("pn_frecuencia_respiratoria"));
-            hojaMedica.getEvaluacionMedica().getSignosVitales().setPresionArterial((String) result.get("pn_presion_arterial"));
-            hojaMedica.getEvaluacionMedica().getSignosVitales().setSaturacionOxigeno((String) result.get("pn_saturacion_oxigeno"));
+            hojaMedica.getEvaluacionMedica().getSignosVitales()
+                    .setFrecuenciaCardiaca((String) result.get("pn_frecuencia_cardiaca"));
+            hojaMedica.getEvaluacionMedica().getSignosVitales()
+                    .setFrecuenciaRespiratoria((String) result.get("pn_frecuencia_respiratoria"));
+            hojaMedica.getEvaluacionMedica().getSignosVitales()
+                    .setPresionArterial((String) result.get("pn_presion_arterial"));
+            hojaMedica.getEvaluacionMedica().getSignosVitales()
+                    .setSaturacionOxigeno((String) result.get("pn_saturacion_oxigeno"));
             hojaMedica.getEvaluacionMedica().getSignosVitales().setPeso((String) result.get("pn_peso"));
             hojaMedica.getEvaluacionMedica().getSignosVitales().setTalla((String) result.get("pn_talla"));
             hojaMedica.getEvaluacionMedica().setMotivoConsulta((String) result.get("pv_motivo_consulta"));
@@ -445,7 +458,8 @@ public class HojaMedicaRepository {
             hojaMedica.getEvaluacionMedica().setObservaciones((String) result.get("pv_observaciones"));
             hojaMedica.getEvaluacionMedica().setIndicacionesFinales((String) result.get("pv_indicaciones_finales"));
             hojaMedica.setRecetaMedica(new RecetaMedica());
-            hojaMedica.getRecetaMedica().setFechaCaducidad(LocalDate.parse(result.get("pd_fecha_caducidad").toString()));
+            hojaMedica.getRecetaMedica()
+                    .setFechaCaducidad(LocalDate.parse(result.get("pd_fecha_caducidad").toString()));
 
             // obtenemos el json de medicamentos y de diagnosticos
             String jsonMedicamentos = (String) result.get("pj_medicamentos_json");
@@ -457,11 +471,11 @@ public class HojaMedicaRepository {
         }
     }
 
-    private List<Medicamento> obtenerMedicamentos(String jsonMedicamentos){
+    private List<Medicamento> obtenerMedicamentos(String jsonMedicamentos) {
         List<Medicamento> lmedicamentos = new ArrayList<>();
-        try{
+        try {
             JSONArray jobArray = (JSONArray) new JSONParser().parse(jsonMedicamentos);
-            for(Object obj: jobArray){
+            for (Object obj : jobArray) {
                 Medicamento medicamento = new Medicamento();
                 JSONObject jobMed = (JSONObject) obj;
                 medicamento.setNombre(jobMed.get("nombre").toString());
@@ -469,25 +483,26 @@ public class HojaMedicaRepository {
 
                 lmedicamentos.add(medicamento);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             // Manejo de excepciones aquí
             ex.printStackTrace();
         }
         return lmedicamentos;
     }
 
-    private List<Diagnostico> obtenerDiagnosticos(String jsonDiagnosticos){
-        List<Diagnostico> ldiagnosticos = new ArrayList<>();;
-        try{
+    private List<Diagnostico> obtenerDiagnosticos(String jsonDiagnosticos) {
+        List<Diagnostico> ldiagnosticos = new ArrayList<>();
+        ;
+        try {
             JSONArray jobArray = (JSONArray) new JSONParser().parse(jsonDiagnosticos);
-            for(Object obj: jobArray){
+            for (Object obj : jobArray) {
                 Diagnostico diagnostico = new Diagnostico();
                 JSONObject jobMed = (JSONObject) obj;
                 diagnostico.setIdCiex(jobMed.get("id_ciex").toString());
                 diagnostico.setCiex(jobMed.get("ciex").toString());
                 ldiagnosticos.add(diagnostico);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             // Manejo de excepciones aquí
             ex.printStackTrace();
         }
@@ -499,7 +514,7 @@ public class HojaMedicaRepository {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withSchemaName("dbSanama")
                 .withProcedureName("ssm_ate_mostrar_resultados_paciente")
-                .declareParameters(new SqlParameter[]{
+                .declareParameters(new SqlParameter[] {
                         new SqlParameter("pn_id_hoja_medica", Types.INTEGER),
                         new SqlOutParameter("pv_nombre_medico", Types.VARCHAR),
                         new SqlOutParameter("pv_observaciones", Types.VARCHAR),
@@ -511,7 +526,7 @@ public class HojaMedicaRepository {
         Map<String, Object> result = simpleJdbcCall.execute(mapSqlParameterSource);
         if (result.containsKey("ERROR_CODE") || result.containsKey("ERROR_MESSAGE")) {
             return null;
-        } else{
+        } else {
 
             Object nombreMedicoObject = result.get("pv_nombre_medico");
             hojaMedica.setMedicoConsulta(nombreMedicoObject != null ? nombreMedicoObject.toString() : "");
@@ -523,19 +538,19 @@ public class HojaMedicaRepository {
             Object resultadosObject = result.get("pj_resultados");
             hojaMedica.setResultados(resultadosObject != null ? obtenerResultados(resultadosObject.toString()) : null);
 
-            //String jsonResultados = (String) result.get("pj_resultados");
-            //hojaMedica.setResultados(obtenerResultados(jsonResultados));
+            // String jsonResultados = (String) result.get("pj_resultados");
+            // hojaMedica.setResultados(obtenerResultados(jsonResultados));
 
             return hojaMedica;
         }
     }
 
-    private List<Resultado> obtenerResultados(String jsonResultados){
+    private List<Resultado> obtenerResultados(String jsonResultados) {
         List<Resultado> lresultados = new ArrayList<>();
 
-        try{
+        try {
             JSONArray jobArray = (JSONArray) new JSONParser().parse(jsonResultados);
-            for(Object obj: jobArray){
+            for (Object obj : jobArray) {
                 Resultado resultado = new Resultado();
                 JSONObject jobResult = (JSONObject) obj;
                 resultado.setNombre(jobResult.get("nombre").toString());
@@ -543,17 +558,17 @@ public class HojaMedicaRepository {
                 resultado.setTipoMuestra(jobResult.get("tipo_muestra").toString());
                 String archivoString = jobResult.get("archivo").toString();
 
-                //byte[] bytes = Base64.getDecoder().decode(archivoString.substring(14));
-                //System.out.println(bytes);
-                //resultado.setArchivo(bytes);
-                //System.out.println(archivoString);
+                // byte[] bytes = Base64.getDecoder().decode(archivoString.substring(14));
+                // System.out.println(bytes);
+                // resultado.setArchivo(bytes);
+                // System.out.println(archivoString);
                 resultado.setArchivo(archivoString.getBytes(StandardCharsets.UTF_8));
-                //archivoString = archivoString.replaceAll("\\s", "");
-                //resultado.setArchivo(Base64.getDecoder().decode(archivoString));
+                // archivoString = archivoString.replaceAll("\\s", "");
+                // resultado.setArchivo(Base64.getDecoder().decode(archivoString));
 
                 lresultados.add(resultado);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             // Manejo de excepciones aquí
             ex.printStackTrace();
         }

@@ -1,5 +1,4 @@
 import ActionButton from "@/components/buttons/ActionButton";
-import Link from "next/link";
 
 const DoctorActions = ({ id }) => {
   return (

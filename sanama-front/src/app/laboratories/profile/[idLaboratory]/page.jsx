@@ -415,7 +415,7 @@ const LaboratoryProfile = ({ params }) => {
 
       <section className="rounded-lg p-8 mx-auto flex flex-col space-y-6 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl">
 
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <div className="flex-end">
           <button
             type="button"
@@ -426,7 +426,7 @@ const LaboratoryProfile = ({ params }) => {
             Volver
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex justify-end space-x-4">
         <button

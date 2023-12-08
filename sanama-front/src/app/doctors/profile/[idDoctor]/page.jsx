@@ -1,74 +1,62 @@
-"use client"
-import ProfileCard from "@/components/cards/ProfileCard"
-import { doctorService } from "@/services/doctorService"
-import { useState, useEffect } from "react"
-import DoctorActions from "./DoctorActions"
-import LatestAppointmentsDoctor from "./LastestAppointmentsDoctor"
-import { MdArrowBack } from 'react-icons/md'
-import ProfileCardDoctor from "./ProfileCardDoctor"
-import { useRouter } from "next/navigation"
+"use client";
+import { doctorService } from "@/services/doctorService";
+import { useState, useEffect } from "react";
+import DoctorActions from "@/components/doctors/DoctorActions";
+import LatestAppointmentsDoctor from "@/components/doctors/LastestAppointmentsDoctor";
+import ProfileCardDoctor from "@/components/doctors/ProfileCardDoctor";
+
 function formatearFechaNacimiento(fechaNacimiento) {
   if (!fechaNacimiento) {
-    return "No especifica"
+    return "No especifica";
   }
 
-  const fechaNacimientoObj = new Date(fechaNacimiento)
-  const dia = ("0" + fechaNacimientoObj.getDate()).slice(-2) // Agrega un cero inicial si es necesario
-  const mes = ("0" + (fechaNacimientoObj.getMonth() + 1)).slice(-2) // Agrega un cero inicial si es necesario
-  const año = fechaNacimientoObj.getFullYear()
+  const fechaNacimientoObj = new Date(fechaNacimiento);
+  const dia = ("0" + fechaNacimientoObj.getDate()).slice(-2); // Agrega un cero inicial si es necesario
+  const mes = ("0" + (fechaNacimientoObj.getMonth() + 1)).slice(-2); // Agrega un cero inicial si es necesario
+  const año = fechaNacimientoObj.getFullYear();
 
-  const fechaFormateada = `${dia}/${mes}/${año}`
-  return fechaFormateada
+  const fechaFormateada = `${dia}/${mes}/${año}`;
+  return fechaFormateada;
 }
 const DoctorProfile = ({ params }) => {
-  const [dataDoctor, setDataDoctor] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [imagenPerfil, setImagenPerfil] = useState(null)
-  const router = useRouter()
+  const [dataDoctor, setDataDoctor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [imagenPerfil, setImagenPerfil] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await doctorService.buscarPorNombre(params.idDoctor)
-        if (data && data.length > 0) {
-          console.log("data", data[0])
-          setDataDoctor(data[0])
-          if (data[0].foto) {
-            setImagenPerfil(`data:image/png;base64,${data[0].foto}`)
+        const [doctorData] = await doctorService.buscarPorNombre(
+          params.idDoctor
+        );
+        if (doctorData) {
+          console.log("data", doctorData);
+          setDataDoctor(doctorData);
+          if (doctorData.foto) {
+            setImagenPerfil(`data:image/png;base64,${doctorData.foto}`);
           }
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       } finally {
-        setLoading(false) // Marca la carga como completa
+        setLoading(false);
       }
-    }
-    fetchData()
-  }, [params.idDoctor]) // Asegúrate de depender de 'params.idDoctor'
+    };
+    fetchData();
+  }, [params.idDoctor]);
 
   if (loading) {
-    return "" // Muestra un mensaje de carga mientras los datos se obtienen
+    return "Cargando..."; // Muestra un mensaje de carga mientras los datos se obtienen
   }
 
   return (
     <article className="flex-column box-content p-10">
-      <div className="flex justify-end">
-        <div className="flex-end pr-10 pf-10">
-        <button
-          type="button"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-sm px-4 py-2.5 flex items-center"
-          onClick={() => router.push("/doctors/")}
-        >
-          <MdArrowBack className="mr-1" style={{ fontSize: '24px' }} />
-          Volver
-        </button>
-        </div>
-      </div>
-
       <div className="flex">
         <div className="w-1/2 flex-row p-10">
           <ProfileCardDoctor
-            name={`${dataDoctor?.apellidoPaterno ?? ""} ${dataDoctor?.apellidoMaterno ?? ""
-              }, ${dataDoctor?.nombres ?? ""}`}
+            name={`${dataDoctor?.apellidoPaterno ?? ""} ${
+              dataDoctor?.apellidoMaterno ?? ""
+            }, ${dataDoctor?.nombres ?? ""}`}
             email={dataDoctor?.correoElectronico ?? ""}
             phone={dataDoctor?.telefono ?? ""}
             address={dataDoctor?.direccion ?? "No especifica"}
@@ -104,11 +92,9 @@ const DoctorProfile = ({ params }) => {
                 </dd>
                 <dt className="text-sm px-5">Género</dt>
                 <dd className="text-l font-bold px-5 pb-10">
-                  {dataDoctor?.sexo === "F"
-                    ? "Femenino"
-                    : dataDoctor?.sexo === "M"
-                      ? "Masculino"
-                      : "No especifica"}
+                  {dataDoctor?.sexo === "F" && "Femenino"}
+                  {dataDoctor?.sexo === "M" && "Masculino"}
+                  {!dataDoctor?.sexo && "No especifica"}
                 </dd>
               </dl>
               <dl className="basis-1/2">
@@ -135,7 +121,7 @@ const DoctorProfile = ({ params }) => {
         </div>
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default DoctorProfile
+export default DoctorProfile;

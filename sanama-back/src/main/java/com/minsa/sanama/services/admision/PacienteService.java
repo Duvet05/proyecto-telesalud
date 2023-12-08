@@ -40,7 +40,7 @@ public class PacienteService {
     }
 
     public int registrarPaciente(Paciente paciente){
-        int idPaciente, idHistoria=1;
+        int idPaciente;
         paciente.setHistorialClinico(new HistorialClinico());
 
         idPaciente = pacienteRepository.registrarPaciente(paciente);

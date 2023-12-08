@@ -3,15 +3,12 @@ package com.minsa.sanama.services.atencion;
 import com.minsa.sanama.model.admision.ProgramacionCita;
 import com.minsa.sanama.model.atencionmedica.HojaMedica;
 import com.minsa.sanama.model.atencionmedica.Resultado;
-import com.minsa.sanama.model.laboratorio.ExamenMedico;
-import com.minsa.sanama.model.laboratorio.OrdenLaboratorio;
 import com.minsa.sanama.repository.atencionmedica.HojaMedicaRepository;
 import com.minsa.sanama.repository.atencionmedica.RecetaMedicaRepository;
 import com.minsa.sanama.repository.atencionmedica.ResultadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

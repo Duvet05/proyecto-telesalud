@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const PatientActions = ({ id }) => {
 	return (
-		<section className="my-10 h-[300px] w-[470px] rounded-2xl grid grid-rows-2 items-center bg-white shadow">
+		<section className="my-10 h-[300px] rounded-2xl grid grid-rows-2 items-center bg-white shadow">
 			<ActionButton
 				url={`/patients/profile/${id}/appointments`}
 				color={'bg-orange-400'}

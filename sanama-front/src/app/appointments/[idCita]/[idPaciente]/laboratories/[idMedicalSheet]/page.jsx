@@ -13,8 +13,6 @@ const LaboratoryMSPage = () => {
 
   const params = useParams();
   const idMedicalSheet = params.idMedicalSheet;
-  // const idMedicalSheet = 30;
-  console.log("EL ID ES: ", idMedicalSheet);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +21,7 @@ const LaboratoryMSPage = () => {
           idMedicalSheet
         );
         setUnparsedData(data);
-        console.log("LA DATA SIN PARSEAR ES: ", data);
         const parsedData = parseLaboratoryMSTable(data);
-        console.log("LA DATA ES: ", parsedData);
         setLaboratoryData(parsedData);
       } catch (error) {
         console.error("Error al obtener datos de laboratorioMS: ", error);

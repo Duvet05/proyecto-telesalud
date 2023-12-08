@@ -106,7 +106,8 @@ const HistorialClinico = () => {
 	if (!historialClinico) return <p>No se encontró el historial clínico</p>
 	return (
 		<section className="p-4 md:p-14 h-screen">
-			<TitleWithIcon name={`Ver Historial Medico`} Icon={iconoHistorial} />
+			<TitleWithIcon name={`Historial Médico`} Icon={iconoHistorial} />
+			
 			<div className="bg-white p-4 rounded shadow-md mb-6">
 				<h1 className="text-3xl font-bold mb-4"> {historialClinico.codigo}</h1>
 				<div className="flex flex-wrap mb-2 space-x-32 px-4">

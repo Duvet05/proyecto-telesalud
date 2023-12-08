@@ -1,6 +1,5 @@
 package com.minsa.sanama.controller.configuracion;
 
-import com.minsa.sanama.model.atencionmedica.HojaMedica;
 import com.minsa.sanama.model.configuracion.LookupValue;
 import com.minsa.sanama.services.configuracion.LookupValueService;
 import org.json.simple.JSONObject;
@@ -48,6 +47,7 @@ public class LookupValueController {
         lcitas = valueService.listarEstadosCitas();
         return lcitas;
     }
+
     @GetMapping(value = "/get/listarEstadosOrdenesLaboratorio")
     @ResponseBody
     public List<LookupValue> listarEstadosOrdenesLaboratorio() {
@@ -66,14 +66,14 @@ public class LookupValueController {
 
     @PostMapping(value = "/post/getStatusCita")
     @ResponseBody
-    public LookupValue getStatusCita(@RequestBody String pv_datos){
-        LookupValue cita=null;
-        try{
+    public LookupValue getStatusCita(@RequestBody String pv_datos) {
+        LookupValue cita = null;
+        try {
             JSONObject job = (JSONObject) new JSONParser().parse(pv_datos);
             int pn_id_cita = Integer.parseInt(job.get("pn_id_cita").toString());
             cita = valueService.getStatusCita(pn_id_cita);
             return cita;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;

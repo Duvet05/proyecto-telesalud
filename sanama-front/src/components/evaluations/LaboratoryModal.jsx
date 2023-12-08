@@ -3,7 +3,7 @@ import swal from "sweetalert";
 import { toast } from "sonner";
 import { Modal } from "flowbite-react";
 import { appointmentService } from "@/services/appointmentService";
-
+import { laboratoryService } from "@/services/laboratoryService";
 
 const LaboratoryModal = ({ isOpen, onClose, appointmentId }) => {
   const tiposDeMuestra = ["Heces", "Sangre", "Orina"];
@@ -12,21 +12,22 @@ const LaboratoryModal = ({ isOpen, onClose, appointmentId }) => {
     instrucciones: "",
   });
   const [isConfirming, setIsConfirming] = useState(false);
-  const [idHojaMedica, setIdHojaMedica] = useState(null);
   const [codigoHojaMedica, setCodigoHojaMedica] = useState("");
 
   const fetchCodigoHojaMedica = async () => {
     try {
-      const data = await appointmentService.mostrarCodigoHojaMedicaCita(appointmentId);
+      const data = await appointmentService.mostrarCodigoHojaMedicaCita(
+        appointmentId
+      );
       console.log("El código de la hoja médica es: ", data.codigo);
       setCodigoHojaMedica(data.codigo);
     } catch (error) {
       console.error("Error al obtener el código de la hoja médica: ", error);
     }
   };
-  
+
   useEffect(() => {
-    fetchCodigoHojaMedica();    
+    fetchCodigoHojaMedica();
   }, []);
 
   const handleChange = (e) => {
@@ -45,26 +46,13 @@ const LaboratoryModal = ({ isOpen, onClose, appointmentId }) => {
         idCita: appointmentId,
       },
     };
-
     try {
-      const response = await fetch(
-        "http://localhost:8080/laboratorio/post/registrarOrdenLaboratorio",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dataParaEnviar),
-        }
+      const response = await laboratoryService.registrarOrdenLaboratorio(
+        dataParaEnviar
       );
-
-      if (!response.ok) {
-        throw new Error("Error al registrar la orden de laboratorio");
-      }
       setIsConfirming(false);
-      const responseData = await response.json();
-      console.log("ID de la orden de laboratorio:", responseData);
-      return responseData; // Retorna la respuesta para su uso en toast.promise
+      console.log("ID de la orden de laboratorio:", response);
+      return response; // Retorna la respuesta para su uso en toast.promise
     } catch (error) {
       console.error("Error al guardar los datos del laboratorio:", error);
       throw error;
@@ -93,7 +81,9 @@ const LaboratoryModal = ({ isOpen, onClose, appointmentId }) => {
 
   return (
     <Modal show={isOpen} size="xl" onClose={onClose}>
-      <Modal.Header>Registrar Orden de Laboratorio <br /> Asociada a {codigoHojaMedica}</Modal.Header>
+      <Modal.Header>
+        Registrar Orden de Laboratorio <br /> Asociada a {codigoHojaMedica}
+      </Modal.Header>
       <Modal.Body>
         {" "}
         <div className="mb-2 mt-2">
